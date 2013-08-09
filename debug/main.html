@@ -247,22 +247,24 @@
 
         // Constant part
 
-        var relPrefix = "../",
-            module = "home";
-
+        var sysConfig = {
+            srcPrefix: "../src/",
+            sitePrefix: "../",
+            module: "home"
+        }
         // in Develop mode
         yepnope({
-            load: [relPrefix + 'src/include.js', relPrefix + 'src/core/include.js', relPrefix + 'src/' + module + '/include.js'],
+            load: [sysConfig.srcPrefix + 'include.js', sysConfig.srcPrefix + 'core/include.js', sysConfig.srcPrefix + sysConfig.module + '/include.js'],
             complete: function() {
                 LoadResources(function() {
                     angular.element(document).ready(function() {
 
                         angular.module('core.templates', []);
-                        angular.module(module + '.templates', []);
+                        angular.module(sysConfig.module + '.templates', []);
 
-                        angular.module('core').constant('currentProject', null).constant('userGroups', []).constant('relPrefix', relPrefix);
+                        angular.module('core').constant('currentProject', null).constant('userGroups', []).constant('sysConfig', sysConfig);
 
-                        angular.bootstrap(document, ['core', module]);
+                        angular.bootstrap(document, ['core', sysConfig.module]);
                     });
                 });
             }
@@ -301,7 +303,7 @@
 
             var fqResourceJS = [];
             for (var i = 0; i < resourceJS.length; i++) {
-                fqResourceJS.push(relPrefix + resourceJS[i]);
+                fqResourceJS.push(sysConfig.sitePrefix + resourceJS[i]);
             }
 
             var percent = (function() {

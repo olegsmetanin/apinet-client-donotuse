@@ -1,29 +1,29 @@
 angular.module('core', ['ui.state', 'ui.bootstrap', 'core.security', 'core.templates']);
 
 angular.module('core')
-    .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'relPrefix',
-        function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, relPrefix) {
+    .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
+        function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
             $locationProvider.hashPrefix('!');
 
             var page1C = {
                 name: "page1C",
                 abstract: true,
-                templateUrl: relPrefix+'src/core/masterpages/page1C.tpl.html'
+                templateUrl: sysConfig.srcPrefix+'core/masterpages/page1C.tpl.html'
             },
                 page2C = {
                     name: "page2C",
                     abstract: true,
-                    templateUrl: relPrefix+'src/core/masterpages/page2C.tpl.html'
+                    templateUrl: sysConfig.srcPrefix+'core/masterpages/page2C.tpl.html'
                 },
                 tabPage1C = {
                     name: "tabPage1C",
                     abstract: true,
-                    templateUrl: relPrefix+'src/core/masterpages/tabPage1C.tpl.html'
+                    templateUrl: sysConfig.srcPrefix+'core/masterpages/tabPage1C.tpl.html'
                 },
                 tabPage2C = {
                     name: "tabPage2C",
                     abstract: true,
-                    templateUrl: relPrefix+'src/core/masterpages/tabPage2C.tpl.html'
+                    templateUrl: sysConfig.srcPrefix+'core/masterpages/tabPage2C.tpl.html'
                 };
 
             $stateProvider

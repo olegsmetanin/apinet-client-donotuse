@@ -1,8 +1,8 @@
 angular.module('home', ['core', 'ui.state', 'home.templates']);
 
 angular.module('home')
-    .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'relPrefix',
-        function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, relPrefix) {
+    .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
+        function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
 
             $urlRouterProvider.otherwise('/projects/listview');
 
@@ -11,7 +11,7 @@ angular.module('home')
                 url: '/',
                 views: {
                     'content': {
-                        templateUrl: relPrefix+ 'home/home.tpl.html'
+                        templateUrl: sysConfig.srcPrefix+ 'src/home/home.tpl.html'
                     }
                 }
             };

@@ -2,9 +2,9 @@ angular.module('security.login.toolbar', [])
 
 // The loginToolbar directive is a reusable widget that can show login or logout buttons
 // and information the current authenticated user
-.directive('loginToolbar', ['security', 'relPrefix', function(security, relPrefix) {
+.directive('loginToolbar', ['security', 'sysConfig', function(security, sysConfig) {
   var directive = {
-    templateUrl: relPrefix+'src/core/security/login/toolbar.tpl.html',
+    templateUrl: sysConfig.srcPrefix+'core/security/login/toolbar.tpl.html',
     restrict: 'E',
     replace: true,
     scope: true,

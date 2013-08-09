@@ -11,8 +11,8 @@
             "components/angular-1.0.7/angular.js",
             "components/angular-mocks/angular-mocks.js",
             "components/angular-ui-router-0.0.1/release/angular-ui-router.js",
-            "/components/angular-ui-date-0.0.3/src/date.js",
+            "components/angular-ui-date-0.0.3/src/date.js",
             "components/angular-ui-select2-0.0.2/src/select2.js",
-            "/components/angular-ui-bootstrap-0.5.0/ui-bootstrap-0.5.0.min.js",
+            "components/angular-ui-bootstrap-0.5.0/ui-bootstrap-0.5.0.min.js",
             "components/angular-ui-bootstrap-0.5.0/ui-bootstrap-tpls-0.5.0.min.js"
         ];

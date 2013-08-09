@@ -5,8 +5,8 @@ angular.module('security.service', [
   'ui.bootstrap.dialog'     // Used to display the login form as a modal dialog.
 ])
 
-.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$dialog', 'currentProject', 'userGroups', 'relPrefix',
-  function($http, $q, $location, queue, $dialog, currentProject, userGroups, relPrefix) {
+.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$dialog', 'currentProject', 'userGroups', 'sysConfig',
+  function($http, $q, $location, queue, $dialog, currentProject, userGroups, sysConfig) {
 
   // Redirect to the given url (defaults to '/')
   function redirect(url) {
@@ -22,7 +22,7 @@ angular.module('security.service', [
       throw new Error('Trying to open a dialog that is already open!');
     }
     loginDialog = $dialog.dialog();
-    loginDialog.open(relPrefix+'src/core/security/login/form.tpl.html', 'LoginFormController').then(onLoginDialogClose);
+    loginDialog.open(sysConfig.srcPrefix+'core/security/login/form.tpl.html', 'LoginFormController').then(onLoginDialogClose);
   }
   function closeLoginDialog(success) {
     if (loginDialog) {

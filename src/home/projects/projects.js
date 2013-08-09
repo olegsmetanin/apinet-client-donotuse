@@ -1,16 +1,16 @@
 ﻿angular.module('home')
-    .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'relPrefix',
-        function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, relPrefix) {
+    .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
+        function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
 
             var projectsList = {
                 name: 'page2C.projectList',
                 url: '/projects/listview',
                 views: {
                     'sidebar': {
-                        templateUrl: relPrefix+ 'src/home/projects/listview/projectsListFilter.tpl.html'
+                        templateUrl: sysConfig.srcPrefix+ 'home/projects/listview/projectsListFilter.tpl.html'
                     },
                     'content': {
-                        templateUrl: relPrefix+ 'src/home/projects/listview/projectsListGrid.tpl.html'
+                        templateUrl: sysConfig.srcPrefix+ 'home/projects/listview/projectsListGrid.tpl.html'
                     }
                 }
             };
@@ -20,11 +20,11 @@
 
         }
     ])
-    .service("projectsService", ['$q','$http',
-        function($q, $http) {
+    .service("projectsService", ['$q','$http','sysConfig',
+        function($q, $http, sysConfig) {
             this.getProjects = function(filter) {
                 var deferred = $q.defer();
-                 $http.post("/api/v1", {
+                 $http.post(sysConfig.sitePrefix+"api/v1", {
                     action: "get",
                     model: "projects",
                     filter: filter
@@ -37,8 +37,8 @@
             };
         }
     ])
-    .controller('projectsListGridCtrl', ['$scope', 'projectsService', 'pageConfig',
-        function($scope, $projectsService, $pageConfig) {
+    .controller('projectsListGridCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig',
+        function($scope, $projectsService, $pageConfig, sysConfig) {
             $pageConfig.setConfig({
                 breadcrumbs: [{
                     name: 'Projects',
@@ -52,9 +52,9 @@
 
             $scope.templatesConfig = function(projectId) {
                 if (projectId && projectId.indexOf('play') >= 0) {
-                    return relPrefix+'src/home/projects/listview/details/playProjectDetails.tpl.html';
+                    return sysConfig.srcPrefix+'home/projects/listview/details/playProjectDetails.tpl.html';
                 } else {
-                    return relPrefix+'src/home/projects/listview/details/otherProjectDetails.tpl.html';
+                    return sysConfig.srcPrefix+'home/projects/listview/details/otherProjectDetails.tpl.html';
                 }
             };
             $scope.projectDetailsTemplate = '';

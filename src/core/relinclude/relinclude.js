@@ -1,6 +1,6 @@
 angular.module('core')
-    .directive('ngRelinclude', ['$http', '$templateCache', '$anchorScroll', '$compile', 'relPrefix',
-        function($http, $templateCache, $anchorScroll, $compile, relPrefix) {
+    .directive('ngRelinclude', ['$http', '$templateCache', '$anchorScroll', '$compile', 'sysConfig',
+        function($http, $templateCache, $anchorScroll, $compile, sysConfig) {
             return {
                 restrict: 'ECA',
                 terminal: true,
@@ -10,7 +10,7 @@ angular.module('core')
                         autoScrollExp = attr.autoscroll;
 
                     if (srcExp.charAt(0) === "'") {
-                        srcExp = "'" + relPrefix + srcExp.substr(1);
+                        srcExp = "'" + sysConfig.srcPrefix + srcExp.substr(1);
                     }
 
                     return function(scope, element) {

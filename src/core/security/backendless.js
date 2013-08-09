@@ -37,9 +37,9 @@ angular.module('core.security.backendless', ['core', 'ngMockE2E'])
 		var p = projMatrix[proj];
 		var groups = [];
 		var user = null;
-		angular.forEach(users, function(u) { 
+		angular.forEach(users, function(u) {
 			if (u.id === userId) {
-				user = u; 
+				user = u;
 			}
 		});
 		for(var group in p) {
@@ -54,7 +54,7 @@ angular.module('core.security.backendless', ['core', 'ngMockE2E'])
 	$httpBackend.whenPOST('/login').respond(
 		function(method, url, data, headers) {
 			var prms = JSON.parse(data);
-			//test error on 
+			//test error on
 			if (prms.email === 'bad@abc.com') {
 				return [500, 'Oops, something went wrong'];
 			}
