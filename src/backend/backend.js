@@ -1,4 +1,4 @@
-angular.module('core.security.backendless', ['ngMockE2E'])
+angular.module('backend', ['ngMockE2E'])
     .run(['$httpBackend',
         function($httpBackend) {
 

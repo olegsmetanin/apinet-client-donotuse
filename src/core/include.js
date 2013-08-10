@@ -13,8 +13,6 @@
             "src/core/security/login/login.js",
             "src/core/security/login/LoginFormController.js",
             "src/core/security/login/toolbar.js",
-            // core.security.backendless
-            "src/core/security/backendless.js",
 
             "src/core/services/services.js",
             "src/core/services/localizedMessages.js",

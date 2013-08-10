@@ -254,7 +254,7 @@
         }
         // in Develop mode
         yepnope({
-            load: [sysConfig.srcPrefix + 'include.js', sysConfig.srcPrefix + 'core/include.js', sysConfig.srcPrefix + sysConfig.module + '/include.js'],
+            load: [sysConfig.srcPrefix + 'include.js', sysConfig.srcPrefix + 'core/include.js', sysConfig.srcPrefix + 'backend/include.js', sysConfig.srcPrefix + sysConfig.module + '/include.js'],
             complete: function() {
                 LoadResources(function() {
                     angular.element(document).ready(function() {
@@ -264,7 +264,7 @@
 
                         angular.module('core').constant('currentProject', 'play2').constant('userGroups', []).constant('sysConfig', sysConfig);
 
-                        angular.bootstrap(document, ['core.security.backendless','core', sysConfig.module]);
+                        angular.bootstrap(document, ['backend','core', sysConfig.module]);
                     });
                 });
             }

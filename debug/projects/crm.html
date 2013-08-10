@@ -266,7 +266,7 @@
 
                         angular.module('core').constant('currentProject', 'play2').constant('userGroups', []).constant('sysConfig', sysConfig);
 
-                        angular.bootstrap(document, ['core.security.backendless','core', sysConfig.module]);
+                        angular.bootstrap(document, ['backend','core', sysConfig.module]);
                     });
                 });
             }
