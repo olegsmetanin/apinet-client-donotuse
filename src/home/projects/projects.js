@@ -53,6 +53,8 @@
                 $scope.projects = res.projects;
              });
 
+            $scope.moment=new Date();
+
             $scope.templatesConfig = function(projectId) {
                 if (projectId && projectId.indexOf('play') >= 0) {
                     return sysConfig.srcPrefix + 'home/projects/listview/details/playProjectDetails.tpl.html';

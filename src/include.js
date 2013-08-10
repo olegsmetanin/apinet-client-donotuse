@@ -18,5 +18,8 @@
             "components/angular-ui-date-0.0.3/src/date.js",
             "components/angular-ui-select2-0.0.2/src/select2.js",
             "components/angular-ui-bootstrap-0.5.0/ui-bootstrap-0.5.0.min.js",
-            "components/angular-ui-bootstrap-0.5.0/ui-bootstrap-tpls-0.5.0.min.js"
+            "components/angular-ui-bootstrap-0.5.0/ui-bootstrap-tpls-0.5.0.min.js",
+
+            "components/moment/min/moment.min.js",
+            "components/angular-moment-0.1.7/angular-moment.min.js"
         ];
