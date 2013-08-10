@@ -9,10 +9,10 @@
                 url: '/contracts',
                 views: {
                     'sidebar': {
-                        templateUrl: sysConfig.srcPrefix +'src/crm/contracts/list/contractListFilter.tpl.html'
+                        templateUrl: sysConfig.srcPrefix +'crm/contracts/list/contractListFilter.tpl.html'
                     },
                     'content': {
-                        templateUrl: sysConfig.srcPrefix + 'src/crm/contracts/list/contractListGrid.tpl.html'
+                        templateUrl: sysConfig.srcPrefix + 'crm/contracts/list/contractListGrid.tpl.html'
                     }
                 },
                 resolve: {
@@ -29,7 +29,7 @@
                             template: '<div ng-controller="contractTabsCtrl" tabbar="0"></div>'
                         },
                         'content': {
-                            templateUrl: sysConfig.srcPrefix + 'src/crm/contracts/commonTab/contractCommonTab.tpl.html'
+                            templateUrl: sysConfig.srcPrefix + 'crm/contracts/commonTab/contractCommonTab.tpl.html'
                         }
                     }
                 },
@@ -42,10 +42,10 @@
                             template: '<div ng-controller="contractTabsCtrl" tabbar="1"></div>'
                         },
                         'sidebar': {
-                            templateUrl: sysConfig.srcPrefix + 'src/crm/contracts/tasksTab/contractTasksTabFilter.tpl.html'
+                            templateUrl: sysConfig.srcPrefix + 'crm/contracts/tasksTab/contractTasksTabFilter.tpl.html'
                         },
                         'content': {
-                            templateUrl: sysConfig.srcPrefix + 'src/crm/contracts/tasksTab/contractTasksTabGrid.tpl.html'
+                            templateUrl: sysConfig.srcPrefix + 'crm/contracts/tasksTab/contractTasksTabGrid.tpl.html'
                         }
                     }
                 };
@@ -61,7 +61,7 @@
         function($q, $http, sysConfig) {
             this.getContracts = function(filter) {
                 var deferred = $q.defer();
-                 $http.post(sysConfig.sitePrefix+"/api/v1", {
+                 $http.post("/api/v1", {
                     action: "get",
                     model: "project.contracts",
                     project: window.app.project,
@@ -75,7 +75,7 @@
             };
             this.getContractTasks = function(filter, contract) {
                 var deferred = $q.defer();
-                 $http.post(sysConfig.sitePrefix+"/api/v1", {
+                 $http.post("/api/v1", {
                     action: "get",
                     model: "project.contracts.tasks",
                     project: window.app.project,

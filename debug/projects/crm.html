@@ -247,10 +247,12 @@
 
         // Constant part
 
+        window.app = {projectid: "play2"};
+
         var sysConfig = {
-            srcPrefix: "../src/",
-            sitePrefix: "../",
-            module: "home"
+            srcPrefix: "../../src/",
+            sitePrefix: "../../",
+            module: "crm"
         }
         // in Develop mode
         yepnope({
@@ -262,9 +264,9 @@
                         angular.module('core.templates', []);
                         angular.module(sysConfig.module + '.templates', []);
 
-                        angular.module('core').constant('currentProject', null).constant('userGroups', []).constant('sysConfig', sysConfig);
+                        angular.module('core').constant('currentProject', 'play2').constant('userGroups', []).constant('sysConfig', sysConfig);
 
-                        angular.bootstrap(document, ['core', sysConfig.module]);
+                        angular.bootstrap(document, ['core.security.backendless','core', sysConfig.module]);
                     });
                 });
             }

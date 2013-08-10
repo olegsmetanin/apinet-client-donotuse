@@ -1,9 +1,10 @@
         var coreJS = [
+
             "src/core/_module.js",
             "src/core/relinclude/relinclude.js",
             "src/core/breadcrumbs/breadcrumbsCtrl.js",
             "src/core/tabbar/tabbar.js",
-            "src/core/security/backendless.js",
+
             "src/core/security/index.js",
             "src/core/security/authorization.js",
             "src/core/security/interceptor.js",
@@ -12,6 +13,9 @@
             "src/core/security/login/login.js",
             "src/core/security/login/LoginFormController.js",
             "src/core/security/login/toolbar.js",
+            // core.security.backendless
+            "src/core/security/backendless.js",
+
             "src/core/services/services.js",
             "src/core/services/localizedMessages.js",
             "src/core/filters/ago-filter-builder.js",

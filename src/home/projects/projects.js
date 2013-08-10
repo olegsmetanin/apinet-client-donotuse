@@ -24,7 +24,7 @@
         function($q, $http, sysConfig) {
             this.getProjects = function(filter) {
                 var deferred = $q.defer();
-                 $http.post(sysConfig.sitePrefix+"api/v1", {
+                 $http.post("/api/v1", {
                     action: "get",
                     model: "projects",
                     filter: filter
