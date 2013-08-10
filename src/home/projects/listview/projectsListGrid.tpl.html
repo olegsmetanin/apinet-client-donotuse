@@ -1,4 +1,7 @@
 <div class="row-fluid" ng-controller="projectsListGridCtrl">
+  <div ng-show="loading.active()">
+        <img src="/assets/ajax-loader.gif" class="ajax-loader"/>
+  </div>
 	<div class="span6">
 		<ul>
 			<li ng-repeat="project in projects">

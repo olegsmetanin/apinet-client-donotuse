@@ -14,8 +14,6 @@
             "src/core/security/login/LoginFormController.js",
             "src/core/security/login/toolbar.js",
 
-            "src/core/spinner/spinner.js",
-
             "src/core/services/services.js",
             "src/core/services/localizedMessages.js",
             "src/core/filters/ago-filter-builder.js",

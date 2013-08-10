@@ -7,10 +7,10 @@
                 url: '/projects/listview',
                 views: {
                     'sidebar': {
-                        templateUrl: sysConfig.srcPrefix+ 'home/projects/listview/projectsListFilter.tpl.html'
+                        templateUrl: sysConfig.srcPrefix + 'home/projects/listview/projectsListFilter.tpl.html'
                     },
                     'content': {
-                        templateUrl: sysConfig.srcPrefix+ 'home/projects/listview/projectsListGrid.tpl.html'
+                        templateUrl: sysConfig.srcPrefix + 'home/projects/listview/projectsListGrid.tpl.html'
                     }
                 }
             };
@@ -20,25 +20,25 @@
 
         }
     ])
-    .service("projectsService", ['$q','$http','sysConfig',
+    .service("projectsService", ['$q', '$http', 'sysConfig',
         function($q, $http, sysConfig) {
-            this.getProjects = function(filter) {
+            this.getProjects = function(opt) {
                 var deferred = $q.defer();
-                 $http.post("/api/v1", {
+                $http.post("/api/v1", {
                     action: "get",
                     model: "projects",
-                    filter: filter
-                }).success(function (data, status, headers, config) {
-                     deferred.resolve(data);
-                }).error(function (data, status, headers, config) {
+                    filter: opt.filter
+                },{tracker:'projects'}).success(function(data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function(data, status, headers, config) {
                     // TODO
                 });
                 return deferred.promise;
             };
         }
     ])
-    .controller('projectsListGridCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig',
-        function($scope, $projectsService, $pageConfig, sysConfig) {
+    .controller('projectsListGridCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', '$http',
+        function($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, $http) {
             $pageConfig.setConfig({
                 breadcrumbs: [{
                     name: 'Projects',
@@ -46,15 +46,18 @@
                 }]
             });
             $scope.projects = [];
-            $projectsService.getProjects({}).then(function (res) {
+
+            $scope.loading = promiseTracker('projects')
+
+            $projectsService.getProjects({filter:{}}).then(function (res) {
                 $scope.projects = res.projects;
              });
 
             $scope.templatesConfig = function(projectId) {
                 if (projectId && projectId.indexOf('play') >= 0) {
-                    return sysConfig.srcPrefix+'home/projects/listview/details/playProjectDetails.tpl.html';
+                    return sysConfig.srcPrefix + 'home/projects/listview/details/playProjectDetails.tpl.html';
                 } else {
-                    return sysConfig.srcPrefix+'home/projects/listview/details/otherProjectDetails.tpl.html';
+                    return sysConfig.srcPrefix + 'home/projects/listview/details/otherProjectDetails.tpl.html';
                 }
             };
             $scope.projectDetailsTemplate = '';

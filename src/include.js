@@ -13,6 +13,7 @@
             "components/select2-3.4.1/select2.min.js",
             "components/angular-1.0.7/angular.js",
             "components/angular-mocks/angular-mocks.js",
+            "components/angular-promise-tracker-1.3.3/promise-tracker.js",
             "components/angular-ui-router-0.0.1/release/angular-ui-router.js",
             "components/angular-ui-date-0.0.3/src/date.js",
             "components/angular-ui-select2-0.0.2/src/select2.js",
