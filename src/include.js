@@ -3,7 +3,10 @@
             "components/bootstrap-2.3.2/css/bootstrap-responsive.min.css",
             "components/select2-3.4.1/select2.css",
             "components/jquery-ui-1.10.3/themes/smoothness/jquery-ui.css",
+
             "assets/ago-filter-builder.css",
+            "assets/spinner.css",
+
             "components/jquery-1.9.1/jquery.min.js",
             "components/jquery-ui-1.10.3/ui/minified/jquery-ui.min.js",
             "components/bootstrap-2.3.2/js/bootstrap.min.js",
