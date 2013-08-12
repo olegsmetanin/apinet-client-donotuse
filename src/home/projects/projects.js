@@ -7,10 +7,10 @@
                 url: '/projects/listview',
                 views: {
                     'sidebar': {
-                        templateUrl: sysConfig.srcPrefix + 'home/projects/listview/projectsListFilter.tpl.html'
+                        templateUrl: sysConfig.src('home/projects/listview/projectsListFilter.tpl.html')
                     },
                     'content': {
-                        templateUrl: sysConfig.srcPrefix + 'home/projects/listview/projectsListGrid.tpl.html'
+                        templateUrl: sysConfig.src('home/projects/listview/projectsListGrid.tpl.html')
                     }
                 }
             };
@@ -57,9 +57,9 @@
 
             $scope.templatesConfig = function(projectId) {
                 if (projectId && projectId.indexOf('play') >= 0) {
-                    return sysConfig.srcPrefix + 'home/projects/listview/details/playProjectDetails.tpl.html';
+                    return sysConfig.src('home/projects/listview/details/playProjectDetails.tpl.html');
                 } else {
-                    return sysConfig.srcPrefix + 'home/projects/listview/details/otherProjectDetails.tpl.html';
+                    return sysConfig.src('home/projects/listview/details/otherProjectDetails.tpl.html');
                 }
             };
             $scope.projectDetailsTemplate = '';

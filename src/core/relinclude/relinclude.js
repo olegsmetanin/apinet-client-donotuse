@@ -10,7 +10,7 @@ angular.module('core')
                         autoScrollExp = attr.autoscroll;
 
                     if (srcExp.charAt(0) === "'") {
-                        srcExp = "'" + sysConfig.srcPrefix + srcExp.substr(1);
+                        srcExp = "'" + sysConfig.src(srcExp.substr(1));
                     }
 
                     return function(scope, element) {

@@ -9,10 +9,10 @@
                 url: '/contracts',
                 views: {
                     'sidebar': {
-                        templateUrl: sysConfig.srcPrefix +'crm/contracts/list/contractListFilter.tpl.html'
+                        templateUrl: sysConfig.src('crm/contracts/list/contractListFilter.tpl.html')
                     },
                     'content': {
-                        templateUrl: sysConfig.srcPrefix + 'crm/contracts/list/contractListGrid.tpl.html'
+                        templateUrl: sysConfig.src('crm/contracts/list/contractListGrid.tpl.html')
                     }
                 },
                 resolve: {
@@ -29,7 +29,7 @@
                             template: '<div ng-controller="contractTabsCtrl" tabbar="0"></div>'
                         },
                         'content': {
-                            templateUrl: sysConfig.srcPrefix + 'crm/contracts/commonTab/contractCommonTab.tpl.html'
+                            templateUrl: sysConfig.src('crm/contracts/commonTab/contractCommonTab.tpl.html')
                         }
                     }
                 },
@@ -42,10 +42,10 @@
                             template: '<div ng-controller="contractTabsCtrl" tabbar="1"></div>'
                         },
                         'sidebar': {
-                            templateUrl: sysConfig.srcPrefix + 'crm/contracts/tasksTab/contractTasksTabFilter.tpl.html'
+                            templateUrl: sysConfig.src('crm/contracts/tasksTab/contractTasksTabFilter.tpl.html')
                         },
                         'content': {
-                            templateUrl: sysConfig.srcPrefix + 'crm/contracts/tasksTab/contractTasksTabGrid.tpl.html'
+                            templateUrl: sysConfig.src('crm/contracts/tasksTab/contractTasksTabGrid.tpl.html')
                         }
                     }
                 };

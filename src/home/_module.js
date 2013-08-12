@@ -11,7 +11,7 @@ angular.module('home')
                 url: '/',
                 views: {
                     'content': {
-                        templateUrl: sysConfig.srcPrefix+ 'src/home/home.tpl.html'
+                        templateUrl: sysConfig.src('src/home/home.tpl.html')
                     }
                 }
             };
