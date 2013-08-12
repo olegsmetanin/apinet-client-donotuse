@@ -47,7 +47,7 @@
             });
             $scope.projects = [];
 
-            $scope.loading = promiseTracker('projects')
+            $scope.loading = promiseTracker('projects');
 
             $projectsService.getProjects({filter:{}}).then(function (res) {
                 $scope.projects = res.projects;

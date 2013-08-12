@@ -1,2 +1,2 @@
             // backend
-            coreJS.push("src/backend/backend.js")
+            coreJS.push("src/backend/backend.js");
