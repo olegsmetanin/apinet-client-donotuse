@@ -1,4 +1,4 @@
 apinet-client
 =============
 
-apinet-client for apinet-server 2
+apinet-client for apinet-server 3
