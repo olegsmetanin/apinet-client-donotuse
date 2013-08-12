@@ -54,10 +54,10 @@ module.exports = function(grunt) {
         },
         html2js: {
             options: {
-                base: '.',
-                rename: function(moduleName) {
-                    return '/' + moduleName;
-                }
+                // base: '.',
+                // rename: function(moduleName) {
+                //     return '/' + moduleName;
+                // }
             },
             core: {
                 src: ['<%= modules.core.src %>/**/*.tpl.html'],
@@ -84,13 +84,16 @@ module.exports = function(grunt) {
                     "<%= componentsdir %>/select2-3.4.1/select2.min.js",
                     "<%= componentsdir %>/angular-1.0.7/angular.min.js",
                     "<%= componentsdir %>/angular-mocks/angular-mocks.js",
+                    "<%= componentsdir %>/angular-promise-tracker-1.3.3/promise-tracker.js",
                     "<%= componentsdir %>/angular-ui-router-0.0.1/release/angular-ui-router.min.js",
                     "<%= componentsdir %>/angular-ui-date-0.0.3/src/date.js",
                     "<%= componentsdir %>/angular-ui-select2-0.0.2/src/select2.js",
                     "<%= componentsdir %>/angular-ui-bootstrap-0.5.0/ui-bootstrap-0.5.0.min.js",
-                    "<%= componentsdir %>/angular-ui-bootstrap-0.5.0/ui-bootstrap-tpls-0.5.0.min.js"
+                    "<%= componentsdir %>/angular-ui-bootstrap-0.5.0/ui-bootstrap-tpls-0.5.0.min.js",
+                    "<%= componentsdir %>/moment/min/moment.min.js",
+                    "<%= componentsdir %>/angular-moment-0.1.7/angular-moment.min.js"
                 ],
-                dest: '<%= distdir %>/js.min.js'
+                dest: '<%= distdir %>/components.min.js'
             },
             styles: {
                 src: [
@@ -154,8 +157,7 @@ module.exports = function(grunt) {
             server: {
                 options: {
                     port: 9000,
-                    keepalive:true//,
-                    //base: 'www-root'
+                    keepalive: true
                 }
             }
         }
