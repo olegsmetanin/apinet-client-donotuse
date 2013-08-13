@@ -245,32 +245,47 @@
 
         // Dynamic section begin
 
+        var lang;
+        ;
+        if (!(lang = getCookie('lang'))) {
+            lang = window.navigator.userLanguage || window.navigator.language;
+        }
+
         // Constant part
 
-        /*        var sysConfig = {
-            src: function(path) {return "../src/"+path},
-            site: function(path) {return "../"+path},
-            module: "home"
+        var sysConfig = {
+            src: function(path) {
+                return "../src/" + path
+            },
+            site: function(path) {
+                return "../" + path
+            },
+            module: "home",
+            lang: lang
         }
         // in Develop mode
         yepnope({
             load: [sysConfig.src('include.js'), sysConfig.src('core/include.js'), sysConfig.src('backend/include.js'), sysConfig.src(sysConfig.module + '/include.js')],
             complete: function() {
+
+                coreJS.push('src/core/lang/core.'+sysConfig.lang+'.js');
+                moduleJS.push('src/'+sysConfig.module+'/lang/'+sysConfig.module+'.'+sysConfig.lang+'.js')
+
                 LoadResources(function() {
                     angular.element(document).ready(function() {
 
                         angular.module('core.templates', []);
                         angular.module(sysConfig.module + '.templates', []);
 
-                        angular.module('core').constant('currentProject', 'play2').constant('userGroups', []).constant('sysConfig', sysConfig);
+                        angular.module('core').constant('currentProject', 'play2').constant('userGroups', []).constant('sysConfig', sysConfig).value('i18n', {"qwe":"asd"});
 
-                        angular.bootstrap(document, ['backend','core', sysConfig.module]);
+                        angular.bootstrap(document, ['backend', 'core', sysConfig.module]);
                     });
                 });
             }
         });
-*/
-        // in Production mode
+
+        /*        // in Production mode
 
         var sysConfig = {
             src: function(path) {
@@ -303,11 +318,14 @@
                 angular.bootstrap(document, ['core', sysConfig.module]);
             });
         });
-
+*/
 
         // Dinamic section end
 
         function LoadResources(completeCb) {
+
+
+            coreJS.push('src/core/lang/core.'+sysConfig.lang+'.js')
 
             resourceJS = componentsJS.concat(coreJS, moduleJS);
 
@@ -344,6 +362,14 @@
                 }
             });
         }
+
+        function getCookie(name) {
+            var matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
 
     })();
     </script>

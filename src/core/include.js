@@ -21,5 +21,7 @@
             "src/core/filters/ago-jquery-structured-filter.js",
             "src/core/filters/ago-jquery-custom-properties-filter.js",
             "src/core/filters/complex.js",
-            "src/core/systemmenu/systemMenuCtrl.js"
+            "src/core/systemmenu/systemMenuCtrl.js",
+
+            "src/core/i18n/i18n.js"
         ];

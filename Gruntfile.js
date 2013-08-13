@@ -76,7 +76,7 @@ module.exports = function(grunt) {
             }
         },
         concat: {
-            js: {
+            components: {
                 src: [
                     "<%= componentsdir %>/jquery-1.9.1/jquery.min.js",
                     "<%= componentsdir %>/jquery-ui-1.10.3/ui/minified/jquery-ui.min.js",
@@ -106,7 +106,7 @@ module.exports = function(grunt) {
                 dest: "<%= distdir %>/assets/styles.min.css"
             },
             core: {
-                src: ['<%= modules.core.src %>/**/*.js', '<%= builddir %>/core/**/*.js'],
+                src: ['<%= modules.core.src %>/**/*.js', '<%= builddir %>/core/**/*.js', '!<%= builddir %>/core/lang'],
                 dest: '<%= builddir %>/core.js'
             },
             home: {
@@ -149,6 +149,14 @@ module.exports = function(grunt) {
                     cwd: '<%= componentsdir %>/select2-3.4.1/',
                     dest: '<%= distdir %>/assets',
                     src: ['*.png', '*.gif'],
+                    expand: true
+                }]
+            },
+            corelang: {
+                files: [{
+                    cwd: '<%= modules.core.src %>/lang/*.js',
+                    dest: '<%= distdir %>/',
+                    src: ['**'],
                     expand: true
                 }]
             }
