@@ -93,7 +93,7 @@ module.exports = function(grunt) {
                     "<%= componentsdir %>/moment/min/moment.min.js",
                     "<%= componentsdir %>/angular-moment-0.1.7/angular-moment.min.js"
                 ],
-                dest: '<%= distdir %>/components.min.js'
+                dest: '<%= distdir %>/components/components.min.js'
             },
             styles: {
                 src: [
@@ -124,15 +124,15 @@ module.exports = function(grunt) {
             },
             core: {
                 src: ['<%= builddir %>/core.js'],
-                dest: '<%= distdir %>/core.min.js'
+                dest: '<%= distdir %>/core/core.min.js'
             },
             home: {
                 src: ['<%= builddir %>/home.js'],
-                dest: '<%= distdir %>/home.min.js'
+                dest: '<%= distdir %>/home/home.min.js'
             },
             crm: {
                 src: ['<%= builddir %>/crm.js'],
-                dest: '<%= distdir %>/crm.min.js'
+                dest: '<%= distdir %>/crm/crm.min.js'
             }
         },
         copy: {
@@ -154,8 +154,24 @@ module.exports = function(grunt) {
             },
             corelang: {
                 files: [{
-                    cwd: '<%= modules.core.src %>/lang/*.js',
-                    dest: '<%= distdir %>/',
+                    cwd: '<%= modules.core.src %>/lang',
+                    dest: '<%= distdir %>/core',
+                    src: ['**'],
+                    expand: true
+                }]
+            },
+            homelang: {
+                files: [{
+                    cwd: '<%= modules.home.src %>/lang',
+                    dest: '<%= distdir %>/home',
+                    src: ['**'],
+                    expand: true
+                }]
+            },
+            crmlang: {
+                files: [{
+                    cwd: '<%= modules.home.src %>/lang',
+                    dest: '<%= distdir %>/crm',
                     src: ['**'],
                     expand: true
                 }]

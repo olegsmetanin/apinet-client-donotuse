@@ -4,6 +4,6 @@ angular.module('core')
         function(i18n) {
             return function(key) {
                 return i18n[key];
-            }
+            };
         }
     ]);

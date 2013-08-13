@@ -243,16 +243,7 @@
 
     (function() {
 
-        // Dynamic section begin
-
-        var lang;
-        ;
-        if (!(lang = getCookie('lang'))) {
-            lang = window.navigator.userLanguage || window.navigator.language;
-        }
-
-        // Constant part
-
+        // Development section begin
         var sysConfig = {
             src: function(path) {
                 return "../src/" + path
@@ -261,15 +252,16 @@
                 return "../" + path
             },
             module: "home",
-            lang: lang
+            lang: getLang()
         }
-        // in Develop mode
+
         yepnope({
-            load: [sysConfig.src('include.js'), sysConfig.src('core/include.js'), sysConfig.src('backend/include.js'), sysConfig.src(sysConfig.module + '/include.js')],
+            load: [sysConfig.src('components/include.js'), sysConfig.src('core/include.js'), sysConfig.src('backend/include.js'), sysConfig.src(sysConfig.module + '/include.js')],
             complete: function() {
 
-                coreJS.push('src/core/lang/core.'+sysConfig.lang+'.js');
-                moduleJS.push('src/'+sysConfig.module+'/lang/'+sysConfig.module+'.'+sysConfig.lang+'.js')
+                componentsJS.push('src/components/components.' + sysConfig.lang + '.js');
+                coreJS.push('src/core/lang/core.' + sysConfig.lang + '.js');
+                moduleJS.push('src/' + sysConfig.module + '/lang/' + sysConfig.module + '.' + sysConfig.lang + '.js')
 
                 LoadResources(function() {
                     angular.element(document).ready(function() {
@@ -284,31 +276,39 @@
                 });
             }
         });
+        // Development section end
 
-        /*        // in Production mode
+/*
+        // Production section begin
 
         var sysConfig = {
             src: function(path) {
-                return path
+                return "../src/" + path
             },
             site: function(path) {
                 return "../dist/" + path
             },
-            module: "home"
+            module: "home",
+            lang: getLang()
         }
+
 
         var componentsJS = [
             "assets/styles.min.css",
-            "components.min.js"
+            "components/components.min.js"
         ];
 
         var coreJS = [
-            "core.min.js"
+            "core/core.min.js"
         ];
 
         var moduleJS = [
-            "home.min.js"
+            "home/home.min.js"
         ];
+
+        //componentsJS.push('components/components.' + sysConfig.lang + '.js');
+        coreJS.push('core/core.' + sysConfig.lang + '.js')
+        moduleJS.push(sysConfig.module + '/' + sysConfig.module + '.' + sysConfig.lang + '.js');
 
         LoadResources(function() {
             angular.element(document).ready(function() {
@@ -318,14 +318,11 @@
                 angular.bootstrap(document, ['core', sysConfig.module]);
             });
         });
+        // Production section end
+
 */
 
-        // Dinamic section end
-
         function LoadResources(completeCb) {
-
-
-            coreJS.push('src/core/lang/core.'+sysConfig.lang+'.js')
 
             resourceJS = componentsJS.concat(coreJS, moduleJS);
 
@@ -370,6 +367,9 @@
             return matches ? decodeURIComponent(matches[1]) : undefined;
         }
 
+        function getLang() {
+            return getCookie('lang') || window.navigator.userLanguage || window.navigator.language;
+        }
 
     })();
     </script>
