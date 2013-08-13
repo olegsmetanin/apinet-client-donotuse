@@ -170,7 +170,7 @@ module.exports = function(grunt) {
             },
             crmlang: {
                 files: [{
-                    cwd: '<%= modules.home.src %>/lang',
+                    cwd: '<%= modules.crm.src %>/lang',
                     dest: '<%= distdir %>/crm',
                     src: ['**'],
                     expand: true
