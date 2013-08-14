@@ -256,10 +256,9 @@
         }
 
         yepnope({
-            load: [sysConfig.src('components/include.js'), sysConfig.src('core/include.js'), sysConfig.src('backend/include.js'), sysConfig.src(sysConfig.module + '/include.js')],
+            load: [sysConfig.src('components/include.js'), sysConfig.src('components/include.' + sysConfig.lang + '.js'), sysConfig.src('core/include.js'), sysConfig.src('backend/include.js'), sysConfig.src(sysConfig.module + '/include.js')],
             complete: function() {
 
-                componentsJS.push('src/components/include.' + sysConfig.lang + '.js');
                 coreJS.push('src/core/lang/core.' + sysConfig.lang + '.js');
                 moduleJS.push('src/' + sysConfig.module + '/lang/' + sysConfig.module + '.' + sysConfig.lang + '.js')
 
