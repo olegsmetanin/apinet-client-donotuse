@@ -21,5 +21,9 @@
             "components/angular-ui-bootstrap-0.5.0/ui-bootstrap-tpls-0.5.0.min.js",
 
             "components/moment/min/moment.min.js",
-            "components/angular-moment-0.1.7/angular-moment.min.js"
+            "components/angular-moment-0.1.7/angular-moment.min.js",
+
+            "components/spin.js/dist/spin.js",
+            "components/angular-spinner-0.2.0/angular-spinner.min.js"
+
         ];

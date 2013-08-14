@@ -1,4 +1,4 @@
-angular.module('core', ['ui.state', 'ui.bootstrap', 'core.security', 'core.templates', 'ajoslin.promise-tracker','angularMoment']);
+angular.module('core', ['ui.state', 'ui.bootstrap', 'core.security', 'core.templates', 'ajoslin.promise-tracker','angularMoment', 'angularSpinner']);
 
 angular.module('core')
     .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
