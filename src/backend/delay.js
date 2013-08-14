@@ -1,9 +1,8 @@
-var delay = 5000;
+var delay = 1000;
 angular.module('backend')
 .factory('delayResponseInterceptor', function($q, $timeout) {
   return function(promise) {
     //Make every new http request be delayed more
-    var delay = nextDelay();
     var deferred = $q.defer();
     return promise.then(function(response) {
       $timeout(function() {
