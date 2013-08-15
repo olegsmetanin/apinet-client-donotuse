@@ -1,5 +1,4 @@
 /* global angular: true */
-var delay = 1000;
 angular.module('backend')
 .factory('delayResponseInterceptor', function($q, $timeout) {
 	return function(promise) {
@@ -8,13 +7,13 @@ angular.module('backend')
 		return promise.then(function(response) {
 			$timeout(function() {
 				deferred.resolve(response);
-			}, delay);
+			}, sysConfig.delay);
 			return deferred.promise;
 		},
 		function(response) {
 			$timeout(function() {
 				deferred.reject(response);
-			}, delay);
+			}, sysConfig.delay);
 			return deferred.promise;
 		});
 	};

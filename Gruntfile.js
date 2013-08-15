@@ -12,18 +12,30 @@ module.exports = function(grunt) {
         concatcss: {},
         uglify: {},
         copylang: {},
-        copyassets: {}
+        copyassets: {},
+        componentslangs: {}
     },
         fs = require('fs'),
         extend = require('extend');
 
     eval(fs.readFileSync('src/components/include.js') + '');
 
+    fs.readdirSync('src/components/lang').forEach(function(langName) {
+
+        eval(fs.readFileSync('src/components/lang/' + langName) + '');
+
+        sysConfig.componentslangs[langName] = {
+            src: sysConfig.modules['components.lang'].js,
+            dest: sysConfig.distdir + '/components/' + langName.replace("include", "components")
+        };
+
+    });
+
     fs.readdirSync(sysConfig.srcdir).forEach(function(moduleName) {
 
         if (moduleName === 'backend' || moduleName === 'components' ||
-				fs.statSync(sysConfig.srcdir + '/' + moduleName).isFile()) {
-			return;
+            fs.statSync(sysConfig.srcdir + '/' + moduleName).isFile()) {
+            return;
         }
 
         eval(fs.readFileSync(sysConfig.srcdir + '/' + moduleName + '/include.js') + '');
@@ -36,18 +48,18 @@ module.exports = function(grunt) {
 
         sysConfig.modules[moduleName].js.push(sysConfig.html2js[moduleName].dest);
 
-        sysConfig.concatjs[moduleName+"js"] = {
+        sysConfig.concatjs[moduleName + "js"] = {
             src: sysConfig.modules[moduleName].js,
             dest: sysConfig.builddir + '/' + moduleName + '.js'
         };
 
-        sysConfig.concatcss[moduleName+"css"] = {
+        sysConfig.concatcss[moduleName + "css"] = {
             src: sysConfig.modules[moduleName].css,
             dest: sysConfig.distdir + '/' + moduleName + '/assets/styles.min.css'
         };
 
         sysConfig.uglify[moduleName] = {
-            src: sysConfig.concatjs[moduleName+"js"].dest,
+            src: sysConfig.concatjs[moduleName + "js"].dest,
             dest: sysConfig.distdir + '/' + moduleName + '/' + moduleName + '.min.js'
         };
 
@@ -120,7 +132,8 @@ module.exports = function(grunt) {
                 }
             },
             sysConfig.concatjs,
-            sysConfig.concatcss
+            sysConfig.concatcss,
+            sysConfig.componentslangs
         ),
         uglify: extend(true, {
                 options: {
