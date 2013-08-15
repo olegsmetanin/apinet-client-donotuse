@@ -112,6 +112,8 @@ angular.module('core')
 					}
 
 					function afterNodeEdit(node) {
+						node.path = $helpers.trim(node.path);
+						node.op = $helpers.trim(node.op);
 						node.value = $helpers.trim(node.value);
 
 						if(node.path === '&&' || node.path === '||' || node.path === '&&!') {
@@ -209,7 +211,11 @@ angular.module('core')
 						},
 
 						onNodeClick: function($event) {
-							$event.stopPropagation();
+							if($event) {
+								$event.stopPropagation();
+								$event.preventDefault();
+							}
+
 							if($scope.editingNode) {
 								return;
 							}
@@ -218,7 +224,11 @@ angular.module('core')
 						},
 
 						onNodeDblClick: function($event) {
-							$event.stopPropagation();
+							if($event) {
+								$event.stopPropagation();
+								$event.preventDefault();
+							}
+
 							if($scope.editingNode) {
 								return;
 							}
@@ -355,13 +365,30 @@ angular.module('core')
 								label: $filterHelpers.opDisplayName($scope.ops[i])
 							};
 						}
+
+						$scope.opSelectVisible = metadata ?
+							!$filterHelpers.isCompositeNode(node, metadata) : false;
+						$scope.valueEditorUrl = null;
+
+						if(metadata && metadata.PropertyType && !$filterHelpers.isUnaryNode(node)) {
+							var editorType = 'text';
+							if(metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
+									metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
+								editorType = metadata.PropertyType;
+							}
+
+							$scope.valueEditorUrl = sysConfig.src('core/filters/') +
+								editorType + 'ValueEditor.tpl.html';
+						}
 					}, true);
 
 					angular.extend($scope, {
 						paths: [],
 						ops: [],
-
-						editingNodeMetadata: null
+						editingNodeMetadata: null,
+						editorType: 'text',
+						opSelectVisible: false,
+						valueEditorUrl: null
 					});
 				}]
 			};

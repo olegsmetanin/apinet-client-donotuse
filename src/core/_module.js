@@ -1,6 +1,6 @@
 /* global angular: true */
 angular.module('core', ['ui.state', 'ui.bootstrap', 'core.security', 'core.templates',
-	'ajoslin.promise-tracker','angularMoment', 'angularSpinner']);
+	'ajoslin.promise-tracker','angularMoment', 'angularSpinner', 'ui.bootstrap.datetimepicker']);
 
 angular.module('core')
     .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',

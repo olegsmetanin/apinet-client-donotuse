@@ -1,5 +1,5 @@
 /* global angular: true */
-var delay = 1000;
+var delay = 0;
 angular.module('backend')
 .factory('delayResponseInterceptor', function($q, $timeout) {
 	return function(promise) {

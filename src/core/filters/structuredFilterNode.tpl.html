@@ -3,9 +3,9 @@
 	     ng-show="!(editMode && !newNodeParent) && node != rootNode"
 	     ng-click="onNodeClick($event)"
 	     ng-dblclick="onNodeDblClick($event)">
-		<label class="pathLabel" ng-show="node.path">{{ pathDisplayName() }}</label>
-		<label class="opLabel" ng-show="node.op">{{ opDisplayName() }}</label>
-		<label class="valueLabel" ng-show="node.value">{{ valueDisplayName() }}</label>
+		<label class="pathLabel" ng-show="node.path && node.path.length">{{ pathDisplayName() }}</label>
+		<label class="opLabel" ng-show="node.op && node.op.length">{{ opDisplayName() }}</label>
+		<label class="valueLabel" ng-show="node.value && node.value.length">{{ valueDisplayName() }}</label>
 	</div>
 
 	<div ng-show="editMode && !newNodeParent">

@@ -6,6 +6,7 @@ angular.module('core')
 				return {
 					path: '',
 					op: '&&',
+					value: '',
 					items: [ ]
 				};
 			},
@@ -15,7 +16,7 @@ angular.module('core')
 					return false;
 				}
 
-				return node.op === 'exists';
+				return node.op === 'exists' || node.op === 'not exists';
 			},
 
 			isSpecialNode: function (node) {
@@ -23,7 +24,8 @@ angular.module('core')
 					return false;
 				}
 
-				return node.op === '||' || node.op === '&&';
+				return node.op === '||' || node.op === '&&' || node.op === '&&!' ||
+					node.path === '||' || node.path === '&&' || node.path === '&&!';
 
 			},
 
@@ -64,7 +66,7 @@ angular.module('core')
 				}
 
 				for (key in metadata.ModelProperties) {
-					if (metadata.ModelProperties.hasOwnProperty(key)) {
+					if (!metadata.ModelProperties.hasOwnProperty(key)) {
 						continue;
 					}
 					result.push(key);
@@ -153,7 +155,7 @@ angular.module('core')
 
 				if (metadata && metadata.PropertyType === 'boolean') {
 					value = value === 'true' || value === '1' ?	'Да' : value;
-					value = value === 'false' || value === '0' ? 'Нет' :	value;
+					value = value === 'false' || value === '0' ? 'Нет' : value;
 				}
 				else if (metadata && metadata.PropertyType === 'date') {
 					date = new Date(value);
