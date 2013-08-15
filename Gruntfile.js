@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 
         sysConfig.concatcss[moduleName+"css"] = {
             src: sysConfig.modules[moduleName].css,
-            dest: sysConfig.distdir + '/' + moduleName + '/assets/styles.min.js'
+            dest: sysConfig.distdir + '/' + moduleName + '/assets/styles.min.css'
         };
 
         sysConfig.uglify[moduleName] = {

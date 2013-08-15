@@ -69,11 +69,11 @@
 <body>
 
     <div class="bar gradient stripe color3 centered">
-        <span id="percent" style="width:0%"></span>
+        <span id="percent" style="width:0"></span>
     </div>
 
 
-    <script>
+	<script type="text/javascript">
     /*yepnope1.5.x|WTFPL*/
     (function(a, b, c) {
         function d(a) {
@@ -240,83 +240,102 @@
         }
     })(this, document);
 
-
-    var sysConfig = {};
+    var sysConfig = { };
 
     (function() {
 
-        // Development section begin
-        sysConfig = {
-            src: function(path) {
-                return "../src/" + path
-            },
-            site: function(path) {
-                return "../" + path
-                // Production mode
-                // return "../dist/" + path
-            },
-            modules: {},
-            module: "home",
-            lang: getLang()
-        };
+	    // Development section begin
 
-        yepnope({
-            load: [sysConfig.src('components/include.js'), sysConfig.src('components/include.' + sysConfig.lang + '.js'), sysConfig.src('core/include.js'), sysConfig.src('backend/include.js'), sysConfig.src(sysConfig.module + '/include.js')],
-            complete: function() {
+	    sysConfig = {
+		    src: function(path) {
+			    return "../src/" + path
+		    },
+		    site: function(path) {
+			    return "../" + path
+			    // Production mode
+			    // return "../dist/" + path
+		    },
+		    modules: { },
+		    module: "home",
+		    lang: getLang()
+	    };
 
-                sysConfig.modules['core'].js.push('src/core/lang/core.' + sysConfig.lang + '.js');
-                sysConfig.modules[sysConfig.module].js.push('src/' + sysConfig.module + '/lang/' + sysConfig.module + '.' + sysConfig.lang + '.js')
+	    yepnope({
+		    load: [sysConfig.src('components/include.js'), sysConfig.src('components/include.' + sysConfig.lang + '.js'), sysConfig.src('core/include.js'), sysConfig.src('backend/include.js'), sysConfig.src(sysConfig.module + '/include.js')],
+		    complete: function() {
 
-                LoadResources(function() {
-                    angular.element(document).ready(function() {
+			    sysConfig.modules['core'].js.push('src/core/lang/core.' + sysConfig.lang + '.js');
+			    sysConfig.modules[sysConfig.module].js.push('src/' + sysConfig.module + '/lang/' + sysConfig.module + '.' + sysConfig.lang + '.js')
 
-                        angular.module('core.templates', []);
-                        angular.module(sysConfig.module + '.templates', []);
+			    LoadResources(function() {
+				    angular.element(document).ready(function() {
 
-                        angular.module('core').constant('currentProject', 'play2').constant('userGroups', []).constant('sysConfig', sysConfig);
+					    angular.module('core.templates', []);
+					    angular.module(sysConfig.module + '.templates', []);
 
-                        angular.bootstrap(document, ['backend', 'core', sysConfig.module]);
-                    });
-                });
-            }
-        });
-        // Development section end
+					    angular.module('core').constant('currentProject', 'play2').constant('userGroups', []).constant('sysConfig', sysConfig);
 
-        /*
-        // Production section begin
+					    angular.bootstrap(document, ['backend', 'core', sysConfig.module]);
+				    });
+			    });
+		    }
+	    });
 
-        var componentsJS = [
-            "assets/styles.min.css",
-            "components/components.min.js"
-        ];
+		// Development section end
 
-        var coreJS = [
-            "core/core.min.js"
-        ];
 
-        var moduleJS = [
-            "home/home.min.js"
-        ];
+	    // Production section begin
 
-        //componentsJS.push('components/components.' + sysConfig.lang + '.js');
-        coreJS.push('core/core.' + sysConfig.lang + '.js')
-        moduleJS.push(sysConfig.module + '/' + sysConfig.module + '.' + sysConfig.lang + '.js');
+	    //TODO: Определиться с папкой dist
+	    /*sysConfig = {
+		    src: function (path) {
+			    return path;
+		    },
+		    site: function (path) {
+			    return path;
+		    },
+		    modules: { },
+		    module: "home",
+		    lang: getLang()
+	    };
 
-        LoadResources(function() {
-            angular.element(document).ready(function() {
+	    sysConfig.modules["components"] = {
+		    css: [ "components/assets/styles.min.css" ],
+		    js: [ "components/components.min.js" ]
+	    };
 
-                angular.module('core').constant('currentProject', null).constant('userGroups', []).constant('sysConfig', sysConfig); // important to get empty string!
+	    sysConfig.modules["core"] = {
+		    css: [ "core/assets/styles.min.css" ],
+		    js: [
+			    "core/core.min.js",
+			    "core/core." + sysConfig.lang + ".js"
+		    ]
+	    };
 
-                angular.bootstrap(document, ['core', sysConfig.module]);
-            });
-        });
-        // Production section end
+	    sysConfig.modules[sysConfig.module] = {
+		    css: [ sysConfig.module + "/assets/styles.min.css" ],
+		    js: [
+			    sysConfig.module + "/" + sysConfig.module + ".min.js",
+			    sysConfig.module + "/" + sysConfig.module + "." + sysConfig.lang + ".js"
+		    ]
+	    };
 
-*/
+	    LoadResources(function () {
+		    angular.element(document).ready(function () {
+
+			    angular.module("core").constant("currentProject", null).constant("userGroups", []).constant("sysConfig", sysConfig); // important to get empty string!
+
+			    angular.bootstrap(document, ["core", sysConfig.module]);
+		    });
+	    });*/
+
+	    // Production section end
+
+
 
         function LoadResources(completeCb) {
             //componentsJS.concat(coreJS, moduleJS
-            resources = [].concat(
+            var resources = [].concat(
                 sysConfig.modules['components'].css,
                 sysConfig.modules['components'].js,
                 sysConfig.modules['core'].css,
