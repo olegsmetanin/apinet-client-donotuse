@@ -4,6 +4,8 @@ angular.module('backend', ['ngMockE2E'])
 
             var userId = 0;
 
+
+
             var makeUser = function(fname, lname, isAdmin) {
                 userId++;
                 return {
@@ -20,6 +22,9 @@ angular.module('backend', ['ngMockE2E'])
             var petrov = makeUser('petr', 'petrov', false); //project executor
             var sidorov = makeUser('sidor', 'sidorov', false); //project executor
             var users = [admin, ivanov, petrov, sidorov];
+
+            var currentUser;//admin;
+
 
             var projMatrix = {
                 play2: {
@@ -66,19 +71,33 @@ angular.module('backend', ['ngMockE2E'])
                             found = angular.copy(u);
                         }
                     });
+
+                    currentUser = found;
+
                     return [200, {
-                        user: found
+                        user: currentUser
                     }];
                 });
 
             //fake logout
-            $httpBackend.whenPOST('/logout').respond(204);
+            $httpBackend.whenPOST('/logout').respond(function(method, url, data, headers) {
+                currentUser = {};
+                return [204];
+            });
 
             //fake current-user
             $httpBackend.whenPOST('/current-user').respond(function(method, url, data, headers) {
-                return [200, {
-                    user: ivanov
-                }];
+                if (currentUser) {
+                    return [200, {
+                        user: currentUser
+                    }];
+                } else {
+                    return [500, 'Oops, something went wrong'];
+                }
+
+
+
+
             });
 
 
@@ -87,7 +106,7 @@ angular.module('backend', ['ngMockE2E'])
                 console.log("post /user-groups", data);
                 var prms = JSON.parse(data);
                 return [200, {
-                    groups: ['admins']//userGroups(prms.project, prms.userId)
+                    groups: ['admins'] //userGroups(prms.project, prms.userId)
                 }];
             });
 

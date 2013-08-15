@@ -1,0 +1,18 @@
+<li ng-class="{dropdown: isAuthenticated()}">
+    <a ng-show="!isAuthenticated()" ng-click="login()" href="#">Login</a>
+
+    <a ng-show="isAuthenticated()" href="#" class="dropdown-toggle" data-toggle="dropdown">User{{currentUser.name}} <b class="caret"></b></a>
+    <ul ng-show="isAuthenticated()" class="dropdown-menu">
+        <li><a href="#">Profile</a>
+        </li>
+        <li><a href="#">Messages</a>
+        </li>
+        <li><a href="#">Reports</a>
+        </li>
+        <li><a href="#">System</a>
+        </li>
+        <li class="divider"></li>
+        <li><a href="#" ng-click="logout()">Logout</a>
+        </li>
+    </ul>
+</li>

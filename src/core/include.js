@@ -15,9 +15,9 @@ sysConfig.modules['core'] = {
         "src/core/security/interceptor.js",
         "src/core/security/retryQueue.js",
         "src/core/security/security.js",
-        "src/core/security/login/login.js",
-        "src/core/security/login/LoginFormController.js",
-        "src/core/security/login/toolbar.js",
+        "src/core/loginform/login.js",
+        "src/core/loginform/LoginFormController.js",
+        "src/core/usermenu/usermenu.js",
 
         "src/core/services/services.js",
         "src/core/services/localizedMessages.js",
@@ -28,8 +28,8 @@ sysConfig.modules['core'] = {
         "src/core/filters/complex.js",
 		"src/core/filters/filterModel.js",
 		"src/core/filters/structuredFilter.js",
-        "src/core/systemmenu/systemMenuCtrl.js",
 
-        "src/core/i18n/i18n.js"
+        "src/core/i18n/i18n.js",
+        "src/core/modulemenu/modulemenu.js"
     ]
 };

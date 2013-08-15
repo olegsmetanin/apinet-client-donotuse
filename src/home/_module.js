@@ -32,4 +32,5 @@ angular.module('home')
                 ]
             });
         }
-    ]);
+    ])
+    .constant("moduleMenuUrl", sysConfig.src('home/menu/menu.tpl.html'));
