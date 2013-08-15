@@ -1,5 +1,9 @@
 /* global sysConfig: true */
 // backend
-sysConfig.modules['core'].js.push("src/backend/backend.js");
+if (sysConfig.fakeBackend) {
+    sysConfig.modules['core'].js.push("src/backend/backend.js");
+}
 // delay
-sysConfig.modules['core'].js.push("src/backend/delay.js");
+if (sysConfig.delay) {
+    sysConfig.modules['core'].js.push("src/backend/delay.js");
+}

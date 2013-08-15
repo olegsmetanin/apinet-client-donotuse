@@ -73,7 +73,7 @@
     </div>
 
 
-	<script type="text/javascript">
+    <script type="text/javascript">
     /*yepnope1.5.x|WTFPL*/
     (function(a, b, c) {
         function d(a) {
@@ -240,96 +240,129 @@
         }
     })(this, document);
 
-    var sysConfig = { };
+    var sysConfig = {};
 
     (function() {
 
-	    // Development section begin
+        // Development section begin
 
-	    sysConfig = {
-		    src: function(path) {
-			    return "../src/" + path
-		    },
-		    site: function(path) {
-			    return "../" + path
-			    // Production mode
-			    // return "../dist/" + path
-		    },
-		    modules: { },
-		    module: "home",
-		    lang: getLang()
-	    };
+        sysConfig = {
+            src: function(path) {
+                // in debug mode
+                return "../src/" + path
+                // in production mode from standalone web-server
+                // return path;
+            },
+            site: function(path) {
+                // in debug mode
+                return "../" + path
+                // in production mode from grunt connect
+                //return "../dist/" + path
+                // Production mode from standalone web-server
+                // return path
+            },
+            modules: {},
+            module: "home",
+            lang: getLang(),
+            // use fake backend
+            fakeBackend: true,
+            // make dalay in milliseconds before $http requests when use fake backend
+            delay: 0
+        };
 
-	    yepnope({
-		    load: [sysConfig.src('components/include.js'), sysConfig.src('components/include.' + sysConfig.lang + '.js'), sysConfig.src('core/include.js'), sysConfig.src('backend/include.js'), sysConfig.src(sysConfig.module + '/include.js')],
-		    complete: function() {
+        yepnope({
+            load: [
+                sysConfig.src('components/include.js'),
+                sysConfig.src('components/lang/include.' + sysConfig.lang + '.js'),
+                sysConfig.src('core/include.js'),
+                sysConfig.src('backend/include.js'),
+                sysConfig.src(sysConfig.module + '/include.js')
+            ],
+            complete: function() {
 
-			    sysConfig.modules['core'].js.push('src/core/lang/core.' + sysConfig.lang + '.js');
-			    sysConfig.modules[sysConfig.module].js.push('src/' + sysConfig.module + '/lang/' + sysConfig.module + '.' + sysConfig.lang + '.js')
+                sysConfig.modules['components'].js = [].concat(
+                    sysConfig.modules['components'].js,
+                    sysConfig.modules['components.lang'].js
+                )
 
-			    LoadResources(function() {
-				    angular.element(document).ready(function() {
+                sysConfig.modules['core'].js = [].concat(
+                    sysConfig.modules['core'].js, [
+                        sysConfig.src('core/lang/core.' + sysConfig.lang + '.js')
+                    ]
+                )
 
-					    angular.module('core.templates', []);
-					    angular.module(sysConfig.module + '.templates', []);
+                sysConfig.modules[sysConfig.module].js = [].concat(
+                    sysConfig.modules[sysConfig.module].js, [
+                        sysConfig.src(sysConfig.module + '/lang/' + sysConfig.module + '.' + sysConfig.lang + '.js')
+                    ]
+                )
 
-					    angular.module('core').constant('currentProject', 'play2').constant('userGroups', []).constant('sysConfig', sysConfig);
+                LoadResources(function() {
+                    angular.element(document).ready(function() {
 
-					    angular.bootstrap(document, ['backend', 'core', sysConfig.module]);
-				    });
-			    });
-		    }
-	    });
+                        angular.module('core.templates', []);
+                        angular.module(sysConfig.module + '.templates', []);
 
-		// Development section end
+                        angular.module('core')
+                            .constant('currentProject', 'play2')
+                            .constant('userGroups', [])
+                            .constant('sysConfig', sysConfig);
+
+                        angular.bootstrap(document, [].concat(
+                            (sysConfig.fakeBackend ? ['backend'] : []), ['core', sysConfig.module]
+                        ));
+                    });
+                });
+
+            }
+        });
+
+        // Development section end
 
 
-	    // Production section begin
+        // Production section begin
 
-	    //TODO: Определиться с папкой dist
-	    /*sysConfig = {
-		    src: function (path) {
-			    return path;
-		    },
-		    site: function (path) {
-			    return path;
-		    },
-		    modules: { },
-		    module: "home",
-		    lang: getLang()
-	    };
+        /*
 
-	    sysConfig.modules["components"] = {
-		    css: [ "components/assets/styles.min.css" ],
-		    js: [ "components/components.min.js" ]
-	    };
+        sysConfig.modules["components"] = {
+            css: ["components/assets/styles.min.css"],
+            js: [
+                "components/components.min.js",
+                "components/components." + sysConfig.lang + ".js"
+            ]
+        };
 
-	    sysConfig.modules["core"] = {
-		    css: [ "core/assets/styles.min.css" ],
-		    js: [
-			    "core/core.min.js",
-			    "core/core." + sysConfig.lang + ".js"
-		    ]
-	    };
+        sysConfig.modules["core"] = {
+            css: ["core/assets/styles.min.css"],
+            js: [
+                "core/core.min.js",
+                "core/core." + sysConfig.lang + ".js"
+            ]
+        };
 
-	    sysConfig.modules[sysConfig.module] = {
-		    css: [ sysConfig.module + "/assets/styles.min.css" ],
-		    js: [
-			    sysConfig.module + "/" + sysConfig.module + ".min.js",
-			    sysConfig.module + "/" + sysConfig.module + "." + sysConfig.lang + ".js"
-		    ]
-	    };
+        sysConfig.modules[sysConfig.module] = {
+            css: [sysConfig.module + "/assets/styles.min.css"],
+            js: [
+                sysConfig.module + "/" + sysConfig.module + ".min.js",
+                sysConfig.module + "/" + sysConfig.module + "." + sysConfig.lang + ".js"
+            ]
+        };
 
-	    LoadResources(function () {
-		    angular.element(document).ready(function () {
+        LoadResources(function() {
+            angular.element(document).ready(function() {
 
-			    angular.module("core").constant("currentProject", null).constant("userGroups", []).constant("sysConfig", sysConfig); // important to get empty string!
+                angular.module("core")
+                    .constant("currentProject", null)
+                    .constant("userGroups", [])
+                    .constant("sysConfig", sysConfig); // important to get empty string!
 
-			    angular.bootstrap(document, ["core", sysConfig.module]);
-		    });
-	    });*/
+                angular.bootstrap(document, ["core", sysConfig.module]);
+            });
+        });
 
-	    // Production section end
+*/
+
+        // Production section end
 
 
 
