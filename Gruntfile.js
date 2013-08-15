@@ -101,7 +101,7 @@ module.exports = function(grunt) {
                     "<%= componentsdir %>/bootstrap-2.3.2/css/bootstrap-responsive.min.css",
                     "<%= componentsdir %>/select2-3.4.1/select2.css",
                     "<%= componentsdir %>/jquery-ui-1.10.3/themes/smoothness/jquery-ui.css",
-                    "assets/ago-filter-builder.css"
+                    "assets/filtering-component.css"
                 ],
                 dest: "<%= distdir %>/assets/styles.min.css"
             },

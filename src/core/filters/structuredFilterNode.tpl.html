@@ -1,0 +1,30 @@
+<div class="nodePanel">
+	<div ng-class="nodeDataClass"
+	     ng-show="!(editMode && !newNodeParent) && node != rootNode"
+	     ng-click="onNodeClick($event)"
+	     ng-dblclick="onNodeDblClick($event)">
+		<label class="pathLabel" ng-show="node.path">{{ pathDisplayName() }}</label>
+		<label class="opLabel" ng-show="node.op">{{ opDisplayName() }}</label>
+		<label class="valueLabel" ng-show="node.value">{{ valueDisplayName() }}</label>
+	</div>
+
+	<div ng-show="editMode && !newNodeParent">
+		<div node-editor></div>
+	</div>
+
+	<div ng-class="nodeChildrenClass">
+		<div structured-filter-subnode
+		     ng-repeat="subNode in node.items"
+		     node="subNode"
+		     root-node="rootNode"
+		     selected-node="selectedNode"
+		     editing-node="editingNode"
+		     new-node-parent="newNodeParent"
+		     get-parent-metadata="getMetadata()">
+	     </div>
+
+		<div ng-show="editMode && newNodeParent">
+			<div node-editor></div>
+		</div>
+	</div>
+</div>

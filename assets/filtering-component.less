@@ -1,0 +1,93 @@
+.filteringComponent {
+	background-color: #f5f5f5;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	padding: 10px 10px 0 10px;
+
+	.nodesContainer {
+		margin-bottom: 10px;
+
+		.nodePanel {
+			.opLabel, .pathLabel, .valueLabel, .propertyTypeLabel, .opSelect, .pathSelect, .valueEditor, .timePicker, .propertyTypeLookup {
+				display: inline-block;
+				margin-bottom: 5px;
+				font-size: 14px;
+				line-height: 20px;
+				color: #555555;
+				vertical-align: middle;
+			}
+
+			.opLabel, .pathLabel, .valueLabel, .propertyTypeLabel {
+				padding: 4px  0  4px 10px;
+			}
+
+			.opSelect, .pathSelect, .valueEditor, .timePicker, .propertyTypeLookup {
+				width: 100%;
+			}
+
+			.valueEditor, .timePicker {
+				padding: 4px 6px;
+				box-sizing: border-box;
+				border: 1px solid #cccccc;
+				-webkit-border-radius: 4px;
+				-moz-border-radius: 4px;
+				border-radius: 4px;
+			}
+
+			.errorsIcon {
+				background-image: url(Images/exclamation.gif);
+				width: 16px;
+				height: 16px;
+				margin: 2px 5px 0 5px;
+				display: inline-block;
+				cursor: pointer;
+			}
+
+			.errorsList {
+				list-style-type: square;
+				color: #cc360c;
+				margin-bottom: 15px;
+			}
+
+			.lookupCtrl {
+				display: block;
+				margin-bottom: 5px;
+			}
+
+			.nodeData {
+				padding: 5px 5px 0 5px;
+				box-sizing: border-box;
+				background-color: #fafafa;
+				border: 1px solid rgba(0, 0, 0, 0.15);
+				-webkit-border-radius: 4px;
+				-moz-border-radius: 4px;
+				border-radius: 4px;
+				margin-bottom: 5px;
+			}
+
+			.nodeData:hover {
+				border: 1px dashed rgba(0, 0, 0, 0.15);
+				cursor: pointer;
+			}
+
+			.selectedNodeData {
+				background-color: #dfe8f7;
+				cursor: pointer;
+			}
+
+			.nodeEditor {
+				background-color: #dfe8f7;
+			}
+
+			.nodeChildren {
+				margin: 0 0 0 20px;
+			}
+		}
+	}
+
+	.buttons  {
+		margin-bottom: 10px;
+	}
+}

@@ -1,1 +1,10 @@
-Project List Filter
+<div ng-controller="projectsListFilterCtrl">
+	<div filter-model
+	     root-node="structuredFilter"
+	     model-name="'AGO.Docstore.Model.Documents.DocumentModel'">
+		<div structured-filter></div>
+	</div>
+	<div class="filteringComponent" style="margin-top: 20px;">
+		<pre style="margin-bottom: 10px; border: 0;">{{ formattedFilter }}</pre>
+	</div>
+</div>
