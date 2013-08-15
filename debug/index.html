@@ -52,11 +52,11 @@
         -moz-background-size:30px 30px;
         -webkit-background-size:30px 30px;
         -o-background-size:30px 30px;
-        background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
+        background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
         background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(255, 255, 255, 0.2)), color-stop(25%, rgba(255, 255, 255, 0.2)), color-stop(25%, rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0.2)), color-stop(75%, rgba(255, 255, 255, 0.2)), color-stop(75%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(255, 255, 255, 0)));
-        background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
-        background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
-        background-image: -ms-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
+        background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
+        background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
+        background-image: -ms-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
         background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
     }
     .color3 > span {
@@ -241,27 +241,31 @@
     })(this, document);
 
 
+    var sysConfig = {};
+
     (function() {
 
         // Development section begin
-        var sysConfig = {
+        sysConfig = {
             src: function(path) {
                 return "../src/" + path
             },
             site: function(path) {
                 return "../" + path
+                // Production mode
+                // return "../dist/" + path
             },
+            modules: {},
             module: "home",
             lang: getLang()
-        }
+        };
 
         yepnope({
-            load: [sysConfig.src('components/include.js'), sysConfig.src('core/include.js'), sysConfig.src('backend/include.js'), sysConfig.src(sysConfig.module + '/include.js')],
+            load: [sysConfig.src('components/include.js'), sysConfig.src('components/include.' + sysConfig.lang + '.js'), sysConfig.src('core/include.js'), sysConfig.src('backend/include.js'), sysConfig.src(sysConfig.module + '/include.js')],
             complete: function() {
 
-                componentsJS.push('src/components/components.' + sysConfig.lang + '.js');
-                coreJS.push('src/core/lang/core.' + sysConfig.lang + '.js');
-                moduleJS.push('src/' + sysConfig.module + '/lang/' + sysConfig.module + '.' + sysConfig.lang + '.js')
+                sysConfig.modules['core'].js.push('src/core/lang/core.' + sysConfig.lang + '.js');
+                sysConfig.modules[sysConfig.module].js.push('src/' + sysConfig.module + '/lang/' + sysConfig.module + '.' + sysConfig.lang + '.js')
 
                 LoadResources(function() {
                     angular.element(document).ready(function() {
@@ -278,20 +282,8 @@
         });
         // Development section end
 
-/*
+        /*
         // Production section begin
-
-        var sysConfig = {
-            src: function(path) {
-                return "../src/" + path
-            },
-            site: function(path) {
-                return "../dist/" + path
-            },
-            module: "home",
-            lang: getLang()
-        }
-
 
         var componentsJS = [
             "assets/styles.min.css",
@@ -323,12 +315,19 @@
 */
 
         function LoadResources(completeCb) {
+            //componentsJS.concat(coreJS, moduleJS
+            resources = [].concat(
+                sysConfig.modules['components'].css,
+                sysConfig.modules['components'].js,
+                sysConfig.modules['core'].css,
+                sysConfig.modules['core'].js,
+                sysConfig.modules[sysConfig.module].css,
+                sysConfig.modules[sysConfig.module].js
+            );
 
-            resourceJS = componentsJS.concat(coreJS, moduleJS);
-
-            var fqResourceJS = [];
-            for (var i = 0; i < resourceJS.length; i++) {
-                fqResourceJS.push(sysConfig.site(resourceJS[i]));
+            var fqResources = [];
+            for (var i = 0; i < resources.length; i++) {
+                fqResources.push(sysConfig.site(resources[i]));
             }
 
             var percent = (function() {
@@ -342,9 +341,9 @@
             })();
 
             yepnope({
-                load: fqResourceJS,
+                load: fqResources,
                 callback: function(url, result, key) {
-                    percent.add(100 / resourceJS.length);
+                    percent.add(100 / resources.length);
                 },
                 complete: function() {
                     var uiView = document.createElement("div"),

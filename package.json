@@ -1,10 +1,10 @@
 {
-    "name": "playapingmod",
-    "description": "PlayFramework as server, AngularJS as client",
+    "name": "apinet-client",
+    "description": "AngularJS apinet-client",
     "version": "0.0.1",
     "homepage": "http://olegsmith.github.com/",
     "author": {
-        "name": "Oleg Smetanin & Artem Naumov"
+        "name": "Oleg Smetanin & Artem Naumov & Alexey Rumyantsev"
     },
     "licenses": [{
         "type": "MIT",
@@ -25,6 +25,7 @@
         "shelljs": "~0.1.4",
         "faithful-exec": "~0.1.0",
         "grunt-bg-shell": "~2.1.0",
-        "bower": "~1.0.3"
+        "bower": "~1.0.3",
+        "extend":"~1.1.3"
     }
 }
