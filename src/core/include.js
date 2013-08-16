@@ -2,7 +2,8 @@
 sysConfig.modules['core'] = {
     css: [
         "src/core/assets/filtering-component.css",
-        "src/core/assets/spinner.css"
+        "src/core/assets/spinner.css",
+        "src/core/assets/breadcrumbs.css"
     ],
     js: [
         "src/core/_module.js",

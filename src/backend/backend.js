@@ -23,7 +23,7 @@ angular.module('backend', ['ngMockE2E'])
             var sidorov = makeUser('sidor', 'sidorov', false); //project executor
             var users = [admin, ivanov, petrov, sidorov];
 
-            var currentUser;//admin;
+            var currentUser = admin;
 
 
             var projMatrix = {
