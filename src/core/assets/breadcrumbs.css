@@ -12,3 +12,7 @@ padding: 10px 0px;
     color: #999999;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
+
+.navbreadcrumbs > li {
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
