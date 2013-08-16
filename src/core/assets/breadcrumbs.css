@@ -1,4 +1,4 @@
-ul.navbreadcrumbs {
+.navbar .navbreadcrumbs {
 display: block;
 float: left;
 padding-left: 10px;
@@ -8,11 +8,17 @@ margin: 0px;
 padding: 10px 0px;
 }
 
-.navbreadcrumbs > li > a {
+.navbar .navbreadcrumbs > li > a {
     color: #999999;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.navbreadcrumbs > li {
+.navbar .navbreadcrumbs > li > a:hover {
+    color: #FFF;
+    background: transparent;
+    text-decoration: none;
+}
+
+.navbar .navbreadcrumbs > li {
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
