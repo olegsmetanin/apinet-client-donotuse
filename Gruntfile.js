@@ -158,6 +158,14 @@ module.exports = function(grunt) {
                         src: ['*.png', '*.gif'],
                         expand: true
                     }]
+                },
+                fontawesome: {
+                    files: [{
+                        cwd: '<%= componentsdir %>/components-font-awesome-3.1.0/font',
+                        dest: '<%= distdir %>/components/font',
+                        src: ['**'],
+                        expand: true
+                    }]
                 }
             },
             sysConfig.copylang,

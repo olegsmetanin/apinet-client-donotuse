@@ -251,7 +251,7 @@
                 // in debug mode
                 return "../src/" + path
                 // in production mode from standalone web-server
-                // return path;
+                //return path;
             },
             site: function(path) {
                 // in debug mode
@@ -269,6 +269,7 @@
             // make dalay in milliseconds before $http requests when use fake backend
             delay: 0
         };
+
 
         yepnope({
             load: [
@@ -321,32 +322,19 @@
 
 
         // Production section begin
+/*
 
-        /*
+        var modules = ["components", "core", sysConfig.module];
 
-        sysConfig.modules["components"] = {
-            css: ["components/assets/styles.min.css"],
-            js: [
-                "components/components.min.js",
-                "components/components." + sysConfig.lang + ".js"
-            ]
-        };
-
-        sysConfig.modules["core"] = {
-            css: ["core/assets/styles.min.css"],
-            js: [
-                "core/core.min.js",
-                "core/core." + sysConfig.lang + ".js"
-            ]
-        };
-
-        sysConfig.modules[sysConfig.module] = {
-            css: [sysConfig.module + "/assets/styles.min.css"],
-            js: [
-                sysConfig.module + "/" + sysConfig.module + ".min.js",
-                sysConfig.module + "/" + sysConfig.module + "." + sysConfig.lang + ".js"
-            ]
-        };
+        for (var i = 0; i < modules.length; i++) {
+            sysConfig.modules[modules[i]] = {
+                css: [modules[i] + "/assets/styles.min.css"],
+                js: [
+                    modules[i] + "/" + modules[i] + ".min.js",
+                    modules[i] + "/" + modules[i] + "." + sysConfig.lang + ".js"
+                ]
+            }
+        }
 
         LoadResources(function() {
             angular.element(document).ready(function() {
@@ -361,7 +349,6 @@
         });
 
 */
-
         // Production section end
 
 

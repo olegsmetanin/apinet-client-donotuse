@@ -24,7 +24,8 @@
 		"bootstrap-2.3.2": "http://getbootstrap.com/2.3.2/assets/bootstrap.zip",
 		"components-font-awesome-3.1.0": "components-font-awesome#3.1.0",
 		"select2-3.4.1": "select2#3.4.1",
-		"angular-bootstrap-datetimepicker": "latest"
+		"angular-bootstrap-datetimepicker": "latest",
+		"font-awesome-3.2.1": "font-awesome#3.2.1"
 	},
 		"resolutions": {
 		"angular": "1.0.7",

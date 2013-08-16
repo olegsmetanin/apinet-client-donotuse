@@ -6,7 +6,9 @@ sysConfig.modules['components'] = {
         "components/select2-3.4.1/select2.css",
         "components/jquery-ui-1.10.3/themes/smoothness/jquery-ui.css",
 
-		"components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"
+		"components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css",
+
+        "components/components-font-awesome-3.1.0/css/font-awesome.min.css"
     ],
     js: [
         "components/jquery-2.0.3/jquery.min.js",
