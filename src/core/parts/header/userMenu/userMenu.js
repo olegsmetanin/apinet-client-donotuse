@@ -4,7 +4,7 @@ angular.module('security.login.toolbar', [])
 // and information the current authenticated user
 .directive('userMenu', ['security', 'sysConfig', function(security, sysConfig) {
   var directive = {
-    templateUrl: sysConfig.src('core/parts/header/usermenu/usermenu.tpl.html'),
+    templateUrl: sysConfig.src('core/parts/header/userMenu/userMenu.tpl.html'),
     restrict: 'EA',
     replace: true,
     scope: true,

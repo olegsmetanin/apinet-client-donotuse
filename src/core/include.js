@@ -11,7 +11,7 @@ sysConfig.modules['core'] = {
         "src/core/_module.js",
         "src/core/directives/relinclude.js",
         "src/core/parts/header/breadCrumbs/breadCrumbsCtrl.js",
-        "src/core/parts/header/tabbar/tabbar.js",
+        "src/core/parts/header/tabBar/tabBar.js",
 
         "src/core/services/security/index.js",
         "src/core/services/security/authorization.js",
@@ -20,7 +20,7 @@ sysConfig.modules['core'] = {
         "src/core/services/security/security.js",
         "src/core/parts/loginform/login.js",
         "src/core/parts/loginform/LoginFormController.js",
-        "src/core/parts/header/usermenu/usermenu.js",
+        "src/core/parts/header/userMenu/userMenu.js",
 
         "src/core/services/services.js",
         "src/core/services/i18n/localizedMessages.js",
@@ -33,7 +33,7 @@ sysConfig.modules['core'] = {
 		"src/core/parts/filters/structuredFilter.js",
 
         "src/core/services/i18n/i18n.js",
-        "src/core/parts/header/modulemenu/modulemenu.js",
+        "src/core/parts/header/moduleMenu/moduleMenu.js",
 
         "src/core/services/reportService/reportService.js",
         "src/core/parts/header/reportNotifier/reportNotifier.js",
