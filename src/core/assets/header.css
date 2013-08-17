@@ -40,3 +40,21 @@ color: rgb(214, 214, 214);
 .messages a {
 	white-space: normal !important;
 }
+
+
+.avatar-menu {
+    margin: -16px 10px -14px 10px;
+    -webkit-box-shadow: 0 1px 3px #1e1e1e;
+    -moz-box-shadow: 0 1px 3px #1e1e1e;
+    box-shadow: 0 1px 3px #1e1e1e;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    height: 32px;
+    width: 32px;
+}
+
+
+

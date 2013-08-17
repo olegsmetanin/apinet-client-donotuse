@@ -4,8 +4,8 @@ sysConfig.modules['core'] = {
         "src/core/assets/filtering-component.css",
         "src/core/assets/spinner.css",
         "src/core/assets/breadcrumbs.css",
-        "src/core/assets/counter.css",
-        "src/core/assets/avatar.css"
+        "src/core/assets/header.css",
+        "src/core/assets/chartbox.css"
     ],
     js: [
         "src/core/_module.js",
