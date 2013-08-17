@@ -1,31 +1,36 @@
 angular.module('core')
-    .service("reportService", ['$rootScope', '$timeout',
-        function($rootScope, $timeout) {
+    .service("reportService", ['$rootScope', '$timeout', '$http',
+        function($rootScope, $timeout, $http) {
             angular.extend(this, {
                 reports: {
-                    "gen": [{
-                        "name": "report1",
-                        "percent": 20
-                    }],
-                    "done": [{
-                        "name": "report 2"
-                    }]
+                    gen: [],
+                    done: []
                 },
-                reloadEvents: function() {
+
+                setReports: function(new_reports) {
+                    var that = this;
+                    that.reports = new_reports;
+                    $rootScope.$broadcast('events:reportsChanged');
+                },
+
+                generate: function(params) {
+                    $http.post('/api/v1', params)
+                },
+
+
+                reloadReports: function() {
                     var that = this;
 
-                    // ajax request
-                    $timeout(function() {
-
-                        if (that.reports.gen[0]) {
-                            var currentPercent = that.reports.gen[0].percent;
-                            currentPercent = (currentPercent > 100 ? 0 : currentPercent + 10);
-                            that.reports.gen[0].percent = currentPercent;
-                        }
-
+                    $http.post('/api/v1', {
+                        action: "generateStatus",
+                        model: "Generator"
+                    }).then(function(response) {
+                        that.reports = response.data.reports;
                         $rootScope.$broadcast('events:reportsChanged');
+                    });
 
-                    }, 2000);
+
+
                 },
                 cancelReportGeneration: function(name) {
                     var that = this;

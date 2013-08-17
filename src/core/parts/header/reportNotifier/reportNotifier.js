@@ -1,6 +1,6 @@
 angular.module('core')
-.directive('reportNotifier', ['security', 'sysConfig', 'reportService',
-    function(security, sysConfig, reportService) {
+.directive('reportNotifier', ['security', 'sysConfig', 'reportService', '$timeout',
+    function(security, sysConfig, reportService, $timeout) {
         var directive = {
             templateUrl: sysConfig.src('core/parts/header/reportNotifier/reportNotifier.tpl.html'),
             restrict: 'EA',
@@ -16,13 +16,16 @@ angular.module('core')
                     $scope.reports = reportService.reports;
                     var genCount = $scope.reports.gen.length;
                     var doneCount = $scope.reports.done.length;
-                    $scope.badge = (genCount === 0 ? '' : genCount + '/') + (doneCount === 0 ? '' : doneCount);
+                    $timeout(function () {
+                        $scope.badge = (genCount === 0 ? (doneCount === 0 ? '' : doneCount) : genCount +'/'+doneCount);
+                    });
+
                     $scope.isReloading = false;
                 });
 
-                $scope.reloadReportEvents = function() {
+                $scope.reloadReports = function() {
                     $scope.isReloading = true;
-                    reportService.reloadEvents();
+                    reportService.reloadReports();
                 };
 
                 $scope.cancelReportGeneration = function (index) {

@@ -9,14 +9,19 @@
 
         <li>
             <span style="padding: 3px 20px;">
-                <a onclick="event.stopPropagation();" class="dropdown-menu-sub-header" ng-click="reloadReportEvents()"><i ng-class="{'icon-spin':isReloading}" class="icon-refresh"></i></a>
+                <a onclick="event.stopPropagation();" class="dropdown-menu-sub-header" ng-click="reloadReports()"><i ng-class="{'icon-spin':isReloading}" class="icon-refresh"></i></a>
                 <a class="dropdown-menu-sub-footer">View all reports</a>
             </span>
         </li>
 
         <li ng-repeat="report in reports.gen">
-            <span style="padding: 3px 20px;">{{report.name}}, {{report.percent}}%</span>
-            <button ng-click="cancelReportGeneration($index)" onclick="event.stopPropagation();" class="btn btn-mini btn-danger" type="button">Cancel</button>
+
+            <div style="padding: 3px 20px;">
+                <button ng-click="cancelReportGeneration($index)" onclick="event.stopPropagation();" class="btn btn-mini btn-danger" type="button">Cancel</button>
+                {{report.name}}, <i class="icon-cog icon-spin"></i>{{report.percent}}%
+            </div>
+
+
         </li>
         <li ng-repeat="report in reports.done">
             <a href="#">
