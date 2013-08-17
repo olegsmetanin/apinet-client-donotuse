@@ -1,5 +1,5 @@
 angular.module('core')
-    .controller('breadcrumbsCtrl', ['$scope', 'pageConfig',
+    .controller('breadCrumbsCtrl', ['$scope', 'pageConfig',
         function($scope, $pageConfig) {
             $scope.breadcrumbs = $pageConfig.current.breadcrumbs;
             $scope.$on('page:configChanged', function() {

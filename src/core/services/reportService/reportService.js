@@ -30,6 +30,7 @@ angular.module('core')
                 cancelReportGeneration: function(name) {
                     var that = this;
                     that.reports.gen = [];
+                    $rootScope.$broadcast('events:reportsChanged');
                     // ajax request
 
 

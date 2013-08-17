@@ -12,7 +12,7 @@ angular.module('core')
                         that.messages = [{
                             "date": new Date(),
                             "message": "message 1"
-                        }]
+                        }];
                         $rootScope.$broadcast('events:eventsChanged');
 
                     }, 2000);

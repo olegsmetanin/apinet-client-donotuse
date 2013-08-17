@@ -10,22 +10,22 @@ angular.module('core')
             var page1C = {
                 name: "page1C",
                 abstract: true,
-                templateUrl: sysConfig.src('core/masterpages/page1C.tpl.html')
+                templateUrl: sysConfig.src('core/parts/masterpages/page1C.tpl.html')
             },
                 page2C = {
                     name: "page2C",
                     abstract: true,
-                    templateUrl: sysConfig.src('core/masterpages/page2C.tpl.html')
+                    templateUrl: sysConfig.src('core/parts/masterpages/page2C.tpl.html')
                 },
                 tabPage1C = {
                     name: "tabPage1C",
                     abstract: true,
-                    templateUrl: sysConfig.src('core/masterpages/tabPage1C.tpl.html')
+                    templateUrl: sysConfig.src('core/parts/masterpages/tabPage1C.tpl.html')
                 },
                 tabPage2C = {
                     name: "tabPage2C",
                     abstract: true,
-                    templateUrl: sysConfig.src('core/masterpages/tabPage2C.tpl.html')
+                    templateUrl: sysConfig.src('core/parts/masterpages/tabPage2C.tpl.html')
                 };
 
             $stateProvider

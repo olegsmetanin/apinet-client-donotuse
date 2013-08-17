@@ -2,7 +2,7 @@ angular.module('core')
 .directive('reportNotifier', ['security', 'sysConfig', 'reportService',
     function(security, sysConfig, reportService) {
         var directive = {
-            templateUrl: sysConfig.src('core/reportNotifier/reportNotifier.tpl.html'),
+            templateUrl: sysConfig.src('core/parts/header/reportNotifier/reportNotifier.tpl.html'),
             restrict: 'EA',
             replace: true,
             scope: true,
@@ -23,11 +23,11 @@ angular.module('core')
                 $scope.reloadReportEvents = function() {
                     $scope.isReloading = true;
                     reportService.reloadEvents();
-                }
+                };
 
                 $scope.cancelReportGeneration = function (index) {
                     reportService.cancelReportGeneration($scope.reports.gen[index].name);
-                }
+                };
 
             }
         };
