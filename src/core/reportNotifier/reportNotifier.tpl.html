@@ -8,7 +8,10 @@
     <ul class="dropdown-menu messages">
 
         <li>
-            <a onclick="event.stopPropagation();" class="dropdown-menu-sub-header" ng-click="reloadReportEvents()"><i class="icon-refresh"></i></a>
+            <a onclick="event.stopPropagation();" class="dropdown-menu-sub-header" ng-click="reloadReportEvents()"><i ng-class="{'icon-spin':isReloading}" class="icon-refresh"></i>
+
+
+            </a>
         </li>
 
         <li ng-repeat="report in reports.gen">

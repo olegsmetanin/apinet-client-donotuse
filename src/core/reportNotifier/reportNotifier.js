@@ -10,14 +10,18 @@ angular.module('core')
 
                 $scope.badge = '';
 
+                $scope.isReloading = false;
+
                 $scope.$on('events:reportsChanged', function() {
                     $scope.reports = eventsService.reports;
                     var genCount = $scope.reports.gen.length;
                     var doneCount = $scope.reports.done.length;
                     $scope.badge = (genCount === 0 ? '' : genCount + '/') + (doneCount === 0 ? '' : doneCount);
+                    $scope.isReloading = false;
                 });
 
                 $scope.reloadReportEvents = function() {
+                    $scope.isReloading = true;
                     eventsService.reloadEvents();
                 }
 
