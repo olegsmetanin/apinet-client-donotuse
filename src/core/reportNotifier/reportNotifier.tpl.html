@@ -1,0 +1,29 @@
+<li class="dropdown notification-dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="icon-print"></i>
+        <span ng-show="badge !== ''" class="count">{{badge}}</span>
+
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu messages">
+
+        <li>
+            <a onclick="event.stopPropagation();" class="dropdown-menu-sub-header" ng-click="reloadReportEvents()"><i class="icon-refresh"></i></a>
+        </li>
+
+        <li ng-repeat="report in reports.gen">
+            <a href="#">
+                  {{report.name}}, {{report.percent}}%
+            </a>
+        </li>
+        <li ng-repeat="report in reports.done">
+            <a href="#">
+                  {{report.name}}
+            </a>
+        </li>
+
+        <li>
+            <a class="dropdown-menu-sub-footer">View all reports</a>
+        </li>
+    </ul>
+</li>
