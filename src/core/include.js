@@ -35,8 +35,10 @@ sysConfig.modules['core'] = {
         "src/core/i18n/i18n.js",
         "src/core/modulemenu/modulemenu.js",
 
-        "src/core/eventService/eventService.js",
-        "src/core/reportNotifier/reportNotifier.js"
+        "src/core/reportService/reportService.js",
+        "src/core/reportNotifier/reportNotifier.js",
+
+        "src/core/messageService/messageService.js"
 
 
 

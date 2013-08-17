@@ -15,9 +15,8 @@
         </li>
 
         <li ng-repeat="report in reports.gen">
-            <a href="#">
-                  {{report.name}}, {{report.percent}}%
-            </a>
+            <span style="padding: 3px 20px;">{{report.name}}, {{report.percent}}%</span>
+            <button ng-click="cancelReportGeneration($index)" onclick="event.stopPropagation();" class="btn btn-mini btn-danger" type="button">Cancel</button>
         </li>
         <li ng-repeat="report in reports.done">
             <a href="#">
