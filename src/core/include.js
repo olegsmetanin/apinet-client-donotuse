@@ -5,6 +5,7 @@ sysConfig.modules['core'] = {
         "src/core/assets/spinner.css",
         "src/core/assets/breadcrumbs.css",
         "src/core/assets/counter.css",
+        "src/core/assets/avatar.css"
     ],
     js: [
         "src/core/_module.js",
