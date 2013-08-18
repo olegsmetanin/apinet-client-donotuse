@@ -14,7 +14,7 @@ angular.module('core')
                 },
 
                 generate: function(params) {
-                    $http.post('/api/v1', params)
+                    $http.post('/api/v1', params);
                 },
 
 

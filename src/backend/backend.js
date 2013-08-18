@@ -120,7 +120,7 @@ angular.module('backend', ['ngMockE2E'])
                 } else if ((prms.action === "generateStatus") && (prms.model === "Generator")) {
                     return [200, {
                         reports: reportService.reports
-                    }]
+                    }];
                 } else {
                     return [500, 'Oops, something went wrong'];
                 }
@@ -144,7 +144,7 @@ angular.module('backend', ['ngMockE2E'])
                         reportService.reports.done.unshift({
                             "name": gen[i].name,
                             "done": new Date()
-                        })
+                        });
                         reportService.reports.gen.splice(i, 1);
 
                         reportService.setReports(reportService.reports);
@@ -156,8 +156,10 @@ angular.module('backend', ['ngMockE2E'])
 
 
                 generateTimer = window.setTimeout(function() {
-                    updatePercent();
-                }, 1000)
+                    if (gen.length>0) {
+                        updatePercent();
+                    }
+                }, 1000);
             }
 
             function generateProjectsReport(prms) {
