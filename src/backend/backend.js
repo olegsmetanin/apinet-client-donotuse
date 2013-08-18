@@ -142,7 +142,8 @@ angular.module('backend', ['ngMockE2E'])
                     var currentPercent = gen[i].percent;
                     if (currentPercent >= 100) {
                         reportService.reports.done.unshift({
-                            "name": gen[i].name
+                            "name": gen[i].name,
+                            "done": new Date()
                         })
                         reportService.reports.gen.splice(i, 1);
 

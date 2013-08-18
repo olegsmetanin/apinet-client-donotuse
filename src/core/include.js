@@ -38,7 +38,9 @@ sysConfig.modules['core'] = {
         "src/core/services/reportService/reportService.js",
         "src/core/parts/header/reportNotifier/reportNotifier.js",
 
-        "src/core/services/messageService/messageService.js"
+        "src/core/services/messageService/messageService.js",
+
+        "src/core/pages/userReports/userReports.js"
 
 
 

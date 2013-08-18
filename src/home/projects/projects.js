@@ -48,9 +48,6 @@ angular.module('home')
                 breadcrumbs: [{
                     name: 'Projects',
                     url: '/#!/projects/listview'
-                }, {
-                    name: 'List',
-                    url: '/#!/projects/listview'
                 }]
             });
             $scope.projects = [];
