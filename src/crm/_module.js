@@ -64,7 +64,7 @@
                  $http.post("/api/v1", {
                     action: "get",
                     model: "project.contracts",
-                    project: window.app.project,
+                    project: sysConfig.project,
                     filter: filter
                 }).success(function (data, status, headers, config) {
                      deferred.resolve(data);
@@ -78,7 +78,7 @@
                  $http.post("/api/v1", {
                     action: "get",
                     model: "project.contracts.tasks",
-                    project: window.app.project,
+                    project: sysConfig.project,
                     contract: parseInt(contract,0),
                     filter: filter
                 }).success(function (data, status, headers, config) {
@@ -101,7 +101,7 @@
                         name: "Projects",
                         url: '/projects'
                     },{
-                        name: window.app.project,
+                        name: sysConfig.project,
                         url: '#!/contracts'
                     },{
                         name: 'Contracts',
@@ -136,7 +136,7 @@
                         name: "Projects",
                         url: '/projects'
                     },{
-                        name: window.app.project,
+                        name: sysConfig.project,
                         url: '#!/contracts'
                     },{
                         name: 'contracts',
@@ -160,7 +160,7 @@
                         name: "Projects",
                         url: '/projects'
                     },{
-                        name: window.app.project,
+                        name: sysConfig.project,
                         url: '#!/contracts'
                     },{
                         name: 'contracts',
@@ -298,4 +298,5 @@
                 }
             };
         }
-    ]);
+    ])
+    .constant("moduleMenuUrl", sysConfig.src('crm/menu/menu.tpl.html'));

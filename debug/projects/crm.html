@@ -52,11 +52,11 @@
         -moz-background-size:30px 30px;
         -webkit-background-size:30px 30px;
         -o-background-size:30px 30px;
-        background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
+        background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
         background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(255, 255, 255, 0.2)), color-stop(25%, rgba(255, 255, 255, 0.2)), color-stop(25%, rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0.2)), color-stop(75%, rgba(255, 255, 255, 0.2)), color-stop(75%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(255, 255, 255, 0)));
-        background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
-        background-image: -o-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
-        background-image: -ms-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
+        background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.3) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
+        background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
+        background-image: -ms-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
         background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%);
     }
     .color3 > span {
@@ -69,11 +69,11 @@
 <body>
 
     <div class="bar gradient stripe color3 centered">
-        <span id="percent" style="width:0%"></span>
+        <span id="percent" style="width:0"></span>
     </div>
 
 
-    <script>
+    <script type="text/javascript">
     /*yepnope1.5.x|WTFPL*/
     (function(a, b, c) {
         function d(a) {
@@ -240,72 +240,134 @@
         }
     })(this, document);
 
+    var sysConfig = {};
 
     (function() {
 
-        // Dynamic section begin
+        // Development section begin
 
-        // Constant part
+        sysConfig = {
+            src: function(path) {
+                // in debug mode
+                return "../../src/" + path
+                // in production mode from standalone web-server
+                //return path;
+            },
+            site: function(path) {
+                // in debug mode
+                return "../../" + path
+                // in production mode from grunt connect
+                //return "../dist/" + path
+                // Production mode from standalone web-server
+                // return path
+            },
+            modules: {},
+            module: "crm",
+            project: "crm1",
+            lang: getLang(),
+            // use fake backend
+            fakeBackend: true,
+            // make dalay in milliseconds before $http requests when use fake backend
+            delay: 0
+        };
 
-        window.app = {projectid: "play2"};
 
-        var sysConfig = {
-            srcPrefix: "../../src/",
-            sitePrefix: "../../",
-            module: "crm"
-        }
-        // in Develop mode
         yepnope({
-            load: [sysConfig.srcPrefix + 'include.js', sysConfig.srcPrefix + 'core/include.js', sysConfig.srcPrefix + sysConfig.module + '/include.js'],
+            load: [
+                sysConfig.src('components/include.js'),
+                sysConfig.src('components/lang/include.' + sysConfig.lang + '.js'),
+                sysConfig.src('core/include.js'),
+                sysConfig.src('backend/include.js'),
+                sysConfig.src(sysConfig.module + '/include.js')
+            ],
             complete: function() {
+
+                sysConfig.modules['components'].js = [].concat(
+                    sysConfig.modules['components'].js,
+                    sysConfig.modules['components.lang'].js
+                )
+
+                sysConfig.modules['core'].js = [].concat(
+                    sysConfig.modules['core'].js, [
+                        sysConfig.src('core/lang/core.' + sysConfig.lang + '.js')
+                    ]
+                )
+
+                sysConfig.modules[sysConfig.module].js = [].concat(
+                    sysConfig.modules[sysConfig.module].js, [
+                        sysConfig.src(sysConfig.module + '/lang/' + sysConfig.module + '.' + sysConfig.lang + '.js')
+                    ]
+                )
+
                 LoadResources(function() {
                     angular.element(document).ready(function() {
 
                         angular.module('core.templates', []);
                         angular.module(sysConfig.module + '.templates', []);
 
-                        angular.module('core').constant('currentProject', 'play2').constant('userGroups', []).constant('sysConfig', sysConfig);
+                        angular.module('core')
+                            .constant('currentProject', 'play2')
+                            .constant('userGroups', [])
+                            .constant('sysConfig', sysConfig);
 
-                        angular.bootstrap(document, ['backend','core', sysConfig.module]);
+                        angular.bootstrap(document, [].concat(
+                            (sysConfig.fakeBackend ? ['backend'] : []), ['core', sysConfig.module]
+                        ));
                     });
                 });
+
             }
         });
 
-        /*        // in Production mode
+        // Development section end
 
-        var componentsJS = [
-            "assets/style.min.css",
-            "components.min.js"
-        ];
 
-        var coreJS = [
-            "core.min.js"
-        ];
+        // Production section begin
+/*
 
-        var moduleJS = [
-            "home.min.js"
-        ];
+        var modules = ["components", "core", sysConfig.module];
+
+        for (var i = 0; i < modules.length; i++) {
+            sysConfig.modules[modules[i]] = {
+                css: [modules[i] + "/assets/styles.min.css"],
+                js: [
+                    modules[i] + "/" + modules[i] + ".min.js",
+                    modules[i] + "/" + modules[i] + "." + sysConfig.lang + ".js"
+                ]
+            }
+        }
 
         LoadResources(function() {
             angular.element(document).ready(function() {
 
-                angular.module('core').constant('currentProject', null).constant('userGroups', []).constant('relPrefix', ''); // important to get empty string!
+                angular.module("core")
+                    .constant("currentProject", null)
+                    .constant("userGroups", [])
+                    .constant("sysConfig", sysConfig); // important to get empty string!
 
-                angular.bootstrap(document, ['core', module]);
+                angular.bootstrap(document, ["core", sysConfig.module]);
             });
         });
-*/
 
-        // Dinamic section end
+*/
+        // Production section end
+
+
 
         function LoadResources(completeCb) {
+            //componentsJS.concat(coreJS, moduleJS
+            var resources = [].concat(
+                sysConfig.modules['components'].css,
+                sysConfig.modules['components'].js,
+                sysConfig.modules['core'].css,
+                sysConfig.modules['core'].js,
+                sysConfig.modules[sysConfig.module].css,
+                sysConfig.modules[sysConfig.module].js
+            );
 
-            resourceJS = componentsJS.concat(coreJS, moduleJS);
-
-            var fqResourceJS = [];
-            for (var i = 0; i < resourceJS.length; i++) {
-                fqResourceJS.push(sysConfig.sitePrefix + resourceJS[i]);
+            var fqResources = [];
+            for (var i = 0; i < resources.length; i++) {
+                fqResources.push(sysConfig.site(resources[i]));
             }
 
             var percent = (function() {
@@ -319,9 +381,9 @@
             })();
 
             yepnope({
-                load: fqResourceJS,
+                load: fqResources,
                 callback: function(url, result, key) {
-                    percent.add(100 / resourceJS.length);
+                    percent.add(100 / resources.length);
                 },
                 complete: function() {
                     var uiView = document.createElement("div"),
@@ -335,6 +397,18 @@
 
                 }
             });
+        }
+
+        function getCookie(name) {
+            var matches = document.cookie.match(new RegExp(
+                "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+            ));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        function getLang() {
+            return (getCookie('lang') || window.navigator.userLanguage ||
+                window.navigator.language).substring(0,2);
         }
 
     })();
