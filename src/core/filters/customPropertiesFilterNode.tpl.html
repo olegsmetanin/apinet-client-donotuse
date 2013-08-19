@@ -9,12 +9,12 @@
 		</div>
 	</div>
 	<div ng-show="editMode && !newNodeParent">
-		<div structured-filter-node-editor></div>
+		<div custom-properties-filter-node-editor></div>
 	</div>
 
 	<div ng-class="nodeChildrenClass">
 		<div ng-show="node.items.length">
-			<div structured-filter-subnode
+			<div custom-properties-filter-subnode
 			     ng-repeat="subNode in node.items"
 			     node="subNode"
 			     root-node="rootNode"
@@ -26,7 +26,7 @@
 		</div>
 
 		<div ng-show="editMode && newNodeParent">
-			<div structured-filter-node-editor></div>
+			<div custom-properties-filter-node-editor></div>
 		</div>
 	</div>
 </div>

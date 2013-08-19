@@ -1,13 +1,13 @@
 /* global angular: true */
 angular.module('core')
-	.directive('structuredFilter', ['sysConfig', 'helpers', 'filterHelpers', 'metadataService',
+	.directive('customPropertiesFilter', ['sysConfig', 'helpers', 'filterHelpers', 'metadataService',
 		function(sysConfig, $helpers, $filterHelpers, $metadataService) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/filters/structuredFilter.tpl.html'),
+				templateUrl: sysConfig.src('core/filters/customPropertiesFilter.tpl.html'),
 				controller: ['$scope', function($scope) {
-					function doEditNode(isNew, isRoot) {
-						$scope.newNodeParent = isNew ? (isRoot ? $scope.rootNode : $scope.selectedNode) : null;
+					function doEditNode(isNew) {
+						$scope.newNodeParent = isNew ? $scope.rootNode : null;
 						$scope.editingNode = !isNew && $scope.selectedNode ?
 							angular.extend({ }, $scope.selectedNode) : $filterHelpers.createNewNode();
 						$scope.editingNode.items = [];
@@ -15,12 +15,10 @@ angular.module('core')
 
 					$scope.$on('selectNode', function(e, args) {
 						$scope.selectedNode = args.node;
-						$scope.isCompositeSelected = $filterHelpers.isCompositeNode(
-							args.node, args.metadata);
 					});
 
 					$scope.$on('editNode', function() {
-						doEditNode(false, false);
+						doEditNode(false);
 					});
 
 					$scope.$on('cancelEdit', function() {
@@ -41,7 +39,6 @@ angular.module('core')
 						selectedNode: null,
 						editingNode: null,
 						newNodeParent: null,
-						isCompositeSelected: false,
 
 						getMetadata: function() {
 							if(!$scope.metadata) {
@@ -50,16 +47,12 @@ angular.module('core')
 							return $scope.metadata;
 						},
 
-						newRootNode: function() {
-							doEditNode(true, true);
-						},
-
 						newNode: function() {
-							doEditNode(true, false);
+							doEditNode(true);
 						},
 
 						editNode: function() {
-							doEditNode(false, false);
+							doEditNode(false);
 						},
 
 						deleteNode: function() {
@@ -75,7 +68,7 @@ angular.module('core')
 			};
 		}
 	])
-	.directive('structuredFilterNode', ['sysConfig', 'helpers', 'filterHelpers', 'metadataService',
+	.directive('customPropertiesFilterNode', ['sysConfig', 'helpers', 'filterHelpers', 'metadataService',
 		function(sysConfig, $helpers, $filterHelpers, $metadataService) {
 			return {
 				replace: true,
@@ -88,7 +81,7 @@ angular.module('core')
 
 					getParentMetadata: '&'
 				},
-				templateUrl: sysConfig.src('core/filters/structuredFilterNode.tpl.html'),
+				templateUrl: sysConfig.src('core/filters/customPropertiesFilterNode.tpl.html'),
 				controller: ['$scope', function($scope) {
 					function beforeNodeEdit(node) {
 						if(node.not) {
@@ -175,10 +168,6 @@ angular.module('core')
 						$scope.opDisplayName = $filterHelpers.opDisplayName(newValue, $scope.node.not);
 					}, true);
 
-					$scope.$watch('node.not', function(newValue) {
-						$scope.opDisplayName = $filterHelpers.opDisplayName($scope.node.op, newValue);
-					}, true);
-
 					$scope.$watch('node.value', function(newValue) {
 						$scope.valueDisplayName = $filterHelpers.valueDisplayName(newValue, $scope.getMetadata());
 					}, true);
@@ -232,7 +221,7 @@ angular.module('core')
 								return;
 							}
 
-							$scope.$emit('selectNode', { node: $scope.node, metadata: $scope.getMetadata() });
+							$scope.$emit('selectNode', { node: $scope.node });
 						},
 
 						onNodeDblClick: function($event) {
@@ -273,8 +262,6 @@ angular.module('core')
 									metadata: metadata,
 									changedNode: changedNode
 								});
-
-								$scope.$emit('selectNode', { node: $scope.node, metadata: metadata });
 							}
 
 							$scope.$emit('cancelEdit');
@@ -296,7 +283,7 @@ angular.module('core')
 				}]
 			};
 		}])
-	.directive('structuredFilterSubnode', function($compile) {
+	.directive('customPropertiesFilterSubnode', function($compile) {
 		return {
 			replace: true,
 			scope: {
@@ -317,7 +304,7 @@ angular.module('core')
 			}],
 			link: function (scope, element) {
 				element.append([
-					'<div structured-filter-node',
+					'<div custom-properties-filter-node',
 					'   node="node"',
 					'   root-node="rootNode"',
 					'   selected-node="selectedNode"',
@@ -330,29 +317,24 @@ angular.module('core')
 			}
 		};
 	})
-	.directive('structuredFilterNodeEditor', ['sysConfig', 'filterHelpers', '$filter',
+	.directive('customPropertiesFilterNodeEditor', ['sysConfig', 'filterHelpers', '$filter',
 		function(sysConfig, $filterHelpers, $filter) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/filters/structuredFilterNodeEditor.tpl.html'),
+				templateUrl: sysConfig.src('core/filters/customPropertiesFilterNodeEditor.tpl.html'),
 				controller: ['$scope', function($scope) {
 					$scope.$watch('editingNode.path', function(newValue, oldValue) {
 						var parentMetadata = !$scope.newNodeParent ? $scope.getParentMetadata() : $scope.getMetadata(),
 							metadata = parentMetadata, i, node = $scope.editingNode;
 
-						if(oldValue && node) {
-							node.op = '';
-							node.value = '';
+						if (node && node.path && metadata && metadata.PrimitiveProperties &&
+								metadata.PrimitiveProperties[node.path]) {
+							metadata = metadata.PrimitiveProperties[node.path];
 						}
 
-						if (newValue && metadata && metadata.PrimitiveProperties &&
-								metadata.PrimitiveProperties[newValue]) {
-							metadata = metadata.PrimitiveProperties[newValue];
-						}
-
-						if (newValue && metadata && metadata.ModelProperties &&
-								metadata.ModelProperties[newValue]) {
-							metadata = metadata.ModelProperties[newValue];
+						if (node && node.path && metadata && metadata.ModelProperties &&
+								metadata.ModelProperties[node.path]) {
+							metadata = metadata.ModelProperties[node.path];
 						}
 
 						$scope.editingNodeMetadata = metadata;
@@ -375,17 +357,12 @@ angular.module('core')
 
 						$scope.opSelectVisible = metadata ?
 							!$filterHelpers.isCompositeNode(node, metadata) : false;
-					}, true);
-
-					$scope.$watch('editingNode.op', function(newValue) {
 						$scope.valueEditorUrl = null;
 
-						var metadata = $scope.editingNodeMetadata;
-						if(newValue && metadata && metadata.PropertyType &&
-								!$filterHelpers.isUnaryNode($scope.editingNode)) {
+						if(metadata && metadata.PropertyType && !$filterHelpers.isUnaryNode(node)) {
 							var editorType = 'text';
 							if(metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
-								metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
+									metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
 								editorType = metadata.PropertyType;
 							}
 

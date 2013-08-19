@@ -8,7 +8,7 @@ angular.module('home')
 				$scope.filter = angular.fromJson($scope.state);
 			};
 
-			$scope.$watch('structuredFilter', function(newValue) {
+			$scope.$watch('filter', function(newValue) {
 				$scope.formattedFilter = JSON.stringify(newValue, null, 4);
 			}, true);
 		}

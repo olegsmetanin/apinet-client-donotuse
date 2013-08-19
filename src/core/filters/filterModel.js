@@ -277,6 +277,38 @@ angular.module('core')
 	}])
 	.service('metadataService', [ function() {
 		var allMetadata = {
+			'AGO.Docstore.Model.Projects.ProjectParticipantModel': {
+				'PrimitiveProperties': {
+					'GroupName': {
+						'DisplayName': 'Группа',
+						'PropertyType': 'string'
+					},
+					'IsDefaultGroup': {
+						'DisplayName': 'Группа по умолчанию',
+						'PropertyType': 'boolean'
+					},
+					'CreationTime': {
+						'DisplayName': 'Дата создания',
+						'PropertyType': 'datetime'
+					},
+					'Id': {
+						'DisplayName': 'Идентификатор',
+						'PropertyType': 'guid'
+					}
+				},
+				'ModelProperties': {
+					'Project': {
+						'DisplayName': 'Проект',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Projects.ProjectModel'
+					},
+					'User': {
+						'DisplayName': 'Пользователь',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					}
+				}
+			},
 			'AGO.Docstore.Model.Documents.DocumentCustomPropertyModel': {
 				'PrimitiveProperties': {
 					'StringValue': {
@@ -435,7 +467,157 @@ angular.module('core')
 					}
 				}
 			},
-			'AGO.Docstore.Model.Dictionary.DepartmentModel': {
+			'AGO.Docstore.Model.Dictionary.Documents.DocumentAddresseeModel': {
+				'PrimitiveProperties': {
+					'ProjectCode': {
+						'DisplayName': 'Код проекта',
+						'PropertyType': 'string'
+					},
+					'Name': {
+						'DisplayName': 'Наименование',
+						'PropertyType': 'string'
+					},
+					'FullName': {
+						'DisplayName': 'Полное наименование',
+						'PropertyType': 'string'
+					},
+					'LastChangeTime': {
+						'DisplayName': 'Когда последний раз редактировали',
+						'PropertyType': 'date'
+					},
+					'CreationTime': {
+						'DisplayName': 'Дата создания',
+						'PropertyType': 'datetime'
+					},
+					'Id': {
+						'DisplayName': 'Идентификатор',
+						'PropertyType': 'guid'
+					}
+				},
+				'ModelProperties': {
+					'Children': {
+						'DisplayName': 'Последователи',
+						'IsCollection': true,
+						'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentAddresseeModel'
+					},
+					'ReceivingDocuments': {
+						'DisplayName': 'Документы (кому)',
+						'IsCollection': true,
+						'ModelType': 'AGO.Docstore.Model.Documents.DocumentModel'
+					},
+					'Parent': {
+						'DisplayName': 'Предшественник',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentAddresseeModel'
+					},
+					'Creator': {
+						'DisplayName': 'Кто создал',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					},
+					'LastChanger': {
+						'DisplayName': 'Кто последний раз редактировал',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					}
+				}
+			},
+			'AGO.Docstore.Model.Dictionary.Documents.DocumentCategoryModel': {
+				'PrimitiveProperties': {
+					'ProjectCode': {
+						'DisplayName': 'Код проекта',
+						'PropertyType': 'string'
+					},
+					'Name': {
+						'DisplayName': 'Наименование',
+						'PropertyType': 'string'
+					},
+					'FullName': {
+						'DisplayName': 'Полное наименование',
+						'PropertyType': 'string'
+					},
+					'LastChangeTime': {
+						'DisplayName': 'Когда последний раз редактировали',
+						'PropertyType': 'date'
+					},
+					'CreationTime': {
+						'DisplayName': 'Дата создания',
+						'PropertyType': 'datetime'
+					},
+					'Id': {
+						'DisplayName': 'Идентификатор',
+						'PropertyType': 'guid'
+					}
+				},
+				'ModelProperties': {
+					'Children': {
+						'DisplayName': 'Последователи',
+						'IsCollection': true,
+						'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentCategoryModel'
+					},
+					'Documents': {
+						'DisplayName': 'Документы',
+						'IsCollection': true,
+						'ModelType': 'AGO.Docstore.Model.Documents.DocumentModel'
+					},
+					'Parent': {
+						'DisplayName': 'Предшественник',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentCategoryModel'
+					},
+					'Creator': {
+						'DisplayName': 'Кто создал',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					},
+					'LastChanger': {
+						'DisplayName': 'Кто последний раз редактировал',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					}
+				}
+			},
+			'AGO.Docstore.Model.Dictionary.Documents.DocumentStatusModel': {
+				'PrimitiveProperties': {
+					'ProjectCode': {
+						'DisplayName': 'Код проекта',
+						'PropertyType': 'string'
+					},
+					'Name': {
+						'DisplayName': 'Наименование',
+						'PropertyType': 'string'
+					},
+					'Description': {
+						'DisplayName': 'Описание',
+						'PropertyType': 'string'
+					},
+					'LastChangeTime': {
+						'DisplayName': 'Когда последний раз редактировали',
+						'PropertyType': 'date'
+					},
+					'CreationTime': {
+						'DisplayName': 'Дата создания',
+						'PropertyType': 'datetime'
+					},
+					'Id': {
+						'DisplayName': 'Идентификатор',
+						'PropertyType': 'guid'
+					}
+				},
+				'ModelProperties': {
+					'Creator': {
+						'DisplayName': 'Кто создал',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					},
+					'LastChanger': {
+						'DisplayName': 'Кто последний раз редактировал',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					}
+				}
+			},
+			'AGO.Docstore.Model.Dictionary.OrgStructure.DepartmentModel': {
 				'PrimitiveProperties': {
 					'ProjectCode': {
 						'DisplayName': 'Код проекта',
@@ -471,12 +653,12 @@ angular.module('core')
 					'Children': {
 						'DisplayName': 'Последователи',
 						'IsCollection': true,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DepartmentModel'
+						'ModelType': 'AGO.Docstore.Model.Dictionary.OrgStructure.DepartmentModel'
 					},
 					'Parent': {
 						'DisplayName': 'Предшественник',
 						'IsCollection': false,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DepartmentModel'
+						'ModelType': 'AGO.Docstore.Model.Dictionary.OrgStructure.DepartmentModel'
 					},
 					'Creator': {
 						'DisplayName': 'Кто создал',
@@ -490,117 +672,7 @@ angular.module('core')
 					}
 				}
 			},
-			'AGO.Docstore.Model.Dictionary.DocumentAddresseeModel': {
-				'PrimitiveProperties': {
-					'ProjectCode': {
-						'DisplayName': 'Код проекта',
-						'PropertyType': 'string'
-					},
-					'Name': {
-						'DisplayName': 'Наименование',
-						'PropertyType': 'string'
-					},
-					'FullName': {
-						'DisplayName': 'Полное наименование',
-						'PropertyType': 'string'
-					},
-					'LastChangeTime': {
-						'DisplayName': 'Когда последний раз редактировали',
-						'PropertyType': 'date'
-					},
-					'CreationTime': {
-						'DisplayName': 'Дата создания',
-						'PropertyType': 'datetime'
-					},
-					'Id': {
-						'DisplayName': 'Идентификатор',
-						'PropertyType': 'guid'
-					}
-				},
-				'ModelProperties': {
-					'Children': {
-						'DisplayName': 'Последователи',
-						'IsCollection': true,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DocumentAddresseeModel'
-					},
-					'ReceivingDocuments': {
-						'DisplayName': 'Документы (кому)',
-						'IsCollection': true,
-						'ModelType': 'AGO.Docstore.Model.Documents.DocumentModel'
-					},
-					'Parent': {
-						'DisplayName': 'Предшественник',
-						'IsCollection': false,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DocumentAddresseeModel'
-					},
-					'Creator': {
-						'DisplayName': 'Кто создал',
-						'IsCollection': false,
-						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
-					},
-					'LastChanger': {
-						'DisplayName': 'Кто последний раз редактировал',
-						'IsCollection': false,
-						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
-					}
-				}
-			},
-			'AGO.Docstore.Model.Dictionary.DocumentCategoryModel': {
-				'PrimitiveProperties': {
-					'ProjectCode': {
-						'DisplayName': 'Код проекта',
-						'PropertyType': 'string'
-					},
-					'Name': {
-						'DisplayName': 'Наименование',
-						'PropertyType': 'string'
-					},
-					'FullName': {
-						'DisplayName': 'Полное наименование',
-						'PropertyType': 'string'
-					},
-					'LastChangeTime': {
-						'DisplayName': 'Когда последний раз редактировали',
-						'PropertyType': 'date'
-					},
-					'CreationTime': {
-						'DisplayName': 'Дата создания',
-						'PropertyType': 'datetime'
-					},
-					'Id': {
-						'DisplayName': 'Идентификатор',
-						'PropertyType': 'guid'
-					}
-				},
-				'ModelProperties': {
-					'Children': {
-						'DisplayName': 'Последователи',
-						'IsCollection': true,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DocumentCategoryModel'
-					},
-					'Documents': {
-						'DisplayName': 'Документы',
-						'IsCollection': true,
-						'ModelType': 'AGO.Docstore.Model.Documents.DocumentModel'
-					},
-					'Parent': {
-						'DisplayName': 'Предшественник',
-						'IsCollection': false,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DocumentCategoryModel'
-					},
-					'Creator': {
-						'DisplayName': 'Кто создал',
-						'IsCollection': false,
-						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
-					},
-					'LastChanger': {
-						'DisplayName': 'Кто последний раз редактировал',
-						'IsCollection': false,
-						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
-					}
-				}
-			},
-			'AGO.Docstore.Model.Dictionary.DocumentStatusModel': {
+			'AGO.Docstore.Model.Dictionary.Projects.ProjectStatusModel': {
 				'PrimitiveProperties': {
 					'ProjectCode': {
 						'DisplayName': 'Код проекта',
@@ -746,7 +818,7 @@ angular.module('core')
 					'Categories': {
 						'DisplayName': 'Категории документов',
 						'IsCollection': true,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DocumentCategoryModel'
+						'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentCategoryModel'
 					},
 					'Comments': {
 						'DisplayName': 'Комментарии',
@@ -756,7 +828,7 @@ angular.module('core')
 					'Receivers': {
 						'DisplayName': 'Адресаты (кому)',
 						'IsCollection': true,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DocumentAddresseeModel'
+						'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentAddresseeModel'
 					},
 					'CustomProperties': {
 						'DisplayName': 'Параметры',
@@ -766,7 +838,7 @@ angular.module('core')
 					'Status': {
 						'DisplayName': 'Статус',
 						'IsCollection': false,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DocumentStatusModel'
+						'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentStatusModel'
 					},
 					'Creator': {
 						'DisplayName': 'Кто создал',
@@ -812,7 +884,120 @@ angular.module('core')
 					'Status': {
 						'DisplayName': 'Статус',
 						'IsCollection': false,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DocumentStatusModel'
+						'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentStatusModel'
+					},
+					'Creator': {
+						'DisplayName': 'Кто создал',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					},
+					'LastChanger': {
+						'DisplayName': 'Кто последний раз редактировал',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					}
+				}
+			},
+			'AGO.Docstore.Model.Projects.ProjectModel': {
+				'PrimitiveProperties': {
+					'ProjectCode': {
+						'DisplayName': 'Код проекта',
+						'PropertyType': 'string'
+					},
+					'Name': {
+						'DisplayName': 'Наименование',
+						'PropertyType': 'string'
+					},
+					'Description': {
+						'DisplayName': 'Описание',
+						'PropertyType': 'string'
+					},
+					'IsArchive': {
+						'DisplayName': 'Архив',
+						'PropertyType': 'boolean'
+					},
+					'EventsHorizon': {
+						'DisplayName': 'Горизонт событий проекта',
+						'PropertyType': 'date'
+					},
+					'FileSystemPath': {
+						'DisplayName': 'Путь к проекту',
+						'PropertyType': 'string'
+					},
+					'LastChangeTime': {
+						'DisplayName': 'Когда последний раз редактировали',
+						'PropertyType': 'date'
+					},
+					'CreationTime': {
+						'DisplayName': 'Дата создания',
+						'PropertyType': 'datetime'
+					},
+					'Id': {
+						'DisplayName': 'Идентификатор',
+						'PropertyType': 'guid'
+					}
+				},
+				'ModelProperties': {
+					'StatusHistory': {
+						'DisplayName': 'История статусов учета',
+						'IsCollection': true,
+						'ModelType': 'AGO.Docstore.Model.Projects.ProjectStatusHistoryModel'
+					},
+					'Participants': {
+						'DisplayName': 'Участники проекта',
+						'IsCollection': true,
+						'ModelType': 'AGO.Docstore.Model.Projects.ProjectParticipantModel'
+					},
+					'Status': {
+						'DisplayName': 'Статус проекта',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Dictionary.Projects.ProjectStatusModel'
+					},
+					'Creator': {
+						'DisplayName': 'Кто создал',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					},
+					'LastChanger': {
+						'DisplayName': 'Кто последний раз редактировал',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+					}
+				}
+			},
+			'AGO.Docstore.Model.Projects.ProjectStatusHistoryModel': {
+				'PrimitiveProperties': {
+					'StartDate': {
+						'DisplayName': 'Дата начала',
+						'PropertyType': 'date'
+					},
+					'EndDate': {
+						'DisplayName': 'Дата конца',
+						'PropertyType': 'date'
+					},
+					'LastChangeTime': {
+						'DisplayName': 'Когда последний раз редактировали',
+						'PropertyType': 'date'
+					},
+					'CreationTime': {
+						'DisplayName': 'Дата создания',
+						'PropertyType': 'datetime'
+					},
+					'Id': {
+						'DisplayName': 'Идентификатор',
+						'PropertyType': 'guid'
+					}
+				},
+				'ModelProperties': {
+					'Project': {
+						'DisplayName': 'Документ',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Projects.ProjectModel'
+					},
+					'Status': {
+						'DisplayName': 'Статус',
+						'IsCollection': false,
+						'ModelType': 'AGO.Docstore.Model.Dictionary.Projects.ProjectStatusModel'
 					},
 					'Creator': {
 						'DisplayName': 'Кто создал',
@@ -926,7 +1111,7 @@ angular.module('core')
 					'Departments': {
 						'DisplayName': 'Подразделения',
 						'IsCollection': true,
-						'ModelType': 'AGO.Docstore.Model.Dictionary.DepartmentModel'
+						'ModelType': 'AGO.Docstore.Model.Dictionary.OrgStructure.DepartmentModel'
 					},
 					'Group': {
 						'DisplayName': 'Группа',
@@ -945,7 +1130,6 @@ angular.module('core')
 					}
 				}
 			}
-
 		};
 
 		angular.extend(this, {

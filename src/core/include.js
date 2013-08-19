@@ -29,6 +29,7 @@ sysConfig.modules['core'] = {
         "src/core/filters/complex.js",
 		"src/core/filters/filterModel.js",
 		"src/core/filters/structuredFilter.js",
+		"src/core/filters/customPropertiesFilter.js",
 
         "src/core/i18n/i18n.js",
         "src/core/modulemenu/modulemenu.js"

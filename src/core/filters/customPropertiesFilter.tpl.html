@@ -1,10 +1,6 @@
-<div class="filteringComponent structuredFilter">
+<div class="filteringComponent customPropertiesFilter">
 	<div class="buttons btn-group">
-		<button class="btn btn-success" title="Добавить верхний уровень" ng-click="newRootNode()" ng-disabled="editingNode">
-			<i class="icon-plus icon-white"></i> верхний уровень
-		</button>
-		<button class="btn" disabled="disabled" title="Добавить" ng-click="newNode()"
-		        ng-disabled="editingNode || !selectedNode || !isCompositeSelected">
+		<button class="btn" disabled="disabled" title="Добавить" ng-click="newNode()" ng-disabled="editingNode">
 			<i class="icon-plus"></i>
 		</button>
 		<button class="btn" disabled="disabled" title="Редактировать" ng-click="editNode()" ng-disabled="editingNode || !selectedNode">
@@ -15,7 +11,7 @@
 		</button>
 	</div>
 	<div class="nodesContainer">
-		<div structured-filter-node
+		<div custom-properties-filter-node
 		     node="rootNode"
 		     root-node="rootNode"
 		     selected-node="selectedNode"
