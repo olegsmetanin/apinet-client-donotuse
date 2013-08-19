@@ -45,7 +45,7 @@ angular.module('core')
 
 						getMetadata: function() {
 							if(!$scope.metadata) {
-								$scope.metadata = $metadataService.modelMetadata($scope.modelName);
+								$scope.metadata = $metadataService.modelMetadata($scope.modelType);
 							}
 							return $scope.metadata;
 						},
@@ -296,7 +296,7 @@ angular.module('core')
 				}]
 			};
 		}])
-	.directive('structuredFilterSubnode', function($compile) {
+	.directive('structuredFilterSubnode', ['$compile', function($compile) {
 		return {
 			replace: true,
 			scope: {
@@ -329,7 +329,7 @@ angular.module('core')
 				$compile(element.contents())(scope);
 			}
 		};
-	})
+	}])
 	.directive('structuredFilterNodeEditor', ['sysConfig', 'filterHelpers', '$filter',
 		function(sysConfig, $filterHelpers, $filter) {
 			return {

@@ -1159,7 +1159,7 @@ angular.module('core')
 			return {
 				scope: {
 					rootNode: '=',
-					modelName: '='
+					modelType: '='
 				},
 
 				controller: ['$scope', function($scope) {

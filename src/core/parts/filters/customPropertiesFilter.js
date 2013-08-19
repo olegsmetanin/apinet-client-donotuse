@@ -42,7 +42,7 @@ angular.module('core')
 
 						getMetadata: function() {
 							if(!$scope.metadata) {
-								$scope.metadata = $metadataService.modelMetadata($scope.modelName);
+								$scope.metadata = $metadataService.modelMetadata($scope.modelType);
 							}
 							return $scope.metadata;
 						},

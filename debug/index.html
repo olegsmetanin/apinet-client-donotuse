@@ -284,19 +284,19 @@
                 sysConfig.modules['components'].js = [].concat(
                     sysConfig.modules['components'].js,
                     sysConfig.modules['components.lang'].js
-                )
+                );
 
                 sysConfig.modules['core'].js = [].concat(
                     sysConfig.modules['core'].js, [
                         sysConfig.src('core/lang/core.' + sysConfig.lang + '.js')
                     ]
-                )
+                );
 
                 sysConfig.modules[sysConfig.module].js = [].concat(
                     sysConfig.modules[sysConfig.module].js, [
                         sysConfig.src(sysConfig.module + '/lang/' + sysConfig.module + '.' + sysConfig.lang + '.js')
                     ]
-                )
+                );
 
                 LoadResources(function() {
                     angular.element(document).ready(function() {
@@ -322,7 +322,18 @@
 
 
         // Production section begin
-/*
+
+	    /*sysConfig = {
+		    src: function(path) {
+			    return path;
+		    },
+		    site: function(path) {
+			    return path;
+		    },
+		    modules: {},
+		    module: "home",
+		    lang: getLang()
+	    };
 
         var modules = ["components", "core", sysConfig.module];
 

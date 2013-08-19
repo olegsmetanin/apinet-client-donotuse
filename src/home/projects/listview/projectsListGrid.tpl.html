@@ -1,113 +1,20 @@
 <div class="row-fluid" ng-controller="projectsListGridCtrl">
-    <div ng-show="loading.active()">
-        <span us-spinner></span>
-    </div>
+	<div ng-show="loading.active()">
+		<span us-spinner></span>
+	</div>
 
-    Moment:
-    <span am-time-ago="moment"></span>
-    <br/>i18n:
-    <span>{{'test' | i18n}}</span>
-    <br/>Font awesome: <i class="icon-camera-retro"></i> icon-camera-retro
-    <br/>Avatars:
-    <div class="avatar">
-        <img src="http://beer2code.com/themes/core-admin/images/avatars/avatar1.jpg">
-    </div>
-    <div class="avatar">
-        <img class="avatar-small" src="http://beer2code.com/themes/core-admin/images/avatars/avatar1.jpg">
-    </div>
-
-    <button ng-click="generateReport()">Generate</button>
-
-    <ul class="chat-box timeline">
-
-        <li class="arrow-box-left gray">
-            <div class="avatar">
-                <img class="avatar-small" src="http://beer2code.com/themes/core-admin/images/avatars/avatar1.jpg">
-            </div>
-            <div class="info">
-                <span class="name">
-                    <span class="label label-green">COMMENT</span>
-                    <strong class="indent">Janine</strong>posted a comment on this task:
-                    <strong>Core Admin</strong>
-                </span>
-                <span class="time"><i class="icon-time"></i> 3 minutes ago</span>
-            </div>
-            <div class="content">
-                <blockquote>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </blockquote>
-                <div>
-                    <a href="#"><i class="icon-paper-clip"></i> <b>project_news.docx</b></a>
-                </div>
-            </div>
-        </li>
-
-        <li class="arrow-box-left gray">
-            <div class="avatar">
-                <img class="avatar-small" src="http://beer2code.com/themes/core-admin/images/avatars/avatar1.jpg">
-            </div>
-            <div class="info">
-                <span class="name">
-                    <span class="label label-blue">TASK</span>
-                    <strong class="indent">John</strong>completed this task:
-                    <strong class="strikethrough">Core Admin</strong>
-                </span>
-                <span class="time"><i class="icon-time"></i> 6 minutes ago</span>
-            </div>
-        </li>
-
-        <li class="arrow-box-left gray">
-            <div class="avatar">
-                <img class="avatar-small" src="http://beer2code.com/themes/core-admin/images/avatars/avatar1.jpg">
-            </div>
-            <div class="info">
-                <span class="name">
-                    <span class="label label-purple">FILE</span>
-                    <strong class="indent">John</strong>added 3 new files in project:
-                    <strong>Core Admin</strong>
-                </span>
-                <span class="time"><i class="icon-time"></i> 12 minutes ago</span>
-            </div>
-            <div class="content">
-                <ul class="thumbnails padded">
-
-                    <li class="span3">
-                        <a href="#" class="thumbnail">
-                            <img src="http://placehold.it/240x100" alt="">
-                        </a>
-                    </li>
-
-                    <li class="span3">
-                        <a href="#" class="thumbnail">
-                            <img src="http://placehold.it/240x100" alt="">
-                        </a>
-                    </li>
-
-                    <li class="span3">
-                        <a href="#" class="thumbnail">
-                            <img src="http://placehold.it/240x100" alt="">
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-        </li>
-    </ul>
-
-
-
-    <div class="span6">
-        <ul>
-            <li ng-repeat="project in projects">
-                <a href="/projects/{{project.id}}#!/common">{{project.name}}</a>
-                &nbsp;(
-                <a ng-click="showDetails(project.id)">details</a>)
-            </li>
-        </ul>
-    </div>
-    <div class="span6">
-        <div ng-include src="projectDetailsTemplate">
-            Click [details] link to the right of the project name to view project details
-        </div>
-    </div>
+	<div class="span6">
+		<ul>
+			<li ng-repeat="project in projects">
+				<a href="/projects/{{project.Id}}#!/common">{{project.Name}}</a>
+				&nbsp;(
+				<a ng-click="showDetails(project.Id)">details</a>)
+			</li>
+		</ul>
+	</div>
+	<div class="span6">
+		<div ng-include src="projectDetailsTemplate">
+			Click [details] link to the right of the project name to view project details
+		</div>
+	</div>
 </div>
