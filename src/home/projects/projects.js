@@ -42,14 +42,11 @@ angular.module('home')
             });
         }
     ])
-    .controller('projectsListGridCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker',
-        function($scope, $projectsService, $pageConfig, sysConfig, promiseTracker) {
+    .controller('projectsListGridCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
+        function($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
             $pageConfig.setConfig({
                 breadcrumbs: [{
                     name: 'Projects',
-                    url: '/#!/projects/listview'
-                }, {
-                    name: 'List',
                     url: '/#!/projects/listview'
                 }]
             });
@@ -64,6 +61,15 @@ angular.module('home')
             });
 
             $scope.moment = new Date();
+
+            $scope.generateReport = function() {
+                reportService.generate({
+                    action:"generate",
+                    model: "Project",
+                    filter:{},
+                    name:"report"+new Date()
+                });
+            };
 
             $scope.templatesConfig = function(projectId) {
                 if (projectId && projectId.indexOf('play') >= 0) {

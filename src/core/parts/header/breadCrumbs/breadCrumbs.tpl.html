@@ -1,4 +1,4 @@
-    <ul class="navbreadcrumbs breadcrumb" ng-controller="breadcrumbsCtrl">
+    <ul class="navbreadcrumbs breadcrumb" ng-controller="breadCrumbsCtrl">
         <li ng-repeat="breadcrumb in breadcrumbs" ng-class="{'active':$last}">
             <a ng-show="isHref($index)" href="{{breadcrumb.url}}">{{breadcrumb.name}}</a>
             <span ng-show="!isHref($index)">{{breadcrumb.name}}</span>

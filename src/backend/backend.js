@@ -1,6 +1,6 @@
 angular.module('backend', ['ngMockE2E'])
-    .run(['$httpBackend',
-        function($httpBackend) {
+    .run(['$httpBackend', '$timeout', 'reportService',
+        function($httpBackend, $timeout, reportService) {
 
             var userId = 0;
 
@@ -114,35 +114,100 @@ angular.module('backend', ['ngMockE2E'])
             $httpBackend.whenPOST('/api/v1').respond(function(method, url, data, headers) {
                 var prms = JSON.parse(data);
                 if ((prms.action === "get") && (prms.model === "projects")) {
+                    return getProjects();
+                } else if ((prms.action === "generate") && (prms.model === "Project")) {
+                    return generateProjectsReport(prms);
+                } else if ((prms.action === "generateStatus") && (prms.model === "Generator")) {
                     return [200, {
-                        "projects": [{
-                            "id": "play2",
-                            "name": "Play 2.0"
-                        }, {
-                            "id": "prj2",
-                            "name": "Play 1.2.4"
-                        }, {
-                            "id": "prj3",
-                            "name": "Website"
-                        }, {
-                            "id": "prj4",
-                            "name": "Secret project"
-                        }, {
-                            "id": "prj5",
-                            "name": "Playmate"
-                        }, {
-                            "id": "prj6",
-                            "name": "Things to do"
-                        }]
+                        reports: reportService.reports
                     }];
                 } else {
                     return [500, 'Oops, something went wrong'];
                 }
             });
 
-
             //all others
             $httpBackend.whenGET(/^(projects|ng-modules|components)*/).passThrough();
             $httpBackend.whenPOST(/^(\/api)*/).passThrough();
+
+            var generateTimer;
+
+            function updatePercent() {
+                if (generateTimer) {
+                    clearTimeout(generateTimer);
+                }
+
+                var gen = reportService.reports.gen;
+                for (var i = 0; i < gen.length; i++) {
+                    var currentPercent = gen[i].percent;
+                    if (currentPercent >= 100) {
+                        reportService.reports.done.unshift({
+                            "name": gen[i].name,
+                            "done": new Date()
+                        });
+                        reportService.reports.gen.splice(i, 1);
+
+                        reportService.setReports(reportService.reports);
+                    } else {
+                        gen[i].percent = currentPercent + 10;
+                        reportService.setReports(reportService.reports);
+                    }
+                }
+
+
+                generateTimer = window.setTimeout(function() {
+                    if (gen.length>0) {
+                        updatePercent();
+                    }
+                }, 1000);
+            }
+
+            function generateProjectsReport(prms) {
+                $timeout(function() {
+                    if (!reportService.reports.gen) {
+                        reportService.reports = {
+                            gen: [],
+                            done: []
+                        };
+                    }
+                    reportService.reports.gen.unshift({
+                        "name": prms.name,
+                        "percent": 0
+                    });
+                    reportService.setReports(reportService.reports);
+
+                    updatePercent();
+
+                }, 1000);
+
+                return [200];
+            }
+
+            function getProjects() {
+                return [200, {
+                    "projects": [{
+                        "id": "play2",
+                        "name": "Play 2.0"
+                    }, {
+                        "id": "prj2",
+                        "name": "Play 1.2.4"
+                    }, {
+                        "id": "prj3",
+                        "name": "Website"
+                    }, {
+                        "id": "prj4",
+                        "name": "Secret project"
+                    }, {
+                        "id": "prj5",
+                        "name": "Playmate"
+                    }, {
+                        "id": "prj6",
+                        "name": "Things to do"
+                    }]
+                }];
+            }
+
+
+
         }
     ]);

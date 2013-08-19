@@ -4,7 +4,7 @@ angular.module('core')
 		function(sysConfig, $helpers, $filterHelpers, $metadataService) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/filters/structuredFilter.tpl.html'),
+				templateUrl: sysConfig.src('core/parts/filters/structuredFilter.tpl.html'),
 				controller: ['$scope', function($scope) {
 					function doEditNode(isNew, isRoot) {
 						$scope.newNodeParent = isNew ? (isRoot ? $scope.rootNode : $scope.selectedNode) : null;
@@ -88,7 +88,7 @@ angular.module('core')
 
 					getParentMetadata: '&'
 				},
-				templateUrl: sysConfig.src('core/filters/structuredFilterNode.tpl.html'),
+				templateUrl: sysConfig.src('core/parts/filters/structuredFilterNode.tpl.html'),
 				controller: ['$scope', function($scope) {
 					function beforeNodeEdit(node) {
 						if(node.not) {
@@ -195,7 +195,7 @@ angular.module('core')
 							var metadata = $scope.metadata, parentMetadata, node = $scope.node;
 							if(!metadata) {
 								parentMetadata = $scope.getParentMetadata();
-								
+
 								if($filterHelpers.isSpecialNode(node)) {
 									metadata = parentMetadata;
 								}
@@ -334,7 +334,7 @@ angular.module('core')
 		function(sysConfig, $filterHelpers, $filter) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/filters/structuredFilterNodeEditor.tpl.html'),
+				templateUrl: sysConfig.src('core/parts/filters/structuredFilterNodeEditor.tpl.html'),
 				controller: ['$scope', function($scope) {
 					$scope.$watch('editingNode.path', function(newValue, oldValue) {
 						var parentMetadata = !$scope.newNodeParent ? $scope.getParentMetadata() : $scope.getMetadata(),

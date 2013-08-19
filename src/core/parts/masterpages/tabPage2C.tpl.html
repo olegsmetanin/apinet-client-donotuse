@@ -1,7 +1,9 @@
 <div>
-    <div ng-relinclude="'core/header/header.tpl.html'"></div>
+
+    <div ng-relinclude="'core/parts/header/header.tpl.html'"></div>
 
     <div class="container-fluid">
+
         <div class="row-fluid">
             <div class="span12">
                 <div ui-view="tabbar"></div>
@@ -9,7 +11,10 @@
         </div>
         <!--/.row-fluid-->
         <div class="row-fluid">
-            <div class="span12">
+            <div class="span3">
+                <div ui-view="sidebar"></div>
+            </div>
+            <div class="span9">
                 <div ui-view="content"></div>
             </div>
         </div>
@@ -18,4 +23,4 @@
     <!--/.fluid-container-->
 </div>
 
-<div ng-relinclude="'core/footer/footer.tpl.html'"></div>
+<div ng-relinclude="'core/parts/footer/footer.tpl.html'"></div>
