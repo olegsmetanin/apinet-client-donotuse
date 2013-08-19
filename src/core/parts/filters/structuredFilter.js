@@ -389,7 +389,7 @@ angular.module('core')
 								editorType = metadata.PropertyType;
 							}
 
-							$scope.valueEditorUrl = sysConfig.src('core/filters/') +
+							$scope.valueEditorUrl = sysConfig.src('core/parts/filters/') +
 								editorType + 'ValueEditor.tpl.html';
 						}
 					}, true);
