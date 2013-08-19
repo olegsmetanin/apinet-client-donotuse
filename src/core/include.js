@@ -13,6 +13,8 @@ sysConfig.modules['core'] = {
         "src/core/parts/header/breadCrumbs/breadCrumbsCtrl.js",
         "src/core/parts/header/tabBar/tabBar.js",
 
+        "src/core/parts/masterpages/directives.js",
+
         "src/core/services/security/index.js",
         "src/core/services/security/authorization.js",
         "src/core/services/security/interceptor.js",

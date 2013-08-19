@@ -1,6 +1,7 @@
 /* global angular: true */
 angular.module('core', ['ui.state', 'ui.bootstrap', 'core.security', 'core.templates',
-	'ajoslin.promise-tracker','angularMoment', 'angularSpinner', 'ui.bootstrap.datetimepicker']);
+    'ajoslin.promise-tracker', 'angularMoment', 'angularSpinner', 'ui.bootstrap.datetimepicker'
+]);
 
 angular.module('core')
     .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
@@ -26,34 +27,44 @@ angular.module('core')
                     name: "tabPage2C",
                     abstract: true,
                     templateUrl: sysConfig.src('core/parts/masterpages/tabPage2C.tpl.html')
+                },
+                page = {
+                    name: "page",
+                    abstract: true,
+                    templateUrl: sysConfig.src('core/parts/masterpages/page.tpl.html')
                 };
 
             $stateProvider
                 .state(page1C)
                 .state(page2C)
                 .state(tabPage1C)
-                .state(tabPage2C);
+                .state(tabPage2C)
+                .state(page);
         }
     ])
     .constant('I18N.MESSAGES', {
-      'errors.route.changeError':'Route change error',
-      'crud.user.save.success':"A user with id '{{id}}' was saved successfully.",
-      'crud.user.remove.success':"A user with id '{{id}}' was removed successfully.",
-      'crud.user.remove.error':"Something went wrong when removing user with id '{{id}}'.",
-      'crud.user.save.error':"Something went wrong when saving a user...",
-      'crud.project.save.success':"A project with id '{{id}}' was saved successfully.",
-      'crud.project.remove.success':"A project with id '{{id}}' was removed successfully.",
-      'crud.project.save.error':"Something went wrong when saving a project...",
-      'login.reason.notAuthorized':"You do not have the necessary access permissions.  Do you want to login as someone else?",
-      'login.reason.notAuthenticated':"You must be logged in to access this part of the application.",
-      'login.error.invalidCredentials': "Login failed.  Please check your credentials and try again.",
-      'login.error.serverError': "There was a problem with authenticating: {{exception}}."
+        'errors.route.changeError': 'Route change error',
+        'crud.user.save.success': "A user with id '{{id}}' was saved successfully.",
+        'crud.user.remove.success': "A user with id '{{id}}' was removed successfully.",
+        'crud.user.remove.error': "Something went wrong when removing user with id '{{id}}'.",
+        'crud.user.save.error': "Something went wrong when saving a user...",
+        'crud.project.save.success': "A project with id '{{id}}' was saved successfully.",
+        'crud.project.remove.success': "A project with id '{{id}}' was removed successfully.",
+        'crud.project.save.error': "Something went wrong when saving a project...",
+        'login.reason.notAuthorized': "You do not have the necessary access permissions.  Do you want to login as someone else?",
+        'login.reason.notAuthenticated': "You must be logged in to access this part of the application.",
+        'login.error.invalidCredentials': "Login failed.  Please check your credentials and try again.",
+        'login.error.serverError': "There was a problem with authenticating: {{exception}}."
     })
-    .controller('HeaderCtrl', ['$scope', 'security', function($scope, security) {
-        $scope.isAuthenticated = security.isAuthenticated;
-    }])
-    .run(['security', function(security) {
-      // Get the current user when the application starts
-      // (in case they are still logged in from a previous session or on project change)
-      security.requestCurrentUser();
-    }]);
+    .controller('HeaderCtrl', ['$scope', 'security',
+        function($scope, security) {
+            $scope.isAuthenticated = security.isAuthenticated;
+        }
+    ])
+    .run(['security',
+        function(security) {
+            // Get the current user when the application starts
+            // (in case they are still logged in from a previous session or on project change)
+            security.requestCurrentUser();
+        }
+    ]);

@@ -4,14 +4,11 @@ angular.module('core')
         function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
 
             var userReports = {
-                name: 'page2C.userReports',
+                name: 'page.userReports',
                 url: '/userReports',
                 views: {
-                    'sidebar': {
-                        templateUrl: sysConfig.src('core/pages/userReports/userReportsFilter.tpl.html')
-                    },
                     'content': {
-                        templateUrl: sysConfig.src('core/pages/userReports/userReportsGrid.tpl.html')
+                        templateUrl: sysConfig.src('core/pages/userReports/userReports.tpl.html')
                     }
                 }
             };
