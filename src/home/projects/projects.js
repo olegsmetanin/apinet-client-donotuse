@@ -4,14 +4,11 @@ angular.module('home')
 		function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
 
 			var projectsList = {
-				name: 'page2C.projectList',
+				name: 'page.projectList',
 				url: '/projects/listview',
 				views: {
-					'sidebar': {
-						templateUrl: sysConfig.src('home/projects/listview/projectsListFilter.tpl.html')
-					},
 					'content': {
-						templateUrl: sysConfig.src('home/projects/listview/projectsListGrid.tpl.html')
+						templateUrl: sysConfig.src('home/projects/listview/projectsList.tpl.html')
 					}
 				}
 			};
@@ -42,17 +39,17 @@ angular.module('home')
 			});
 		}
 	])
-	.controller('projectsListGridCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
+	.controller('projectsListCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
 		function ($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
-			$scope.$parent.$parent.opt = {
+			$scope.opt = {
 				filter: {
 					op: '&&',
 					items: []
 				},
 				modelType: 'AGO.Docstore.Model.Projects.ProjectModel'
 			};
-			$scope.$parent.$parent.structuredFilter = null;
-			$scope.$parent.$parent.filterEnabled = false;
+			$scope.structuredFilter = null;
+			$scope.filterEnabled = false;
 
 			$pageConfig.setConfig({
 				breadcrumbs: [{
