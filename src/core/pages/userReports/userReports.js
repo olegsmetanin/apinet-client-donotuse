@@ -40,9 +40,4 @@ angular.module('core')
 
 
         }
-    ])
-
-
-
-
-    ;
+    ]);

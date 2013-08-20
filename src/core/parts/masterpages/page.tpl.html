@@ -1,13 +1,7 @@
 <div>
-    <div ng-relinclude="'core/parts/header/header.tpl.html'"></div>
+	<div ng-relinclude="'core/parts/header/header.tpl.html'"></div>
 
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div ui-view="content"></div>
-        </div>
-    </div>
-    <!--/.fluid-container-->
+	<div ui-view="content"></div>
 
+	<div ng-relinclude="'core/parts/footer/footer.tpl.html'"></div>
 </div>
-
-<div ng-relinclude="'core/parts/footer/footer.tpl.html'"></div>

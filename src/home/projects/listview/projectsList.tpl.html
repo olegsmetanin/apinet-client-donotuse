@@ -1,52 +1,54 @@
-<div ng-controller="projectsListCtrl">
+<div container>
+	<div ng-controller="projectsListCtrl">
 
-    <twocolumn-side>
+		<twocolumn-side>
 
-        <div ng-controller="projectsListFilterCtrl" ng-model="filter">
+			<div ng-controller="projectsListFilterCtrl" ng-model="filter">
 
-            <ul class="nav nav-tabs" id="filteringTabs">
-                <!--<li class="active"><a href="#simpleFilter" data-toggle="tab"><i class="icon-search" title="Простой фильтр"></i></a></li>-->
-                <li class="active"><a href="#structuredFilter" data-toggle="tab"><i class="icon-filter" title="Структурированный фильтр"></i></a>
-                </li>
-                <li class="pull-right">
-                    <button class="btn btn-primary" ng-disabled="filterEnabled" ng-click="filterEnabled = true;">Применить фильтры</button>
-                </li>
-            </ul>
+				<ul class="nav nav-tabs" id="filteringTabs">
+					<!--<li class="active"><a href="#simpleFilter" data-toggle="tab"><i class="icon-search" title="Простой фильтр"></i></a></li>-->
+					<li class="active"><a href="#structuredFilter" data-toggle="tab"><i class="icon-filter" title="Структурированный фильтр"></i></a>
+					</li>
+					<li class="pull-right">
+						<button class="btn btn-primary" ng-disabled="filterEnabled" ng-click="filterEnabled = true;">Применить фильтры</button>
+					</li>
+				</ul>
 
-            <div class="tab-content">
-                <!--<div class="tab-pane active" id="simpleFilter"></div>-->
-                <div class="tab-pane active" id="structuredFilter">
-                    <div filter-model root-node="structuredFilter" model-type="opt.modelType">
-                        <div structured-filter></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+				<div class="tab-content">
+					<!--<div class="tab-pane active" id="simpleFilter"></div>-->
+					<div class="tab-pane active" id="structuredFilter">
+						<div filter-model root-node="structuredFilter" model-type="opt.modelType">
+							<div structured-filter></div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-    </twocolumn-side>
+		</twocolumn-side>
 
 
-    <twocolumn-content>
+		<twocolumn-content>
 
-        <div class="span6" ng-show="loading.active()">
-            <span us-spinner></span>
-        </div>
+			<div class="span6" ng-show="loading.active()">
+				<span us-spinner></span>
+			</div>
 
-        <div class="span6">
-            <ul>
-                <li ng-repeat="project in projects">
-                    <a href="/projects/{{project.Id}}#!/common">{{project.Name}}</a>
-                    &nbsp;(
-                    <a ng-click="showDetails(project.Id)">details</a>)
-                </li>
-            </ul>
-        </div>
-        <div class="span6">
-            <div ng-include src="projectDetailsTemplate">
-                Click [details] link to the right of the project name to view project details
-            </div>
-        </div>
+			<div class="span6">
+				<ul>
+					<li ng-repeat="project in projects">
+						<a href="/projects/{{project.Id}}#!/common">{{project.Name}}</a>
+						&nbsp;(
+						<a ng-click="showDetails(project.Id)">details</a>)
+					</li>
+				</ul>
+			</div>
+			<div class="span6">
+				<div ng-include src="projectDetailsTemplate">
+					Click [details] link to the right of the project name to view project details
+				</div>
+			</div>
 
-    </twocolumn-content>
+		</twocolumn-content>
 
+	</div>
 </div>

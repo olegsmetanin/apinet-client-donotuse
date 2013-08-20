@@ -44,7 +44,6 @@ angular.module('core')
 
 					$scope.$on('events:unreadReportsChanged', function() {
 						update();
-
 					});
 
 					$scope.updateUnreadUserReports = function() {
@@ -58,7 +57,10 @@ angular.module('core')
 						reportService.cancelReportGeneration($scope.reports.gen[index].name);
 					};
 
-					update();
+
+					$timeout(function() {
+						update();
+					});
 
 				}
 			};
