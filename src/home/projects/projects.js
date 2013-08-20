@@ -1,5 +1,4 @@
-﻿/* global angular: true */
-angular.module('home')
+﻿angular.module('home')
 	.config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
 		function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
 
@@ -21,19 +20,21 @@ angular.module('home')
 	.service("projectsService", ['$q', '$http', 'sysConfig',
 		function ($q, $http /*, sysConfig*/) {
 			angular.extend(this, {
-				getProjects: function (opt) {
+				getProjects: function (requestData) {
 					var deferred = $q.defer();
-					$http.post("/api/models/", angular.extend({
-						action: 'getModels'
-					}, opt), {
-						tracker: 'projects'
+					$http.post("/api/models/",
+						angular.extend({
+							action: 'getModels'
+						}, requestData), {
+							tracker: 'projects'
+						}
+					)
+					.success(function (data) {
+						deferred.resolve(data);
 					})
-						.success(function (data) {
-							deferred.resolve(data);
-						})
-						.error(function (data, status, headers, config) {
-							// TODO
-						});
+					.error(function (data, status, headers, config) {
+						// TODO
+					});
 					return deferred.promise;
 				}
 			});
@@ -41,7 +42,7 @@ angular.module('home')
 	])
 	.controller('projectsListCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
 		function ($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
-			$scope.opt = {
+			$scope.requestData = {
 				filter: {
 					op: '&&',
 					items: []
@@ -86,8 +87,7 @@ angular.module('home')
 				$scope.projectDetailsTemplate = $scope.templatesConfig(projectId);
 			};
 
-			$scope.$watch('opt', function(newValue) {
-				console.log('opt', newValue);
+			$scope.$watch('requestData', function(newValue) {
 				$projectsService.getProjects(newValue).then(function (res) {
 					$scope.projects = [];
 					if (res && angular.isArray(res.rows)) {

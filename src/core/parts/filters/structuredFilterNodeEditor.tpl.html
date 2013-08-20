@@ -1,6 +1,6 @@
 <div class="nodeData nodeEditor">
 	<select class="pathSelect"
-	        ng-model="editingNode.path"
+	        ng-model="node.path"
 	        ng-options="path.value as path.label for path in paths">
 	</select>
 	<ul class="errorsList" ng-show="validationErrors.path.length">
@@ -9,7 +9,7 @@
 
 	<div ng-show="opSelectVisible">
 		<select class="opSelect"
-		        ng-model="editingNode.op"
+		        ng-model="node.op"
 		        ng-options="op.value as op.label for op in ops">
 		</select>
 	</div>

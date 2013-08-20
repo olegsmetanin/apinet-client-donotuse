@@ -1,4 +1,3 @@
-/* global sysConfig: true */
 sysConfig.modules['core'] = {
     css: [
         "src/core/assets/filtering-component.css",
@@ -31,7 +30,7 @@ sysConfig.modules['core'] = {
         "src/core/parts/filters/ago-jquery-structured-filter.js",
         "src/core/parts/filters/ago-jquery-custom-properties-filter.js",
         "src/core/parts/filters/complex.js",
-		"src/core/parts/filters/filterModel.js",
+		"src/core/parts/filters/filterHelpers.js",
 		"src/core/parts/filters/structuredFilter.js",
 		"src/core/parts/filters/customPropertiesFilter.js",
 

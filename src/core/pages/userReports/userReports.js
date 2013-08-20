@@ -1,4 +1,3 @@
-/* global angular: true */
 angular.module('core')
     .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
         function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {

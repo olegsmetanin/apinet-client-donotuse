@@ -1,4 +1,3 @@
-/* global angular: true */
 angular.module('core', ['ui.state', 'ui.bootstrap', 'core.security', 'core.templates',
     'ajoslin.promise-tracker', 'angularMoment', 'angularSpinner', 'ui.bootstrap.datetimepicker'
 ]);

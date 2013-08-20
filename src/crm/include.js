@@ -1,4 +1,3 @@
-/* global sysConfig: true */
 sysConfig.modules['crm'] = {
     css: [],
     js: [

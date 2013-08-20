@@ -1,4 +1,3 @@
-/* global sysConfig: true */
 sysConfig.modules['components'] = {
     css: [
         "components/bootstrap-2.3.2/css/bootstrap.min.css",

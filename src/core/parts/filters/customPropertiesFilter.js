@@ -1,4 +1,3 @@
-/* global angular: true */
 angular.module('core')
 	.directive('customPropertiesFilter', ['sysConfig', 'helpers', 'filterHelpers', 'metadataService',
 		function(sysConfig, $helpers, $filterHelpers, $metadataService) {

@@ -1,4 +1,3 @@
-/* global angular: true */
 angular.module('backend')
 .factory('delayResponseInterceptor', function($q, $timeout) {
 	return function(promise) {

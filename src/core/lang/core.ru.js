@@ -1,4 +1,3 @@
-/* global angular: true */
 angular.module('core')
 	.run(['i18n',
 		function(i18n) {

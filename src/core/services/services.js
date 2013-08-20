@@ -1,4 +1,3 @@
-/* global angular: true */
 angular.module('core')
     .service("pageConfig", ['$rootScope',
 		function($rootScope) {

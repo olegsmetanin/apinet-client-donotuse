@@ -8,5 +8,8 @@
         "sub": true,
         "boss": true,
         "eqnull": true,
-        "globals": {}
+        "globals": {
+	        "angular": true,
+	        "sysConfig": true
+        }
 }
