@@ -9,23 +9,26 @@
 
         <li>
             <span style="padding: 3px 20px;">
-                <a onclick="event.stopPropagation();" class="dropdown-menu-sub-header" ng-click="reloadReports()"><i ng-class="{'icon-spin':isReloading}" class="icon-refresh"></i></a>
+                <a onclick="event.stopPropagation();" class="dropdown-menu-sub-header" ng-click="updateUnreadUserReports()"><i ng-class="{'icon-spin':updating}" class="icon-refresh"></i></a>
                 <a href="#!/userReports" class="dropdown-menu-sub-footer">View all reports</a>
             </span>
         </li>
 
-        <li ng-repeat="report in reports.gen">
+        <li ng-show="showGenerating" class="nav-header">Last 5 generating reports</li>
+        <li ng-show="showGenerating" ng-repeat="report in generating">
 
             <div style="padding: 3px 20px;">
                 <button ng-click="cancelReportGeneration($index)" onclick="event.stopPropagation();" class="btn btn-mini btn-danger" type="button">Cancel</button>
-                {{report.name}}, <i class="icon-cog icon-spin"></i>{{report.percent}}%
+                {{report.Name}}, <i class="icon-cog icon-spin"></i>{{report.Percent}}%
             </div>
 
 
         </li>
-        <li ng-repeat="report in reports.done">
+
+        <li ng-show="showDone" class="nav-header">Last 5 unread reports</li>
+        <li ng-show="showDone" ng-repeat="report in done">
             <a href="#">
-                  {{report.name}}
+                  {{report.Name}}
             </a>
         </li>
     </ul>

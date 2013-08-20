@@ -4,8 +4,6 @@ angular.module('backend', ['ngMockE2E'])
 
 			var userId = 0;
 
-
-
 			var makeUser = function(fname, lname, isAdmin) {
 				userId++;
 				return {
@@ -94,10 +92,6 @@ angular.module('backend', ['ngMockE2E'])
 				} else {
 					return [500, 'Oops, something went wrong'];
 				}
-
-
-
-
 			});
 
 
@@ -115,16 +109,24 @@ angular.module('backend', ['ngMockE2E'])
 				var prms = JSON.parse(data);
 				if ((prms.action === 'getModels') && (prms.modelType === 'AGO.Docstore.Model.Projects.ProjectModel')) {
 					return getProjects();
-				} else if ((prms.action === "generate") && (prms.model === "Project")) {
-					return generateProjectsReport(prms);
-				} else if ((prms.action === "generateStatus") && (prms.model === "Generator")) {
-					return [200, {
-						reports: reportService.reports
-					}];
 				} else {
 					return [500, 'Oops, something went wrong'];
 				}
 			});
+
+			$httpBackend.whenPOST('/api').respond(function(method, url, data, headers) {
+				var prms = JSON.parse(data);
+				if (prms.action === "getUserReports") {
+					return getUserReports();
+				} else if (prms.action === "getUnreadUserReports") {
+					return getUnreadUserReports();
+				} else if (prms.action === "generateReport") {
+					return generateReport();
+				} else {
+					return [500, 'Oops, something went wrong'];
+				}
+			});
+
 
 			//all others
 			$httpBackend.whenGET(/^(projects|ng-modules|components)*/).passThrough();
@@ -133,48 +135,44 @@ angular.module('backend', ['ngMockE2E'])
 			var generateTimer;
 
 			function updatePercent() {
+
 				if (generateTimer) {
 					clearTimeout(generateTimer);
 				}
 
-				var gen = reportService.reports.gen;
-				for (var i = 0; i < gen.length; i++) {
-					var currentPercent = gen[i].percent;
-					if (currentPercent >= 100) {
-						reportService.reports.done.unshift({
-							"name": gen[i].name,
-							"done": new Date()
-						});
-						reportService.reports.gen.splice(i, 1);
-
-						reportService.setReports(reportService.reports);
-					} else {
-						gen[i].percent = currentPercent + 10;
-						reportService.setReports(reportService.reports);
+				var generatingExist = false;
+				for (var i = 0; i < userReports.rows.length; i++) {
+					if (userReports.rows[i].Status !== 'done') {
+						generatingExist = true;
+						var currentPercent = userReports.rows[i].Percent;
+						if (currentPercent >= 100) {
+							userReports.rows[i].Status = "done";
+							reportService.setReports(userReports.rows);
+						} else {
+							userReports.rows[i].Percent = currentPercent + 10;
+							reportService.setReports(userReports.rows);
+						}
 					}
 				}
 
 
 				generateTimer = window.setTimeout(function() {
-					if (gen.length>0) {
+					if (generatingExist) {
 						updatePercent();
 					}
 				}, 1000);
 			}
 
-			function generateProjectsReport(prms) {
+			function generateReport(prms) {
 				$timeout(function() {
-					if (!reportService.reports.gen) {
-						reportService.reports = {
-							gen: [],
-							done: []
-						};
-					}
-					reportService.reports.gen.unshift({
-						"name": prms.name,
-						"percent": 0
+					userReports.rows.unshift({
+						"Id": "5",
+						"Name": "Report " + new Date(),
+						"Status": "generating",
+						"Percent": 0,
+						"StartDate": new Date()
 					});
-					reportService.setReports(reportService.reports);
+					reportService.setReports(userReports.rows);
 
 					updatePercent();
 
@@ -206,5 +204,47 @@ angular.module('backend', ['ngMockE2E'])
 					}]
 				}];
 			}
+
+			var userReports = {
+				"rows": [{
+					"Id": "1",
+					"Name": "Report1",
+					"Status": "generating",
+					"Percent": 10,
+					"StartDate": new Date()
+				}, {
+					"Id": "2",
+					"Name": "Report2",
+					"Status": "generating",
+					"Percent": 30,
+					"StartDate": new Date()
+				}, {
+					"Id": "3",
+					"Name": "Report3",
+					"Status": "done",
+					"StartDate": new Date(),
+					"EndDate": new Date()
+				}, {
+					"Id": "4",
+					"Name": "Report4",
+					"Status": "done",
+					"StartDate": new Date(),
+					"EndDate": new Date()
+				}]
+			};
+
+			function getUserReports() {
+				return [200, userReports];
+			}
+
+
+			function getUnreadUserReports() {
+
+				updatePercent();
+				return [200, userReports];
+
+			}
+
+
 		}
 	]);

@@ -20,11 +20,29 @@ angular.module('core')
     ])
     .controller('userReportsCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
         function($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
+
             $pageConfig.setConfig({
                 breadcrumbs: [{
                     name: 'User reports',
                     url: '#!/userReports'
                 }]
             });
+
+            $scope.generateReport = function () {
+                reportService.generateReport({
+                    action: "generateReport",
+                    model: "Project",
+                    filter: {},
+                    name: "report" + new Date()
+                });
+            };
+
+
+
         }
-    ]);
+    ])
+
+
+
+
+    ;

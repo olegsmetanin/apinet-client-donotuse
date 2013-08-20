@@ -91,6 +91,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-bg-shell');
+    //https://github.com/vkadam/grunt-jsbeautifier
+    //grunt.loadNpmTasks('grunt-jsbeautifier');
 
     grunt.registerTask('default', ['build']);
     grunt.registerTask('build', ['clean', 'jshint', 'html2js', 'concat', 'uglify', 'copy']);
@@ -117,7 +119,8 @@ module.exports = function(grunt) {
                 sub: true,
                 boss: true,
                 eqnull: true,
-                globals: {}
+                globals: {}//,
+                //indent:4
             }
         },
         html2js: sysConfig.html2js,
