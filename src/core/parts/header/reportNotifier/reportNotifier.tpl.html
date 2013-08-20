@@ -18,8 +18,9 @@
         <li ng-show="showGenerating" ng-repeat="report in generating">
 
             <div style="padding: 3px 20px;">
+                <i class="icon-cog icon-spin"></i>&nbsp; {{report.Percent}}%
                 <button ng-click="cancelReportGeneration($index)" onclick="event.stopPropagation();" class="btn btn-mini btn-danger" type="button">Cancel</button>
-                {{report.Name}}, <i class="icon-cog icon-spin"></i>{{report.Percent}}%
+                {{report.Name}}
             </div>
 
 
