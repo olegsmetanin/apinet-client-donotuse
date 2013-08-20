@@ -42,15 +42,52 @@
 	])
 	.controller('projectsListCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
 		function ($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
-			$scope.requestData = {
-				filter: {
-					op: '&&',
-					items: []
+			angular.extend($scope, {
+				projects: [],
+				modelType: 'AGO.Docstore.Model.Projects.ProjectModel',
+				structuredFilter: { },
+				applyEnabled: false,
+				selectedProjectId: null,
+				projectDetailsTemplate: null,
+				loading: promiseTracker('projects'),
+				
+				refreshList: function() {
+					var filter ={
+						op: '&&',
+						items: [ ]
+					};
+					if($scope.structuredFilter.items && $scope.structuredFilter.items.length) {
+						filter.items.push($scope.structuredFilter);
+					}
+
+					$projectsService.getProjects({
+						filter: filter,
+						modelType: $scope.modelType
+					}).then(function (result) {
+						$scope.projects = [];
+						if (result && angular.isArray(result.rows)) {
+							$scope.projects = result.rows;
+						}
+						$scope.applyEnabled = false;
+					});
 				},
-				modelType: 'AGO.Docstore.Model.Projects.ProjectModel'
-			};
-			$scope.structuredFilter = null;
-			$scope.filterEnabled = false;
+				
+				generateReport: function () {
+					reportService.generate({
+						action: "generate",
+						model: "Project",
+						filter: {},
+						name: "report" + new Date()
+					});
+				},
+
+				showDetails: function (projectId) {
+					$scope.selectedProjectId = projectId;
+					$scope.projectDetailsTemplate = projectId && projectId.indexOf('play') >= 0 ?
+						sysConfig.src('home/projects/listview/details/playProjectDetails.tpl.html') :
+						sysConfig.src('home/projects/listview/details/otherProjectDetails.tpl.html');
+				}
+			});
 
 			$pageConfig.setConfig({
 				breadcrumbs: [{
@@ -58,42 +95,11 @@
 					url: '/#!/projects/listview'
 				}]
 			});
-			$scope.projects = [];
 
-			$scope.loading = promiseTracker('projects');
-
-			$scope.moment = new Date();
-
-			$scope.generateReport = function () {
-				reportService.generate({
-					action: "generate",
-					model: "Project",
-					filter: {},
-					name: "report" + new Date()
-				});
-			};
-
-			$scope.templatesConfig = function (projectId) {
-				if (projectId && projectId.indexOf('play') >= 0) {
-					return sysConfig.src('home/projects/listview/details/playProjectDetails.tpl.html');
-				} else {
-					return sysConfig.src('home/projects/listview/details/otherProjectDetails.tpl.html');
-				}
-			};
-			$scope.projectDetailsTemplate = '';
-
-			$scope.showDetails = function (projectId) {
-				$scope.selectedProjectId = projectId;
-				$scope.projectDetailsTemplate = $scope.templatesConfig(projectId);
-			};
-
-			$scope.$watch('requestData', function(newValue) {
-				$projectsService.getProjects(newValue).then(function (res) {
-					$scope.projects = [];
-					if (res && angular.isArray(res.rows)) {
-						$scope.projects = res.rows;
-					}
-				});
+			$scope.$watch('structuredFilter', function() {
+				$scope.applyEnabled = true;
 			}, true);
+
+			$scope.refreshList();
 		}
 	]);

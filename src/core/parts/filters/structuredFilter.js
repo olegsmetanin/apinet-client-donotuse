@@ -13,36 +13,14 @@ angular.module('core')
 						shared: {
 							selectedNode: null,
 							isCompositeSelected: false,
-							editMode: null,
-
-							getNodeMetadata: function(node, parentMetadata) {
-								var metadata;
-
-								if(!$filterHelpers.isSpecialNode(node)) {
-									if (node.path && parentMetadata && parentMetadata.PrimitiveProperties &&
-										parentMetadata.PrimitiveProperties[node.path]) {
-										metadata = parentMetadata.PrimitiveProperties[node.path];
-									}
-
-									if (node.path && parentMetadata && parentMetadata.ModelProperties &&
-										parentMetadata.ModelProperties[node.path]) {
-										metadata = parentMetadata.ModelProperties[node.path];
-									}
-
-									if(metadata && metadata.ModelType &&
-										!(metadata.PrimitiveProperties || metadata.ModelProperties)) {
-										angular.extend(metadata, $metadataService.modelMetadata(metadata.ModelType));
-									}
-								}
-
-								return metadata || parentMetadata;
-							}
+							editMode: null
 						},
 
 						newRootNodeEnabled: false,
 						newNodeEnabled: false,
 						editNodeEnabled: false,
 						deleteNodeEnabled: false,
+						clearEnabled: false,
 
 						refreshActionsState: function()
 						{
@@ -51,6 +29,7 @@ angular.module('core')
 								$scope.shared.isCompositeSelected;
 							$scope.editNodeEnabled = !$scope.shared.editMode && $scope.shared.selectedNode;
 							$scope.deleteNodeEnabled = !$scope.shared.editMode && $scope.shared.selectedNode;
+							$scope.clearEnabled = !$scope.shared.editMode;
 						},
 
 						getMetadata: function(forceRefresh) {
@@ -93,12 +72,16 @@ angular.module('core')
 						},
 
 						clear: function() {
-							$scope.rootNode = $filterHelpers.createNewNode();
+							$scope.rootNode.op = '&&';
+							$scope.rootNode.items = [];
+
 							$scope.shared.selectedNode = null;
 							$scope.shared.isCompositeSelected = false;
 							$scope.shared.editMode = null;
 						}
 					});
+
+					$scope.clear();
 
 					$scope.$watch('rootNode', function(value) {
 						if(!value) {
@@ -138,7 +121,8 @@ angular.module('core')
 
 						getMetadata: function(forceRefresh) {
 							if(forceRefresh || !$scope.metadata) {
-								$scope.metadata = $scope.shared.getNodeMetadata($scope.node, $scope.getParentMetadata());
+								$scope.metadata = $filterHelpers.getNodeMetadata(
+									$scope.node, $scope.getParentMetadata());
 							}
 
 							return $scope.metadata;
@@ -164,6 +148,15 @@ angular.module('core')
 
 						cancelEdit: function() {
 							$scope.editMode = null;
+						},
+
+						createNewNode: function() {
+							return {
+								path: '',
+								op: '',
+								value: '',
+								items: [ ]
+							};
 						}
 					});
 
@@ -193,14 +186,14 @@ angular.module('core')
 					$scope.$on('newRootNode', function() {
 						if($scope.node === $scope.rootNode) {
 							$scope.editMode = 'new';
-							$scope.editingNode = $filterHelpers.createNewNode();
+							$scope.editingNode = $scope.createNewNode();
 						}
 					});
 
 					$scope.$on('newNode', function() {
 						if($scope.node === $scope.shared.selectedNode) {
 							$scope.editMode = 'new';
-							$scope.editingNode = $filterHelpers.createNewNode();
+							$scope.editingNode = $scope.createNewNode();
 						}
 					});
 
@@ -326,7 +319,7 @@ angular.module('core')
 
 						getMetadata: function(forceRefresh) {
 							if(forceRefresh || !$scope.metadata) {
-								$scope.metadata = $scope.shared.getNodeMetadata(
+								$scope.metadata = $filterHelpers.getNodeMetadata(
 									$scope.node, $scope.getParentMetadata());
 							}
 

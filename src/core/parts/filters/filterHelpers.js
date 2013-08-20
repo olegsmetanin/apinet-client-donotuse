@@ -1,13 +1,27 @@
 angular.module('core')
-	.service('filterHelpers', ['helpers', function($helpers) {
+	.service('filterHelpers', ['helpers', 'metadataService', function($helpers, $metadataService) {
 		angular.extend(this, {
-			createNewNode: function() {
-				return {
-					path: '',
-					op: '&&',
-					value: '',
-					items: [ ]
-				};
+			getNodeMetadata: function(node, parentMetadata) {
+				var metadata;
+
+				if(!this.isSpecialNode(node)) {
+					if (node.path && parentMetadata && parentMetadata.PrimitiveProperties &&
+						parentMetadata.PrimitiveProperties[node.path]) {
+						metadata = parentMetadata.PrimitiveProperties[node.path];
+					}
+
+					if (node.path && parentMetadata && parentMetadata.ModelProperties &&
+						parentMetadata.ModelProperties[node.path]) {
+						metadata = parentMetadata.ModelProperties[node.path];
+					}
+
+					if(metadata && metadata.ModelType &&
+						!(metadata.PrimitiveProperties || metadata.ModelProperties)) {
+						angular.extend(metadata, $metadataService.modelMetadata(metadata.ModelType));
+					}
+				}
+
+				return metadata || parentMetadata;
 			},
 
 			isUnaryNode: function (node) {
