@@ -17,34 +17,10 @@
 
 		}
 	])
-	.service("projectsService", ['$q', '$http', 'sysConfig',
-		function ($q, $http /*, sysConfig*/) {
-			angular.extend(this, {
-				getProjects: function (requestData) {
-					var deferred = $q.defer();
-					$http.post("/api/models/",
-						angular.extend({
-							action: 'getModels'
-						}, requestData), {
-							tracker: 'projects'
-						}
-					)
-					.success(function (data) {
-						deferred.resolve(data);
-					})
-					.error(function (data, status, headers, config) {
-						// TODO
-					});
-					return deferred.promise;
-				}
-			});
-		}
-	])
 	.controller('projectsListCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
 		function ($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
 			angular.extend($scope, {
 				projects: [],
-				modelType: 'AGO.Docstore.Model.Projects.ProjectModel',
 				structuredFilter: { },
 				applyEnabled: false,
 				selectedProjectId: null,
@@ -61,13 +37,10 @@
 					}
 
 					$projectsService.getProjects({
-						filter: filter,
-						modelType: $scope.modelType
-					}).then(function (result) {
-						$scope.projects = [];
-						if (result && angular.isArray(result.rows)) {
-							$scope.projects = result.rows;
-						}
+						filter: filter
+					})
+					.then(function (result) {
+						$scope.projects = result.rows;
 						$scope.applyEnabled = false;
 					});
 				},

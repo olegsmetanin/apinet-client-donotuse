@@ -285,6 +285,32 @@ angular.module('core')
 						validationErrors.value.push('Значение не входит в список допустимых');
 					}
 				}
+			},
+
+			ensurePropertyTypeNode: function(node) {
+				node.items = node.items ? node.items : [];
+				if(node.items.length === 0) {
+					node.items.push({
+						items: []
+					});
+				}
+
+				var propertyTypeNode = node.items[0];
+				propertyTypeNode.path = 'PropertyType';
+				propertyTypeNode.op = '=';
+				propertyTypeNode.value = propertyTypeNode.value ? propertyTypeNode.value : '';
+				return propertyTypeNode;
+			},
+
+			ensurePropertyValueNode: function(node) {
+				this.ensurePropertyTypeNode(node);
+				if(node.items.length <= 1) {
+					node.items.push({
+						items: []
+					});
+				}
+
+				return node.items[1];
 			}
 		});
 	}])

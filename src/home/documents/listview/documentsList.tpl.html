@@ -1,0 +1,72 @@
+<div container>
+	<div ng-controller="documentsListCtrl">
+
+		<twocolumn-side>
+			<button type="button" class="btn btn-success" ng-click="refreshList()"
+			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
+
+			<tabset>
+				<!--<tab heading="Simple">
+					<form>
+						<fieldset>
+							<label>Number</label>
+							<input filter-input filter-ng-model="filter.simple.number" path="'Contract.Number'" />
+							<label>Categories</label>
+							<input filter-lookup filter-ng-model="filter.simple.category" path="'Contract.Category.Name'" action="get" multiple/>
+							<label>Status</label>
+							<div style="padding-left:10px;">
+								<label>StartDate</label>
+								<input filter-input filter-ng-model="filter.simple.startDate" path="'Contract.StatusHistory.StartDate'" />
+								<label>EndDate</label>
+								<input filter-input filter-ng-model="filter.simple.endDate" path="'Contract.StatusHistory.StartDate'" />
+								<label>Status</label>
+								<input filter-lookup filter-ng-model="filter.simple.status" path="'Contract.StatusHistory.Status.Name'" action="get" multiple/>
+								<label>Author</label>
+								<div style="padding-left:10px;">
+									<label>First Name</label>
+									<input filter-lookup filter-ng-model="filter.simple.AuthorFirstName" path="'Contract.StatusHistory.Author.Name'" action="get" multiple />
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</tab>-->
+
+				<tab heading="User">
+					<div user-filter root-node="userFilter" model-type="'AGO.Docstore.Model.Documents.DocumentCustomPropertyModel'"></div>
+				</tab>
+
+				<tab heading="Complex">
+					<div structured-filter root-node="structuredFilter" model-type="modelType"></div>
+				</tab>
+
+				<tab heading="Favorites">
+
+					<textarea ng-model="state" rows="6"></textarea>
+					<button type="button" class="btn btn-success" ng-click="loadState()" style="float:right;">loadState</button>
+				</tab>
+
+			</tabset>
+		</twocolumn-side>
+
+
+		<twocolumn-content>
+
+
+			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
+
+			<ul>
+				<li ng-repeat="document in documents">
+					<a href="/documents/{{document.Id}}#!/common">{{document.Annotation}}</a>
+					&nbsp;(
+					<a ng-click="showDetails(document.Id)">details</a>)
+				</li>
+			</ul>
+
+			<div ng-include src="documentDetailsTemplate">
+				Click [details] link to the right of the document name to view document details
+			</div>
+
+		</twocolumn-content>
+
+	</div>
+</div>

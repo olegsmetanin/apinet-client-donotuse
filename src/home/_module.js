@@ -4,7 +4,7 @@ angular.module('home')
     .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
         function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
 
-            $urlRouterProvider.otherwise('/projects/listview');
+            $urlRouterProvider.otherwise('/documents/listview');
 
             home = {
                 name: 'page1C.home',
