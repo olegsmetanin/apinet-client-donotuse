@@ -1,6 +1,6 @@
 ﻿angular.module('home')
 	.config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
-		function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
+		function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
 
 			var projectsList = {
 				name: 'page.projectList',
@@ -10,42 +10,52 @@
 						templateUrl: sysConfig.src('home/projects/listview/projectsList.tpl.html')
 					}
 				}
-			};
+			},
+				projectsStatus = {
+					name: 'page.projectStatus',
+					url: '/projectStatus',
+					views: {
+						'content': {
+							templateUrl: sysConfig.src('home/projects/projectStatus/projectStatus.tpl.html')
+						}
+					}
+				};
 
 			$stateProvider
-				.state(projectsList);
+				.state(projectsList)
+				.state(projectsStatus);
 
 		}
 	])
 	.controller('projectsListCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
-		function ($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
+		function($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
 			angular.extend($scope, {
 				projects: [],
-				structuredFilter: { },
+				structuredFilter: {},
 				applyEnabled: false,
 				selectedProjectId: null,
 				projectDetailsTemplate: null,
 				loading: promiseTracker('projects'),
-				
+
 				refreshList: function() {
-					var filter ={
+					var filter = {
 						op: '&&',
-						items: [ ]
+						items: []
 					};
-					if($scope.structuredFilter.items && $scope.structuredFilter.items.length) {
+					if ($scope.structuredFilter.items && $scope.structuredFilter.items.length) {
 						filter.items.push($scope.structuredFilter);
 					}
 
 					$projectsService.getProjects({
 						filter: filter
 					})
-					.then(function (result) {
-						$scope.projects = result.rows;
-						$scope.applyEnabled = false;
-					});
+						.then(function(result) {
+							$scope.projects = result.rows;
+							$scope.applyEnabled = false;
+						});
 				},
-				
-				generateReport: function () {
+
+				generateReport: function() {
 					reportService.generate({
 						action: "generate",
 						model: "Project",
@@ -54,7 +64,7 @@
 					});
 				},
 
-				showDetails: function (projectId) {
+				showDetails: function(projectId) {
 					$scope.selectedProjectId = projectId;
 					$scope.projectDetailsTemplate = projectId && projectId.indexOf('play') >= 0 ?
 						sysConfig.src('home/projects/listview/details/playProjectDetails.tpl.html') :
