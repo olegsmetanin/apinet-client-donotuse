@@ -37,8 +37,8 @@ angular.module('core')
 					return false;
 				}
 
-				return node.op === '||' || node.op === '&&' || node.op === '&&!' ||
-					node.path === '||' || node.path === '&&' || node.path === '&&!';
+				return (!node.path && (node.op === '||' || node.op === '&&' || node.op === '&&!')) ||
+					(!node.op && (node.path === '||' || node.path === '&&' || node.path === '&&!'));
 
 			},
 
@@ -127,7 +127,7 @@ angular.module('core')
 					return 'И НЕ';
 				}
 
-				var metadata = nodeMeta ? nodeMeta : { };
+				var metadata = path && nodeMeta ? nodeMeta : { };
 
 				if(path && parentMeta && parentMeta.PrimitiveProperties && parentMeta.PrimitiveProperties[path]) {
 					metadata = parentMeta.PrimitiveProperties[path];
@@ -139,7 +139,7 @@ angular.module('core')
 				return metadata && metadata.DisplayName ? metadata.DisplayName : path;
 			},
 
-			opDisplayName: function (op, not) {
+			opDisplayName: function (op, not, path) {
 				if (op === '=' || op === '!=') {
 					return not || op === '!=' ? '!=' : '=';
 				}
@@ -150,10 +150,10 @@ angular.module('core')
 					return not || op === 'not like' ? 'НЕ СОДЕРЖИТ' : 'СОДЕРЖИТ';
 				}
 				if (op === '||') {
-					return 'ИЛИ';
+					return path ? '' : 'ИЛИ';
 				}
 				if (op === '&&' || op === '&&!') {
-					return not || op === '&&!' ? 'И НЕ' : 'И';
+					return path ? '' : (not || op === '&&!' ? 'И НЕ' : 'И');
 				}
 
 				return op;
@@ -213,7 +213,7 @@ angular.module('core')
 					return;
 				}
 
-				if (node.path && node.op) {
+				if (node.path && !(node.op === '&&' || node.op === '||')) {
 					validationErrors.path.push('Данное условие не может содержать оператора');
 				}
 
@@ -286,9 +286,76 @@ angular.module('core')
 					}
 				}
 			},
+			
+			beforeNodeEdit: function(node) {
+				if(node.not) {
+					if(node.op === '&&') {
+						node.op = '&&!';
+					}
+					if(node.op === '=') {
+						node.op = '!=';
+					}
+					if(node.op === 'exists') {
+						node.op = 'not exists';
+					}
+					if(node.op === 'like') {
+						node.op = 'not like';
+					}
+				}
+
+				if(node.op === '&&' || node.op === '||' || node.op === '&&!') {
+					node.path = node.op;
+					node.op = '';
+				}	
+			},
+
+			afterNodeEdit: function(node, metadata) {
+				if(node.path === '&&' || node.path === '||' || node.path === '&&!') {
+					node.op = node.path;
+					node.path = '';
+				}
+
+				if(node.not) {
+					node.not = false;
+				}
+				if(node.op === '&&!') {
+					node.op = '&&';
+					node.not = true;
+				}
+				if(node.op === '!=') {
+					node.op = '=';
+					node.not = true;
+				}
+				if(node.op === 'not exists') {
+					node.op = 'exists';
+					node.not = true;
+				}
+				if(node.op === 'not like') {
+					node.op = 'like';
+					node.not = true;
+				}
+
+				if (this.isSpecialNode(node)) {
+					node.path = '';
+					node.value = '';
+				}
+				else if (this.isCompositeNode(node, metadata)) {
+					node.op = '&&';
+					node.value = '';
+				}
+				else {
+					node.items = [];
+				}
+
+				if (this.isUnaryNode(node)) {
+					node.value = '';
+				}
+			},
 
 			ensurePropertyTypeNode: function(node) {
-				node.items = node.items ? node.items : [];
+				if(!node.items) {
+					node.items = [];
+				}
 				if(node.items.length === 0) {
 					node.items.push({
 						items: []

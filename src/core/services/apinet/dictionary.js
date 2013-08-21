@@ -36,15 +36,6 @@ angular.module('core')
 					sorters: sorters,
 					page: requestData ? parseInt(requestData.page, 10) : 0,
 					pageSize: this.pageSize
-				}, function(rows) {
-					var result = [];
-					for(var i = 0; i < rows.length; i++) {
-						result.push({
-							id: rows[i].Id,
-							text: rows[i].Description
-						});
-					}
-					return result;
 				});
 			},
 
@@ -54,6 +45,14 @@ angular.module('core')
 					filterProps: ['FullName'],
 					sortProps : ['FullName']
 				}, requestData));
+			},
+
+			getCustomPropertyType: function (id) {
+				return $apinet.getModel({
+					modelType: 'AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel',
+					id: id,
+					cacheable: true
+				});
 			}
 		});
 	}]);

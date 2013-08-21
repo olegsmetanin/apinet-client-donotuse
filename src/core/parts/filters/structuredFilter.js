@@ -72,7 +72,6 @@ angular.module('core')
 						},
 
 						clear: function() {
-							$scope.rootNode.op = '&&';
 							$scope.rootNode.items = [];
 
 							$scope.shared.selectedNode = null;
@@ -81,11 +80,15 @@ angular.module('core')
 						}
 					});
 
-					$scope.clear();
-
 					$scope.$watch('rootNode', function(value) {
-						if(!value) {
-							$scope.clear();
+						if(value) {
+							value.op = '&&';
+							delete value.path;
+							delete value.value;
+							delete value.not;
+							if(!value.items) {
+								value.items = [];
+							}
 						}
 					}, true);
 
@@ -128,19 +131,21 @@ angular.module('core')
 							return $scope.metadata;
 						},
 
-						selectNode: function(forceRefresh) {
-							$scope.shared.selectedNode = $scope.node;
-							$scope.shared.isCompositeSelected =
-								$filterHelpers.isCompositeNode($scope.node, $scope.getMetadata(forceRefresh));
+						selectNode: function(node, metadata) {
+							$scope.shared.selectedNode = node;
+							$scope.shared.isCompositeSelected = $filterHelpers.isCompositeNode(
+								node, metadata ? metadata : $scope.getMetadata());
 						},
 
 						commitEdit: function(changedNode) {
 							if($scope.editMode === 'edit') {
 								angular.extend($scope.node, changedNode);
-								$scope.selectNode(true);
+								$scope.selectNode($scope.node, $scope.getMetadata(true));
 							}
 							else if($scope.editMode === 'new') {
 								$scope.node.items.push(changedNode);
+								$scope.selectNode(changedNode, $filterHelpers.getNodeMetadata(
+									changedNode, $scope.getMetadata()));
 							}
 
 							$scope.editMode = null;
@@ -165,11 +170,11 @@ angular.module('core')
 					}, true);
 
 					$scope.$watch('node.op', function(value) {
-						$scope.opDisplayName = $filterHelpers.opDisplayName(value, $scope.node.not);
+						$scope.opDisplayName = $filterHelpers.opDisplayName(value, $scope.node.not, $scope.node.path);
 					}, true);
 
 					$scope.$watch('node.not', function(value) {
-						$scope.opDisplayName = $filterHelpers.opDisplayName($scope.node.op, value);
+						$scope.opDisplayName = $filterHelpers.opDisplayName($scope.node.op, value, $scope.node.path);
 					}, true);
 
 					$scope.$watch('node.value', function(value) {
@@ -228,7 +233,7 @@ angular.module('core')
 							if($scope.shared.editMode) {
 								return;
 							}
-							$scope.selectNode();
+							$scope.selectNode($scope.node);
 						},
 
 						onNodeDblClick: function($event) {
@@ -315,6 +320,9 @@ angular.module('core')
 						ops: [],
 						opSelectVisible: false,
 						valueEditorUrl: null,
+						tempNode: {
+							value: $scope.node.value
+						},
 
 						getMetadata: function(forceRefresh) {
 							if(forceRefresh || !$scope.metadata) {
@@ -372,25 +380,21 @@ angular.module('core')
 							editorType + 'ValueEditor.tpl.html';
 					}, true);
 
-					if($scope.node.not) {
-						if($scope.node.op === '&&') {
-							$scope.node.op = '&&!';
+					$scope.$watch('node.value', function (value, oldValue) {
+						if(value === oldValue) {
+							return;
 						}
-						if($scope.node.op === '=') {
-							$scope.node.op = '!=';
-						}
-						if($scope.node.op === 'exists') {
-							$scope.node.op = 'not exists';
-						}
-						if($scope.node.op === 'like') {
-							$scope.node.op = 'not like';
-						}
-					}
+						$scope.tempNode.value = value;
+					}, true);
 
-					if($scope.node.op === '&&' || $scope.node.op === '||' || $scope.node.op === '&&!') {
-						$scope.node.path = $scope.node.op;
-						$scope.node.op = '';
-					}
+					$scope.$watch('tempNode.value', function (value, oldValue) {
+						if(value === oldValue) {
+							return;
+						}
+						$scope.node.value = value;
+					}, true);
+
+					$filterHelpers.beforeNodeEdit($scope.node);
 
 					$scope.paths = $filterHelpers.applicablePaths($scope.getParentMetadata());
 					if(!$scope.node.path && $scope.paths.length) {
@@ -411,47 +415,7 @@ angular.module('core')
 							var node = angular.extend({ }, $scope.node);
 							var metadata = $scope.getMetadata();
 
-							if(node.path === '&&' || node.path === '||' || node.path === '&&!') {
-								node.op = node.path;
-								node.path = '';
-							}
-
-							if(node.not) {
-								node.not = false;
-							}
-							if(node.op === '&&!') {
-								node.op = '&&';
-								node.not = true;
-							}
-							if(node.op === '!=') {
-								node.op = '=';
-								node.not = true;
-							}
-							if(node.op === 'not exists') {
-								node.op = 'exists';
-								node.not = true;
-							}
-							if(node.op === 'not like') {
-								node.op = 'like';
-								node.not = true;
-							}
-
-							if ($filterHelpers.isSpecialNode(node)) {
-								node.path = '';
-								node.value = '';
-							}
-							else if ($filterHelpers.isCompositeNode(node, metadata)) {
-								node.op = '';
-								node.value = '';
-							}
-							else {
-								node.items = [];
-							}
-
-							if ($filterHelpers.isUnaryNode(node)) {
-								node.value = '';
-							}
-
+							$filterHelpers.afterNodeEdit(node, metadata);
 							$scope.resetValidationErrors();
 							if (!$filterHelpers.validateNode(node, metadata, $scope.validationErrors)) {
 								return;

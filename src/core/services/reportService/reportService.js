@@ -23,15 +23,15 @@ angular.module('core')
 				},
 
 				updateUnreadUserReports: function() {
-					var that = this;
+					//TODO: Вернуть потом
+					/*var that = this;
 
-					$http.post('/api', {
+					$http.post('/api/v1', {
 						action: "getUnreadUserReports"
 					}).then(function(response) {
 						that.cache.put('unreadUserReports', response.data.rows);
 						$rootScope.$broadcast('events:unreadReportsChanged');
-					});
-
+					});*/
 				},
 
 
@@ -42,7 +42,7 @@ angular.module('core')
 				},
 
 				generateReport: function(params) {
-					$http.post('/api', params);
+					$http.post('/api/v1', params);
 				},
 
 				reloadReports: function() {

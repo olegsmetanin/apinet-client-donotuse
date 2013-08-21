@@ -1,6 +1,6 @@
 <div class="nodePanel">
 	<div ng-show="node !== rootNode && editMode !== 'edit'">
-		<div ng-class="nodeDataClass" ng-click="onNodeClick($event)" ng-dbl-click="onNodeDblClick($event)">
+		<div ng-class="nodeDataClass" ng-click="onNodeClick($event)" ngdblclick="onNodeDblClick($event)">
 			<label class="pathLabel" ng-show="pathDisplayName">{{ pathDisplayName }}</label>
 			<label class="opLabel" ng-show="opDisplayName">{{ opDisplayName }}</label>
 			<label class="valueLabel" ng-show="valueDisplayName">{{ valueDisplayName }}</label>
