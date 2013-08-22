@@ -11,6 +11,7 @@ sysConfig.modules['core'] = {
 		"src/core/directives/relinclude.js",
 		"src/core/parts/header/breadCrumbs/breadCrumbsCtrl.js",
 		"src/core/parts/header/tabBar/tabBar.js",
+		"src/core/parts/header/tabBar/topTabBar.js",
 
 		"src/core/parts/masterpages/directives.js",
 
