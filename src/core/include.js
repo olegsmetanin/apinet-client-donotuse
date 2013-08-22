@@ -33,6 +33,7 @@ sysConfig.modules['core'] = {
 		"src/core/parts/filters/filterHelpers.js",
 		"src/core/parts/filters/structuredFilter.js",
 		"src/core/parts/filters/userFilter.js",
+		"src/core/parts/filters/simpleFilter.js",
 
 		"src/core/services/i18n/i18n.js",
 		"src/core/parts/header/moduleMenu/moduleMenu.js",
@@ -44,8 +45,10 @@ sysConfig.modules['core'] = {
 
 		"src/core/pages/userReports/userReports.js",
 
-		"src/core/services/apinet/core.js",
-		"src/core/services/apinet/dictionary.js",
-		"src/core/services/apinet/projects.js"
+		"src/core/services/apinet/apinetService.js",
+		"src/core/services/apinet/metadataService.js",
+		"src/core/services/apinet/dictionaryService.js",
+		"src/core/services/apinet/projectsService.js",
+		"src/core/services/apinet/documentsService.js"
 	]
 };

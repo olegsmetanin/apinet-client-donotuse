@@ -1,8 +1,8 @@
 angular.module('core')
-	.service("projectsService", ['apinet', function ($apinet) {
+	.service('projectsService', ['apinetService', function ($apinetService) {
 		angular.extend(this, {
 			getProjects: function (requestData) {
-				return $apinet.getModels(angular.extend({
+				return $apinetService.getModels(angular.extend({
 					modelType: 'AGO.Docstore.Model.Projects.ProjectModel'
 				}, requestData));
 			}

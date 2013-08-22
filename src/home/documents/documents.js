@@ -44,7 +44,6 @@
 		function ($scope, $documentsService, $pageConfig, sysConfig, promiseTracker, reportService) {
 			angular.extend($scope, {
 				documents: [],
-				modelType: 'AGO.Docstore.Model.Documents.DocumentModel',
 				structuredFilter: { },
 				userFilter: { },
 				applyEnabled: false,
@@ -57,6 +56,7 @@
 						op: '&&',
 						items: [ ]
 					};
+
 					if($scope.structuredFilter.items && $scope.structuredFilter.items.length) {
 						filter.items.push($scope.structuredFilter);
 					}
@@ -69,13 +69,10 @@
 					}
 
 					$documentsService.getDocuments({
-						filter: filter,
-						modelType: $scope.modelType
-					}).then(function (result) {
-						$scope.documents = [];
-						if (result && angular.isArray(result.rows)) {
-							$scope.documents = result.rows;
-						}
+						filter: filter
+					})
+					.then(function (result) {
+						$scope.documents = result.rows;
 						$scope.applyEnabled = false;
 					});
 				},

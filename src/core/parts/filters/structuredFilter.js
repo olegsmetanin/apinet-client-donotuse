@@ -32,11 +32,15 @@ angular.module('core')
 							$scope.clearEnabled = !$scope.shared.editMode;
 						},
 
-						getMetadata: function(forceRefresh) {
+						getMetadata: function(callback, forceRefresh) {
 							if(forceRefresh || !$scope.metadata) {
-								$scope.metadata = $metadataService.modelMetadata($scope.modelType);
+								$metadataService.modelMetadata($scope.modelType, function(metadata) {
+									$scope.metadata = metadata;
+									callback($scope.metadata);
+								});
+								return;
 							}
-							return $scope.metadata;
+							callback($scope.metadata);
 						},
 
 						newRootNode: function() {
@@ -122,30 +126,49 @@ angular.module('core')
 						opDisplayName: null,
 						valueDisplayName: null,
 
-						getMetadata: function(forceRefresh) {
+						getMetadata: function(callback, forceRefresh) {
 							if(forceRefresh || !$scope.metadata) {
-								$scope.metadata = $filterHelpers.getNodeMetadata(
-									$scope.node, $scope.getParentMetadata());
+								$scope.getParentMetadata({
+									callback: function(parentMeta) {
+										$filterHelpers.getNodeMetadata($scope.node, parentMeta, function(metadata) {
+											$scope.metadata = metadata;
+											callback($scope.metadata);
+										});
+									}
+								});
+								return;
 							}
-
-							return $scope.metadata;
+							callback($scope.metadata);
 						},
 
 						selectNode: function(node, metadata) {
-							$scope.shared.selectedNode = node;
-							$scope.shared.isCompositeSelected = $filterHelpers.isCompositeNode(
-								node, metadata ? metadata : $scope.getMetadata());
+							function selectNodeCallback(meta) {
+								$scope.shared.selectedNode = node;
+								$scope.shared.isCompositeSelected = $filterHelpers.isCompositeNode(node, meta);
+							}
+
+							if(metadata) {
+								selectNodeCallback(metadata);
+							}
+							else {
+								$scope.getMetadata(selectNodeCallback);
+							}
 						},
 
 						commitEdit: function(changedNode) {
 							if($scope.editMode === 'edit') {
-								angular.extend($scope.node, changedNode);
-								$scope.selectNode($scope.node, $scope.getMetadata(true));
+								$scope.getMetadata(function(metadata) {
+									angular.extend($scope.node, changedNode);
+									$scope.selectNode($scope.node, metadata);
+								}, true);
 							}
 							else if($scope.editMode === 'new') {
-								$scope.node.items.push(changedNode);
-								$scope.selectNode(changedNode, $filterHelpers.getNodeMetadata(
-									changedNode, $scope.getMetadata()));
+								$scope.getMetadata(function(metadata) {
+									$filterHelpers.getNodeMetadata(changedNode, metadata, function(changedNodeMeta) {
+										$scope.node.items.push(changedNode);
+										$scope.selectNode(changedNode, changedNodeMeta);
+									});
+								});
 							}
 
 							$scope.editMode = null;
@@ -166,19 +189,35 @@ angular.module('core')
 					});
 
 					$scope.$watch('node.path', function(value) {
-						$scope.pathDisplayName = $filterHelpers.pathDisplayName(value, null, $scope.getMetadata());
+						if($scope.node === $scope.rootNode) {
+							return;
+						}
+						$scope.getMetadata(function(metadata) {
+							$scope.pathDisplayName = $filterHelpers.pathDisplayName(value, null, metadata);
+						});
 					}, true);
 
 					$scope.$watch('node.op', function(value) {
+						if($scope.node === $scope.rootNode) {
+							return;
+						}
 						$scope.opDisplayName = $filterHelpers.opDisplayName(value, $scope.node.not, $scope.node.path);
 					}, true);
 
 					$scope.$watch('node.not', function(value) {
+						if($scope.node === $scope.rootNode) {
+							return;
+						}
 						$scope.opDisplayName = $filterHelpers.opDisplayName($scope.node.op, value, $scope.node.path);
 					}, true);
 
 					$scope.$watch('node.value', function(value) {
-						$scope.valueDisplayName = $filterHelpers.valueDisplayName(value, $scope.getMetadata());
+						if($scope.node === $scope.rootNode) {
+							return;
+						}
+						$scope.getMetadata(function(metadata) {
+							$scope.valueDisplayName = $filterHelpers.valueDisplayName(value, metadata);
+						});
 					}, true);
 
 					$scope.$watch('shared.selectedNode', function(value) {
@@ -260,7 +299,7 @@ angular.module('core')
 								'   node="subNode"',
 								'   root-node="rootNode"',
 								'   shared="shared"',
-								'   get-parent-metadata="getMetadata()">',
+								'   get-parent-metadata="getMetadata(callback)">',
 								'</div>'
 							].join('\n'));
 
@@ -280,7 +319,8 @@ angular.module('core')
 							return;
 						}
 
-						var getParentMetadataFn = value === 'new' ? 'getMetadata()' : 'getParentMetadata()';
+						var getParentMetadataFn = value === 'new' ? 'getMetadata(callback)' :
+							'getParentMetadata({ callback: callback })';
 						var template = angular.element([
 							'<div structured-filter-node-editor',
 							'   node="editingNode"',
@@ -324,13 +364,21 @@ angular.module('core')
 							value: $scope.node.value
 						},
 
-						getMetadata: function(forceRefresh) {
+						getMetadata: function(callback, forceRefresh) {
 							if(forceRefresh || !$scope.metadata) {
-								$scope.metadata = $filterHelpers.getNodeMetadata(
-									$scope.node, $scope.getParentMetadata());
-							}
+								$scope.getParentMetadata({
+									callback: function(parentMeta) {
+										$filterHelpers.getNodeMetadata($scope.node, parentMeta, function(metadata) {
+											$scope.metadata = metadata;
+											$scope.valueMetadata = metadata;
 
-							return $scope.metadata;
+											callback($scope.metadata);
+										});
+									}
+								});
+								return;
+							}
+							callback($scope.metadata);
 						},
 
 						resetValidationErrors: function() {
@@ -343,41 +391,45 @@ angular.module('core')
 					});
 
 					$scope.$watch('node.path', function (value, oldValue) {
-						if (oldValue && oldValue !== value) {
-							$scope.node.op = '';
-							$scope.node.value = '';
-						}
-						
-						$scope.ops = $filter('applicableOps')($filterHelpers.allOps(), $scope.getMetadata(true));
-						if(!$scope.node.op && $scope.ops.length) {
-							$scope.node.op = $scope.ops[0];
-						}
-						for (i = 0; i < $scope.ops.length; i++) {
-							$scope.ops[i] = {
-								value: $scope.ops[i],
-								label: $filterHelpers.opDisplayName($scope.ops[i])
-							};
-						}
+						$scope.getMetadata(function(metadata) {
+							if (oldValue && oldValue !== value) {
+								$scope.node.op = '';
+								$scope.node.value = '';
+							}
 
-						$scope.opSelectVisible = !$filterHelpers.isCompositeNode(
-							$scope.node, $scope.getMetadata());
+							$scope.ops = $filter('applicableOps')($filterHelpers.allOps(), metadata);
+							if(!$scope.node.op && $scope.ops.length) {
+								$scope.node.op = $scope.ops[0];
+							}
+							for (i = 0; i < $scope.ops.length; i++) {
+								$scope.ops[i] = {
+									value: $scope.ops[i],
+									label: $filterHelpers.opDisplayName($scope.ops[i])
+								};
+							}
+
+							$scope.opSelectVisible = !$filterHelpers.isCompositeNode(
+								$scope.node, metadata);
+						}, true);
 					}, true);
 
-					$scope.$watch('node.op', function (value) {				
-						$scope.valueEditorUrl = null;
-						var metadata = $scope.getMetadata();
-						if(!value || !metadata.PropertyType || $filterHelpers.isUnaryNode($scope.node)) {
-							return;
-						}
+					$scope.$watch('node.op', function (value) {
+						$scope.getMetadata(function(metadata) {
+							$scope.valueEditorUrl = null;
 
-						var editorType = 'text';
-						if (metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
-							metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
-							editorType = metadata.PropertyType;
-						}
+							if(!value || !metadata.PropertyType || $filterHelpers.isUnaryNode($scope.node)) {
+								return;
+							}
 
-						$scope.valueEditorUrl = sysConfig.src('core/parts/filters/') +
-							editorType + 'ValueEditor.tpl.html';
+							var editorType = 'text';
+							if (metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
+								metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
+								editorType = metadata.PropertyType;
+							}
+
+							$scope.valueEditorUrl = sysConfig.src('core/parts/filters/') +
+								editorType + 'ValueEditor.tpl.html';
+						});
 					}, true);
 
 					$scope.$watch('node.value', function (value, oldValue) {
@@ -395,33 +447,37 @@ angular.module('core')
 					}, true);
 
 					$filterHelpers.beforeNodeEdit($scope.node);
-
-					$scope.paths = $filterHelpers.applicablePaths($scope.getParentMetadata());
-					if(!$scope.node.path && $scope.paths.length) {
-						$scope.node.path = $scope.paths[0];
-					}
-					for(var i = 0; i < $scope.paths.length; i++) {
-						$scope.paths[i] = {
-							value: $scope.paths[i],
-							label: $filterHelpers.pathDisplayName($scope.paths[i], $scope.getParentMetadata())
-						};
-					}
-
 					$scope.resetValidationErrors();
+
+					$scope.getParentMetadata({
+						callback: function(parentMeta) {
+							$scope.paths = $filterHelpers.applicablePaths(parentMeta);
+							if(!$scope.node.path && $scope.paths.length) {
+								$scope.node.path = $scope.paths[0];
+							}
+							for(var i = 0; i < $scope.paths.length; i++) {
+								$scope.paths[i] = {
+									value: $scope.paths[i],
+									label: $filterHelpers.pathDisplayName($scope.paths[i], parentMeta)
+								};
+							}
+						}
+					});
 				}],
 				link: function($scope) {
 					angular.extend($scope, {
 						onSaveEditor: function () {
-							var node = angular.extend({ }, $scope.node);
-							var metadata = $scope.getMetadata();
+							$scope.getMetadata(function(metadata) {
+								var node = angular.extend({ }, $scope.node);
 
-							$filterHelpers.afterNodeEdit(node, metadata);
-							$scope.resetValidationErrors();
-							if (!$filterHelpers.validateNode(node, metadata, $scope.validationErrors)) {
-								return;
-							}
+								$filterHelpers.afterNodeEdit(node, metadata);
+								$scope.resetValidationErrors();
+								if (!$filterHelpers.validateNode(node, metadata, $scope.validationErrors)) {
+									return;
+								}
 
-							$scope.commitEdit({ changedNode: node });
+								$scope.commitEdit({ changedNode: node });
+							});
 						},
 
 						onCancelEditor: function () {

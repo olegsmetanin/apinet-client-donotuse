@@ -1,5 +1,5 @@
 angular.module('core')
-	.service("dictionaryService", ['apinet', 'helpers', function ($apinet, $helpers) {
+	.service('dictionaryService', ['apinetService', 'helpers', function ($apinetService, $helpers) {
 		angular.extend(this, {
 			pageSize: 10,
 
@@ -30,7 +30,7 @@ angular.module('core')
 					}
 				}
 
-				return $apinet.getModels({
+				return $apinetService.getModels({
 					modelType: requestData.modelType,
 					filter: filter,
 					sorters: sorters,
@@ -48,7 +48,7 @@ angular.module('core')
 			},
 
 			getCustomPropertyType: function (id) {
-				return $apinet.getModel({
+				return $apinetService.getModel({
 					modelType: 'AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel',
 					id: id,
 					cacheable: true,
