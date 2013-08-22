@@ -17,29 +17,6 @@
 
 		}
 	])
-	.service("documentsService", ['$q', '$http', 'sysConfig',
-		function ($q, $http /*, sysConfig*/) {
-			angular.extend(this, {
-				getDocuments: function (requestData) {
-					var deferred = $q.defer();
-					$http.post("/api/models/",
-						angular.extend({
-							action: 'getModels'
-						}, requestData), {
-							tracker: 'documents'
-						}
-					)
-					.success(function (data) {
-						deferred.resolve(data);
-					})
-					.error(function (data, status, headers, config) {
-						// TODO
-					});
-					return deferred.promise;
-				}
-			});
-		}
-	])
 	.controller('documentsListCtrl', ['$scope', 'documentsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
 		function ($scope, $documentsService, $pageConfig, sysConfig, promiseTracker, reportService) {
 			angular.extend($scope, {
