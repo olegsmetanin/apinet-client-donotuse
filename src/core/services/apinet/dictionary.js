@@ -25,7 +25,7 @@ angular.module('core')
 				if(angular.isArray(requestData.sortProps)) {
 					for(i = 0; i < requestData.sortProps.length; i++) {
 						sorters.push({
-							field: requestData.sortProps[i]
+							property: requestData.sortProps[i]
 						});
 					}
 				}
@@ -51,7 +51,8 @@ angular.module('core')
 				return $apinet.getModel({
 					modelType: 'AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel',
 					id: id,
-					cacheable: true
+					cacheable: true,
+					dontFetchReferences: true
 				});
 			}
 		});
