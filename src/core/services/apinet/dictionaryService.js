@@ -31,7 +31,7 @@ angular.module('core')
 				}
 
 				return $apinetService.getModels({
-					modelType: requestData.modelType,
+					method: requestData ? requestData.method : null,
 					filter: filter,
 					sorters: sorters,
 					page: requestData ? parseInt(requestData.page, 10) : 0,
@@ -41,7 +41,7 @@ angular.module('core')
 
 			lookupCustomPropertyTypes: function (requestData) {
 				return this.lookupModels(angular.extend({
-					modelType: 'AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel',
+					method: 'core/dictionary/getCustomPropertyTypes',
 					filterProps: ['FullName'],
 					sortProps : ['FullName']
 				}, requestData));
@@ -49,7 +49,7 @@ angular.module('core')
 
 			getCustomPropertyType: function (id) {
 				return $apinetService.getModel({
-					modelType: 'AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel',
+					method: 'core/dictionary/getCustomPropertyType',
 					id: id,
 					cacheable: true,
 					dontFetchReferences: true

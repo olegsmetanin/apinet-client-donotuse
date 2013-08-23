@@ -3,7 +3,7 @@ angular.module('core')
 		angular.extend(this, {
 			getProjects: function (requestData) {
 				return $apinetService.getModels(angular.extend({
-					modelType: 'AGO.Docstore.Model.Projects.ProjectModel'
+					method: 'core/projects/getProjects'
 				}, requestData));
 			}
 		});

@@ -14,7 +14,7 @@ angular.module('core')
 					}
 				}
 
-				$http.post('/api/models/', angular.extend({ action: 'getModel' }, requestData))
+				$http.post('/api/' + requestData.method, requestData)
 					.success(function (data) {
 						if (data) {
 							if(angular.isFunction(postProcessFn)) {
@@ -41,7 +41,7 @@ angular.module('core')
 
 			getModels: function (requestData, postProcessRowsFn) {
 				var deferred = $q.defer();
-				$http.post('/api/models/', angular.extend({ action: 'getModels' }, requestData))
+				$http.post('/api/' + requestData.method, requestData)
 					.success(function (data) {
 						if (data && angular.isArray(data.rows)) {
 							if(angular.isFunction(postProcessRowsFn)) {
