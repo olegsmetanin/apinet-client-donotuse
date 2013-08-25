@@ -55,9 +55,10 @@ angular.module('core')
         'login.error.invalidCredentials': "Login failed.  Please check your credentials and try again.",
         'login.error.serverError': "There was a problem with authenticating: {{exception}}."
     })
-    .controller('HeaderCtrl', ['$scope', 'security',
-        function($scope, security) {
+    .controller('HeaderCtrl', ['$scope', 'security', 'moduleMenuUrl',
+        function($scope, security, moduleMenuUrl) {
             $scope.isAuthenticated = security.isAuthenticated;
+            $scope.moduleMenuUrl = moduleMenuUrl;
         }
     ])
     .run(['security',

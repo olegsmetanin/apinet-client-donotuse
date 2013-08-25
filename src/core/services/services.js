@@ -1,15 +1,4 @@
 angular.module('core')
-    .service("pageConfig", ['$rootScope',
-		function($rootScope) {
-			angular.extend(this, {
-				current: { },
-				setConfig: function(newConfig) {
-					this.current = newConfig;
-					$rootScope.$broadcast('page:configChanged');
-				}
-			});
-		}
-    ])
 	.service("helpers", function() {
 		angular.extend(this, {
 			trimRegex: /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,

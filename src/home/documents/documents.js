@@ -1,6 +1,6 @@
 ﻿angular.module('home')
-	.config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
-		function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
+	.config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig', 'securityAuthorizationProvider',
+		function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig, securityAuthorizationProvider) {
 
 			var documentsList = {
 				name: 'page.documentList',
@@ -9,6 +9,9 @@
 					'content': {
 						templateUrl: sysConfig.src('home/documents/listview/documentsList.tpl.html')
 					}
+				},
+				resolve: {
+				//	role: securityAuthorizationProvider.requireRoles(['admin', 'manager', 'executor'])
 				}
 			};
 
@@ -18,26 +21,26 @@
 		}
 	])
 	.controller('documentsListCtrl', ['$scope', 'documentsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
-		function ($scope, $documentsService, $pageConfig, sysConfig, promiseTracker, reportService) {
+		function($scope, $documentsService, $pageConfig, sysConfig, promiseTracker, reportService) {
 			angular.extend($scope, {
 				documents: [],
-				structuredFilter: { },
-				userFilter: { },
+				structuredFilter: {},
+				userFilter: {},
 				applyEnabled: false,
 				selectedDocumentId: null,
 				documentDetailsTemplate: null,
 				loading: promiseTracker('documents'),
-				
+
 				refreshList: function() {
-					var filter ={
+					var filter = {
 						op: '&&',
-						items: [ ]
+						items: []
 					};
 
-					if($scope.structuredFilter.items && $scope.structuredFilter.items.length) {
+					if ($scope.structuredFilter.items && $scope.structuredFilter.items.length) {
 						filter.items.push($scope.structuredFilter);
 					}
-					if($scope.userFilter.items && $scope.userFilter.items.length) {
+					if ($scope.userFilter.items && $scope.userFilter.items.length) {
 						filter.items.push({
 							path: 'CustomProperties',
 							op: '&&',
@@ -48,13 +51,13 @@
 					$documentsService.getDocuments({
 						filter: filter
 					})
-					.then(function (result) {
-						$scope.documents = result.rows;
-						$scope.applyEnabled = false;
-					});
+						.then(function(result) {
+							$scope.documents = result.rows;
+							$scope.applyEnabled = false;
+						});
 				},
-				
-				generateReport: function () {
+
+				generateReport: function() {
 					reportService.generate({
 						action: "generate",
 						model: "Document",

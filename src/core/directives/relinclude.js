@@ -4,6 +4,7 @@ angular.module('core')
             return {
                 restrict: 'ECA',
                 terminal: true,
+                replace:true,
                 compile: function(element, attr) {
                     var srcExp = (attr.ngRelinclude || attr.src),
                         onloadExp = attr.onload || '',

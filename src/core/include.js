@@ -46,10 +46,15 @@ sysConfig.modules['core'] = {
 
 		"src/core/pages/userReports/userReports.js",
 
+		"src/core/services/coreConfig.js",
+		"src/core/services/moduleConfig.js",
+		"src/core/services/pageConfig.js",
+
 		"src/core/services/apinet/apinetService.js",
 		"src/core/services/apinet/metadataService.js",
 		"src/core/services/apinet/dictionaryService.js",
 		"src/core/services/apinet/projectsService.js",
 		"src/core/services/apinet/documentsService.js"
+
 	]
 };
