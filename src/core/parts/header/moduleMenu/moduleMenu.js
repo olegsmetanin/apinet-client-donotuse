@@ -21,6 +21,8 @@ angular.module('core')
 
                     return function($scope, element, attrs) {
 
+                        $compile(element)($scope);
+
                     };
 
                 }

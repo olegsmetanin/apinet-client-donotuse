@@ -1,11 +1,22 @@
-<li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
-    <ul class="dropdown-menu">
-        <li><a href="#!/projectStatus">Statuses</a>
-        </li>
-        <li><a href="#">Tags</a>
-        </li>
-        <li><a href="#">Subscriptions</a>
-        </li>
-    </ul>
-</li>
+
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+
+	<ul ng-controller="userRoleCtrl" class="dropdown-menu">
+		<li class="nav-header">Roles {{role}}</li>
+
+		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('admin')"><i ng-show="roleIs('admin')" class="icon-ok" style="float:right;"></i>Admin</a>
+		</li>
+		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('manager')"><i ng-show="roleIs('manager')" class="icon-ok" style="float:right;"></i>Manager</a>
+		</li>
+
+
+		<li class="divider"></li>
+
+		<li><a href="#!/projectStatus">Statuses</a>
+		</li>
+		<li><a href="#">Tags</a>
+		</li>
+		<li><a href="#">Subscriptions</a>
+		</li>
+	</ul>
+

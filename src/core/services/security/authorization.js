@@ -9,6 +9,10 @@ angular.module('security.authorization', ['security.service'])
         return securityAuthorization.requireGroups(groups);
       }]; };
 
+      this.requireRoles = function(roles) { return ['securityAuthorization', function(securityAuthorization) {
+        return securityAuthorization.requireRoles(roles);
+      }]; };
+
       this.requireAdminUser = function() { return ['securityAuthorization', function(securityAuthorization) {
         return securityAuthorization.requireAdminUser();
       }]; };
@@ -18,7 +22,7 @@ angular.module('security.authorization', ['security.service'])
       }]; };
 
 
-      this.$get = ['security', 'securityRetryQueue', 'currentProject', function(security, queue, currentProject) {
+      this.$get = ['security', 'securityRetryQueue', 'sysConfig', function(security, queue, sysConfig) {
         var service = {
 
           // Require that there is an authenticated user
@@ -46,7 +50,7 @@ angular.module('security.authorization', ['security.service'])
           // Require that there is an authenticated user, current project,
           // and current user in any of requested groups of current project
           requireGroups: function(requiredGroups) {
-            var promise = security.requestUserGroups(currentProject).then(function(groups) {
+            var promise = security.requestUserGroups(sysConfig.project).then(function(groups) {
               var found = false;
               for(var groupIndex = 0; groupIndex < requiredGroups.length; groupIndex++) {
                 var requiredGroup = requiredGroups[groupIndex];
@@ -61,7 +65,22 @@ angular.module('security.authorization', ['security.service'])
               }
             });
             return promise;
+        },
+
+                  // Require that there is an authenticated user, current project,
+          // and current user in any of requested groups of current project
+          requireRoles: function(requiredRoles) {
+            var promise = security.requestUserRole(sysConfig.project).then(function(role) {
+              var found = requiredRoles.indexOf(role) !== -1;
+              if ( !found ) {
+                //reason not analized in security service, no matter
+                return queue.pushRetryFn('unauthorized-client', function() { return service.requireRoles(requiredRoles); });
+              }
+            });
+            return promise;
         }
+
+
 
       };
 

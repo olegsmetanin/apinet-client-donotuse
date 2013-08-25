@@ -127,6 +127,41 @@ angular.module('backend', ['ngMockE2E'])
 				}
 			});
 
+			$httpBackend.whenPOST('/api/core/config/getConfig').respond(function(method, url, data, headers) {
+				return [200, {
+					user: currentUser
+				}]
+			});
+
+			$httpBackend.whenPOST('/api/home/config/getConfig').respond(function(method, url, data, headers) {
+				return [200, {
+					user: {
+						role: "admin",
+						roles: ['admin'],
+						permissions: []
+					}
+				}]
+			});
+
+			$httpBackend.whenPOST('/api/home/user/setRole').respond(function(method, url, data, headers) {
+				return [200]
+			});
+
+
+
+
+			$httpBackend.whenPOST('/api/core/documents/getDocuments').respond(function(method, url, data, headers) {
+				return [200, {
+					rows: [{
+						Annotation: "Doc1"
+					}, {
+						Annotation: "Doc2"
+					}]
+				}]
+			});
+
+
+
 			$httpBackend.whenPOST('/metadata/AllModelsMetadata/').respond(function() {
 				return [200, {
 					'AGO.Docstore.Model.Projects.ProjectParticipantModel': {
@@ -1101,5 +1136,6 @@ angular.module('backend', ['ngMockE2E'])
 				return [200, userReports];
 
 			}
+
 		}
 	]);
