@@ -10,7 +10,7 @@ angular.module('home')
 
 			$scope.roleIs = function(role) {
 				return $scope.role === role;
-			}
+			};
 
 			$scope.setRole = function(role) {
 				$http.post('/api/home/user/setRole', {
@@ -19,6 +19,6 @@ angular.module('home')
 				}).then(function(response) {
 					location.reload();
 				});
-			}
+			};
 		}
 	]);

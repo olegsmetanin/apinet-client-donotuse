@@ -130,7 +130,7 @@ angular.module('backend', ['ngMockE2E'])
 			$httpBackend.whenPOST('/api/core/config/getConfig').respond(function(method, url, data, headers) {
 				return [200, {
 					user: currentUser
-				}]
+				}];
 			});
 
 			$httpBackend.whenPOST('/api/home/config/getConfig').respond(function(method, url, data, headers) {
@@ -140,11 +140,11 @@ angular.module('backend', ['ngMockE2E'])
 						roles: ['admin'],
 						permissions: []
 					}
-				}]
+				}];
 			});
 
 			$httpBackend.whenPOST('/api/home/user/setRole').respond(function(method, url, data, headers) {
-				return [200]
+				return [200];
 			});
 
 
@@ -157,8 +157,22 @@ angular.module('backend', ['ngMockE2E'])
 					}, {
 						Annotation: "Doc2"
 					}]
-				}]
+				}];
 			});
+
+			$httpBackend.whenPOST('/api/home/contractCategory/getNames').respond(function(method, url, data, headers) {
+				console.log("/api/home/contractCategory/getNames");
+				return [200, {
+					rows: [{
+						id: 1,
+						text: "qwe"
+					}, {
+						id: 2,
+						text: "asd"
+					}]
+				}];
+			});
+
 
 
 

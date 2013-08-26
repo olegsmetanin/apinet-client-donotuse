@@ -2,46 +2,28 @@
 	<div ng-controller="documentsListCtrl">
 
 		<twocolumn-side>
-			<button type="button" class="btn btn-success" ng-click="refreshList()"
-			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
+			<button type="button" class="btn btn-success" ng-click="refreshList()" ng-disabled="!applyEnabled" style="float:right;">Apply</button>
 
 			<tabset>
-				<!--<tab heading="Simple">
+				<tab heading="Simple">
 					<form>
 						<fieldset>
 							<label>Number</label>
-							<input filter-input filter-ng-model="filter.simple.number" path="'Contract.Number'" />
+							<input filter-input="{path:'Contract.Number', op:'%'}" filter-ng-model="filter.simple.number" />
 							<label>Categories</label>
-							<input filter-lookup filter-ng-model="filter.simple.category" path="'Contract.Category.Name'" action="get" multiple/>
-							<label>Status</label>
-							<div style="padding-left:10px;">
-								<label>StartDate</label>
-								<input filter-input filter-ng-model="filter.simple.startDate" path="'Contract.StatusHistory.StartDate'" />
-								<label>EndDate</label>
-								<input filter-input filter-ng-model="filter.simple.endDate" path="'Contract.StatusHistory.StartDate'" />
-								<label>Status</label>
-								<input filter-lookup filter-ng-model="filter.simple.status" path="'Contract.StatusHistory.Status.Name'" action="get" multiple/>
-								<label>Author</label>
-								<div style="padding-left:10px;">
-									<label>First Name</label>
-									<input filter-lookup filter-ng-model="filter.simple.AuthorFirstName" path="'Contract.StatusHistory.Author.Name'" action="get" multiple />
-								</div>
-							</div>
+							<input filter-lookup="{path:'Contract.Category.Name', op:'='}" filter-ng-model="filter.simple.category" action="/api/home/contractCategory/getNames" multiple/>
 						</fieldset>
+						{{filter}}
 					</form>
-				</tab>-->
+				</tab>
 
 				<tab heading="User">
-					<div user-filter
-					     root-node="userFilter"
-					     model-type="'AGO.Docstore.Model.Documents.DocumentCustomPropertyModel'">
+					<div user-filter root-node="userFilter" model-type="'AGO.Docstore.Model.Documents.DocumentCustomPropertyModel'">
 					</div>
 				</tab>
 
 				<tab heading="Complex">
-					<div structured-filter
-					     root-node="structuredFilter"
-					     model-type="'AGO.Docstore.Model.Documents.DocumentModel'">
+					<div structured-filter root-node="structuredFilter" model-type="'AGO.Docstore.Model.Documents.DocumentModel'">
 					</div>
 				</tab>
 
