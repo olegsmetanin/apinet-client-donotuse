@@ -107,7 +107,7 @@ angular.module('backend', ['ngMockE2E'])
 
 			$httpBackend.whenPOST('/api/models/').respond(function(method, url, data, headers) {
 				var prms = JSON.parse(data);
-				if ((prms.action === 'getModels') && (prms.modelType === 'AGO.Docstore.Model.Projects.ProjectModel')) {
+				if ((prms.action === 'getModels') && (prms.modelType === 'AGO.Core.Model.Projects.ProjectModel')) {
 					return getProjects();
 				} else {
 					return [500, 'Oops, something went wrong'];
@@ -178,7 +178,7 @@ angular.module('backend', ['ngMockE2E'])
 
 			$httpBackend.whenPOST('/metadata/AllModelsMetadata/').respond(function() {
 				return [200, {
-					'AGO.Docstore.Model.Projects.ProjectParticipantModel': {
+					'AGO.Core.Model.Projects.ProjectParticipantModel': {
 						'PrimitiveProperties': {
 							'GroupName': {
 								'DisplayName': 'Группа',
@@ -201,16 +201,16 @@ angular.module('backend', ['ngMockE2E'])
 							'Project': {
 								'DisplayName': 'Проект',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Projects.ProjectModel'
+								'ModelType': 'AGO.Core.Model.Projects.ProjectModel'
 							},
 							'User': {
 								'DisplayName': 'Пользователь',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Documents.DocumentCustomPropertyModel': {
+					'AGO.Core.Model.Documents.DocumentCustomPropertyModel': {
 						'PrimitiveProperties': {
 							'StringValue': {
 								'DisplayName': 'Значение-строка',
@@ -241,26 +241,26 @@ angular.module('backend', ['ngMockE2E'])
 							'PropertyType': {
 								'DisplayName': 'Тип параметра',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.CustomPropertyTypeModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'Document': {
 								'DisplayName': 'Документ',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Documents.DocumentModel'
+								'ModelType': 'AGO.Core.Model.Documents.DocumentModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Dictionary.CustomPropertyInstanceModel': {
+					'AGO.Core.Model.Dictionary.CustomPropertyInstanceModel': {
 						'PrimitiveProperties': {
 							'StringValue': {
 								'DisplayName': 'Значение-строка',
@@ -291,21 +291,21 @@ angular.module('backend', ['ngMockE2E'])
 							'PropertyType': {
 								'DisplayName': 'Тип параметра',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.CustomPropertyTypeModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel': {
+					'AGO.Core.Model.Dictionary.CustomPropertyTypeModel': {
 						'PrimitiveProperties': {
 							'ProjectCode': {
 								'DisplayName': 'Код проекта',
@@ -349,26 +349,26 @@ angular.module('backend', ['ngMockE2E'])
 							'Children': {
 								'DisplayName': 'Последователи',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.CustomPropertyTypeModel'
 							},
 							'Parent': {
 								'DisplayName': 'Предшественник',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.CustomPropertyTypeModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Dictionary.Documents.DocumentAddresseeModel': {
+					'AGO.Core.Model.Dictionary.Documents.DocumentAddresseeModel': {
 						'PrimitiveProperties': {
 							'ProjectCode': {
 								'DisplayName': 'Код проекта',
@@ -399,31 +399,31 @@ angular.module('backend', ['ngMockE2E'])
 							'Children': {
 								'DisplayName': 'Последователи',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentAddresseeModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.Documents.DocumentAddresseeModel'
 							},
 							'ReceivingDocuments': {
 								'DisplayName': 'Документы (кому)',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Documents.DocumentModel'
+								'ModelType': 'AGO.Core.Model.Documents.DocumentModel'
 							},
 							'Parent': {
 								'DisplayName': 'Предшественник',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentAddresseeModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.Documents.DocumentAddresseeModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Dictionary.Documents.DocumentCategoryModel': {
+					'AGO.Core.Model.Dictionary.Documents.DocumentCategoryModel': {
 						'PrimitiveProperties': {
 							'ProjectCode': {
 								'DisplayName': 'Код проекта',
@@ -454,31 +454,31 @@ angular.module('backend', ['ngMockE2E'])
 							'Children': {
 								'DisplayName': 'Последователи',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentCategoryModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.Documents.DocumentCategoryModel'
 							},
 							'Documents': {
 								'DisplayName': 'Документы',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Documents.DocumentModel'
+								'ModelType': 'AGO.Core.Model.Documents.DocumentModel'
 							},
 							'Parent': {
 								'DisplayName': 'Предшественник',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentCategoryModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.Documents.DocumentCategoryModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Dictionary.Documents.DocumentStatusModel': {
+					'AGO.Core.Model.Dictionary.Documents.DocumentStatusModel': {
 						'PrimitiveProperties': {
 							'ProjectCode': {
 								'DisplayName': 'Код проекта',
@@ -509,16 +509,16 @@ angular.module('backend', ['ngMockE2E'])
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Dictionary.OrgStructure.DepartmentModel': {
+					'AGO.Core.Model.Dictionary.OrgStructure.DepartmentModel': {
 						'PrimitiveProperties': {
 							'ProjectCode': {
 								'DisplayName': 'Код проекта',
@@ -549,31 +549,31 @@ angular.module('backend', ['ngMockE2E'])
 							'Users': {
 								'DisplayName': 'Пользователи',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'Children': {
 								'DisplayName': 'Последователи',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.OrgStructure.DepartmentModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.OrgStructure.DepartmentModel'
 							},
 							'Parent': {
 								'DisplayName': 'Предшественник',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.OrgStructure.DepartmentModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.OrgStructure.DepartmentModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Dictionary.Projects.ProjectStatusModel': {
+					'AGO.Core.Model.Dictionary.Projects.ProjectStatusModel': {
 						'PrimitiveProperties': {
 							'ProjectCode': {
 								'DisplayName': 'Код проекта',
@@ -604,16 +604,16 @@ angular.module('backend', ['ngMockE2E'])
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Documents.DocumentCommentModel': {
+					'AGO.Core.Model.Documents.DocumentCommentModel': {
 						'PrimitiveProperties': {
 							'ExternalAuthor': {
 								'DisplayName': 'Автор - внешний пользователь',
@@ -640,21 +640,21 @@ angular.module('backend', ['ngMockE2E'])
 							'Document': {
 								'DisplayName': 'Документ',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Documents.DocumentModel'
+								'ModelType': 'AGO.Core.Model.Documents.DocumentModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Documents.DocumentModel': {
+					'AGO.Core.Model.Documents.DocumentModel': {
 						'PrimitiveProperties': {
 							'SeqNumber': {
 								'DisplayName': 'Номер п/п',
@@ -714,46 +714,46 @@ angular.module('backend', ['ngMockE2E'])
 							'StatusHistory': {
 								'DisplayName': 'История статусов документа',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Documents.DocumentStatusHistoryModel'
+								'ModelType': 'AGO.Core.Model.Documents.DocumentStatusHistoryModel'
 							},
 							'Categories': {
 								'DisplayName': 'Категории документов',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentCategoryModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.Documents.DocumentCategoryModel'
 							},
 							'Comments': {
 								'DisplayName': 'Комментарии',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Documents.DocumentCommentModel'
+								'ModelType': 'AGO.Core.Model.Documents.DocumentCommentModel'
 							},
 							'Receivers': {
 								'DisplayName': 'Адресаты (кому)',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentAddresseeModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.Documents.DocumentAddresseeModel'
 							},
 							'CustomProperties': {
 								'DisplayName': 'Параметры',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Documents.DocumentCustomPropertyModel'
+								'ModelType': 'AGO.Core.Model.Documents.DocumentCustomPropertyModel'
 							},
 							'Status': {
 								'DisplayName': 'Статус',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentStatusModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.Documents.DocumentStatusModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Documents.DocumentStatusHistoryModel': {
+					'AGO.Core.Model.Documents.DocumentStatusHistoryModel': {
 						'PrimitiveProperties': {
 							'StartDate': {
 								'DisplayName': 'Дата начала',
@@ -780,26 +780,26 @@ angular.module('backend', ['ngMockE2E'])
 							'Document': {
 								'DisplayName': 'Документ',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Documents.DocumentModel'
+								'ModelType': 'AGO.Core.Model.Documents.DocumentModel'
 							},
 							'Status': {
 								'DisplayName': 'Статус',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.Documents.DocumentStatusModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.Documents.DocumentStatusModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Projects.ProjectModel': {
+					'AGO.Core.Model.Projects.ProjectModel': {
 						'PrimitiveProperties': {
 							'ProjectCode': {
 								'DisplayName': 'Код проекта',
@@ -842,31 +842,31 @@ angular.module('backend', ['ngMockE2E'])
 							'StatusHistory': {
 								'DisplayName': 'История статусов учета',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Projects.ProjectStatusHistoryModel'
+								'ModelType': 'AGO.Core.Model.Projects.ProjectStatusHistoryModel'
 							},
 							'Participants': {
 								'DisplayName': 'Участники проекта',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Projects.ProjectParticipantModel'
+								'ModelType': 'AGO.Core.Model.Projects.ProjectParticipantModel'
 							},
 							'Status': {
 								'DisplayName': 'Статус проекта',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.Projects.ProjectStatusModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.Projects.ProjectStatusModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Projects.ProjectStatusHistoryModel': {
+					'AGO.Core.Model.Projects.ProjectStatusHistoryModel': {
 						'PrimitiveProperties': {
 							'StartDate': {
 								'DisplayName': 'Дата начала',
@@ -893,26 +893,26 @@ angular.module('backend', ['ngMockE2E'])
 							'Project': {
 								'DisplayName': 'Документ',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Projects.ProjectModel'
+								'ModelType': 'AGO.Core.Model.Projects.ProjectModel'
 							},
 							'Status': {
 								'DisplayName': 'Статус',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.Projects.ProjectStatusModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.Projects.ProjectStatusModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Security.UserGroupModel': {
+					'AGO.Core.Model.Security.UserGroupModel': {
 						'PrimitiveProperties': {
 							'Name': {
 								'DisplayName': 'Наименование',
@@ -939,21 +939,21 @@ angular.module('backend', ['ngMockE2E'])
 							'Users': {
 								'DisplayName': 'Пользователи',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					},
-					'AGO.Docstore.Model.Security.UserModel': {
+					'AGO.Core.Model.Security.UserModel': {
 						'PrimitiveProperties': {
 							'Login': {
 								'DisplayName': 'Логин',
@@ -1012,22 +1012,22 @@ angular.module('backend', ['ngMockE2E'])
 							'Departments': {
 								'DisplayName': 'Подразделения',
 								'IsCollection': true,
-								'ModelType': 'AGO.Docstore.Model.Dictionary.OrgStructure.DepartmentModel'
+								'ModelType': 'AGO.Core.Model.Dictionary.OrgStructure.DepartmentModel'
 							},
 							'Group': {
 								'DisplayName': 'Группа',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserGroupModel'
+								'ModelType': 'AGO.Core.Model.Security.UserGroupModel'
 							},
 							'Creator': {
 								'DisplayName': 'Кто создал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							},
 							'LastChanger': {
 								'DisplayName': 'Кто последний раз редактировал',
 								'IsCollection': false,
-								'ModelType': 'AGO.Docstore.Model.Security.UserModel'
+								'ModelType': 'AGO.Core.Model.Security.UserModel'
 							}
 						}
 					}

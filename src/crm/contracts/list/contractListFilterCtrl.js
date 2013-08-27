@@ -14,7 +14,7 @@ angular.module('crm')
 
 
         $scope.meta = {
-            "AGO.Docstore.Model.Documents.DocumentCustomPropertyModel": {
+            "AGO.Core.Model.Documents.DocumentCustomPropertyModel": {
                 "PrimitiveProperties": {
                     "StringValue": {
                         "DisplayName": "Значение-строка",
@@ -45,26 +45,26 @@ angular.module('crm')
                     "PropertyType": {
                         "DisplayName": "Тип параметра",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.CustomPropertyTypeModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "Document": {
                         "DisplayName": "Документ",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Documents.DocumentModel"
+                        "ModelType": "AGO.Core.Model.Documents.DocumentModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Dictionary.CustomPropertyInstanceModel": {
+            "AGO.Core.Model.Dictionary.CustomPropertyInstanceModel": {
                 "PrimitiveProperties": {
                     "StringValue": {
                         "DisplayName": "Значение-строка",
@@ -95,21 +95,21 @@ angular.module('crm')
                     "PropertyType": {
                         "DisplayName": "Тип параметра",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.CustomPropertyTypeModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel": {
+            "AGO.Core.Model.Dictionary.CustomPropertyTypeModel": {
                 "PrimitiveProperties": {
                     "ProjectCode": {
                         "DisplayName": "Код проекта",
@@ -153,26 +153,26 @@ angular.module('crm')
                     "Children": {
                         "DisplayName": "Последователи",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.CustomPropertyTypeModel"
                     },
                     "Parent": {
                         "DisplayName": "Предшественник",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.CustomPropertyTypeModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.CustomPropertyTypeModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Dictionary.DepartmentModel": {
+            "AGO.Core.Model.Dictionary.DepartmentModel": {
                 "PrimitiveProperties": {
                     "ProjectCode": {
                         "DisplayName": "Код проекта",
@@ -203,31 +203,31 @@ angular.module('crm')
                     "Users": {
                         "DisplayName": "Пользователи",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "Children": {
                         "DisplayName": "Последователи",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DepartmentModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DepartmentModel"
                     },
                     "Parent": {
                         "DisplayName": "Предшественник",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DepartmentModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DepartmentModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Dictionary.DocumentAddresseeModel": {
+            "AGO.Core.Model.Dictionary.DocumentAddresseeModel": {
                 "PrimitiveProperties": {
                     "ProjectCode": {
                         "DisplayName": "Код проекта",
@@ -258,31 +258,31 @@ angular.module('crm')
                     "Children": {
                         "DisplayName": "Последователи",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DocumentAddresseeModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DocumentAddresseeModel"
                     },
                     "ReceivingDocuments": {
                         "DisplayName": "Документы (кому)",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Documents.DocumentModel"
+                        "ModelType": "AGO.Core.Model.Documents.DocumentModel"
                     },
                     "Parent": {
                         "DisplayName": "Предшественник",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DocumentAddresseeModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DocumentAddresseeModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Dictionary.DocumentCategoryModel": {
+            "AGO.Core.Model.Dictionary.DocumentCategoryModel": {
                 "PrimitiveProperties": {
                     "ProjectCode": {
                         "DisplayName": "Код проекта",
@@ -313,31 +313,31 @@ angular.module('crm')
                     "Children": {
                         "DisplayName": "Последователи",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DocumentCategoryModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DocumentCategoryModel"
                     },
                     "Documents": {
                         "DisplayName": "Документы",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Documents.DocumentModel"
+                        "ModelType": "AGO.Core.Model.Documents.DocumentModel"
                     },
                     "Parent": {
                         "DisplayName": "Предшественник",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DocumentCategoryModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DocumentCategoryModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Dictionary.DocumentStatusModel": {
+            "AGO.Core.Model.Dictionary.DocumentStatusModel": {
                 "PrimitiveProperties": {
                     "ProjectCode": {
                         "DisplayName": "Код проекта",
@@ -368,16 +368,16 @@ angular.module('crm')
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Documents.DocumentCommentModel": {
+            "AGO.Core.Model.Documents.DocumentCommentModel": {
                 "PrimitiveProperties": {
                     "ExternalAuthor": {
                         "DisplayName": "Автор - внешний пользователь",
@@ -404,21 +404,21 @@ angular.module('crm')
                     "Document": {
                         "DisplayName": "Документ",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Documents.DocumentModel"
+                        "ModelType": "AGO.Core.Model.Documents.DocumentModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Documents.DocumentModel": {
+            "AGO.Core.Model.Documents.DocumentModel": {
                 "PrimitiveProperties": {
                     "SeqNumber": {
                         "DisplayName": "Номер п/п",
@@ -478,46 +478,46 @@ angular.module('crm')
                     "StatusHistory": {
                         "DisplayName": "История статусов документа",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Documents.DocumentStatusHistoryModel"
+                        "ModelType": "AGO.Core.Model.Documents.DocumentStatusHistoryModel"
                     },
                     "Categories": {
                         "DisplayName": "Категории документов",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DocumentCategoryModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DocumentCategoryModel"
                     },
                     "Comments": {
                         "DisplayName": "Комментарии",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Documents.DocumentCommentModel"
+                        "ModelType": "AGO.Core.Model.Documents.DocumentCommentModel"
                     },
                     "Receivers": {
                         "DisplayName": "Адресаты (кому)",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DocumentAddresseeModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DocumentAddresseeModel"
                     },
                     "CustomProperties": {
                         "DisplayName": "Параметры",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Documents.DocumentCustomPropertyModel"
+                        "ModelType": "AGO.Core.Model.Documents.DocumentCustomPropertyModel"
                     },
                     "Status": {
                         "DisplayName": "Статус",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DocumentStatusModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DocumentStatusModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Documents.DocumentStatusHistoryModel": {
+            "AGO.Core.Model.Documents.DocumentStatusHistoryModel": {
                 "PrimitiveProperties": {
                     "StartDate": {
                         "DisplayName": "Дата начала",
@@ -544,26 +544,26 @@ angular.module('crm')
                     "Document": {
                         "DisplayName": "Документ",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Documents.DocumentModel"
+                        "ModelType": "AGO.Core.Model.Documents.DocumentModel"
                     },
                     "Status": {
                         "DisplayName": "Статус",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DocumentStatusModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DocumentStatusModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Security.UserGroupModel": {
+            "AGO.Core.Model.Security.UserGroupModel": {
                 "PrimitiveProperties": {
                     "Name": {
                         "DisplayName": "Наименование",
@@ -590,21 +590,21 @@ angular.module('crm')
                     "Users": {
                         "DisplayName": "Пользователи",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             },
-            "AGO.Docstore.Model.Security.UserModel": {
+            "AGO.Core.Model.Security.UserModel": {
                 "PrimitiveProperties": {
                     "Login": {
                         "DisplayName": "Логин",
@@ -663,22 +663,22 @@ angular.module('crm')
                     "Departments": {
                         "DisplayName": "Подразделения",
                         "IsCollection": true,
-                        "ModelType": "AGO.Docstore.Model.Dictionary.DepartmentModel"
+                        "ModelType": "AGO.Core.Model.Dictionary.DepartmentModel"
                     },
                     "Group": {
                         "DisplayName": "Группа",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserGroupModel"
+                        "ModelType": "AGO.Core.Model.Security.UserGroupModel"
                     },
                     "Creator": {
                         "DisplayName": "Кто создал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     },
                     "LastChanger": {
                         "DisplayName": "Кто последний раз редактировал",
                         "IsCollection": false,
-                        "ModelType": "AGO.Docstore.Model.Security.UserModel"
+                        "ModelType": "AGO.Core.Model.Security.UserModel"
                     }
                 }
             }

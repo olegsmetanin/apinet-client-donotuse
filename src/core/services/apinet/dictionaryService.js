@@ -54,6 +54,23 @@ angular.module('core')
 					cacheable: true,
 					dontFetchReferences: true
 				});
+			},
+
+			lookupDocumentStatuses: function (requestData) {
+				return this.lookupModels(angular.extend({
+					method: 'core/dictionary/getDocumentStatuses',
+					filterProps: ['FullName'],
+					sortProps : ['FullName']
+				}, requestData));
+			},
+
+			getDocumentStatus: function (id) {
+				return $apinetService.getModel({
+					method: 'core/dictionary/getDocumentStatus',
+					id: id,
+					cacheable: true,
+					dontFetchReferences: true
+				});
 			}
 		});
 	}]);

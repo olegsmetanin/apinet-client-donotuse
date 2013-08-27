@@ -11,18 +11,18 @@ angular.module('core')
 
 				/* The trick is here: */
 				// if (attrs.ngModel) {
-				//     attrs.$set('ngModel', '$parent.' + attrs.ngModel+'.val', false);
+				//     attrs.$set('ngModel', '$parent.' + attrs.ngModel+'.value', false);
 				// }
 				// ------Not working
-				//attrs.$set('ngModel', '$parent.' + filterNgModel + '.val');
+				//attrs.$set('ngModel', '$parent.' + filterNgModel + '.value');
 				//attrs.$set('uiSelect2', 'lookupOptions');
 				//
-				// element.attr("ng-model", '$parent.' + filterNgModel + '.val');
+				// element.attr("ng-model", '$parent.' + filterNgModel + '.value');
 				// element.attr("ui-select2", 'lookupOptions');
-				// element[0].setAttribute("ng-model", '$parent.' + filterNgModel + '.val');
+				// element[0].setAttribute("ng-model", '$parent.' + filterNgModel + '.value');
 				// element[0].setAttribute("ui-select2", 'lookupOptions');
 
-				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.val"/></div>');
+				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.value"/></div>');
 
 				return function($scope, element, attrs) {
 
@@ -66,7 +66,7 @@ angular.module('core')
 
 				var filterNgModel = attrs.filterNgModel;
 
-				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.val" ui-select2="lookupOptions" style="width:200px;"/></div>');
+				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.value" ui-select2="lookupOptions" style="width:200px;"/></div>');
 
 				return function($scope, element, attrs) {
 

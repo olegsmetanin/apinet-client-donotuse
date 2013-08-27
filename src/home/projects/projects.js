@@ -29,38 +29,30 @@
 	])
 	.controller('projectsListCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
 		function($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
+			$pageConfig.setConfig({
+				breadcrumbs: [{
+					name: 'Projects',
+					url: '/#!/projects/listview'
+				}]
+			});
+
 			angular.extend($scope, {
 				projects: [],
-				structuredFilter: {},
+				filter: {
+					complex: {}
+				},
 				applyEnabled: false,
 				selectedProjectId: null,
 				projectDetailsTemplate: null,
 				loading: promiseTracker('projects'),
 
 				refreshList: function() {
-					var filter = {
-						op: '&&',
-						items: []
-					};
-					if ($scope.structuredFilter.items && $scope.structuredFilter.items.length) {
-						filter.items.push($scope.structuredFilter);
-					}
-
 					$projectsService.getProjects({
-						filter: filter
+						filter: $scope.filter
 					})
-						.then(function(result) {
-							$scope.projects = result.rows;
-							$scope.applyEnabled = false;
-						});
-				},
-
-				generateReport: function() {
-					reportService.generate({
-						action: "generate",
-						model: "Project",
-						filter: {},
-						name: "report" + new Date()
+					.then(function(result) {
+						$scope.projects = result.rows;
+						$scope.applyEnabled = false;
 					});
 				},
 
@@ -72,14 +64,7 @@
 				}
 			});
 
-			$pageConfig.setConfig({
-				breadcrumbs: [{
-					name: 'Projects',
-					url: '/#!/projects/listview'
-				}]
-			});
-
-			$scope.$watch('structuredFilter', function() {
+			$scope.$watch('filter', function() {
 				$scope.applyEnabled = true;
 			}, true);
 

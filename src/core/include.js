@@ -52,9 +52,7 @@ sysConfig.modules['core'] = {
 
 		"src/core/services/apinet/apinetService.js",
 		"src/core/services/apinet/metadataService.js",
-		"src/core/services/apinet/dictionaryService.js",
-		"src/core/services/apinet/projectsService.js",
-		"src/core/services/apinet/documentsService.js"
+		"src/core/services/apinet/dictionaryService.js"
 
 	]
 };
