@@ -1,46 +1,48 @@
 <div container>
 	<div ng-controller="projectsListCtrl">
+		<div filtered-list="'home/projects/getProjects'">
 
-		<twocolumn-side>
-			<button type="button" class="btn btn-success" ng-click="refreshList()"
-			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
+			<twocolumn-side>
+				<button type="button" class="btn btn-success" ng-click="refreshList()"
+				        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
 
-			<tabset>
-				<tab heading="Complex">
-					<div structured-filter
-					     root-node="filter.complex"
-					     model-type="'AGO.Core.Model.Projects.ProjectModel'">
-					</div>
-				</tab>
+				<tabset>
+					<tab heading="Complex">
+						<div structured-filter
+						     filter-ng-model="filter.complex"
+						     meta="'home/projects/projectMetadata'">
+						</div>
+					</tab>
 
-				<tab heading="Favorites">
+					<tab heading="Favorites">
 
-					<textarea ng-model="state" rows="6"></textarea>
-					<button type="button" class="btn btn-success" ng-click="loadState()" style="float:right;">loadState</button>
-				</tab>
+						<textarea ng-model="state" rows="6"></textarea>
+						<button type="button" class="btn btn-success" ng-click="loadState()" style="float:right;">loadState</button>
+					</tab>
 
-			</tabset>
-		</twocolumn-side>
-
-
-		<twocolumn-content>
+				</tabset>
+			</twocolumn-side>
 
 
-			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
+			<twocolumn-content>
 
-			<ul>
-				<li ng-repeat="project in projects">
-					<a href="/projects/{{project.Id}}#!/common">{{project.Name}}</a>
-					&nbsp;(
-					<a ng-click="showDetails(project.Id)">details</a>)
-				</li>
-			</ul>
 
-			<div ng-include src="projectDetailsTemplate">
-				Click [details] link to the right of the project name to view project details
-			</div>
+				<div ng-show="loading.active()" us-spinner="{top:100}"></div>
 
-		</twocolumn-content>
+				<ul>
+					<li ng-repeat="project in models">
+						<a href="/projects/{{project.Id}}#!/common">{{project.Name}}</a>
+						&nbsp;(
+						<a ng-click="showDetails(project.Id)">details</a>)
+					</li>
+				</ul>
 
+				<div ng-include src="projectDetailsTemplate">
+					Click [details] link to the right of the project name to view project details
+				</div>
+
+			</twocolumn-content>
+
+		</div>
 	</div>
 </div>

@@ -64,7 +64,7 @@ angular.module('security.service', [
 
 			// Attempt to authenticate a user by the given email and password
 			login: function(email, password) {
-				var request = $http.post('/login', {
+				var request = $http.post('/api/system/auth/login', {
 					email: email,
 					password: password
 				});
@@ -85,7 +85,7 @@ angular.module('security.service', [
 
 			// Logout the current user and redirect
 			logout: function(redirectTo) {
-				$http.post('/logout').then(function() {
+				$http.post('/api/system/auth/logout').then(function() {
 					service.currentUser = null;
 					redirect(redirectTo);
 				});
@@ -93,15 +93,11 @@ angular.module('security.service', [
 
 			// Ask the backend to see if a user is already authenticated - this may be from a previous session.
 			requestCurrentUser: function() {
-				//TODO: Сделать нормальную аутентификацию
-				/*				var deferred = $q.defer();
-				deferred.resolve({});
-				return deferred.promise;*/
-
 				if (service.isAuthenticated()) {
 					return $q.when(service.currentUser);
-				} else {
-					return $http.post('/current-user').then(function(response) {
+				}
+				else {
+					return $http.post('/api/system/auth/currentUser').then(function(response) {
 						service.currentUser = response.data.user;
 						return service.currentUser;
 					});

@@ -5,9 +5,6 @@ sysConfig.modules['home'] = {
 		"src/home/projects/projects.js",
 		"src/home/documents/documents.js",
 		"src/home/projects/projectStatus/projectStatusCtrl.js",
-		"src/home/menu/userRoleCtrl.js",
-
-		"src/home/services/projectsService.js",
-		"src/home/services/documentsService.js"
+		"src/home/menu/userRoleCtrl.js"
 	]
 };

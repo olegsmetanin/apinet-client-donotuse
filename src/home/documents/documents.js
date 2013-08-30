@@ -18,8 +18,8 @@
 			$stateProvider.state(documentsList);
 		}
 	])
-	.controller('documentsListCtrl', ['$scope', 'documentsService', 'pageConfig', 'sysConfig', 'promiseTracker',
-		function($scope, $documentsService, $pageConfig, sysConfig, promiseTracker) {
+	.controller('documentsListCtrl', ['$scope', 'pageConfig', 'sysConfig', 'promiseTracker',
+		function($scope, $pageConfig, sysConfig, promiseTracker) {
 			$pageConfig.setConfig({
 				breadcrumbs: [{
 					name: 'Documents',
@@ -27,34 +27,6 @@
 				}]
 			});
 
-			angular.extend($scope, {
-				documents: [],
-				filter: {
-					simple: {},
-					complex: {},
-					user: {}
-				},
-				applyEnabled: false,
-				selectedDocumentId: null,
-				documentDetailsTemplate: null,
-				loading: promiseTracker('documents'),
-
-				refreshList: function() {
-					$documentsService.getDocuments({
-						filter: $scope.filter
-					})
-					.then(function(result) {
-						$scope.documents = result.rows;
-						$scope.applyEnabled = false;
-					});
-				}
-			});
-
-			$scope.$watch('filter', function(value) {
-				$scope.applyEnabled = true;
-				console.log('filter', value);
-			}, true);
-
-			$scope.refreshList();
+			$scope.loading = promiseTracker('documents');
 		}
 	]);

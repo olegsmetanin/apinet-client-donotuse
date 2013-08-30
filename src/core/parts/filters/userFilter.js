@@ -5,8 +5,7 @@ angular.module('core')
 				replace: true,
 				templateUrl: sysConfig.src('core/parts/filters/userFilter.tpl.html'),
 				scope: {
-					rootNode: '=',
-					modelType: '='
+					rootNode: '=filterNgModel'
 				},
 				controller: ['$scope', function($scope) {
 					angular.extend($scope, {
@@ -29,7 +28,7 @@ angular.module('core')
 
 						getMetadata: function(callback, forceRefresh) {
 							if(forceRefresh || !$scope.metadata) {
-								$metadataService.modelMetadata($scope.modelType, function(metadata) {
+								$metadataService.modelMetadata('core/dictionary/customPropertyMetadata', null, function(metadata) {
 									$scope.metadata = metadata;
 									callback($scope.metadata);
 								});
@@ -123,7 +122,8 @@ angular.module('core')
 							if(forceRefresh || !$scope.metadata) {
 								$scope.getParentMetadata({
 									callback: function(parentMeta) {
-										$filterHelpers.getNodeMetadata($scope.node, parentMeta, function(metadata) {
+										$filterHelpers.getNodeMetadata('core/dictionary/customPropertyMetadata',
+												$scope.node, parentMeta, function(metadata) {
 											$scope.metadata = metadata;
 											callback($scope.metadata);
 										});
@@ -137,7 +137,8 @@ angular.module('core')
 						getPropertyValueMetadata: function(callback, forceRefresh) {
 							if(forceRefresh || !$scope.propertyValueMetadata) {
 								$scope.getMetadata(function(nodeMeta) {
-									$filterHelpers.getNodeMetadata($scope.propertyValueNode, nodeMeta, function(metadata) {
+									$filterHelpers.getNodeMetadata('core/dictionary/customPropertyMetadata',
+											$scope.propertyValueNode, nodeMeta, function(metadata) {
 										$scope.propertyValueMetadata = metadata;
 										callback($scope.propertyValueMetadata);
 									});
@@ -419,7 +420,8 @@ angular.module('core')
 							if(forceRefresh || !$scope.metadata) {
 								$scope.getParentMetadata({
 									callback: function(parentMeta) {
-										$filterHelpers.getNodeMetadata($scope.propertyValueNode, parentMeta, function(metadata) {
+										$filterHelpers.getNodeMetadata('core/dictionary/customPropertyMetadata',
+												$scope.propertyValueNode, parentMeta, function(metadata) {
 											$scope.metadata = metadata;
 											callback($scope.metadata);
 										});

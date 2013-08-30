@@ -17,8 +17,8 @@ angular.module('core')
 
         }
     ])
-    .controller('userReportsCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
-        function($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
+    .controller('userReportsCtrl', ['$scope', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
+        function($scope, $pageConfig, sysConfig, promiseTracker, reportService) {
 
             $pageConfig.setConfig({
                 breadcrumbs: [{

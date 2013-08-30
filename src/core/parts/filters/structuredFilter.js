@@ -5,8 +5,8 @@ angular.module('core')
 				replace: true,
 				templateUrl: sysConfig.src('core/parts/filters/structuredFilter.tpl.html'),
 				scope: {
-					rootNode: '=',
-					modelType: '='
+					rootNode: '=filterNgModel',
+					meta: '='
 				},
 				controller: ['$scope', function($scope) {
 					angular.extend($scope, {
@@ -34,7 +34,7 @@ angular.module('core')
 
 						getMetadata: function(callback, forceRefresh) {
 							if(forceRefresh || !$scope.metadata) {
-								$metadataService.modelMetadata($scope.modelType, function(metadata) {
+								$metadataService.modelMetadata($scope.meta, null, function(metadata) {
 									$scope.metadata = metadata;
 									callback($scope.metadata);
 								});
@@ -115,6 +115,7 @@ angular.module('core')
 					node: '=',
 					rootNode: '=',
 					shared: '=',
+					meta: '=',
 					getParentMetadata: '&'
 				},
 				templateUrl: sysConfig.src('core/parts/filters/structuredFilterNode.tpl.html'),
@@ -130,7 +131,7 @@ angular.module('core')
 							if(forceRefresh || !$scope.metadata) {
 								$scope.getParentMetadata({
 									callback: function(parentMeta) {
-										$filterHelpers.getNodeMetadata($scope.node, parentMeta, function(metadata) {
+										$filterHelpers.getNodeMetadata($scope.meta, $scope.node, parentMeta, function(metadata) {
 											$scope.metadata = metadata;
 											callback($scope.metadata);
 										});
@@ -164,7 +165,7 @@ angular.module('core')
 							}
 							else if($scope.editMode === 'new') {
 								$scope.getMetadata(function(metadata) {
-									$filterHelpers.getNodeMetadata(changedNode, metadata, function(changedNodeMeta) {
+									$filterHelpers.getNodeMetadata($scope.meta, changedNode, metadata, function(changedNodeMeta) {
 										$scope.node.items.push(changedNode);
 										$scope.selectNode(changedNode, changedNodeMeta);
 									});
@@ -299,6 +300,7 @@ angular.module('core')
 								'   node="subNode"',
 								'   root-node="rootNode"',
 								'   shared="shared"',
+								'   meta="meta"',
 								'   get-parent-metadata="getMetadata(callback)">',
 								'</div>'
 							].join('\n'));
@@ -325,6 +327,7 @@ angular.module('core')
 							'<div structured-filter-node-editor',
 							'   node="editingNode"',
 							'   shared="shared"',
+							'   meta="meta"',
 							'   get-parent-metadata="' + getParentMetadataFn + '"',
 							'   commit-edit="commitEdit(changedNode)"',
 							'   cancel-edit="cancelEdit()">',
@@ -350,6 +353,7 @@ angular.module('core')
 				scope: {
 					node: '=',
 					shared: '=',
+					meta: '=',
 					getParentMetadata: '&',
 					commitEdit: '&',
 					cancelEdit: '&'
@@ -368,7 +372,7 @@ angular.module('core')
 							if(forceRefresh || !$scope.metadata) {
 								$scope.getParentMetadata({
 									callback: function(parentMeta) {
-										$filterHelpers.getNodeMetadata($scope.node, parentMeta, function(metadata) {
+										$filterHelpers.getNodeMetadata($scope.meta, $scope.node, parentMeta, function(metadata) {
 											$scope.metadata = metadata;
 											$scope.valueMetadata = metadata;
 

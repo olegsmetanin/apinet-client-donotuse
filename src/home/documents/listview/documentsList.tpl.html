@@ -1,62 +1,66 @@
 <div container>
 	<div ng-controller="documentsListCtrl">
+		<div filtered-list="'docs/documents/getDocuments'">
 
-		<twocolumn-side>
-			<button type="button" class="btn btn-success" ng-click="refreshList()" ng-disabled="!applyEnabled" style="float:right;">Apply</button>
+			<twocolumn-side>
+				<button type="button" class="btn btn-success" ng-click="refreshList()" ng-disabled="!applyEnabled" style="float:right;">Apply</button>
 
-			<tabset>
-				<tab heading="Simple">
-					<form>
-						<fieldset>
-							<label>Number</label>
-							<input filter-input="{path:'Number', op:'like'}" filter-ng-model="filter.simple.number" />
-							<label>Status name</label>
-							<input filter-input="{path:'Status.Name', op:'like'}" filter-ng-model="filter.simple.statusName" />
-							<label>Categories</label>
-							<input filter-lookup="{path:'Categories', op:'='}" filter-ng-model="filter.simple.category" action="/api/core/dictionary/getDocumentCategories" multiple/>
-						</fieldset>
-						{{filter}}
-					</form>
-				</tab>
+				<tabset>
+					<tab heading="Simple">
+						<form>
+							<fieldset>
+								<label>Number</label>
+								<input filter-input="{path:'Number', op:'like'}" filter-ng-model="filter.simple.number" />
+								<label>Status name</label>
+								<input filter-input="{path:'Status.Name', op:'like'}" filter-ng-model="filter.simple.statusName" />
+								<label>Categories</label>
+								<input filter-lookup="{path:'Categories', op:'='}" filter-ng-model="filter.simple.category" action="/api/core/dictionary/getDocumentCategories" multiple/>
+							</fieldset>
+							{{filter}}
+						</form>
+					</tab>
 
-				<tab heading="User">
-					<div user-filter root-node="filter.user" model-type="'AGO.Core.Model.Documents.DocumentCustomPropertyModel'">
-					</div>
-				</tab>
+					<tab heading="User">
+						<div user-filter filter-ng-model="filter.user">
+						</div>
+					</tab>
 
-				<tab heading="Complex">
-					<div structured-filter root-node="filter.complex" model-type="'AGO.Core.Model.Documents.DocumentModel'">
-					</div>
-				</tab>
+					<tab heading="Complex">
+						<div structured-filter
+						     filter-ng-model="filter.complex"
+						     meta="'docs/documents/documentMetadata'">
+						</div>
+					</tab>
 
-				<tab heading="Favorites">
+					<tab heading="Favorites">
 
-					<textarea ng-model="state" rows="6"></textarea>
-					<button type="button" class="btn btn-success" ng-click="loadState()" style="float:right;">loadState</button>
-				</tab>
+						<textarea ng-model="state" rows="6"></textarea>
+						<button type="button" class="btn btn-success" ng-click="loadState()" style="float:right;">loadState</button>
+					</tab>
 
-			</tabset>
-		</twocolumn-side>
-
-
-		<twocolumn-content>
+				</tabset>
+			</twocolumn-side>
 
 
-			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
+			<twocolumn-content>
 
-			<ul>
-				<li ng-repeat="document in documents">
-					<a href="/documents/{{document.Id}}#!/common">{{document.Annotation}}</a>
-					&nbsp;(
-					<a ng-click="showDetails(document.Id)">details</a>)
-				</li>
-			</ul>
 
-			<div ng-include src="documentDetailsTemplate">
-				Click [details] link to the right of the document name to view document details
-			</div>
+				<div ng-show="loading.active()" us-spinner="{top:100}"></div>
 
-		</twocolumn-content>
+				<ul>
+					<li ng-repeat="document in models">
+						<a href="/documents/{{document.Id}}#!/common">{{document.Annotation}}</a>
+						&nbsp;(
+						<a ng-click="showDetails(document.Id)">details</a>)
+					</li>
+				</ul>
 
+				<div ng-include src="documentDetailsTemplate">
+					Click [details] link to the right of the document name to view document details
+				</div>
+
+			</twocolumn-content>
+
+		</div>
 	</div>
 </div>

@@ -55,7 +55,7 @@ angular.module('backend', ['ngMockE2E'])
 			};
 
 			//fake login
-			$httpBackend.whenPOST('/login').respond(
+			$httpBackend.whenPOST('/api/system/auth/login').respond(
 				function(method, url, data, headers) {
 					var prms = JSON.parse(data);
 					//test error on
@@ -78,13 +78,13 @@ angular.module('backend', ['ngMockE2E'])
 				});
 
 			//fake logout
-			$httpBackend.whenPOST('/logout').respond(function(method, url, data, headers) {
+			$httpBackend.whenPOST('/api/system/auth/logout').respond(function(method, url, data, headers) {
 				currentUser = {};
 				return [204];
 			});
 
 			//fake current-user
-			$httpBackend.whenPOST('/current-user').respond(function(method, url, data, headers) {
+			$httpBackend.whenPOST('/api/system/auth/currentUser').respond(function(method, url, data, headers) {
 				if (currentUser) {
 					return [200, {
 						user: currentUser
@@ -150,7 +150,7 @@ angular.module('backend', ['ngMockE2E'])
 
 
 
-			$httpBackend.whenPOST('/api/core/documents/getDocuments').respond(function(method, url, data, headers) {
+			$httpBackend.whenPOST('/api/docs/documents/getDocuments').respond(function(method, url, data, headers) {
 				return [200, {
 					rows: [{
 						Annotation: "Doc1"

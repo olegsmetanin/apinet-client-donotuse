@@ -1,6 +1,6 @@
 angular.module('home')
-	.controller('projectStatusCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
-		function($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
+	.controller('projectStatusCtrl', ['$scope', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
+		function($scope, $pageConfig, sysConfig, promiseTracker, reportService) {
 
 			$pageConfig.setConfig({
 				breadcrumbs: [{
@@ -11,8 +11,8 @@ angular.module('home')
 
 		}
 	])
-	.controller('projectStatusTabsCtrl', ['$scope', 'projectsService', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
-		function($scope, $projectsService, $pageConfig, sysConfig, promiseTracker, reportService) {
+	.controller('projectStatusTabsCtrl', ['$scope', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
+		function($scope, $pageConfig, sysConfig, promiseTracker, reportService) {
 
 			$scope.tabs = [{
 				Name: 'Common',
@@ -23,7 +23,4 @@ angular.module('home')
 			}];
 
 		}
-	])
-
-
-	;
+	]);

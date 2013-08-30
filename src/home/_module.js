@@ -1,36 +1,40 @@
 angular.module('home', ['core', 'ui.state', 'home.templates']);
 
 angular.module('home')
-    .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
-        function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
+	.config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
+		'securityAuthorizationProvider',
+		function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig, securityAuthorizationProvider) {
 
-            $urlRouterProvider.otherwise('/documents/listview');
+			$urlRouterProvider.otherwise('/projects/listview');
 
-            home = {
-                name: 'page1C.home',
-                url: '/',
-                views: {
-                    'content': {
-                        templateUrl: sysConfig.src('home/home.tpl.html')
-                    }
-                }
-            };
+			var home = {
+				name: 'page1C.home',
+				url: '/',
+				views: {
+					'content': {
+						templateUrl: sysConfig.src('home/home.tpl.html')
+					}
+				},
+				resolve: {
+					authUser: securityAuthorizationProvider.requireAuthenticatedUser()
+				}
+			};
 
-            $stateProvider
-                .state(home);
-        }
-    ])
-    .controller('homeCtrl', ['$scope', '$stateParams', 'pageConfig',
-        function($scope, $stateParams, $pageConfig) {
+			$stateProvider.state(home);
+		}
+	])
+	.controller('homeCtrl', ['$scope', '$stateParams', 'pageConfig',
+		function ($scope, $stateParams, $pageConfig) {
 
-            $pageConfig.setConfig({
-                breadcrumbs: [{
-                        name: 'Home',
-                        url: '/'
-                    }
+			$pageConfig.setConfig({
+				breadcrumbs: [
+					{
+						name: 'Home',
+						url: '/'
+					}
 
-                ]
-            });
-        }
-    ])
-    .constant("moduleMenuUrl", sysConfig.src('home/menu/menu.tpl.html'));
+				]
+			});
+		}
+	])
+	.constant("moduleMenuUrl", sysConfig.src('home/menu/menu.tpl.html'));

@@ -1,7 +1,7 @@
 angular.module('core')
 	.service('filterHelpers', ['helpers', 'metadataService', function($helpers, $metadataService) {
 		angular.extend(this, {
-			getNodeMetadata: function(node, parentMetadata, callback) {
+			getNodeMetadata: function(method, node, parentMetadata, callback) {
 				var metadata;
 
 				if(!this.isSpecialNode(node)) {
@@ -17,7 +17,7 @@ angular.module('core')
 
 					if(metadata && metadata.ModelType &&
 							!(metadata.PrimitiveProperties || metadata.ModelProperties)) {
-						$metadataService.modelMetadata(metadata.ModelType, function(extendedMeta) {
+						$metadataService.modelMetadata(method, metadata.ModelType, function(extendedMeta) {
 							angular.extend(metadata, extendedMeta);
 							callback(metadata);
 						});
