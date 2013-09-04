@@ -55,7 +55,7 @@ angular.module('backend', ['ngMockE2E'])
 			};
 
 			//fake login
-			$httpBackend.whenPOST('/api/system/auth/login').respond(
+			$httpBackend.whenPOST('/api/core/auth/login').respond(
 				function(method, url, data, headers) {
 					var prms = JSON.parse(data);
 					//test error on
@@ -78,13 +78,13 @@ angular.module('backend', ['ngMockE2E'])
 				});
 
 			//fake logout
-			$httpBackend.whenPOST('/api/system/auth/logout').respond(function(method, url, data, headers) {
+			$httpBackend.whenPOST('/api/core/auth/logout').respond(function(method, url, data, headers) {
 				currentUser = {};
 				return [204];
 			});
 
 			//fake current-user
-			$httpBackend.whenPOST('/api/system/auth/currentUser').respond(function(method, url, data, headers) {
+			$httpBackend.whenPOST('/api/core/auth/currentUser').respond(function(method, url, data, headers) {
 				if (currentUser) {
 					return [200, {
 						user: currentUser
