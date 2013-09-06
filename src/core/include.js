@@ -26,10 +26,6 @@ sysConfig.modules['core'] = {
 
 		"src/core/services/services.js",
 		"src/core/services/i18n/localizedMessages.js",
-		"src/core/parts/filters/ago-filter-builder.js",
-		"src/core/parts/filters/ago-jquery-helpers.js",
-		"src/core/parts/filters/ago-jquery-structured-filter.js",
-		"src/core/parts/filters/ago-jquery-custom-properties-filter.js",
 		"src/core/parts/filters/complex.js",
 		"src/core/parts/filters/filterHelpers.js",
 		"src/core/parts/filters/structuredFilter.js",

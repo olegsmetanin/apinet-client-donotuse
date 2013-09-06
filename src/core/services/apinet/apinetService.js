@@ -34,7 +34,7 @@ angular.module('core')
 						deferred.reject('Error: ' + (data.message ? data.message : 'unknown error'));
 					})
 					.error(function (data, status) {
-						deferred.reject('Error: ' + status);
+						deferred.reject(data && data.message ? data.message : 'Error: ' + status);
 					});
 				return deferred.promise;
 			},
@@ -54,8 +54,22 @@ angular.module('core')
 						deferred.reject('Error: ' + (data.message ? data.message : 'unknown error'));
 					})
 					.error(function (data, status) {
-						deferred.reject('Error: ' + status);
+						deferred.reject(data && data.message ? data.message : 'Error: ' + status);
 					});
+				return deferred.promise;
+			},
+
+			action: function (requestData) {
+				var deferred = $q.defer();
+
+				$http.post('/api/' + requestData.method, requestData)
+					.success(function (data) {
+						deferred.resolve(data || { success: true });
+					})
+					.error(function (data, status) {
+						deferred.reject(data && data.message ? data.message : 'Error: ' + status);
+					});
+
 				return deferred.promise;
 			}
 		});

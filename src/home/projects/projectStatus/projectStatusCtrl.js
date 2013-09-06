@@ -5,7 +5,7 @@ angular.module('home')
 			$pageConfig.setConfig({
 				breadcrumbs: [{
 					name: 'Projects statuses',
-					url: '/#!/projectStatus'
+					url: '/#!/projects/projectStatus'
 				}]
 			});
 

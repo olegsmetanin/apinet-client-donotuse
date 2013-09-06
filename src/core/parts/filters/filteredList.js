@@ -1,6 +1,6 @@
 angular.module('core')
-	.directive('filteredList', ['apinetService',
-		function($apinetService) {
+	.directive('filteredList', ['apinetService', 'security',
+		function($apinetService, $security) {
 			return {
 				scope: {
 					method: '=filteredList'
@@ -14,6 +14,10 @@ angular.module('core')
 						},
 						applyEnabled: false,
 
+						isAdmin: function() {
+							return $security.isAdmin();
+						},
+
 						refreshList: function() {
 							$apinetService.getModels({
 								method: $scope.method,
@@ -26,7 +30,7 @@ angular.module('core')
 						}
 					});
 
-					$scope.$watch('filter', function(value) {
+					$scope.$watch('filter', function() {
 						$scope.applyEnabled = true;
 					}, true);
 

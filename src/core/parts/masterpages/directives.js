@@ -27,4 +27,12 @@ angular.module('core')
 			template: '<div class="container-fluid"><div class="row-fluid"><div ng-transclude></div></div></div>'
 
 		};
+	})
+	.directive('onecolumnContent', function() {
+		return {
+			restrict: 'EA',
+			transclude: true,
+			replace: true,
+			template: '<div class="span12"><div ng-transclude></div></div>'
+		};
 	});

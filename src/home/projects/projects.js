@@ -1,41 +1,36 @@
 ﻿angular.module('home')
-	.config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
-		function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig) {
-
-			var projectsList = {
-				name: 'page.projectList',
-				url: '/projects/listview',
-				views: {
-					'content': {
-						templateUrl: sysConfig.src('home/projects/listview/projectsList.tpl.html')
+	.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
+		function($stateProvider, sysConfig, securityAuthorizationProvider) {
+			$stateProvider
+				.state({
+					name: 'page.projectList',
+					url: '/projects/listview',
+					views: {
+						'content': {
+							templateUrl: sysConfig.src('home/projects/listview/projectsList.tpl.html')
+						}
 					}
-				}
-			},
-				projectsStatus = {
+				})
+				.state({
 					name: 'page.projectStatus',
-					url: '/projectStatus',
+					url: '/projects/projectStatus',
 					views: {
 						'content': {
 							templateUrl: sysConfig.src('home/projects/projectStatus/projectStatus.tpl.html')
 						}
 					}
-				};
-
-			$stateProvider
-				.state(projectsList)
-				.state(projectsStatus);
-
-		}
-	])
-	.controller('projectsListCtrl', ['$scope', 'pageConfig', 'sysConfig', 'promiseTracker', 'reportService',
-		function($scope, $pageConfig, sysConfig, promiseTracker, reportService) {
-			$pageConfig.setConfig({
-				breadcrumbs: [{
-					name: 'Projects',
-					url: '/#!/projects/listview'
-				}]
-			});
-
-			$scope.loading = promiseTracker('projects');
+				})
+				.state({
+					name: 'page.createProject',
+					url: '/projects/createProject',
+					views: {
+						'content': {
+							templateUrl: sysConfig.src('home/projects/createProject/createProject.tpl.html')
+						}
+					},
+					resolve: {
+						adminUser: securityAuthorizationProvider.requireAdminUser()
+					}
+				});
 		}
 	]);

@@ -61,6 +61,11 @@ angular.module('core')
             $scope.moduleMenuUrl = moduleMenuUrl;
         }
     ])
+	.filter('yesNo', function() {
+		return function(value){
+			return !!value ? 'Да' : 'Нет';
+		};
+	})
     .run(['security',
         function(security) {
             // Get the current user when the application starts

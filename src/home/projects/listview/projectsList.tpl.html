@@ -1,48 +1,65 @@
-<div container>
-	<div ng-controller="projectsListCtrl">
-		<div filtered-list="'home/projects/getProjects'">
+<div container ng-controller="projectsListCtrl">
+	<div filtered-list="'home/projects/getProjects'">
 
-			<twocolumn-side>
-				<button type="button" class="btn btn-success" ng-click="refreshList()"
-				        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
+		<twocolumn-side>
+			<button type="button" class="btn btn-success" ng-click="refreshList()"
+			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
 
-				<tabset>
-					<tab heading="Complex">
-						<div structured-filter
-						     filter-ng-model="filter.complex"
-						     meta="'home/projects/projectMetadata'">
-						</div>
-					</tab>
+			<tabset>
+				<tab heading="Complex">
+					<div structured-filter
+					     filter-ng-model="filter.complex"
+					     meta="'home/projects/projectMetadata'">
+					</div>
+				</tab>
 
-					<tab heading="Favorites">
+				<!--<tab heading="Favorites">
 
-						<textarea ng-model="state" rows="6"></textarea>
-						<button type="button" class="btn btn-success" ng-click="loadState()" style="float:right;">loadState</button>
-					</tab>
+					<textarea ng-model="state" rows="6"></textarea>
+					<button type="button" class="btn btn-success" ng-click="loadState()" style="float:right;">loadState</button>
+				</tab>-->
 
-				</tabset>
-			</twocolumn-side>
-
-
-			<twocolumn-content>
+			</tabset>
+		</twocolumn-side>
 
 
-				<div ng-show="loading.active()" us-spinner="{top:100}"></div>
+		<twocolumn-content>
+			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
 
-				<ul>
-					<li ng-repeat="project in models">
-						<a href="/projects/{{project.Id}}#!/common">{{project.Name}}</a>
-						&nbsp;(
-						<a ng-click="showDetails(project.Id)">details</a>)
-					</li>
-				</ul>
+			<div style="margin-bottom: 10px;" ng-show="isAdmin()">
+				<a class="btn btn-primary" href="#!/projects/createProject">
+					<i class="icon-plus icon-white"></i>
+					<span>Добавить проект</span>
+				</a>
+			</div>
 
-				<div ng-include src="projectDetailsTemplate">
-					Click [details] link to the right of the project name to view project details
-				</div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Наименование</th>
+						<th>Тип</th>
+						<th>Описание</th>
+						<th>Статус</th>
+						<th>Дата создания</th>
+						<th>Архив</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="project in models">
+						<td>
+							<a href="#!/projects/projectDetails/{{ project.Id }}">
+								{{ project.Name }}
+							</a>
+						</td>
+						<td>{{ project.Type.Name }}</td>
+						<td>{{ project.Description }}</td>
+						<td>{{ project.Status.Name }}</td>
+						<td>{{ project.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+						<td>{{ project.IsArchive | yesNo }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</twocolumn-content>
 
-			</twocolumn-content>
-
-		</div>
 	</div>
 </div>
