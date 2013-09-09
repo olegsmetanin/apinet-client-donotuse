@@ -1,23 +1,31 @@
 <container>
-	<div filtered-list="'home/projects/getProjects'" current-user="currentUser">
+	<div filtered-list="'home/dictionary/getProjectTags'" current-user="currentUser">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
 
 			<tabset>
+				<tab heading="Simple">
+					<form ng-init="requestParams.mode = 'Personal'">
+						<fieldset>
+							<label>Принадлежность</label>
+							<select ng-model="requestParams.mode">
+								<option value="Personal">Персональные теги</option>
+								<option value="Common">Общие теги</option>
+							</select>
+							<label>Наименование</label>
+							<input filter-input="{path: 'Name', op:'like'}" filter-ng-model="filter.simple.Name" />
+							<label>Описание</label>
+							<input filter-input="{path: 'Description', op:'like'}" filter-ng-model="filter.simple.Description" />
+						</fieldset>
+					</form>
+				</tab>
 				<tab heading="Complex">
 					<div structured-filter
 					     filter-ng-model="filter.complex"
-					     meta="'home/projects/projectMetadata'">
+					     meta="'home/dictionary/projectTagMetadata'">
 					</div>
 				</tab>
-
-				<!--<tab heading="Favorites">
-
-					<textarea ng-model="state" rows="6"></textarea>
-					<button type="button" class="btn btn-success" ng-click="loadState()" style="float:right;">loadState</button>
-				</tab>-->
-
 			</tabset>
 		</twocolumn-side>
 
@@ -28,7 +36,7 @@
 			<div style="margin-bottom: 10px;" ng-show="currentUser.admin">
 				<a class="btn btn-primary" href="#!/projects/create">
 					<i class="icon-plus icon-white"></i>
-					<span>Добавить проект</span>
+					<span>New tag</span>
 				</a>
 			</div>
 
@@ -36,25 +44,15 @@
 				<thead>
 					<tr>
 						<th>Наименование</th>
-						<th>Тип</th>
 						<th>Описание</th>
-						<th>Статус</th>
 						<th>Дата создания</th>
-						<th>Архив</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="project in models">
-						<td>
-							<a href="#!/projects/projectDetails/{{ project.Id }}">
-								{{ project.Name }}
-							</a>
-						</td>
-						<td>{{ project.Type.Name }}</td>
+						<td>{{ project.Name }} </td>
 						<td>{{ project.Description }}</td>
-						<td>{{ project.Status.Name }}</td>
 						<td>{{ project.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
-						<td>{{ project.IsArchive | yesNo }}</td>
 					</tr>
 				</tbody>
 			</table>

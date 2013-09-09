@@ -1,9 +1,10 @@
 angular.module('core')
-	.directive('filteredList', ['apinetService', 'security',
-		function($apinetService, $security) {
+	.directive('filteredList', ['apinetService',
+		function($apinetService) {
 			return {
 				scope: {
-					method: '=filteredList'
+					method: '=filteredList',
+					currentUser: '='
 				},
 				controller: ['$scope', function($scope) {
 					angular.extend($scope, {
@@ -12,17 +13,14 @@ angular.module('core')
 							simple: {},
 							complex: {}
 						},
+						requestParams: { },
 						applyEnabled: false,
 
-						isAdmin: function() {
-							return $security.isAdmin();
-						},
-
 						refreshList: function() {
-							$apinetService.getModels({
+							$apinetService.getModels(angular.extend($scope.requestParams, {
 								method: $scope.method,
 								filter: $scope.filter
-							})
+							}))
 							.then(function(result) {
 								$scope.models = result.rows;
 								$scope.applyEnabled = false;
@@ -32,6 +30,12 @@ angular.module('core')
 
 					$scope.$watch('filter', function() {
 						$scope.applyEnabled = true;
+					}, true);
+
+					$scope.$watch('requestParams', function() {
+						if(!$scope.applyEnabled) {
+							$scope.refreshList();
+						}
 					}, true);
 
 					$scope.refreshList();
