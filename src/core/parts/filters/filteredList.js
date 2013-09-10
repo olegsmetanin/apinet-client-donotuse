@@ -4,7 +4,16 @@ angular.module('core')
 			return {
 				scope: {
 					method: '=filteredList',
-					currentUser: '='
+					requestParams: '=',
+					currentUser: '=',
+					editFormVisible: '=',
+					editingItem: '=',
+					validation: '=',
+					newItem: '=',
+					editItem: '=',
+					deleteItem: '=',
+					cancelEdit: '=',
+					saveItem: '='
 				},
 				controller: ['$scope', function($scope) {
 					angular.extend($scope, {
@@ -13,11 +22,10 @@ angular.module('core')
 							simple: {},
 							complex: {}
 						},
-						requestParams: { },
 						applyEnabled: false,
 
 						refreshList: function() {
-							$apinetService.getModels(angular.extend($scope.requestParams, {
+							$apinetService.getModels(angular.extend({ }, $scope.requestParams, {
 								method: $scope.method,
 								filter: $scope.filter
 							}))
@@ -36,6 +44,10 @@ angular.module('core')
 						if(!$scope.applyEnabled) {
 							$scope.refreshList();
 						}
+					}, true);
+
+					$scope.$on('refreshList', function() {
+						$scope.refreshList();
 					}, true);
 
 					$scope.refreshList();

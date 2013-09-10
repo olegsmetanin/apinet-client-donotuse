@@ -76,7 +76,7 @@ angular.module('home')
 
 								createProject: function() {
 									apinetService.action({
-										method: 'home/projects/create',
+										method: 'home/projects/createProject',
 										project: $scope.project
 									})
 										.then(function(result) {

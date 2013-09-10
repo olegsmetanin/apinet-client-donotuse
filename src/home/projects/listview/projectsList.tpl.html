@@ -44,17 +44,17 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="project in models">
+					<tr ng-repeat="model in models">
 						<td>
-							<a href="#!/projects/projectDetails/{{ project.Id }}">
-								{{ project.Name }}
+							<a href="#!/projects/projectDetails/{{ model.Id }}">
+								{{ model.Name }}
 							</a>
 						</td>
-						<td>{{ project.Type.Name }}</td>
-						<td>{{ project.Description }}</td>
-						<td>{{ project.Status.Name }}</td>
-						<td>{{ project.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
-						<td>{{ project.IsArchive | yesNo }}</td>
+						<td>{{ model.Type.Name }}</td>
+						<td>{{ model.Description }}</td>
+						<td>{{ model.Status.Name }}</td>
+						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+						<td>{{ model.IsArchive | yesNo }}</td>
 					</tr>
 				</tbody>
 			</table>

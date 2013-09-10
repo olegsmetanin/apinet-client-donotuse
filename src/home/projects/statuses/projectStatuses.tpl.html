@@ -1,5 +1,15 @@
 <container>
-	<div filtered-list="'home/dictionary/getProjectStatuses'" current-user="currentUser">
+	<div filtered-list="'home/dictionary/getProjectStatuses'"
+	     request-params = "requestParams"
+	     current-user="currentUser"
+	     edit-form-visible = "editFormVisible"
+		 editing-item="editingItem"
+		 validation="validation"
+		 new-item="newItem"
+		 edit-item="editItem"
+		 delete-item="deleteItem"
+		 cancel-edit="cancelEdit"
+		 save-item="saveItem">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
@@ -29,25 +39,69 @@
 			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
 
 			<div style="margin-bottom: 10px;" ng-show="currentUser.admin">
-				<a class="btn btn-primary" href="#!/projects/create">
+				<button class="btn btn-primary" ng-click="newItem();">
 					<i class="icon-plus icon-white"></i>
 					<span>New status</span>
-				</a>
+				</button>
+				<form style="margin-top: 10px;" name="newItemForm" class="form-horizontal" novalidate ng-show="editFormVisible">
+					<fieldset>
+						<div class="alert alert-error" ng-show="validation.generalError">
+							{{ validation.generalError }}
+						</div>
+
+						<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['Name'] }">
+							<label class="control-label">Наименование</label>
+							<div class="controls">
+								<input class="span3" name="Name" type="text" ng-model="editingItem.Name" required />
+							<span ng-show="validation.fieldErrors['Name']" class="help-inline">
+								{{ validation.fieldErrors['Name'] }}
+							</span>
+						</div>
+						</div>
+						<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['Description'] }">
+							<label class="control-label">Описание</label>
+							<div class="controls">
+								<textarea class="span3" name="Description" ng-model="editingItem.Description"></textarea>
+							<span ng-show="validation.fieldErrors['Description']" class="help-inline">
+								{{ validation.fieldErrors['Description'] }}
+							</span>
+						</div>
+						</div>
+					</fieldset>
+					<div>
+						<button class="btn btn-primary login" ng-click="saveItem();"
+							ng-disabled='newItemForm.$invalid'>Сохранить</button>
+						<button class="btn btn-warning" ng-click="cancelEdit();">Отменить</button>
+					</div>
+				</form>
 			</div>
 
 			<table class="table table-bordered">
 				<thead>
 					<tr>
+						<th style="width: 115px;" ng-show="currentUser.admin"></th>
 						<th>Наименование</th>
 						<th>Описание</th>
 						<th>Дата создания</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="project in models">
-						<td>{{ project.Name }} </td>
-						<td>{{ project.Description }}</td>
-						<td>{{ project.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+					<tr ng-repeat="model in models">
+						<td ng-show="currentUser.admin">
+							<button class="btn-mini btn-info" ng-click="editItem(model);">
+								<i class="icon-edit icon-white"></i>
+								<span>Edit</span>
+							</button>
+							<button class="btn-mini btn-danger" ng-click="deleteItem(model);">
+								<i class="icon-edit icon-white"></i>
+								<span>Delete</span>
+							</button>
+						</td>
+						<td>
+							<span>{{ model.Name }}</span>
+						</td>
+						<td>{{ model.Description }}</td>
+						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
 					</tr>
 				</tbody>
 			</table>
