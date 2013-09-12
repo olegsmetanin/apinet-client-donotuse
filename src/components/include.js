@@ -7,9 +7,7 @@ sysConfig.modules['components'] = {
 
 		"components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css",
 
-		"components/components-font-awesome-3.1.0/css/font-awesome.min.css",
-
-		"components/ng-grid/ng-grid.css"
+		"components/components-font-awesome-3.1.0/css/font-awesome.min.css"
 	],
 	js: [
 		"components/jquery-2.0.3/jquery.min.js",
@@ -32,8 +30,6 @@ sysConfig.modules['components'] = {
 		"components/spin.js/dist/spin.js",
 		"components/angular-spinner-0.2.0/angular-spinner.min.js",
 
-		"components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js",
-
-		"components/ng-grid/ng-grid-2.0.7.debug.js"
+		"components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"
 	]
 };

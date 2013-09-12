@@ -2,8 +2,7 @@
 	<div filtered-list="'home/projects/getProjects'"
 	     current-user="currentUser"
 	     request-params="requestParams"
-	     grid-options="gridOptions"
-	     total-rows-count="totalRowsCount">
+	     grid-options="gridOptions">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
@@ -75,6 +74,10 @@
 					</tr>
 				</tbody>
 			</table>
+			<pagination page="gridOptions.page"
+			            total-items="gridOptions.totalRowsCount"
+			            items-per-page="gridOptions.pageSize">
+			</pagination>
 		</twocolumn-content>
 	</div>
 </container>

@@ -27,8 +27,8 @@
 								currentUser: currentUser,
 								requestParams: { mode: 'All' },
 
-								totalRowsCount: 0,
 								gridOptions: {
+									totalRowsCount: 50,
 									pageSize: 10,
 									page: 1
 								}

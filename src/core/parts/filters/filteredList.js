@@ -5,7 +5,6 @@ angular.module('core')
 				scope: {
 					method: '=filteredList',
 					gridOptions: '=',
-					totalRowsCount: '=',
 					requestParams: '=',
 					currentUser: '=',
 					editFormVisible: '=',
@@ -42,7 +41,7 @@ angular.module('core')
 							$apinetService.getModels(params)
 							.then(function(result) {
 								$scope.models = result.rows;
-								$scope.totalRowsCount = result.totalRowsCount;
+								//$scope.gridOptions.totalRowsCount = result.totalRowsCount;
 								$scope.applyEnabled = false;
 							});
 						}
