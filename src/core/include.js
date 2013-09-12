@@ -35,6 +35,7 @@ sysConfig.modules['core'] = {
 		'src/core/parts/filters/userFilter.js',
 		'src/core/parts/filters/simpleFilter.js',
 		'src/core/parts/filters/filteredList.js',
+		'src/core/parts/filters/filterPersister.js',
 
 		'src/core/services/i18n/i18n.js',
 		'src/core/parts/header/moduleMenu/moduleMenu.js',

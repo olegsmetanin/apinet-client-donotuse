@@ -2,6 +2,8 @@
 	<div filtered-list="'home/dictionary/getProjectTags'"
 	     request-params = "requestParams"
 	     current-user="currentUser"
+	     grid-options="gridOptions"
+	     total-rows-count="totalRowsCount"
 	     edit-form-visible = "editFormVisible"
 	     editing-item="editingItem"
 	     validation="validation"
@@ -16,7 +18,7 @@
 
 			<tabset>
 				<tab heading="Simple">
-					<form ng-init="requestParams.mode = 'Personal'">
+					<form>
 						<fieldset>
 							<label>Принадлежность</label>
 							<select ng-model="requestParams.mode">

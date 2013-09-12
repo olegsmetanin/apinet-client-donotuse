@@ -2,6 +2,8 @@
 	<div filtered-list="'home/dictionary/getProjectStatuses'"
 	     request-params = "requestParams"
 	     current-user="currentUser"
+	     grid-options="gridOptions"
+	     total-rows-count="totalRowsCount"
 	     edit-form-visible = "editFormVisible"
 		 editing-item="editingItem"
 		 validation="validation"
@@ -19,9 +21,7 @@
 					<form>
 						<fieldset>
 							<label>Наименование</label>
-							<input filter-input="{path: 'Name', op:'like'}" filter-ng-model="filter.simple.Name" />
-							<label>Описание</label>
-							<input filter-input="{path: 'Description', op:'like'}" filter-ng-model="filter.simple.Description" />
+							<input filter-lookup="{path: 'Id', op:'='}" action="/api/home/dictionary/lookupProjectStatuses" filter-ng-model="filter.simple.Id" />
 						</fieldset>
 					</form>
 				</tab>

@@ -1,22 +1,39 @@
 <container>
-	<div filtered-list="'home/projects/getProjects'" current-user="currentUser">
+	<div filtered-list="'home/projects/getProjects'"
+	     current-user="currentUser"
+	     request-params="requestParams"
+	     grid-options="gridOptions"
+	     total-rows-count="totalRowsCount">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
 
 			<tabset>
+				<tab heading="Simple">
+					<form>
+						<fieldset>
+							<label>Наименование</label>
+							<input filter-lookup="{path: 'Name', op:'='}" action="/api/home/projects/lookupProjectNames" filter-ng-model="filter.simple.Name" />
+							<label>Статус</label>
+							<input filter-lookup="{path: 'Status', op:'='}" action="/api/home/dictionary/lookupProjectStatuses" filter-ng-model="filter.simple.Status" />
+							<label>Участие</label>
+							<select ng-model="requestParams.mode">
+								<option value="All">Все</option>
+								<option value="Participated">Я участник</option>
+							</select>
+							<label>Теги</label>
+							<input filter-lookup="{path: 'Tags.Tag', op:'='}" action="/api/home/dictionary/lookupProjectTags" filter-ng-model="filter.simple.Tags" />
+						</fieldset>
+					</form>
+				</tab>
 				<tab heading="Complex">
-					<div structured-filter
-					     filter-ng-model="filter.complex"
-					     meta="'home/projects/projectMetadata'">
+					<div structured-filter filter-ng-model="filter.complex" meta="'home/projects/projectMetadata'">
 					</div>
 				</tab>
 
-				<!--<tab heading="Favorites">
-
-					<textarea ng-model="state" rows="6"></textarea>
-					<button type="button" class="btn btn-success" ng-click="loadState()" style="float:right;">loadState</button>
-				</tab>-->
+				<tab heading="Favorites">
+					<div filter-persister group="'Projects'" filter="filter"></div>
+				</tab>
 
 			</tabset>
 		</twocolumn-side>

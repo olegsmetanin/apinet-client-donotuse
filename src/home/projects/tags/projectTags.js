@@ -39,6 +39,28 @@ angular.module('home')
 									fieldErrors: {}
 								},
 
+								totalRowsCount: 0,
+								gridOptions: {
+									data: 'models',
+									gridRows: [],
+									totalServerItems: 'totalRowsCount',
+									enablePaging: true,
+									showFooter: true,
+									pagingOptions: {
+										pageSizes: [10, 25, 50, 100],
+										pageSize: 10,
+										currentPage: 1
+									},
+									sortInfo: { columns: [], fields: [], directions: [] },
+									useExternalSorting: true,
+
+									columnDefs: [
+										{ field: "Name", displayName: 'Наименование' },
+										{ field: "FullName", displayName: 'Полное наименование' },
+										{ field: "CreationTime", displayName: 'Дата создания', cellFilter: "date:'dd.MM.yyyy hh:mm'" }
+									]
+								},
+
 								newItem: function() {
 									$scope.editingItem = {};
 									$scope.editFormVisible = true;

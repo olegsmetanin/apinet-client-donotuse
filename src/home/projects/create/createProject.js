@@ -79,17 +79,17 @@ angular.module('home')
 										method: 'home/projects/createProject',
 										project: $scope.project
 									})
-										.then(function(result) {
-											if(result.success) {
-												$location.path('/projects/listview');
-											}
-											else {
-												angular.extend($scope.validation, result);
-											}
-										}, function(error) {
-											//TODO: Global message box
-											console.log(error);
-										});
+									.then(function(result) {
+										if(result.success) {
+											$location.path('/projects/listview');
+										}
+										else {
+											angular.extend($scope.validation, result);
+										}
+									}, function(error) {
+										//TODO: Global message box
+										console.log(error);
+									});
 								}
 							});
 

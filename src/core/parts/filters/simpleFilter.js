@@ -66,7 +66,7 @@ angular.module('core')
 
 				var filterNgModel = attrs.filterNgModel;
 
-				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.value" ui-select2="lookupOptions" style="width:200px;"/></div>');
+				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.value" ui-select2="lookupOptions" style="width:300px;"/></div>');
 
 				return function($scope, element, attrs) {
 
@@ -104,7 +104,7 @@ angular.module('core')
 							//console.log("in query");
 
 							$timeout(function() {
-								$http.post($attrs.action).then(function(response) {
+								$http.post($attrs.action, { term: query.term }).then(function(response) {
 									query.callback({
 										results: response.data.rows
 									});

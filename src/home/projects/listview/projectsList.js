@@ -20,10 +20,18 @@
 				views: {
 					'content': {
 						templateUrl: sysConfig.src('home/projects/listview/projectsList.tpl.html'),
+
 						controller: function($scope, promiseTracker, currentUser) {
 							angular.extend($scope, {
 								loading: promiseTracker('projects'),
-								currentUser: currentUser
+								currentUser: currentUser,
+								requestParams: { mode: 'All' },
+
+								totalRowsCount: 0,
+								gridOptions: {
+									pageSize: 10,
+									page: 1
+								}
 							});
 						}
 					}
