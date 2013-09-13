@@ -4,8 +4,8 @@ angular.module('home')
 
 			$scope.role = '';
 
-			moduleConfig.getConfig().then(function(response) {
-				$scope.role = response.user.role;
+			moduleConfig.getRole().then(function(role) {
+				$scope.role = role;
 			});
 
 			$scope.roleIs = function(role) {
@@ -13,7 +13,7 @@ angular.module('home')
 			};
 
 			$scope.setRole = function(role) {
-				$http.post('/api/home/user/setRole', {
+				$http.post('/api/home/users/setRole', {
 					role: role,
 					project: sysConfig.project
 				}).then(function(response) {

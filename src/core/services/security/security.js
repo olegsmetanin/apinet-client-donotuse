@@ -145,11 +145,10 @@ angular.module('security.service', [
 			requestUserRole: function(project) {
 
 				function getRole() {
-					return moduleConfig.getConfig({
-						project: project
-					}).then(function(response) {
-						return response.user.role;
-					});
+					return moduleConfig.getRole(project)
+						.then(function(role) {
+							return role;
+						});
 				}
 
 				if (!service.isAuthenticated()) {

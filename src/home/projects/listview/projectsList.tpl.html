@@ -48,15 +48,15 @@
 				</a>
 			</div>
 
-			<table class="table table-bordered">
+			<table class="table table-bordered sortable">
 				<thead>
 					<tr>
-						<th>Наименование</th>
-						<th>Тип</th>
-						<th>Описание</th>
-						<th>Статус</th>
-						<th>Дата создания</th>
-						<th>Архив</th>
+						<th data-sortproperty="Name">Наименование</th>
+						<th data-sortproperty="TypeId">Тип</th>
+						<th data-sortproperty="Description">Описание</th>
+						<th data-sortproperty="StatusId">Статус</th>
+						<th data-sortproperty="CreationTime" data-defaultsort="desc">Дата создания</th>
+						<th data-sortproperty="IsArchive">Архив</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -74,9 +74,9 @@
 					</tr>
 				</tbody>
 			</table>
-			<pagination page="gridOptions.page"
-			            total-items="gridOptions.totalRowsCount"
-			            items-per-page="gridOptions.pageSize">
+			<pagination
+					num-pages="gridOptions.numPages"
+					current-page="gridOptions.page">
 			</pagination>
 		</twocolumn-content>
 	</div>

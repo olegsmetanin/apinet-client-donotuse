@@ -10,35 +10,13 @@ angular.module('core')
 				},
 				controller: ['$scope', function($scope) {
 					angular.extend($scope, {
+						filterNames: [ ],
 						validation: {
 							generalError: null,
 							fieldErrors: {}
 						},
 						saveFilterName: '',
 						loadFilterName: { id:'', text: ''},
-
-						filterNameLookupOptions: {
-							query: function (query) {
-								$scope.$apply(function() {
-									apinetService.getModels({
-										method: 'system/users/lookupFilters',
-										group: $scope.group,
-										term: query.term,
-										page: query.page - 1,
-										pageSize: 10
-									})
-									.then(function (result) {
-										query.callback({
-											results: result.rows || [ ],
-											more: result.rows && result.rows.length === 10
-										});
-									}, function(error) {
-										$scope.validation.generalError = error;
-										query.callback({ results: [ ], more: false });
-									});
-								});
-							}
-						},
 
 						saveFilter: function() {
 							apinetService.action({
@@ -49,7 +27,9 @@ angular.module('core')
 							})
 							.then(function(result) {
 								if(result.success) {
-									$scope.saveFilterName = '';
+									if($scope.filterNames.indexOf($scope.saveFilterName) === -1) {
+										$scope.filterNames.push($scope.saveFilterName);
+									}
 								}
 								else {
 									angular.extend($scope.validation, result);
@@ -62,11 +42,10 @@ angular.module('core')
 						loadFilter: function() {
 							apinetService.action({
 								method: 'system/users/loadFilter',
-								name: $scope.loadFilterName ? $scope.loadFilterName.id : null,
+								name: $scope.loadFilterName ? $scope.loadFilterName : null,
 								group: $scope.group
 							})
 							.then(function(result) {
-								$scope.loadFilterName = { id:'', text: ''};
 								if(result) {
 									for(var key in result) {
 										if(!result.hasOwnProperty(key)) {
@@ -83,15 +62,31 @@ angular.module('core')
 						deleteFilter: function() {
 							apinetService.action({
 								method: 'system/users/deleteFilter',
-								name: $scope.loadFilterName ? $scope.loadFilterName.id : null,
+								name: $scope.loadFilterName ? $scope.loadFilterName : null,
 								group: $scope.group
 							})
-							.then(function() {
-								$scope.loadFilterName = { id:'', text: ''};
+							.then(function(result) {
+								if(!result || !result.success) {
+									return;
+								}
+
+								var index = $scope.filterNames.indexOf($scope.loadFilterName);
+								if(index === -1) {
+									return;
+								}
+								$scope.filterNames.splice(index, 1);
 							}, function(error) {
 								$scope.validation.generalError = error;
 							});
 						}
+					});
+
+					apinetService.getModels({
+						method: 'system/users/getFilterNames',
+						group: $scope.group
+					})
+					.then(function (result) {
+						$scope.filterNames = result.rows || [ ];
 					});
 				}]
 			};

@@ -28,9 +28,10 @@
 								requestParams: { mode: 'All' },
 
 								gridOptions: {
-									totalRowsCount: 50,
+									totalRowsCount: 10,
 									pageSize: 10,
-									page: 1
+									page: 1,
+									numPages: 1
 								}
 							});
 						}

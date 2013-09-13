@@ -8,13 +8,14 @@
 		<span ng-show="validation.fieldErrors['name']" class="help-inline">
 			{{ validation.fieldErrors['name'] }}
 		</span>
-		<button class="btn btn-primary" ng-click="saveFilter()"
+		<button class="btn btn-primary" style="margin-left: 13px;" ng-click="saveFilter()"
 			ng-disabled='saveFilterForm.$invalid'>Сохранить</button>
 	</form>
 
 	<form name="loadFilterForm" class="form-inline" novalidate>
-		<input class="span6" name="name" type="text"
-	       ui-select2="filterNameLookupOptions" ng-model="loadFilterName" required />
+		<select ng-model="loadFilterName" required
+		        ng-options="name for name in filterNames">
+		</select>
 		<button class="btn btn-success" style="margin-left: 5px;" ng-click="loadFilter()"
 			ng-disabled='loadFilterForm.$invalid'>Загрузить</button>
 		<button class="btn btn-danger" ng-click="deleteFilter()"

@@ -127,12 +127,6 @@ angular.module('backend', ['ngMockE2E'])
 				}
 			});
 
-			$httpBackend.whenPOST('/api/core/config/getConfig').respond(function(method, url, data, headers) {
-				return [200, {
-					user: currentUser
-				}];
-			});
-
 			$httpBackend.whenPOST('/api/home/config/getConfig').respond(function(method, url, data, headers) {
 				return [200, {
 					user: {
@@ -143,12 +137,13 @@ angular.module('backend', ['ngMockE2E'])
 				}];
 			});
 
-			$httpBackend.whenPOST('/api/home/user/setRole').respond(function(method, url, data, headers) {
-				return [200];
+			$httpBackend.whenPOST('/api/home/users/getRole').respond(function(method, url, data, headers) {
+				return '';
 			});
 
-
-
+			$httpBackend.whenPOST('/api/home/users/setRole').respond(function(method, url, data, headers) {
+				return [200];
+			});
 
 			$httpBackend.whenPOST('/api/docs/documents/getDocuments').respond(function(method, url, data, headers) {
 				return [200, {
