@@ -61,9 +61,7 @@ angular.module('core')
 					}, true);
 
 					$scope.$watch('requestParams', function() {
-						if(!$scope.applyEnabled) {
-							$scope.refreshList();
-						}
+						$scope.applyEnabled = true;
 					}, true);
 
 					$scope.$on('refreshList', function() {
@@ -80,8 +78,6 @@ angular.module('core')
 							$scope.refreshList();
 						}, true);
 					}
-
-					$scope.refreshList();
 				}],
 
 				link: function($scope, element) {
@@ -161,6 +157,7 @@ angular.module('core')
 								descending: $scope.sorters[key] === 'desc'
 							});
 						}
+						$scope.refreshList();
 					});
 				}
 			};
