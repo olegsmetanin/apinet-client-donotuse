@@ -65,11 +65,7 @@ angular.module('core')
 								name: $scope.loadFilterName ? $scope.loadFilterName : null,
 								group: $scope.group
 							})
-							.then(function(result) {
-								if(!result || !result.success) {
-									return;
-								}
-
+							.then(function() {
 								var index = $scope.filterNames.indexOf($scope.loadFilterName);
 								if(index === -1) {
 									return;
@@ -86,7 +82,7 @@ angular.module('core')
 						group: $scope.group
 					})
 					.then(function (result) {
-						$scope.filterNames = result.rows || [ ];
+						$scope.filterNames = result;
 					});
 				}]
 			};

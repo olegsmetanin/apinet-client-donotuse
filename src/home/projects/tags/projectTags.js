@@ -98,8 +98,7 @@ angular.module('home')
 											angular.extend($scope.validation, result);
 										}
 									}, function(error) {
-										//TODO: Global message box
-										console.log(error);
+										$scope.validation.generalError = error;
 									});
 								},
 

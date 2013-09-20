@@ -394,17 +394,17 @@ angular.module('core')
 									.then(function (result) {
 										var processed = [];
 
-										for(var i = 0; i < result.rows.length; i++) {
+										for(var i = 0; i < result.length; i++) {
 											processed.push({
-												id: result.rows[i].Id,
-												text: result.rows[i].FullName,
-												valueType: result.rows[i].ValueType
+												id: result[i].Id,
+												text: result[i].FullName,
+												valueType: result[i].ValueType
 											});
 										}
 
 										query.callback({
 											results: processed,
-											more: result.rows.length === $dictionaryService.pageSize
+											more: result.length === $dictionaryService.pageSize
 										});
 									}, function(reason) {
 										query.callback({

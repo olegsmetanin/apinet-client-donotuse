@@ -43,10 +43,10 @@ angular.module('core')
 				var deferred = $q.defer();
 				$http.post('/api/' + requestData.method, requestData)
 					.success(function (data) {
-						if (data && angular.isArray(data.rows)) {
+						if (angular.isArray(data)) {
 							if(angular.isFunction(postProcessRowsFn)) {
-								data.rows = postProcessRowsFn(data.rows);
-								data.rows = angular.isArray(data.rows) ? data.rows : [];
+								data = postProcessRowsFn(data);
+								data = angular.isArray(data) ? data : [];
 							}
 							deferred.resolve(data);
 							return;
@@ -64,7 +64,12 @@ angular.module('core')
 
 				$http.post('/api/' + requestData.method, requestData)
 					.success(function (data) {
-						deferred.resolve(data || { success: true });
+						if(data) {
+							deferred.resolve(data);
+						}
+						else {
+							deferred.reject(data && data.message ? data.message : 'Unknown error');
+						}
 					})
 					.error(function (data, status) {
 						deferred.reject(data && data.message ? data.message : 'Error: ' + status);

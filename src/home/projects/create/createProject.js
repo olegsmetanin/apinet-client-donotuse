@@ -53,16 +53,16 @@ angular.module('home')
 											.then(function (result) {
 												var processed = [];
 
-												for(var i = 0; i < result.rows.length; i++) {
+												for(var i = 0; i < result.length; i++) {
 													processed.push({
-														id: result.rows[i].Id,
-														text: result.rows[i].Name
+														id: result[i].Id,
+														text: result[i].Name
 													});
 												}
 
 												query.callback({
 													results: processed,
-													more: result.rows.length === dictionaryService.pageSize
+													more: result.length === dictionaryService.pageSize
 												});
 											}, function(error) {
 												query.callback({
@@ -87,8 +87,7 @@ angular.module('home')
 											angular.extend($scope.validation, result);
 										}
 									}, function(error) {
-										//TODO: Global message box
-										console.log(error);
+										$scope.validation.generalError = error;
 									});
 								}
 							});

@@ -106,7 +106,7 @@ angular.module('core')
 							$timeout(function() {
 								$http.post($attrs.action, { term: query.term }).then(function(response) {
 									query.callback({
-										results: response.data.rows
+										results: response.data || [ ]
 									});
 								});
 							});

@@ -62,7 +62,7 @@ angular.module('tasks')
 			// 				angular.extend($scope.validation, result);
 			// 			}
 			// 		}, function(error) {
-			// 			console.log(error);
+			// 			$scope.validation.generalError = error;
 			// 		});
 			// 	}
 			// });
@@ -100,7 +100,7 @@ angular.module('tasks')
 						angular.extend($scope.validation, result);
 					}
 				}, function(error) {
-					console.log(error);
+					$scope.validation.generalError = error;
 				});
 			};
 	}]);

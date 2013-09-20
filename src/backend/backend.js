@@ -146,30 +146,27 @@ angular.module('backend', ['ngMockE2E'])
 			});
 
 			$httpBackend.whenPOST('/api/docs/documents/getDocuments').respond(function(method, url, data, headers) {
-				return [200, {
-					rows: [{
+				return [200, [
+					{
 						Annotation: "Doc1"
 					}, {
 						Annotation: "Doc2"
-					}]
-				}];
+					}
+				]];
 			});
 
 			$httpBackend.whenPOST('/api/home/contractCategory/getNames').respond(function(method, url, data, headers) {
 				console.log("/api/home/contractCategory/getNames");
-				return [200, {
-					rows: [{
+				return [200, [
+					{
 						id: 1,
 						text: "qwe"
 					}, {
 						id: 2,
 						text: "asd"
-					}]
-				}];
+					}
+				]];
 			});
-
-
-
 
 			$httpBackend.whenPOST('/metadata/AllModelsMetadata/').respond(function() {
 				return [200, {
@@ -1042,16 +1039,16 @@ angular.module('backend', ['ngMockE2E'])
 				}
 
 				var generatingExist = false;
-				for (var i = 0; i < userReports.rows.length; i++) {
-					if (userReports.rows[i].Status !== 'done') {
+				for (var i = 0; i < userReports.length; i++) {
+					if (userReports[i].Status !== 'done') {
 						generatingExist = true;
-						var currentPercent = userReports.rows[i].Percent;
+						var currentPercent = userReports[i].Percent;
 						if (currentPercent >= 100) {
-							userReports.rows[i].Status = "done";
-							reportService.setReports(userReports.rows);
+							userReports[i].Status = "done";
+							reportService.setReports(userReports);
 						} else {
-							userReports.rows[i].Percent = currentPercent + 10;
-							reportService.setReports(userReports.rows);
+							userReports[i].Percent = currentPercent + 10;
+							reportService.setReports(userReports);
 						}
 					}
 				}
@@ -1066,14 +1063,14 @@ angular.module('backend', ['ngMockE2E'])
 
 			function generateReport(prms) {
 				$timeout(function() {
-					userReports.rows.unshift({
+					userReports.unshift({
 						"Id": "5",
 						"Name": "Report " + new Date(),
 						"Status": "generating",
 						"Percent": 0,
 						"StartDate": new Date()
 					});
-					reportService.setReports(userReports.rows);
+					reportService.setReports(userReports);
 
 					updatePercent();
 
@@ -1083,8 +1080,8 @@ angular.module('backend', ['ngMockE2E'])
 			}
 
 			function getProjects() {
-				return [200, {
-					"rows": [{
+				return [200, [
+					{
 						"Id": "play2",
 						"Name": "Play 2.0"
 					}, {
@@ -1102,12 +1099,11 @@ angular.module('backend', ['ngMockE2E'])
 					}, {
 						"Id": "prj6",
 						"Name": "Things to do"
-					}]
-				}];
+					}
+				]];
 			}
 
-			var userReports = {
-				"rows": [{
+			var userReports = [{
 					"Id": "1",
 					"Name": "Report1",
 					"Status": "generating",
@@ -1131,8 +1127,8 @@ angular.module('backend', ['ngMockE2E'])
 					"Status": "done",
 					"StartDate": new Date(),
 					"EndDate": new Date()
-				}]
-			};
+				}
+			];
 
 			function getUserReports() {
 				return [200, userReports];

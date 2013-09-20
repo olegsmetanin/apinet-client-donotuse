@@ -79,8 +79,7 @@ angular.module('home')
 									.then(function() {
 										$scope.$broadcast('refreshList');
 									}, function(error) {
-										//TODO: Global message box
-										console.log(error);
+										$scope.validation.generalError = error;
 									});
 								},
 
@@ -98,8 +97,7 @@ angular.module('home')
 											angular.extend($scope.validation, result);
 										}
 									}, function(error) {
-										//TODO: Global message box
-										console.log(error);
+										$scope.validation.generalError = error;
 									});
 								},
 

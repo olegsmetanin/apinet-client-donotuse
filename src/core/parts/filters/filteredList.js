@@ -40,7 +40,7 @@ angular.module('core')
 							}
 
 							$apinetService.getModels(params).then(function(result) {
-								$scope.models = result.rows;
+								$scope.models = result;
 								$scope.applyEnabled = false;
 
 								if($scope.gridOptions && result.totalRowsCount && $scope.gridOptions.pageSize) {

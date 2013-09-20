@@ -69,7 +69,7 @@ angular.module('security.service', [
 					password: password
 				});
 				return request.then(function(response) {
-					service.currentUser = response.data.user;
+					service.currentUser = response.data;
 					if (service.isAuthenticated()) {
 						closeLoginDialog(true);
 					}
@@ -98,7 +98,10 @@ angular.module('security.service', [
 				}
 				else {
 					return $http.post('/api/core/auth/currentUser').then(function(response) {
-						service.currentUser = response.data.user;
+						service.currentUser = response.data;
+						if(service.currentUser) {
+							service.currentUser.admin = service.currentUser.SystemRole === 'Administrator';
+						}
 						return service.currentUser;
 					});
 				}

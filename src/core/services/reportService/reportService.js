@@ -29,7 +29,7 @@ angular.module('core')
 					$http.post('/api/v1', {
 						action: "getUnreadUserReports"
 					}).then(function(response) {
-						that.cache.put('unreadUserReports', response.data.rows);
+						that.cache.put('unreadUserReports', response.data);
 						$rootScope.$broadcast('events:unreadReportsChanged');
 					});*/
 				},
