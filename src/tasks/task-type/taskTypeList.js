@@ -106,6 +106,24 @@ angular.module('tasks')
 				.then(refresh, handleException);	
 			};
 
+			$scope.onUpdate = function(val) {
+				//problem in code
+				if (!val || !val.model || !val.value) return;
+				//not changed
+				if (val.model.Name === val.value) return;
+
+				//temporary change with unsaved indicator
+				val.model.Name = val.value + ' *';
+				apinetService.action({
+					method: 'tasks/dictionary/editTaskType',
+					project: sysConfig.project,
+					model: { id: val.model.Id, Name: val.value }
+				}).then(refresh, handleException);
+			};
+			$scope.onCancel = function(val) {
+				console.log("cancel: " + val.value);
+			};
+
 			$scope.test = function() {
 				console.log($scope.models);
 			};

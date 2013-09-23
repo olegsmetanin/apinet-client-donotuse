@@ -65,7 +65,11 @@
 						<td>
 							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 						</td>
-						<td>{{ model.Name }}</td>
+						<td inline-edit="model.Name" edit-model="model" on-update="onUpdate">
+							<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Name }}</span>
+    						<a ng-hide="editMode" ng-click="edit()">&nbsp;(edit)</a>
+    						<input ng-show="editMode" type="text" ng-model="emodel.value">
+						</td>
 						<td>{{ model.Author }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
 						<td>
