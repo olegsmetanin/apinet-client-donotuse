@@ -2,7 +2,6 @@ angular.module('core')
 	.directive('filteredList', ['apinetService',
 		function($apinetService) {
 			return {
-				//transclude: true,
 				scope: false/*{
 					method: '=filteredList',
 					gridOptions: '=',
@@ -57,8 +56,6 @@ angular.module('core')
 						}
 					});
 
-					//make alias for controller scope
-					angular.extend($scope.$parent, {refreshList: $scope.refreshList});
 
 					$scope.$watch('filter', function() {
 						$scope.applyEnabled = true;

@@ -1,7 +1,7 @@
 <container>
 	<!-- request-params="requestParams"
 		grid-options="gridOptions" -->
-	<div filtered-list="{method: 'tasks/dictionary/getTaskTypes'}">
+	<div ng-controller="taskTypeCtrl" filtered-list="{method: 'tasks/dictionary/getTaskTypes'}">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
@@ -44,12 +44,12 @@
 					</span>
 				</fieldset>
 			</form>
-
+<button type="button" class="btn" ng-click="test()">Test</button>
 			<table id="tasks-table" class="table table-bordered sortable">
 				<thead>
 					<tr>
 						<th style="width: 1%">
-							<input type="checkbox" onclick="$('input[class=task-checker]', $('#tasks-table')).attr('checked', this.checked )">
+							<input type="checkbox" checker="container: '#tasks-table', items: '.task-checker'">
 						</th>
 						<th data-sortproperty="Name" data-defaultsort="asc">Наименование</th>
 						<th data-sortproperty="Creator.FIO" style="width: 15%">Автор</th>
@@ -59,7 +59,7 @@
 				<tbody>
 					<tr ng-repeat="model in models">
 						<td>
-							<input type="checkbox" data-itemid="{{ model.Id }}" class="task-checker">
+							<input type="checkbox" ng-model="ids.selected[model.Id]" data-itemid="{{ model.Id }}" class="task-checker">
 						</td>
 						<td>{{ model.Name }}</td>
 						<td>{{ model.Author }}</td>

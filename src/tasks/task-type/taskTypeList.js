@@ -7,8 +7,8 @@ angular.module('tasks')
 				url: '/dictionary/types',
 				views: {
 					'content': {
-						templateUrl: sysConfig.src('tasks/task-type/taskTypeList.tpl.html'),
-						controller: 'taskTypeCtrl'
+						templateUrl: sysConfig.src('tasks/task-type/taskTypeList.tpl.html')/*,
+						controller: 'taskTypeCtrl'*/
 					}
 				},
 				resolve: {
@@ -28,7 +28,7 @@ angular.module('tasks')
 			$stateProvider.state(types);
 		}
 	])
-	.controller('taskTypeCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', 
+	.controller('taskTypeCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService',
 		function($scope, promiseTracker, sysConfig, apinetService) {
 
 			$scope.loading = promiseTracker('projects');
@@ -45,6 +45,7 @@ angular.module('tasks')
 				generalError: null,
 				fieldErrors: {}
 			};
+			$scope.ids = { selected: {} };
 
 			$scope.createTaskType = function() {
 				$scope.editModel.id = null;
@@ -63,4 +64,9 @@ angular.module('tasks')
 					$scope.validation.generalError = error;
 				});
 			};
+
+			$scope.test = function() {
+				console.log($scope.ids.selected);
+			};
 	}]);
+	
