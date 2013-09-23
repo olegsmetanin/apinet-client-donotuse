@@ -62,16 +62,25 @@ angular.module('home')
 								},
 
 								newItem: function() {
+									$scope.validation.generalError = null;
+									$scope.validation.fieldErrors = {};
+
 									$scope.editingItem = {};
 									$scope.editFormVisible = true;
 								},
 
 								editItem: function(item) {
-									$scope.editingItem = item;
+									$scope.validation.generalError = null;
+									$scope.validation.fieldErrors = {};
+
+									$scope.editingItem = angular.extend({}, item);
 									$scope.editFormVisible = true;
 								},
 
 								deleteItem: function(item) {
+									$scope.validation.generalError = null;
+									$scope.validation.fieldErrors = {};
+
 									apinetService.action({
 										method: 'home/dictionary/deleteProjectTag',
 										id: item.Id
@@ -79,12 +88,14 @@ angular.module('home')
 									.then(function() {
 										$scope.$broadcast('refreshList');
 									}, function(error) {
-										//TODO: Global message box
-										console.log(error);
+										$scope.validation.generalError = error;
 									});
 								},
 
 								saveItem: function() {
+									$scope.validation.generalError = null;
+									$scope.validation.fieldErrors = {};
+
 									apinetService.action(angular.extend({
 										method: 'home/dictionary/editProjectTag',
 										model: $scope.editingItem

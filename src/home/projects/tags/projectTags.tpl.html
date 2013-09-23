@@ -45,17 +45,18 @@
 		<twocolumn-content>
 			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
 
-			<div style="margin-bottom: 10px;" ng-show="currentUser.admin || requestParams.mode === 'Personal'">
-				<button class="btn btn-primary" ng-click="newItem();">
+			<div ng-show="currentUser.admin || requestParams.mode === 'Personal'">
+				<button style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">
 					<i class="icon-plus icon-white"></i>
 					<span>New tag</span>
 				</button>
+
+				<div class="alert alert-error" ng-show="validation.generalError">
+					{{ validation.generalError }}
+				</div>
+
 				<form style="margin-top: 10px;" name="newItemForm" class="form-horizontal" novalidate ng-show="editFormVisible">
 					<fieldset>
-						<div class="alert alert-error" ng-show="validation.generalError">
-							{{ validation.generalError }}
-						</div>
-
 						<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['Name'] }">
 							<label class="control-label">Наименование</label>
 							<div class="controls">

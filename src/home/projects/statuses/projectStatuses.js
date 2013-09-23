@@ -62,16 +62,25 @@ angular.module('home')
 								},
 
 								newItem: function() {
+									$scope.validation.generalError = null;
+									$scope.validation.fieldErrors = {};
+
 									$scope.editingItem = {};
 									$scope.editFormVisible = true;
 								},
 
 								editItem: function(item) {
-									$scope.editingItem = item;
+									$scope.validation.generalError = null;
+									$scope.validation.fieldErrors = {};
+
+									$scope.editingItem = angular.extend({}, item);
 									$scope.editFormVisible = true;
 								},
 
 								deleteItem: function(item) {
+									$scope.validation.generalError = null;
+									$scope.validation.fieldErrors = {};
+
 									apinetService.action({
 										method: 'home/dictionary/deleteProjectStatus',
 										id: item.Id
@@ -84,6 +93,9 @@ angular.module('home')
 								},
 
 								saveItem: function() {
+									$scope.validation.generalError = null;
+									$scope.validation.fieldErrors = {};
+
 									apinetService.action({
 										method: 'home/dictionary/editProjectStatus',
 										model: $scope.editingItem

@@ -75,6 +75,9 @@ angular.module('home')
 								},
 
 								createProject: function() {
+									$scope.validation.generalError = null;
+									$scope.validation.fieldErrors = {};
+
 									apinetService.action({
 										method: 'home/projects/createProject',
 										model: $scope.project
