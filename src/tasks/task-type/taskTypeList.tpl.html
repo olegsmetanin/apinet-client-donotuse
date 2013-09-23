@@ -35,35 +35,42 @@
 			</div>
 			<form name="createTaskTypeForm" novalidate>
 				<fieldset>
-					<div class="input-append span12">
-						<input type="text" ng-model="editModel.name" placeholder="Наименование нового типа задачи" class="span5" required />
+					<div class="input-append">
+						<input type="text" ng-model="editModel.name" placeholder="Наименование типа задачи" required />
 						<button type="button" class="btn" ng-click="createTaskType()" ng-disabled="createTaskTypeForm.$invalid">Добавить</button>
 					</div>
-					<span ng-show="validation.fieldErrors['Name']" class="help-inline">
+					<span ng-show="validation.fieldErrors['Name']" class="help-inline alert-error">
 						{{ validation.fieldErrors['Name'] }}
 					</span>
+					<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()">Удалить</button>
 				</fieldset>
 			</form>
+
 <button type="button" class="btn" ng-click="test()">Test</button>
-			<table id="tasks-table" class="table table-bordered sortable">
+
+			<table class="table table-bordered sortable">
 				<thead>
 					<tr>
 						<th style="width: 1%">
-							<input type="checkbox" checker="container: '#tasks-table', items: '.task-checker'">
+							<input type="checkbox" checker="items: 'models'">
 						</th>
 						<th data-sortproperty="Name" data-defaultsort="asc">Наименование</th>
 						<th data-sortproperty="Creator.FIO" style="width: 15%">Автор</th>
-						<th data-sortproperty="CreationTime" style="width: 15%">Дата создания</th>
+						<th data-sortproperty="CreationTime" style="width: 17%">Дата создания</th>
+						<th style="width: 1%">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="model in models">
 						<td>
-							<input type="checkbox" ng-model="ids.selected[model.Id]" data-itemid="{{ model.Id }}" class="task-checker">
+							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 						</td>
 						<td>{{ model.Name }}</td>
 						<td>{{ model.Author }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+						<td>
+							<button type="button" class="close" title="Удалить тип задачи" ng-click="delete(model.Id)">&times;</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>

@@ -1,12 +1,10 @@
 /**
  * Simple helper for select table rows with chekbox in the header.
- * Applied to checkbox in table header.
  * Parametes set in object notation without braces.
- * @param container {string} jquery selector for container with rows checkboxes, typically table id
- * @param items {string} jquery selector for rows checkboxed
- * @param data {string} name of the attribute in row selector with row id. Optional. Default is data-itemid.
+ * @param items {string} property name in scope, that contains list of items. Default value 'items'.
+ * @param prop {string} property name is items, that contains true/false selection flag. Defaul value 'selected'.
  * 
- * @example <table id="myTable">....<th><input type="checkbox" checker="container: '#myTable', items: '.myRowChecks'" /></th>...<tr><td><input type="checkbox" class="myRowChecks"
+ * @example <th><input type="checkbox" checker="items: 'myModels', prop: 'selected'" /></th>...<tr ng-repeat="myModel in myModels"><td><input type="checkbox" ng-model="myModel.selected"
  */
 angular.module('core')
 	.directive('checker', function() {
@@ -14,18 +12,17 @@ angular.module('core')
 			restrict: 'A',
 			link: function(scope, element, attrs) {
 				var params = scope.$eval('{' + attrs.checker + '}');
-				var $container = $(params.container);
+				params.items = params.items || 'items';
+				params.prop = params.prop || 'selected';
 
 				angular.element(element).on('click', function(e) {
-					var items = $(params.items, $container)
+					var items = scope[params.items]
 					    , len = items.length
-						, $chb = null
 						, checked = $(this).is(':checked');
 					scope.$apply(function() {
 						for(var i = 0; i < len; i++) {
-							$chb = $(items[i]);
-							$chb.prop('checked', checked);
-						}	
+							items[i][params.prop] = checked;
+						}
 					});
 				});
 			}
