@@ -31,43 +31,6 @@ angular.module('tasks')
 	.controller('taskTypeCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', 
 		function($scope, promiseTracker, sysConfig, apinetService) {
 
-			// angular.extend($scope, {
-			// 	loading: promiseTracker('projects'),
-			// 	requestParams: { project: sysConfig.project },
-			// 	gridOptions: {
-			// 		totalRowsCount: 10,
-			// 		pageSize: 10,
-			// 		page: 1,
-			// 		numPages: 1
-			// 	},
-			// 	newName: '',
-			// 	validation: {
-			// 		generalError: null,
-			// 		fieldErrors: {}
-			// 	},
-			// 	createTaskType: function() {
-			// 		var model = {
-			// 			id: null,
-			// 			name: $scope.newName
-			// 		};
-			// 		apinetService.action({
-			// 			method: 'tasks/dictionary/editTaskType',
-			// 			project: $sysConfig.project,
-			// 			model: model})
-			// 		.then(function(result) {
-			// 			if(result.success) {
-			// 				$scope.newName = null;
-			// 				$scope.refreshList();
-			// 			} else {
-			// 				angular.extend($scope.validation, result);
-			// 			}
-			// 		}, function(error) {
-			// 			$scope.validation.generalError = error;
-			// 		});
-			// 	}
-			// });
-
-
 			$scope.loading = promiseTracker('projects');
 			$scope.requestParams = { project: sysConfig.project };
 			$scope.gridOptions = {

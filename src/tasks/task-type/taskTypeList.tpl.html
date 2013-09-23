@@ -42,9 +42,12 @@
 				</fieldset>
 			</form>
 
-			<table class="table table-bordered sortable">
+			<table id="tasks-table" class="table table-bordered sortable">
 				<thead>
 					<tr>
+						<th style="width: 1%">
+							<input type="checkbox" onclick="$('input[class=task-checker]').attr('checked', this.checked )">
+						</th>
 						<th data-sortproperty="Name" data-defaultsort="asc">Наименование</th>
 						<th data-sortproperty="Creator.FIO" style="width: 15%">Автор</th>
 						<th data-sortproperty="CreationTime" style="width: 15%">Дата создания</th>
@@ -52,6 +55,9 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="model in models">
+						<td>
+							<input type="checkbox" data-itemid="{{ model.Id }}" class="task-checker">
+						</td>
 						<td>{{ model.Name }}</td>
 						<td>{{ model.Author }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
