@@ -40,24 +40,21 @@ angular.module('tasks')
 				numPages: 1
 			};
 
-			$scope.newName = '';
+			$scope.editModel = {id: null, name: ''};
 			$scope.validation = {
 				generalError: null,
 				fieldErrors: {}
 			};
 
 			$scope.createTaskType = function() {
-				var model = {
-					id: null,
-					name: $scope.newName
-				};
+				$scope.editModel.id = null;
 				apinetService.action({
 					method: 'tasks/dictionary/editTaskType',
-					project: $sysConfig.project,
-					model: model})
+					project: sysConfig.project,
+					model: $scope.editModel})
 				.then(function(result) {
 					if(result.success) {
-						$scope.newName = null;
+						$scope.editModel.name = '';
 						$scope.refreshList();
 					} else {
 						angular.extend($scope.validation, result);

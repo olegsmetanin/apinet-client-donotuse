@@ -2,7 +2,8 @@ angular.module('core')
 	.directive('filteredList', ['apinetService',
 		function($apinetService) {
 			return {
-				scope: {
+				//transclude: true,
+				scope: false/*{
 					method: '=filteredList',
 					gridOptions: '=',
 					requestParams: '=',
@@ -15,7 +16,7 @@ angular.module('core')
 					deleteItem: '=',
 					cancelEdit: '=',
 					saveItem: '='
-				},
+				}*/,
 				controller: ['$scope', function($scope) {
 					angular.extend($scope, {
 						models: [],
@@ -56,6 +57,9 @@ angular.module('core')
 						}
 					});
 
+					//make alias for controller scope
+					angular.extend($scope.$parent, {refreshList: $scope.refreshList});
+
 					$scope.$watch('filter', function() {
 						$scope.applyEnabled = true;
 					}, true);
@@ -80,11 +84,13 @@ angular.module('core')
 					}
 				}],
 
-				link: function($scope, element) {
+				link: function($scope, element, attrs) {
 					if(!$scope.requestParams) {
 						return;
 					}
 
+					var inputParams = $scope.$eval(attrs.filteredList);
+					angular.extend($scope, inputParams);
 					$scope.requestParams.sorters = [];
 
 					angular.element(element).find('table.sortable thead th').each(function () {

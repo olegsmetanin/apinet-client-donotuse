@@ -1,8 +1,8 @@
 <container>
-	<div filtered-list="'home/projects/getProjects'"
-	     current-user="currentUser"
+	<!-- current-user="currentUser"
 	     request-params="requestParams"
-	     grid-options="gridOptions">
+	     grid-options="gridOptions" -->
+	<div filtered-list="{method: 'home/projects/getProjects'}">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>

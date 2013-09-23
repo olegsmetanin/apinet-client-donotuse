@@ -1,6 +1,5 @@
 <container>
-	<div filtered-list="'home/dictionary/getProjectStatuses'"
-	     request-params = "requestParams"
+	<!-- request-params = "requestParams"
 	     current-user="currentUser"
 	     grid-options="gridOptions"
 	     total-rows-count="totalRowsCount"
@@ -11,7 +10,8 @@
 		 edit-item="editItem"
 		 delete-item="deleteItem"
 		 cancel-edit="cancelEdit"
-		 save-item="saveItem">
+		 save-item="saveItem" -->
+	<div filtered-list="{ method: 'home/dictionary/getProjectStatuses'}">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
