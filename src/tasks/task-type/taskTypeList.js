@@ -28,12 +28,10 @@ angular.module('tasks')
 			$stateProvider.state(types);
 		}
 	])
-	.controller('taskTypeCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window',
-		function($scope, promiseTracker, sysConfig, apinetService, $window) {
-
+	.controller('taskTypeCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window', '$timeout',
+		function($scope, promiseTracker, sysConfig, apinetService, $window, $timeout) {
 			
-			
-			$scope.validationReset = function() {
+			$scope.resetValidatioin = function() {
 				$scope.validation = {
 					generalError: null,
 					fieldErrors: {}
@@ -41,16 +39,16 @@ angular.module('tasks')
 			};
 
 			var handleException = function(error) {
-				$scope.validationReset();
+				$scope.resetValidatioin();
 				$scope.validation.generalError = error;
 			};
 			var handleError = function(result) {
-				$scope.validationReset();
+				$scope.resetValidatioin();
 				angular.extend($scope.validation, result);
 			};
 			var refresh = function() {
 				$scope.refreshList();
-				$scope.validationReset();
+				$scope.resetValidatioin();
 			}
 
 			$scope.createTaskType = function() {
@@ -88,10 +86,16 @@ angular.module('tasks')
 				};
 				if (ids.length <= 0) return;
 
+				var replaceId = null;
+				if ($scope.deleteModel.replacementType && $scope.deleteModel.replacementType.id) {
+					replaceId = $scope.deleteModel.replacementType.id;
+				}
+
 				apinetService.action({
 					method: 'tasks/dictionary/deleteTaskTypes',
 					project: sysConfig.project,
-					ids: ids })
+					ids: ids,
+					replacementTypeId: replaceId })
 				.then(refresh, handleException);
 			};
 
@@ -120,12 +124,21 @@ angular.module('tasks')
 					model: { id: val.model.Id, Name: val.value }
 				}).then(refresh, handleException);
 			};
-			$scope.onCancel = function(val) {
-				console.log("cancel: " + val.value);
-			};
 
-			$scope.test = function() {
-				console.log($scope.models);
+			$scope.replaceLookupOptions = {
+				allowClear: true,
+				multiple: false,
+				query: function(query) {
+					$timeout(function(){
+						apinetService.action({
+							method: 'tasks/dictionary/lookupTaskTypes',
+							project: sysConfig.project,
+							term: query.term })
+						.then(function(response) {
+							query.callback({ results: response || [] });
+						}, handleException);
+					});
+				}
 			};
 
 			$scope.loading = promiseTracker('projects');
@@ -138,6 +151,7 @@ angular.module('tasks')
 			};
 
 			$scope.editModel = {id: null, name: ''};
-			$scope.validationReset();
+			$scope.deleteModel = { replacementType: null };
+			$scope.resetValidatioin();
 	}]);
 	

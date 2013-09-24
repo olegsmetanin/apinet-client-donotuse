@@ -1,6 +1,4 @@
 <container>
-	<!-- request-params="requestParams"
-		grid-options="gridOptions" -->
 	<div ng-controller="taskTypeCtrl" filtered-list="{method: 'tasks/dictionary/getTaskTypes'}">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
@@ -42,11 +40,12 @@
 					<span ng-show="validation.fieldErrors['Name']" class="help-inline alert-error">
 						{{ validation.fieldErrors['Name'] }}
 					</span>
-					<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()">Удалить</button>
+					<div class="span6 pull-right">
+						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">Удалить</button>
+						<input type="text" ui-select2="replaceLookupOptions" ng-model="deleteModel.replacementType" placeholder="Тип для замены удаляемых (опционально)" style="width: 80%"/>
+					</div>
 				</fieldset>
 			</form>
-
-<button type="button" class="btn" ng-click="test()">Test</button>
 
 			<table class="table table-bordered sortable">
 				<thead>
@@ -67,20 +66,20 @@
 						</td>
 						<td inline-edit="model.Name" edit-model="model" on-update="onUpdate">
 							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
-								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Name }}</span>&nbsp;
+								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Name }}</span>
 								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
 									<i class="icon-pencil"></i>
 								</button>
 	    					</span>
-	    					<span ng-show="editMode" class="input-append" style="width: 100%">
-	    						<input ng-show="editMode" type="text" ng-model="emodel.value" class="span10">
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
+	    					<form name="editTaskTypeForm" ng-show="editMode" class="input-append" style="width: 100%" novalidate>
+	    						<input ng-show="editMode" type="text" ng-model="emodel.value" class="span10" required>
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" ng-disabled="editTaskTypeForm.$invalid" title="Отменить">
 									<i class="icon-reply"></i>
 								</button>
 	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" title="Сохранить">
 									<i class="icon-ok"></i>
 								</button>
-							</span>
+							</form>
 						</td>
 						<td>{{ model.Author }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
