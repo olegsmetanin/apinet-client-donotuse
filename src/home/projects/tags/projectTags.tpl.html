@@ -1,17 +1,5 @@
 <container>
-	<div filtered-list="'home/dictionary/getProjectTags'"
-	     request-params = "requestParams"
-	     current-user="currentUser"
-	     grid-options="gridOptions"
-	     total-rows-count="totalRowsCount"
-	     edit-form-visible = "editFormVisible"
-	     editing-item="editingItem"
-	     validation="validation"
-	     new-item="newItem"
-	     edit-item="editItem"
-	     delete-item="deleteItem"
-	     cancel-edit="cancelEdit"
-	     save-item="saveItem">
+	<div ng-controller="projectTagsCtrl" filtered-list="{ method: 'home/dictionary/getProjectTags'}">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
@@ -26,9 +14,7 @@
 								<option value="Common">Общие теги</option>
 							</select>
 							<label>Наименование</label>
-							<input filter-input="{path: 'Name', op:'like'}" filter-ng-model="filter.simple.Name" />
-							<label>Полное наименование</label>
-							<input filter-input="{path: 'FullName', op:'like'}" filter-ng-model="filter.simple.FullName" />
+							<input filter-lookup="{path: 'Id', op:'='}" action="/api/home/dictionary/lookupProjectTags" filter-ng-model="filter.simple.Id" />
 						</fieldset>
 					</form>
 				</tab>
@@ -37,6 +23,9 @@
 					     filter-ng-model="filter.complex"
 					     meta="'home/dictionary/projectTagMetadata'">
 					</div>
+				</tab>
+				<tab heading="Favorites">
+					<div filter-persister group="'ProjectTags'" filter="filter"></div>
 				</tab>
 			</tabset>
 		</twocolumn-side>
@@ -75,13 +64,13 @@
 				</form>
 			</div>
 
-			<table class="table table-bordered">
+			<table class="table table-bordered sortable">
 				<thead>
 					<tr>
 						<th style="width: 115px;" ng-show="currentUser.admin || requestParams.mode === 'Personal'"></th>
-						<th>Наименование</th>
-						<th>Полное наименование</th>
-						<th>Дата создания</th>
+						<th data-sortproperty="Name" data-defaultsort="asc">Наименование</th>
+						<th data-sortproperty="FullName">Полное наименование</th>
+						<th data-sortproperty="CreationTime">Дата создания</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -102,6 +91,10 @@
 					</tr>
 				</tbody>
 			</table>
+			<pagination
+				num-pages="paging.numPages"
+				current-page="paging.page">
+			</pagination>
 		</twocolumn-content>
 	</div>
 </container>

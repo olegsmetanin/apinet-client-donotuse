@@ -2,20 +2,7 @@ angular.module('core')
 	.directive('filteredList', ['apinetService',
 		function($apinetService) {
 			return {
-				scope: false/*{
-					method: '=filteredList',
-					gridOptions: '=',
-					requestParams: '=',
-					currentUser: '=',
-					editFormVisible: '=',
-					editingItem: '=',
-					validation: '=',
-					newItem: '=',
-					editItem: '=',
-					deleteItem: '=',
-					cancelEdit: '=',
-					saveItem: '='
-				}*/,
+				scope: false,
 				controller: ['$scope', function($scope) {
 					angular.extend($scope, {
 						models: [],
@@ -24,34 +11,24 @@ angular.module('core')
 							complex: {}
 						},
 						sorters: { },
+						paging: {
+							page: 1,
+							pageSize: 10,
+							numPages: 5
+						},
 						applyEnabled: false,
 
 						refreshList: function() {
 							var params = angular.extend({ }, $scope.requestParams, {
 								method: $scope.method,
-								filter: $scope.filter
+								filter: $scope.filter,
+								page: $scope.paging.page - 1,
+								pageSize: $scope.paging.pageSize
 							});
-
-							if($scope.gridOptions) {
-								angular.extend(params, {
-									page: $scope.gridOptions.page - 1,
-									pageSize: $scope.gridOptions.pageSize
-								});
-							}
 
 							$apinetService.getModels(params).then(function(result) {
 								$scope.models = result;
 								$scope.applyEnabled = false;
-
-								if($scope.gridOptions && result.totalRowsCount && $scope.gridOptions.pageSize) {
-									$scope.gridOptions.totalRowsCount = result.totalRowsCount;
-									$scope.gridOptions.numPages = Math.floor(
-										$scope.gridOptions.totalRowsCount / $scope.gridOptions.pageSize);
-									if($scope.gridOptions.numPages === 0 ||
-											$scope.gridOptions.totalRowsCount % $scope.gridOptions.pageSize !== 0) {
-										$scope.gridOptions.numPages += 1;
-									}
-								}
 							});
 						}
 					});
@@ -69,16 +46,9 @@ angular.module('core')
 						$scope.refreshList();
 					}, true);
 
-					if($scope.gridOptions) {
-						$scope.$watch(function () {
-							return {
-								page: $scope.gridOptions.page,
-								pageSize: $scope.gridOptions.pageSize
-							};
-						}, function () {
-							$scope.refreshList();
-						}, true);
-					}
+					$scope.$watch('paging.page', function(value) {
+						$scope.refreshList();
+					}, true);
 				}],
 
 				link: function($scope, element, attrs) {
@@ -160,7 +130,7 @@ angular.module('core')
 								descending: $scope.sorters[key] === 'desc'
 							});
 						}
-						$scope.refreshList();
+						$scope.applyEnabled = true;
 					});
 				}
 			};
