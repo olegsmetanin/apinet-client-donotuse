@@ -35,8 +35,8 @@
 					<span>New status</span>
 				</button>
 
-				<div class="alert alert-error" ng-show="validation.generalError">
-					{{ validation.generalError }}
+				<div class="alert alert-error" ng-show="validation.generalErrors">
+					{{ validation.generalErrors | joinBy }}
 				</div>
 
 				<form style="margin-top: 10px;" name="newItemForm" class="form-horizontal" novalidate ng-show="editFormVisible">
@@ -46,7 +46,7 @@
 							<div class="controls">
 								<input class="span3" name="Name" type="text" ng-model="editingItem.Name" required />
 							<span ng-show="validation.fieldErrors['Name']" class="help-inline">
-								{{ validation.fieldErrors['Name'] }}
+								{{ validation.fieldErrors['Name'] | joinBy }}
 							</span>
 						</div>
 						</div>
@@ -55,7 +55,7 @@
 							<div class="controls">
 								<textarea class="span3" name="Description" ng-model="editingItem.Description"></textarea>
 							<span ng-show="validation.fieldErrors['Description']" class="help-inline">
-								{{ validation.fieldErrors['Description'] }}
+								{{ validation.fieldErrors['Description'] | joinBy }}
 							</span>
 						</div>
 						</div>

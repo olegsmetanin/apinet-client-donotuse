@@ -17,6 +17,12 @@ angular.module('core')
 							numPages: 5
 						},
 						applyEnabled: false,
+						validation: { },
+
+						resetValidation: function() {
+							$scope.validation.generalErrors = [];
+							$scope.validation.fieldErrors = {};
+						},
 
 						refreshList: function() {
 							var params = angular.extend({ }, $scope.requestParams, {
@@ -26,9 +32,14 @@ angular.module('core')
 								pageSize: $scope.paging.pageSize
 							});
 
+							$scope.resetValidation();
+
 							$apinetService.getModels(params).then(function(result) {
 								$scope.models = result;
 								$scope.applyEnabled = false;
+							},
+							function(error) {
+								$scope.validation.generalErrors = [ error ];
 							});
 						}
 					});

@@ -12,7 +12,7 @@ angular.module('core')
 					angular.extend($scope, {
 						filterNames: [ ],
 						validation: {
-							generalError: null,
+							generalErrors: [],
 							fieldErrors: {}
 						},
 						saveFilterName: '',
@@ -35,7 +35,7 @@ angular.module('core')
 									angular.extend($scope.validation, result);
 								}
 							}, function(error) {
-								$scope.validation.generalError = error;
+								$scope.validation.generalErrors = error;
 							});
 						},
 
@@ -55,7 +55,7 @@ angular.module('core')
 									}
 								}
 							}, function(error) {
-								$scope.validation.generalError = error;
+								$scope.validation.generalErrors = error;
 							});
 						},
 
@@ -72,7 +72,7 @@ angular.module('core')
 								}
 								$scope.filterNames.splice(index, 1);
 							}, function(error) {
-								$scope.validation.generalError = error;
+								$scope.validation.generalErrors = error;
 							});
 						}
 					});

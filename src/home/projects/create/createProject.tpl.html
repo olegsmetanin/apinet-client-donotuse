@@ -4,8 +4,8 @@
 			<fieldset>
 				<legend>Создание нового проекта</legend>
 
-				<div class="alert alert-error" ng-show="validation.generalError">
-					{{ validation.generalError }}
+				<div class="alert alert-error" ng-show="validation.generalErrors">
+					{{ validation.generalErrors | joinBy }}
 				</div>
 
 				<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['Type'] }">
@@ -14,7 +14,7 @@
 						<input class="span3" name="Type" type="text"
 						       ui-select2="projectTypeSelectOptions" ng-model="lookups.projectType" autofocus required />
 						<span ng-show="validation.fieldErrors['Type']" class="help-inline">
-							{{ validation.fieldErrors['Type'] }}
+							{{ validation.fieldErrors['Type'] | joinBy }}
 						</span>
 					</div>
 				</div>
@@ -23,7 +23,7 @@
 					<div class="controls">
 						<input class="span3" name="ProjectCode" type="text" ng-model="project.ProjectCode" required />
 						<span ng-show="validation.fieldErrors['ProjectCode']" class="help-inline">
-							{{ validation.fieldErrors['ProjectCode'] }}
+							{{ validation.fieldErrors['ProjectCode'] | joinBy }}
 						</span>
 					</div>
 				</div>
@@ -32,7 +32,7 @@
 					<div class="controls">
 						<input class="span3" name="Name" type="text" ng-model="project.Name" required />
 						<span ng-show="validation.fieldErrors['Name']" class="help-inline">
-							{{ validation.fieldErrors['Name'] }}
+							{{ validation.fieldErrors['Name'] | joinBy }}
 						</span>
 					</div>
 				</div>
@@ -41,7 +41,7 @@
 					<div class="controls">
 						<textarea class="span3" name="Description" ng-model="project.Description"></textarea>
 						<span ng-show="validation.fieldErrors['Description']" class="help-inline">
-							{{ validation.fieldErrors['Description'] }}
+							{{ validation.fieldErrors['Description'] | joinBy }}
 						</span>
 					</div>
 				</div>

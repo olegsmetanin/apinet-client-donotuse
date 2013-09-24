@@ -30,28 +30,18 @@ angular.module('tasks')
 	])
 	.controller('taskTypeCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window',
 		function($scope, promiseTracker, sysConfig, apinetService, $window) {
-
-			
-			
-			$scope.validationReset = function() {
-				$scope.validation = {
-					generalError: null,
-					fieldErrors: {}
-				};				
-			};
-
 			var handleException = function(error) {
-				$scope.validationReset();
-				$scope.validation.generalError = error;
+				$scope.resetValidation();
+				$scope.validation.generalErrors = [ error ];
 			};
 			var handleError = function(result) {
-				$scope.validationReset();
+				$scope.resetValidation();
 				angular.extend($scope.validation, result);
 			};
 			var refresh = function() {
 				$scope.refreshList();
-				$scope.validationReset();
-			}
+				$scope.resetValidation();
+			};
 
 			$scope.createTaskType = function() {
 				$scope.editModel.id = null;
@@ -71,22 +61,28 @@ angular.module('tasks')
 
 			$scope.hasSelected = function() {
 				for(var i = 0; i < $scope.models.length; i++) {
-					if ($scope.models[i].selected && $scope.models[i].selected === true)
+					if ($scope.models[i].selected && $scope.models[i].selected === true) {
 						return true;
+					}
 				}
 
 				return false;
 			};
 
 			$scope.deleteSelected = function() {
-				if (!$window.confirm('Вы действительно хотите удалить записи?')) return;
+				if (!$window.confirm('Вы действительно хотите удалить записи?')) {
+					return;
+				}
 
 				var ids = [];
 				for(var i = 0; i < $scope.models.length; i++) {
-					if ($scope.models[i].selected && $scope.models[i].selected === true)
+					if ($scope.models[i].selected && $scope.models[i].selected === true) {
 						ids.push($scope.models[i].Id);
-				};
-				if (ids.length <= 0) return;
+					}
+				}
+				if (ids.length <= 0) {
+					return;
+				}
 
 				apinetService.action({
 					method: 'tasks/dictionary/deleteTaskTypes',
@@ -96,8 +92,12 @@ angular.module('tasks')
 			};
 
 			$scope.delete = function(id) {
-				if (!id) return;
-				if (!$window.confirm('Вы действительно хотите удалить запись?')) return;
+				if (!id) {
+					return;
+				}
+				if (!$window.confirm('Вы действительно хотите удалить запись?')) {
+					return;
+				}
 
 				apinetService.action({
 					method: 'tasks/dictionary/deleteTaskType',
@@ -108,9 +108,13 @@ angular.module('tasks')
 
 			$scope.onUpdate = function(val) {
 				//problem in code
-				if (!val || !val.model || !val.value) return;
+				if (!val || !val.model || !val.value) {
+					return;
+				}
 				//not changed
-				if (val.model.Name === val.value) return;
+				if (val.model.Name === val.value) {
+					return;
+				}
 
 				//temporary change with unsaved indicator
 				val.model.Name = val.value + ' *';
@@ -138,6 +142,6 @@ angular.module('tasks')
 			};
 
 			$scope.editModel = {id: null, name: ''};
-			$scope.validationReset();
+			$scope.resetValidation();
 	}]);
 	

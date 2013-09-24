@@ -30,14 +30,15 @@ angular.module('home')
 						controller: function($scope, $location, apinetService, dictionaryService) {
 							angular.extend($scope, {
 								project: {},
+								validation: { },
+
+								resetValidation: function() {
+									$scope.validation.generalErrors = [];
+									$scope.validation.fieldErrors = {};
+								},
 
 								lookups: {
 									projectType: null
-								},
-
-								validation: {
-									generalError: null,
-									fieldErrors: {}
 								},
 
 								projectTypeSelectOptions: {
@@ -75,8 +76,7 @@ angular.module('home')
 								},
 
 								createProject: function() {
-									$scope.validation.generalError = null;
-									$scope.validation.fieldErrors = {};
+									$scope.resetValidation();
 
 									apinetService.action({
 										method: 'home/projects/createProject',
@@ -90,7 +90,7 @@ angular.module('home')
 											angular.extend($scope.validation, result);
 										}
 									}, function(error) {
-										$scope.validation.generalError = error;
+										$scope.validation.generalErrors = [ error ];
 									});
 								}
 							});

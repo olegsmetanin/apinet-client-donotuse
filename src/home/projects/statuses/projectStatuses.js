@@ -42,23 +42,15 @@ angular.module('home')
 				requestParams: { },
 				editFormVisible: false,
 				editingItem: {},
-				validation: {
-					generalError: null,
-					fieldErrors: {}
-				},
 
 				newItem: function() {
-					$scope.validation.generalError = null;
-					$scope.validation.fieldErrors = {};
-
+					$scope.resetValidation();
 					$scope.editingItem = {};
 					$scope.editFormVisible = true;
 				},
 
 				editItem: function(item) {
-					$scope.validation.generalError = null;
-					$scope.validation.fieldErrors = {};
-
+					$scope.resetValidation();
 					$scope.editingItem = angular.extend({}, item);
 					$scope.editFormVisible = true;
 				},
@@ -68,40 +60,42 @@ angular.module('home')
 						return;
 					}
 
-					$scope.validation.generalError = null;
-					$scope.validation.fieldErrors = {};
+					$scope.resetValidation();
 
 					apinetService.action({
 						method: 'home/dictionary/deleteProjectStatus',
 						id: item.Id
 					})
-						.then(function() {
-							$scope.refreshList();
-							$scope.cancelEdit();
-						}, function(error) {
-							$scope.validation.generalError = error;
-						});
+					.then(function() {
+						$scope.cancelEdit();
+						var index = $scope.models.indexOf(item);
+						if(index === -1) {
+							return;
+						}
+						$scope.models.splice(index, 1);
+					}, function(error) {
+						$scope.validation.generalErrors = [ error ];
+					});
 				},
 
 				saveItem: function() {
-					$scope.validation.generalError = null;
-					$scope.validation.fieldErrors = {};
+					$scope.resetValidation();
 
 					apinetService.action({
 						method: 'home/dictionary/editProjectStatus',
 						model: $scope.editingItem
 					})
-						.then(function(result) {
-							if(result.success) {
-								$scope.refreshList();
-								$scope.cancelEdit();
-							}
-							else {
-								angular.extend($scope.validation, result);
-							}
-						}, function(error) {
-							$scope.validation.generalError = error;
-						});
+					.then(function(result) {
+						if(result.success) {
+							$scope.refreshList();
+							$scope.cancelEdit();
+						}
+						else {
+							angular.extend($scope.validation, result);
+						}
+					}, function(error) {
+						$scope.validation.generalErrors = [ error ];
+					});
 				},
 
 				cancelEdit: function() {

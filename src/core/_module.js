@@ -66,6 +66,11 @@ angular.module('core')
 			return !!value ? 'Да' : 'Нет';
 		};
 	})
+	.filter('joinBy', function () {
+		return function (input, delimiter) {
+			return (input || []).join(delimiter || ',');
+		};
+	})
     .run(['security',
         function(security) {
             // Get the current user when the application starts
