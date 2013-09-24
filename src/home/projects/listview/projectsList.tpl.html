@@ -1,8 +1,5 @@
 <container>
-	<!-- current-user="currentUser"
-	     request-params="requestParams"
-	     grid-options="gridOptions" -->
-	<div filtered-list="{method: 'home/projects/getProjects'}">
+	<div ng-controller="projectsListCtrl" filtered-list="{method: 'home/projects/getProjects'}">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
@@ -23,6 +20,7 @@
 							<label>Теги</label>
 							<input filter-lookup="{path: 'Tags.Tag', op:'='}" action="/api/home/dictionary/lookupProjectTags" filter-ng-model="filter.simple.Tags" />
 						</fieldset>
+
 					</form>
 				</tab>
 				<tab heading="Complex">
@@ -75,8 +73,8 @@
 				</tbody>
 			</table>
 			<pagination
-					num-pages="gridOptions.numPages"
-					current-page="gridOptions.page">
+					num-pages="paging.numPages"
+					current-page="paging.page">
 			</pagination>
 		</twocolumn-content>
 	</div>

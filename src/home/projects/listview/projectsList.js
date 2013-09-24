@@ -21,22 +21,18 @@
 					'content': {
 						templateUrl: sysConfig.src('home/projects/listview/projectsList.tpl.html'),
 
-						controller: function($scope, promiseTracker, currentUser) {
-							angular.extend($scope, {
-								loading: promiseTracker('projects'),
-								currentUser: currentUser,
-								requestParams: { mode: 'All' },
-
-								gridOptions: {
-									totalRowsCount: 10,
-									pageSize: 10,
-									page: 1,
-									numPages: 1
-								}
-							});
+						controller: function($scope, currentUser) {
+							$scope.currentUser = currentUser;
 						}
 					}
 				}
 			});
 		}
-	]);
+	])
+	.controller('projectsListCtrl', ['$scope', 'promiseTracker',
+		function($scope, promiseTracker) {
+			angular.extend($scope, {
+				loading: promiseTracker('projects'),
+				requestParams: { mode: 'All' }
+			});
+		}]);
