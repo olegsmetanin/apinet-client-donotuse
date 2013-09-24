@@ -143,12 +143,6 @@ angular.module('tasks')
 
 			$scope.loading = promiseTracker('projects');
 			$scope.requestParams = { project: sysConfig.project };
-			$scope.gridOptions = {
-				totalRowsCount: 10,
-				pageSize: 10,
-				page: 1,
-				numPages: 1
-			};
 
 			$scope.editModel = {id: null, name: ''};
 			$scope.deleteModel = { replacementType: null };
