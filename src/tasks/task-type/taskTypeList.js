@@ -28,11 +28,11 @@ angular.module('tasks')
 			$stateProvider.state(types);
 		}
 	])
-	.controller('taskTypeCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window',
-		function($scope, promiseTracker, sysConfig, apinetService, $window) {
+	.controller('taskTypeCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window', '$timeout',
+		function($scope, promiseTracker, sysConfig, apinetService, $window, $timeout) {
 			var handleException = function(error) {
 				$scope.resetValidation();
-				$scope.validation.generalErrors = [ error ];
+				$scope.validation.generalError = error;
 			};
 			var handleError = function(result) {
 				$scope.resetValidation();
@@ -84,10 +84,16 @@ angular.module('tasks')
 					return;
 				}
 
+				var replaceId = null;
+				if ($scope.deleteModel.replacementType && $scope.deleteModel.replacementType.id) {
+					replaceId = $scope.deleteModel.replacementType.id;
+				}
+
 				apinetService.action({
 					method: 'tasks/dictionary/deleteTaskTypes',
 					project: sysConfig.project,
-					ids: ids })
+					ids: ids,
+					replacementTypeId: replaceId })
 				.then(refresh, handleException);
 			};
 
@@ -124,24 +130,28 @@ angular.module('tasks')
 					model: { id: val.model.Id, Name: val.value }
 				}).then(refresh, handleException);
 			};
-			$scope.onCancel = function(val) {
-				console.log("cancel: " + val.value);
-			};
 
-			$scope.test = function() {
-				console.log($scope.models);
+			$scope.replaceLookupOptions = {
+				allowClear: true,
+				multiple: false,
+				query: function(query) {
+					$timeout(function(){
+						apinetService.action({
+							method: 'tasks/dictionary/lookupTaskTypes',
+							project: sysConfig.project,
+							term: query.term })
+						.then(function(response) {
+							query.callback({ results: response || [] });
+						}, handleException);
+					});
+				}
 			};
 
 			$scope.loading = promiseTracker('projects');
 			$scope.requestParams = { project: sysConfig.project };
-			$scope.gridOptions = {
-				totalRowsCount: 10,
-				pageSize: 10,
-				page: 1,
-				numPages: 1
-			};
 
 			$scope.editModel = {id: null, name: ''};
+			$scope.deleteModel = { replacementType: null };
 			$scope.resetValidation();
 	}]);
 	
