@@ -4,6 +4,7 @@ sysConfig.modules['tasks'] = {
 		'src/tasks/_module.js',
 		'src/tasks/task/taskList.js',
 
-		'src/tasks/task-type/taskTypeList.js'
+		'src/tasks/task-type/taskTypeList.js',
+		'src/tasks/custom-status/customStatusList.js'
 	]
 };

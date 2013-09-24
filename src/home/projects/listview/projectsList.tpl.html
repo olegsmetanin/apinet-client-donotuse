@@ -60,9 +60,12 @@
 				<tbody>
 					<tr ng-repeat="model in models">
 						<td>
-							<a href="#!/projects/projectDetails/{{ model.Id }}">
+							<a href="/projects/{{model.ProjectCode}}" target="_blank">
 								{{ model.Name }}
-							</a>
+							</a>&nbsp;(
+							<a href="#!/projects/projectDetails/{{ model.Id }}">
+								details
+							</a>)
 						</td>
 						<td>{{ model.Type.Name }}</td>
 						<td>{{ model.Description }}</td>

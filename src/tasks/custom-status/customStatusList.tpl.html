@@ -1,0 +1,124 @@
+<container>
+	<div ng-controller="customStatusCtrl" filtered-list="{method: 'tasks/dictionary/getCustomStatuses'}">
+		<twocolumn-side>
+			<button type="button" class="btn btn-success" ng-click="refreshList()"
+			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
+
+			<tabset>
+				<tab heading="Simple">
+					<form>
+						<fieldset>
+							<label>Наименование</label>
+							<input filter-input="{path: 'Name', op:'like'}" filter-ng-model="filter.simple.Name" />
+						</fieldset>
+					</form>
+				</tab>
+
+				<tab heading="Complex">
+					<div structured-filter filter-ng-model="filter.complex" meta="'tasks/dictionary/customStatusMetadata'">
+					</div>
+				</tab>
+
+				<tab heading="Favorites">
+					<div filter-persister group="'Tasks.CustomStatus'" filter="filter"></div>
+				</tab>
+			</tabset>
+		</twocolumn-side>
+
+		<twocolumn-content>
+			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
+
+			<div class="alert alert-error span12" ng-show="validation.generalErrors">
+				{{ validation.generalErrors }}
+			</div>
+			<form name="createStatusForm" class="form-inline" novalidate>
+				<fieldset>
+					<div class="span6">
+						<input type="text" ng-model="editModel.name" class="span5" placeholder="Наименование статуса" required />
+						<span ng-show="validation.fieldErrors['Name']" class="help-inline alert-error">
+							{{ validation.fieldErrors['Name'] | joinBy }}
+						</span>
+						<input type="text" name="viewOrder" integer ng-model="editModel.viewOrder" class="span2" placeholder="№ п/п" />
+						<span ng-show="isViewOrderInvalid()" class="help-inline alert-error">
+							Значение должно быть числом в диапазоне [0-255]
+						</span>
+						<span ng-show="validation.fieldErrors['ViewOrder']" class="help-inline alert-error">
+							{{ validation.fieldErrors['ViewOrder'] | joinBy }}
+						</span>
+						<button type="button" class="btn" ng-click="createStatus()" ng-disabled="createStatusForm.$invalid">Добавить</button>	
+					</div>
+
+					<div class="span6 pull-right">
+						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">Удалить</button>
+						<input type="text" ui-select2="replaceLookupOptions" ng-model="deleteModel.replacementStatus" placeholder="Статус для замены удаляемых (опционально)" style="width: 80%"/>
+					</div>
+				</fieldset>
+			</form>
+
+			<table class="table table-bordered sortable">
+				<thead>
+					<tr>
+						<th style="width: 1%">
+							<input type="checkbox" checker="items: 'models'">
+						</th>
+						<th data-sortproperty="Name">Наименование</th>
+						<th data-sortproperty="ViewOrder" data-defaultsort="asc" style="width: 10%">Порядок</th>
+						<th data-sortproperty="Creator.FIO" style="width: 15%">Автор</th>
+						<th data-sortproperty="CreationTime" style="width: 17%">Дата создания</th>
+						<th style="width: 1%">&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="model in models">
+						<td>
+							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
+						</td>
+						<td inline-edit="model.Name" edit-model="model" on-update="onUpdateName">
+							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
+								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Name }}</span>
+								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
+									<i class="icon-pencil"></i>
+								</button>
+	    					</span>
+	    					<form name="editStatusForm" ng-show="editMode" class="input-append" style="width: 100%" novalidate>
+	    						<input ng-show="editMode" type="text" ng-model="emodel.value" class="span10" required>
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
+									<i class="icon-reply"></i>
+								</button>
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editStatusForm.$invalid" title="Сохранить">
+									<i class="icon-ok"></i>
+								</button>
+							</form>
+						</td>
+						<td inline-edit="model.ViewOrder" edit-model="model" on-update="onUpdateViewOrder">
+							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
+								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.ViewOrder }}</span>
+								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
+									<i class="icon-pencil"></i>
+								</button>
+	    					</span>
+	    					<form name="editViewOrderForm" ng-show="editMode" class="input-append" style="width: 100%" novalidate>
+	    						<input ng-show="editMode" type="text" ng-model="emodel.value" class="span3">
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
+									<i class="icon-reply"></i>
+								</button>
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editViewOrderForm.$invalid" title="Сохранить">
+									<i class="icon-ok"></i>
+								</button>
+							</form>
+						</td>
+						<td>{{ model.Author }}</td>
+						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+						<td>
+							<button type="button" class="close" title="Удалить статус задачи" ng-click="delete(model.Id)">&times;</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<pagination
+					num-pages="paging.numPages"
+					current-page="paging.page">
+			</pagination>
+		</twocolumn-content>
+	</div>
+</container>

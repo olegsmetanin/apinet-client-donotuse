@@ -2,12 +2,12 @@ angular.module('tasks')
 	.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
 		function ($stateProvider, sysConfig, securityAuthorizationProvider) {
 
-			var types = {
-				name: 'page.types',
-				url: '/dictionary/types',
+			var statuses = {
+				name: 'page.statuses',
+				url: '/dictionary/statuses',
 				views: {
 					'content': {
-						templateUrl: sysConfig.src('tasks/task-type/taskTypeList.tpl.html')
+						templateUrl: sysConfig.src('tasks/custom-status/customStatusList.tpl.html')
 					}
 				},
 				resolve: {
@@ -19,19 +19,19 @@ angular.module('tasks')
 					pageConfig.setConfig({
 						breadcrumbs: [
 							{ name: 'Tasks', url: '#!/' },
-							{ name: 'Tasks types', url: '#!/dictionary/types' }]
+							{ name: 'Tasks statuses', url: '#!/dictionary/statuses' }]
 					});
 				}
 			};
 
-			$stateProvider.state(types);
+			$stateProvider.state(statuses);
 		}
 	])
-	.controller('taskTypeCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window', '$timeout',
+	.controller('customStatusCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window', '$timeout',
 		function($scope, promiseTracker, sysConfig, apinetService, $window, $timeout) {
 			var handleException = function(error) {
 				$scope.resetValidation();
-				$scope.validation.generalError = error;
+				$scope.validation.generalErrors = error;
 			};
 			var handleError = function(result) {
 				$scope.resetValidation();
@@ -42,20 +42,27 @@ angular.module('tasks')
 				$scope.resetValidation();
 			};
 
-			$scope.createTaskType = function() {
+			$scope.createStatus = function() {
 				$scope.editModel.id = null;
 				apinetService.action({
-					method: 'tasks/dictionary/editTaskType',
+					method: 'tasks/dictionary/editCustomStatus',
 					project: sysConfig.project,
 					model: $scope.editModel})
 				.then(function(result) {
 					if(result.success) {
 						$scope.editModel.name = '';
+						$scope.editModel.viewOrder = null;
+						$scope.$$childHead.$$nextSibling.createStatusForm.$setPristine();
 						refresh();
 					} else {
 						handleError(result);
 					}
 				}, handleException);
+			};
+
+			$scope.isViewOrderInvalid = function() {
+				var f = $scope.$$childHead.$$nextSibling.createStatusForm;
+				return f.viewOrder.$dirty && !f.viewOrder.$valid;
 			};
 
 			$scope.hasSelected = function() {
@@ -84,15 +91,15 @@ angular.module('tasks')
 				}
 
 				var replaceId = null;
-				if ($scope.deleteModel.replacementType && $scope.deleteModel.replacementType.id) {
-					replaceId = $scope.deleteModel.replacementType.id;
+				if ($scope.deleteModel.replacementStatus && $scope.deleteModel.replacementStatus.id) {
+					replaceId = $scope.deleteModel.replacementStatus.id;
 				}
 
 				apinetService.action({
-					method: 'tasks/dictionary/deleteTaskTypes',
+					method: 'tasks/dictionary/deleteCustomStatuses',
 					project: sysConfig.project,
 					ids: ids,
-					replacementTypeId: replaceId })
+					replacementStatusId: replaceId })
 				.then(refresh, handleException);
 			};
 
@@ -105,14 +112,13 @@ angular.module('tasks')
 				}
 
 				apinetService.action({
-					method: 'tasks/dictionary/deleteTaskType',
+					method: 'tasks/dictionary/deleteCustomStatus',
 					project: sysConfig.project,
 					id: id })
 				.then(refresh, handleException);	
 			};
 
-			$scope.onUpdate = function(val) {
-				//problem in code
+			$scope.onUpdateName = function(val) {
 				if (!val || !val.model || !val.value) {
 					return;
 				}
@@ -124,10 +130,31 @@ angular.module('tasks')
 				//temporary change with unsaved indicator
 				val.model.Name = val.value + ' *';
 				apinetService.action({
-					method: 'tasks/dictionary/editTaskType',
+					method: 'tasks/dictionary/editCustomStatus',
 					project: sysConfig.project,
-					model: { id: val.model.Id, Name: val.value }
+					model: { id: val.model.Id, Name: val.value, ViewOrder: val.model.ViewOrder }
 				}).then(refresh, handleException);
+			};
+
+			$scope.onUpdateViewOrder = function(val) {
+				if (!val || !val.model) {
+					return;
+				}
+				//not changed
+				if (val.model.ViewOrder === val.value) {
+					return;
+				}
+
+				var vo = val.value ? parseInt(val.value, val.model.viewOrder) : 0;
+
+				apinetService.action({
+					method: 'tasks/dictionary/editCustomStatus',
+					project: sysConfig.project,
+					model: { id: val.model.Id, Name: val.model.Name, ViewOrder: vo }
+				}).then(refresh, handleException);
+				//temporary change with unsaved indicator
+				val.model.Name = val.model.Name + ' *';
+				val.model.ViewOrder = vo;
 			};
 
 			$scope.replaceLookupOptions = {
@@ -136,7 +163,7 @@ angular.module('tasks')
 				query: function(query) {
 					$timeout(function(){
 						apinetService.action({
-							method: 'tasks/dictionary/lookupTaskTypes',
+							method: 'tasks/dictionary/lookupCustomStatuses',
 							project: sysConfig.project,
 							term: query.term })
 						.then(function(response) {
@@ -149,7 +176,7 @@ angular.module('tasks')
 			$scope.loading = promiseTracker('projects');
 			$scope.requestParams = { project: sysConfig.project };
 
-			$scope.editModel = {id: null, name: ''};
-			$scope.deleteModel = { replacementType: null };
+			$scope.editModel = {id: null, name: '', viewOrder: null};
+			$scope.deleteModel = { replacementStatus: null };
 	}]);
 	

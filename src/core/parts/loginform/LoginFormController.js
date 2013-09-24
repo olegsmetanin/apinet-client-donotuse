@@ -4,7 +4,9 @@ angular.module('security.login.form', ['services.localizedMessages'])
 // This controller and its template (login/form.tpl.html) are used in a modal dialog box by the security service.
 .controller('LoginFormController', ['$scope', 'security', 'localizedMessages', function($scope, security, localizedMessages) {
   // The model for this form 
-  $scope.user = {};
+  //$scope.user = {};
+  //Debug purposes
+  $scope.user = {email: 'admin@agosystems.com', password: '1'};
 
   // Any error message from failing to login
   $scope.authError = null;

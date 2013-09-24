@@ -2,6 +2,7 @@ angular.module('core')
     .directive('inlineEdit', ['$timeout', function($timeout) {
     	return {
     		restrict: 'A',
+            scope: true,
     		link: function(scope, element, attr) {
     			scope.emodel = { 
     				model: scope.$eval(attr.editModel),
