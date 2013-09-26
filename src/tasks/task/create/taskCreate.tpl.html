@@ -1,0 +1,84 @@
+<div class="container-fluid" ng-controller="taskCreateCtrl">
+	<div class="row-fluid">
+		<div class="alert alert-error span12" ng-show="validation.generalErrors">
+			{{ validation.generalErrors }}
+		</div>
+		<form name="form" class="form-horizontal span7 offset2" novalidate>
+			<div class="control-group" ng-class="{error: form.taskType.$invalid}">
+				<label class="control-label">Тип задачи</label>
+				<div class="controls">
+					<input type="text" name="taskType" lookup="tasks/dictionary/lookupTaskTypes" ng-model="model.taskType" placeholder="Выберите тип задачи" autofocus required class="span10" />
+					<span ng-show="form.taskType.$error.required" class="help-inline alert-error">
+						* обязательное поле
+					</span>
+					<span ng-show="validation.fieldErrors['TaskType']" class="help-block alert-error">
+						{{ validation.fieldErrors['TaskType'] | joinBy }}
+					</span>
+				</div>
+			</div>
+			<div class="control-group" ng-class="{error: form.executors.$invalid}">
+				<label class="control-label">Исполнители</label>
+				<div class="controls">
+					<input type="text" name="executors" lookup="home/projects/lookupParticipant" ng-model="model.executors" multiple placeholder="Выберите исполнителей" required-multiple class="span10" />
+					<span ng-show="form.executors.$error.required" class="help-inline alert-error">
+						* обязательное поле
+					</span>
+					<span ng-show="validation.fieldErrors['Executors']" class="help-block alert-error">
+						{{ validation.fieldErrors['Executors'] | joinBy }}
+					</span>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Срок</label>
+				<div class="controls">
+					<input name="dueDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-model="model.dueDate" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Содержание</label>
+				<div class="controls">
+					<textarea name="content" ng-model="model.content" rows="3" class="span10" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Пользовательский статус</label>
+				<div class="controls">
+					<input type="text" name="customStatus" lookup="tasks/dictionary/lookupCustomStatuses" ng-model="model.customStatus" placeholder="Выберите статус" class="span10" />
+					<span ng-show="validation.fieldErrors['CustomStatus']" class="help-block alert-error">
+						{{ validation.fieldErrors['CustomStatus'] | joinBy }}
+					</span>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">Приоритет</label>
+				<div class="controls">
+					<select name="priority" ng-model="model.priority" ng-options="c.name for c in priorities">
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">После создания задачи:</label>
+				<div class="controls">
+					<label class="radio inline">
+						<input type="radio" ng-model="nextAction" value="goToTask">Перейти к созданной
+					</label>
+					<label class="radio inline">
+						<input type="radio" ng-model="nextAction" value="goToList">Перейти в реестр задач
+					</label>
+					<label class="radio inline">
+						<input type="radio" ng-model="nextAction" value="stayHere">Создать другую задачу
+					</label>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="button" class="btn" ng-click="cancel()">Отменить</button>
+					<button type="button" class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">Создать задачу</button>
+				</div>
+			</div>
+			Model: {{ model }}<br>
+			Next: {{ nextAction }}
+			
+		</form>
+	</div>
+</div>

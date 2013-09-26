@@ -15,6 +15,8 @@ sysConfig.modules['core'] = {
 		'src/core/directives/checker.js',
 		'src/core/directives/inlineEdit.js',
 		'src/core/directives/integer.js',
+		'src/core/directives/lookup.js',
+		'src/core/directives/requiredMultiple.js',
 		
 		'src/core/parts/header/breadCrumbs/breadCrumbsCtrl.js',
 		'src/core/parts/header/tabBar/tabBar.js',
