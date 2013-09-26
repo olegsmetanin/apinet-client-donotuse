@@ -52,7 +52,7 @@ angular.module('tasks')
 					if(result.success) {
 						$scope.editModel.name = '';
 						$scope.editModel.viewOrder = null;
-						$scope.$$childHead.$$nextSibling.createStatusForm.$setPristine();
+						$scope.createStatusForm.$setPristine();
 						refresh();
 					} else {
 						handleError(result);
@@ -61,7 +61,7 @@ angular.module('tasks')
 			};
 
 			$scope.isViewOrderInvalid = function() {
-				var f = $scope.$$childHead.$$nextSibling.createStatusForm;
+				var f = $scope.createStatusForm;
 				return f.viewOrder.$dirty && !f.viewOrder.$valid;
 			};
 
@@ -173,7 +173,7 @@ angular.module('tasks')
 				}
 			};
 
-			$scope.loading = promiseTracker('projects');
+			$scope.loading = promiseTracker('customStatuses');
 			$scope.requestParams = { project: sysConfig.project };
 
 			$scope.editModel = {id: null, name: '', viewOrder: null};

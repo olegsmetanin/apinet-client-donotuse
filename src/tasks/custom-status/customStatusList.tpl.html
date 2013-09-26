@@ -1,6 +1,8 @@
-<container>
-	<div ng-controller="customStatusCtrl" filtered-list="{method: 'tasks/dictionary/getCustomStatuses'}">
-		<twocolumn-side>
+<!-- <container> -->
+<div class="container-fluid" ng-controller="customStatusCtrl" filtered-list="{method: 'tasks/dictionary/getCustomStatuses'}">
+	<div class="row-fluid">
+		<!-- <twocolumn-side> -->
+		<div class="span3">
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
 
@@ -23,9 +25,11 @@
 					<div filter-persister group="'Tasks.CustomStatus'" filter="filter"></div>
 				</tab>
 			</tabset>
-		</twocolumn-side>
+		</div>
+		<!-- </twocolumn-side> -->
 
-		<twocolumn-content>
+		<!-- <twocolumn-content> -->
+		<div class="span9">
 			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
 
 			<div class="alert alert-error span12" ng-show="validation.generalErrors">
@@ -119,6 +123,8 @@
 					num-pages="paging.numPages"
 					current-page="paging.page">
 			</pagination>
-		</twocolumn-content>
+		</div>
+		<!-- </twocolumn-content> -->
 	</div>
-</container>
+</div>
+<!-- </container> -->

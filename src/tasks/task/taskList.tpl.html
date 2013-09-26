@@ -1,5 +1,78 @@
-<container>
-	<h3>Tasks</h3>
-	<p>{{ msg }}</p>
-	<p>There will be a list of task</p>
-</container>
+<div class="container-fluid" ng-controller="taskListCtrl" filtered-list="{method: 'tasks/tasks/getTasks'}">
+	<div class="row-fluid">
+
+		<div class="span3">
+			<button type="button" class="btn btn-success" ng-click="refreshList()"
+			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
+
+			<tabset>
+				<tab heading="Simple">
+					<form>
+						<fieldset>
+							<label>Содержание</label>
+							<input filter-input="{path: 'Content', op:'like'}" filter-ng-model="filter.simple.Name" />
+						</fieldset>
+					</form>
+				</tab>
+
+				<tab heading="Complex">
+					<div structured-filter filter-ng-model="filter.complex" meta="'tasks/tasks/taskMetadata'">
+					</div>
+				</tab>
+
+				<tab heading="Favorites">
+					<div filter-persister group="'Tasks.Task'" filter="filter"></div>
+				</tab>
+			</tabset>
+		</div><!-- sidebar -->
+
+		<div class="span9">
+			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
+
+			<div class="alert alert-error span12" ng-show="validation.generalErrors">
+				{{ validation.generalErrors }}
+			</div>
+
+			<table class="table table-bordered sortable">
+				<thead>
+					<tr>
+						<th style="width: 1%">
+							<input type="checkbox" checker="items: 'models'">
+						</th>
+						<th data-sortproperty="InternalSeqNumber" data-defaultsort="desc">№</th>
+						<th data-sortproperty="TaskType.Name">Тип</th>
+						<th>Исполнители</th>
+						<th data-sortproperty="DueDate">Срок</th>
+						<th data-sortproperty="Status">Статус</th>
+						<th data-sortproperty="CustomStatus.Name">Пользовательский статус</th>
+						<th style="width: 1%">&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="model in models">
+						<td>
+							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
+						</td>
+						<td>{{ model.SeqNumber }}</td>
+						<td>
+							{{ model.TaskType }}
+							<small style="text-overflow: ellipsis; overflow: hidden;">{{ model.Content }}</small>
+						</td>
+						<td>
+							<span ng-repeat="executor in model.Executors" title="{{ executor.Description }}">
+								{{ executor.Name }}
+							</span>
+						</td>
+						<td>{{ model.DueDate | date:'dd.MM.yyyy' }}</td>
+						<td>{{ model.Status }}</td>
+						<td>{{ model.CustomStatus }}</td>
+						<td>
+							<button type="button" class="close" title="Удалить задачу">&times;</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div><!-- content -->
+
+	</div><!-- row -->
+</div><!-- container -->

@@ -146,7 +146,7 @@ angular.module('tasks')
 				}
 			};
 
-			$scope.loading = promiseTracker('projects');
+			$scope.loading = promiseTracker('taskTypes');
 			$scope.requestParams = { project: sysConfig.project };
 
 			$scope.editModel = {id: null, name: ''};
