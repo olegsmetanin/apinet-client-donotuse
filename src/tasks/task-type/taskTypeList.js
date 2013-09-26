@@ -51,6 +51,7 @@ angular.module('tasks')
 				.then(function(result) {
 					if(result.success) {
 						$scope.editModel.name = '';
+						$scope.createTaskTypeForm.$setPristine();
 						refresh();
 					} else {
 						handleError(result);
