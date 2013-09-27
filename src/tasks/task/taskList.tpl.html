@@ -35,6 +35,7 @@
 
 			<div>
 				<a href="#!/tasks/new">Создать задачу...</a>
+				<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="Удалить отмеченные задачи">Удалить</button>
 			</div>
 
 			<table class="table table-bordered sortable">
@@ -71,7 +72,7 @@
 						<td>{{ model.Status }}</td>
 						<td>{{ model.CustomStatus }}</td>
 						<td>
-							<button type="button" class="close" title="Удалить задачу">&times;</button>
+							<button type="button" class="close" title="Удалить задачу" ng-click="delete(model)">&times;</button>
 						</td>
 					</tr>
 				</tbody>
