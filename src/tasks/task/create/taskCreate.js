@@ -43,9 +43,7 @@ angular.module('tasks')
 			.then(function(response) {
 				if (response.success) {
 					if ($scope.nextAction === 'goToTask') {
-						//will be working later
-						//$state.transitionTo('page.task-view', {taskNum: response.model}, true);
-						$state.transitionTo('page.root', {}, true)
+						$state.transitionTo('page.taskView', {num: response.model}, true);
 					} else if ($scope.nextAction === 'goToList') {
 						$state.transitionTo('page.root', {}, true)
 					} else if ($scope.nextAction === 'stayHere') {
