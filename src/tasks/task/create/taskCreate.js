@@ -2,7 +2,7 @@ angular.module('tasks')
 .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig', 'securityAuthorizationProvider',
 	function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig, securityAuthorizationProvider) {
 
-	var tastCreate = {
+	var taskCreate = {
 			name: 'page.tastCreate',
 			url: '/tasks/new',
 			views: {
@@ -24,7 +24,7 @@ angular.module('tasks')
 			}
 		};
 
-		$stateProvider.state(tastCreate);
+		$stateProvider.state(taskCreate);
 	}
 ])
 .controller('taskCreateCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', '$timeout', '$state', 

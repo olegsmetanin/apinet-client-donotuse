@@ -1,0 +1,90 @@
+<div class="container-fluid" ng-controller="taskViewCtrl">
+	<div class="row-fluid">
+		<div class="span12">
+			<task-tabs current-tab="overview" task-num="model.SeqNumber" />
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span3">
+			<div class="well" affix data-offset-top="200">
+				<ul class="nav nav-list">
+					<li>
+						<a href="#general">
+							Общие&nbsp;свойства
+						</a>
+					</li>
+					<li>
+						<a href="#history">
+							История&nbsp;изменения статусов
+						</a>
+					</li>
+					<li>
+						<a href="#params">
+							Пользовательские&nbsp;свойства
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="span9">
+			<section id="general">
+				<h3>Общие свойства</h3>
+				<table class="table">
+					<tr>
+						<td class="span3">Номер п/п</td>
+						<td>{{ model.SeqNumber }}</td>
+					</tr>
+					<tr>
+						<td>Тип</td>
+						<td>{{ model.TaskType }}</td>
+					</tr>
+					<tr>
+						<td>Исполнители</td>
+						<td><executors model="model.Executors" /></td>
+					</tr>
+					<tr>
+						<td>Содержание</td>
+						<td>{{ model.Content }}</td>
+					</tr>
+					<tr>
+						<td>Срок</td>
+						<td>{{ model.DueDate | date:'dd.mm.yyyy' }}</td>
+					</tr>
+					<tr>
+						<td>Статус</td>
+						<td>{{ model.Status }}</td>
+					</tr>
+					<tr>
+						<td>Пользовательский статус</td>
+						<td>{{ model.CustomStatus }}</td>
+					</tr>
+					<tr>
+						<td>Автор</td>
+						<td>{{ model.Author }}</td>
+					</tr>
+					<tr>
+						<td>Создано</td>
+						<td>{{ model.CreationTiime }}</td>
+					</tr>
+				</table>
+			</section>
+			<section id="history">
+				<h3>История изменения статуса</h3>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<h3>История изменения пользовательского статуса</h3>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+			</section>
+			<section id="params">
+				<h3>Пользовательские свойства</h3>
+			</section>
+		</div>
+	</div>
+</div>

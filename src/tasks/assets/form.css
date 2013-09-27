@@ -1,0 +1,17 @@
+.opaque {
+	opacity: 1;
+    filter: alpha(opacity=100);
+    background-color: rgb(255,255,255);
+    background-color: rgba(255,255,255,1);
+}
+
+.container-fluid .affix {
+	width: 19.5%;
+}
+
+@media (min-width: 1020px) {
+    section {
+        margin-top: -80px;
+        padding-top: 80px;
+    }
+}

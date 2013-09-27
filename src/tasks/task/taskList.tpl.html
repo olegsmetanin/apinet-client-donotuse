@@ -70,9 +70,7 @@
 							</p>
 						</td>
 						<td>
-							<span ng-repeat="executor in model.Executors" title="{{ executor.Description }}">
-								{{ executor.Name }}
-							</span>
+							<executors model="model.Executors" />
 						</td>
 						<td>{{ model.DueDate | date:'dd.MM.yyyy' }}</td>
 						<td>{{ model.Status }}</td>
