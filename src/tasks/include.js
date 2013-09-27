@@ -1,6 +1,7 @@
 sysConfig.modules['tasks'] = {
 	css: [
-		'src/tasks/assets/validators.css'
+		'src/tasks/assets/validators.css',
+		'src/tasks/assets/lists.css'
 	],
 	js: [
 		'src/tasks/_module.js',

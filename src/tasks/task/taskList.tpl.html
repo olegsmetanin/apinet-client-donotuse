@@ -41,16 +41,16 @@
 			<table class="table table-bordered sortable">
 				<thead>
 					<tr>
-						<th style="width: 1%">
+						<th class="onepct">
 							<input type="checkbox" checker="items: 'models'">
 						</th>
-						<th data-sortproperty="InternalSeqNumber" data-defaultsort="desc">№</th>
+						<th data-sortproperty="InternalSeqNumber" data-defaultsort="desc" style="width: 5%">№</th>
 						<th data-sortproperty="TaskType.Name">Тип</th>
-						<th>Исполнители</th>
-						<th data-sortproperty="DueDate">Срок</th>
-						<th data-sortproperty="Status">Статус</th>
-						<th data-sortproperty="CustomStatus.Name">Пользовательский статус</th>
-						<th style="width: 1%">&nbsp;</th>
+						<th style="width: 20%">Исполнители</th>
+						<th data-sortproperty="DueDate" style="width: 10%">Срок</th>
+						<th data-sortproperty="Status" style="width: 10%">Статус</th>
+						<th data-sortproperty="CustomStatus.Name" style="width: 15%">Пользовательский статус</th>
+						<th class="onepct">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -58,10 +58,16 @@
 						<td>
 							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 						</td>
-						<td>{{ model.SeqNumber }}</td>
+						<td>
+							<a href="#!/tasks/{{model.SeqNumber}}">
+								{{ model.SeqNumber }}
+							</a>
+						</td>
 						<td>
 							{{ model.TaskType }}
-							<small style="text-overflow: ellipsis; overflow: hidden;">{{ model.Content }}</small>
+							<p ng-show="model.Content" title="{{ model.Content }}">
+								<small class="clip-content">{{ model.Content | textCut:50 }}</small>
+							</p>
 						</td>
 						<td>
 							<span ng-repeat="executor in model.Executors" title="{{ executor.Description }}">

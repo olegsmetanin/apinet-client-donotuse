@@ -71,6 +71,20 @@ angular.module('core')
 			return (input || []).join(delimiter || ',');
 		};
 	})
+    .filter('textCut', function() {
+        return function(input, max) {
+            if (!input) { 
+                return input; 
+            }
+
+            var result = angular.isString(input) ? input : input.toString();
+            max = max || 35;
+            if (result.length <= max){
+                return result;  
+            } 
+            return result.substring(0, max - 1) + '…';
+        };
+    })
     .run(['security',
         function(security) {
             // Get the current user when the application starts
