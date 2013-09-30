@@ -39,6 +39,11 @@ angular.module('core')
 					padString(date.getHours()) + ':' +
 					padString(date.getMinutes()) /* + ':' +
 					padString(date.getSeconds())*/;
+			},
+
+			dateObjectFromUTC: function (s) {
+				s = s.split(/[-: ]/g);
+				return new Date(Date.UTC(+s[0], --s[1], +s[2], +s[3], +s[4], +s[5], 0));
 			}
 		});
 	});

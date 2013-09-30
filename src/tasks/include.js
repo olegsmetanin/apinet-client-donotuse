@@ -11,6 +11,8 @@ sysConfig.modules['tasks'] = {
 		'src/tasks/task/view/taskTabs.js',
 		'src/tasks/task/view/taskView.js',
 		'src/tasks/task/executorsView.js',
+		'src/tasks/task/statusHistoryView.js',
+		'src/tasks/task/customPropertiesView.js',
 
 		'src/tasks/task-type/taskTypeList.js',
 		'src/tasks/custom-status/customStatusList.js'

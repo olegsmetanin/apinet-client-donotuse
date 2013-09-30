@@ -1,0 +1,34 @@
+<div>
+	<span ng-repeat="h in model.History | filter:isClosedRecord" class="status-prev">
+		{{ h.Status }}
+	</span>
+	<span class="status-curr">
+		{{ model.Current }}
+	</span>
+	<a class="status-next" ng-repeat="n in model.Next" ng-click="changeStatus(n)">{{ n.text }}</a>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Статус</th>
+				<th>Установил</th>
+				<th>Период действия</th>
+				<th>Продолжительность</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="h in model.History">
+				<td>
+					<strong>{{ h.Status }}</strong>
+				</td>
+				<td>{{ h.Author }}</td>
+				<td>
+					с {{ h.Start | date:'dd.MM.yyyy hh:mm' }} 
+					по {{ (h.Finish | date:'dd.MM.yyyy hh:mm') || 'настоящее время' }}
+				</td>
+				<td>
+					{{ duration(h) | date:'dd.MM.yyyy hh:mm' }}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -15,3 +15,25 @@
         padding-top: 80px;
     }
 }
+
+
+.status-prev {
+	text-align: center;
+	white-space: nowrap;
+	padding: 3px;
+	color: #7F7F7F;
+}
+
+.status-curr {
+	font-weight: bold;
+	text-align: center;
+	white-space: nowrap;
+	color: #BE0000;
+	padding: 3px;
+}
+
+.status-next {
+	color: #0000FF;
+	padding: 3px;
+	cursor: pointer;
+}

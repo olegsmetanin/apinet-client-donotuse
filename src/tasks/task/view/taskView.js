@@ -26,8 +26,16 @@ angular.module('tasks')
 		$stateProvider.state(taskView);
 	}
 ])
-.controller('taskViewCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', '$timeout', '$stateParams', 
-	function($scope, sysConfig, apinetService, $window, $timeout, $stateParams) {
+.controller('taskViewCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', '$timeout', '$stateParams', 'helpers',
+	function($scope, sysConfig, apinetService, $window, $timeout, $stateParams, helpers) {
+
+		$scope.changeStatus = function(hrecord) {
+			console.log('Change status for %s', hrecord.Text);
+		};
+
+		$scope.changeCustomStatus = function(hrecord) {
+			console.log('Change custom status for %s', hrecord.Text);
+		};
 
 		apinetService.action({
 			method: 'tasks/tasks/GetTask',
