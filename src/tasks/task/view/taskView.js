@@ -3,7 +3,7 @@ angular.module('tasks')
 	function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig, securityAuthorizationProvider) {
 
 	var taskView = {
-			name: 'page.tastView',
+			name: 'page.taskView',
 			url: '/tasks/:num',
 			views: {
 				'content': {
