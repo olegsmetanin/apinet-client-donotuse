@@ -35,10 +35,9 @@ angular.module('home')
 			});
 		}
 	])
-	.controller('projectStatusesCtrl', ['$scope', 'promiseTracker', 'apinetService', '$window',
-		function($scope, promiseTracker, apinetService, $window) {
+	.controller('projectStatusesCtrl', ['$scope', 'apinetService', '$window',
+		function($scope, apinetService, $window) {
 			angular.extend($scope, {
-				loading: promiseTracker('projects'),
 				requestParams: { },
 				editFormVisible: false,
 				editingItem: {},

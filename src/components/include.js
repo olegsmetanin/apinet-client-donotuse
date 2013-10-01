@@ -30,6 +30,8 @@ sysConfig.modules['components'] = {
 		"components/spin.js/dist/spin.js",
 		"components/angular-spinner-0.2.0/angular-spinner.min.js",
 
-		"components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"
+		"components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js",
+
+		"components/ngInfiniteScroll-PureJS/build/ng-infinite-scroll.min.js"
 	]
 };

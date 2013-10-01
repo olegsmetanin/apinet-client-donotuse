@@ -29,10 +29,8 @@
 			});
 		}
 	])
-	.controller('projectsListCtrl', ['$scope', 'promiseTracker',
-		function($scope, promiseTracker) {
-			angular.extend($scope, {
-				loading: promiseTracker('projects'),
-				requestParams: { mode: 'All' }
-			});
-		}]);
+	.controller('projectsListCtrl', ['$scope', function($scope) {
+		angular.extend($scope, {
+			requestParams: { mode: 'All' }
+		});
+	}]);

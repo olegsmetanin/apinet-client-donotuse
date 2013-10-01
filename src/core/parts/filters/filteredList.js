@@ -1,149 +1,192 @@
 angular.module('core')
-	.directive('filteredList', ['apinetService',
-		function($apinetService) {
-			return {
-				scope: false,
-				controller: ['$scope', function($scope) {
-					angular.extend($scope, {
-						models: [],
-						filter: {
-							simple: {},
-							complex: {}
-						},
-						sorters: { },
-						paging: {
-							page: 1,
-							pageSize: 10,
-							numPages: 5
-						},
-						applyEnabled: false,
-						validation: { },
+	.directive('filteredList', ['apinetService', function($apinetService) {
+		return {
+			scope: false,
 
-						resetValidation: function() {
-							$scope.validation.generalErrors = [];
-							$scope.validation.fieldErrors = {};
-						},
+			//region Refreshing, filtering, infinite scroll
 
-						refreshList: function() {
-							var params = angular.extend({ }, $scope.requestParams, {
-								method: $scope.method,
-								filter: $scope.filter,
-								page: $scope.paging.page - 1,
-								pageSize: $scope.paging.pageSize
-							});
+			controller: ['$scope', function($scope) {
+				angular.extend($scope, {
+					filter: {
+						simple: {},
+						complex: {}
+					},
+					sorters: { },
+					paging: {
+						page: 0,
+						loadedPages: []
+					},
 
-							$scope.resetValidation();
+					applyEnabled: false,
+					firstEvent: true,
+					models: [],
+					validation: { },
+					indication: { loading: false },
 
-							$apinetService.getModels(params).then(function(result) {
-								$scope.models = result;
-								$scope.applyEnabled = false;
-							},
-							function(error) {
-								$scope.validation.generalErrors = [ error ];
-							});
+					resetValidation: function() {
+						$scope.validation.generalErrors = [];
+						$scope.validation.fieldErrors = {};
+					},
+
+					refreshList: function(append) {
+						if(!append) {
+							$scope.paging.page = 0;
+							$scope.paging.loadedPages = [];
 						}
-					});
+						else {
+							if($scope.paging.loadedPages.indexOf($scope.paging.page) !== -1) {
+								return;
+							}
+						}
+
+						var params = angular.extend({ }, $scope.requestParams, {
+							method: $scope.method,
+							filter: $scope.filter,
+							sorters: $scope.sorters,
+							page: $scope.paging.page
+						});
+						$scope.resetValidation();
+
+						$scope.indication.loading = true;
+						$apinetService.getModels(params).then(function(result) {
+							$scope.indication.loading = false;
+							$scope.applyEnabled = false;
+
+							if(!append) {
+								$scope.models = result;
+							}
+							else {
+								if(!result.length) {
+									$scope.paging.page = $scope.paging.page - 1;
+									if($scope.paging.page < 0) {
+										$scope.paging.page = 0;
+									}
+									return;
+								}
+
+								$scope.paging.loadedPages.push($scope.paging.page);
+								for(var i = 0; i < result.length; i++) {
+									$scope.models.push(result[i]);
+								}
+							}
+						},
+						function(error) {
+							$scope.indication.loading = false;
+							$scope.validation.generalErrors = [ error ];
+						});
+					}
+				});
 
 
-					$scope.$watch('filter', function() {
-						$scope.applyEnabled = true;
-					}, true);
+				$scope.$watch('filter', function() {
+					$scope.applyEnabled = true;
+				}, true);
 
-					$scope.$watch('requestParams', function() {
-						$scope.applyEnabled = true;
-					}, true);
+				$scope.$watch('requestParams', function() {
+					$scope.applyEnabled = true;
+				}, true);
 
-					$scope.$on('refreshList', function() {
-						$scope.refreshList();
-					}, true);
+				$scope.$watch('sorters', function() {
+					$scope.refreshList();
+				}, true);
 
-					$scope.$watch('paging.page', function(value) {
-						$scope.refreshList();
-					}, true);
-				}],
-
-				link: function($scope, element, attrs) {
-					if(!$scope.requestParams) {
+				$scope.$watch('paging.page', function(value, oldValue) {
+					if($scope.firstEvent) {
+						$scope.firstEvent = false;
 						return;
 					}
 
-					var inputParams = $scope.$eval(attrs.filteredList);
-					angular.extend($scope, inputParams);
-					$scope.requestParams.sorters = [];
+					if(value === oldValue + 1) {
+						$scope.refreshList(true);
+					}
+				}, true);
+			}],
+			//endregion
 
-					angular.element(element).find('table.sortable thead th').each(function () {
-						var $this = angular.element(this);
+			//region Sorting, input params
 
-						if (!$this.attr('data-sortproperty') || !$this.attr('data-defaultsort')) {
-							return;
+			link: function($scope, element, attrs) {
+				if(!$scope.requestParams) {
+					return;
+				}
+				var $element = angular.element(element);
+
+				var inputParams = $scope.$eval(attrs.filteredList);
+				angular.extend($scope, inputParams);
+
+				$scope.sorters = [];
+				$element.find('table.sortable thead th').each(function () {
+					var $this = angular.element(this);
+
+					if (!$this.attr('data-sortproperty') || !$this.attr('data-defaultsort')) {
+						return;
+					}
+
+					var sorter = {
+						property: $this.attr('data-sortproperty'),
+						descending: $this.attr('data-defaultsort') === 'desc'
+					};
+					$scope.sorters.push(sorter);
+					$this.append(!sorter.descending ? '<span class="arrow up"></span>' :
+						'<span class="arrow"></span>');
+				});
+
+				angular.element(element).on('click', 'table.sortable thead th', function ($event) {
+					var $this = angular.element(this);
+
+					var sortProperty = $this.attr('data-sortproperty');
+					if (!sortProperty) {
+						return;
+					}
+
+					if(!$event.shiftKey) {
+						var $spans = $element.find('span');
+						if($spans.length) {
+							$spans.remove();
 						}
+					}
+					else {
+						var $span = $this.find('span');
+						if($span.length) {
+							$span.remove();
+						}
+					}
 
-						$scope.sorters[$this.attr('data-sortproperty')] = $this.attr('data-defaultsort');
-						$scope.requestParams.sorters.push({
-							property: $this.attr('data-sortproperty'),
-							descending: $this.attr('data-defaultsort') === 'desc'
-						});
+					var existingSorter = null;
+					var existingIndex = -1;
+					angular.forEach($scope.sorters, function(sorter, index) {
+						existingSorter = sorter.property === sortProperty ? sorter : existingSorter;
+						existingIndex = sorter.property === sortProperty ? index : existingIndex;
 					});
 
-					angular.element(element).on('click', 'table.sortable thead th', function () {
-						var $this = angular.element(this);
-
-						if (!$this.attr('data-sortproperty')) {
-							return;
+					$scope.$apply(function() {
+						if(!$event.shiftKey) {
+							$scope.sorters = [ ];
+							if(existingSorter && !existingSorter.descending) {
+								$scope.sorters.push(existingSorter);
+							}
 						}
 
-						$scope.$apply(function() {
-							var direction = $scope.sorters[$this.attr('data-sortproperty')];
-							$scope.sorters = { };
-
-							if(!direction) {
-								$scope.sorters[$this.attr('data-sortproperty')] = 'asc';
-							}
-							else if(direction === 'asc') {
-								$scope.sorters[$this.attr('data-sortproperty')] = 'desc';
-							}
-							else {
-								$scope.sorters[$this.attr('data-sortproperty')] = null;
-							}
-						});
-					});
-
-					$scope.$watch('sorters', function(value) {
-						angular.element(element).find('table.sortable thead th').each(function () {
-							var $this = angular.element(this);
-
-							if (!$this.attr('data-sortproperty')) {
-								return;
-							}
-
-							var $span = $this.find('span');
-							if($span.length) {
-								$span.remove();
-							}
-
-							var direction = value[$this.attr('data-sortproperty')];
-							if(direction === 'asc') {
-								$this.append('<span class="arrow up"></span>');
-							}
-							if(direction === 'desc') {
+						if(existingSorter) {
+							if(!existingSorter.descending) {
+								existingSorter.descending = true;
 								$this.append('<span class="arrow"></span>');
 							}
-						});
-
-						$scope.requestParams.sorters = [];
-						for(var key in $scope.sorters) {
-							if(!$scope.sorters.hasOwnProperty(key) || !$scope.sorters[key]) {
-								continue;
+							else if($event.shiftKey) {
+								$scope.sorters.splice(existingIndex, 1);
 							}
-
-							$scope.requestParams.sorters.push({
-								property: key,
-								descending: $scope.sorters[key] === 'desc'
-							});
 						}
-						$scope.applyEnabled = true;
+						else {
+							$scope.sorters.push({
+								property: sortProperty,
+								descending: false
+							});
+							$this.append('<span class="arrow up"></span>');
+						}
 					});
-				}
-			};
-		}
-	]);
+				});
+			}
+
+			//endregion
+		};
+	}]);

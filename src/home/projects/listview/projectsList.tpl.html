@@ -37,8 +37,6 @@
 
 
 		<twocolumn-content>
-			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
-
 			<div style="margin-bottom: 10px;" ng-show="currentUser.admin">
 				<a class="btn btn-primary" href="#!/projects/create">
 					<i class="icon-plus icon-white"></i>
@@ -46,7 +44,10 @@
 				</a>
 			</div>
 
-			<table class="table table-bordered sortable">
+			<table class="table table-bordered sortable"
+			       infinite-scroll='paging.page = paging.page + 1'
+			       infinite-scroll-disabled='indication.loading || applyEnabled'
+			       infinite-scroll-distance='1'>
 				<thead>
 					<tr>
 						<th data-sortproperty="Name">Наименование</th>
@@ -75,10 +76,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<pagination
-					num-pages="paging.numPages"
-					current-page="paging.page">
-			</pagination>
+			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
 		</twocolumn-content>
 	</div>
 </container>

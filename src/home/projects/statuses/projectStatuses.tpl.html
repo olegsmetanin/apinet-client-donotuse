@@ -27,8 +27,6 @@
 
 
 		<twocolumn-content>
-			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
-
 			<div ng-show="currentUser.admin">
 				<button style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">
 					<i class="icon-plus icon-white"></i>
@@ -68,7 +66,10 @@
 				</form>
 			</div>
 
-			<table class="table table-bordered sortable">
+			<table class="table table-bordered sortable"
+			       infinite-scroll='paging.page = paging.page + 1'
+			       infinite-scroll-disabled='indication.loading || applyEnabled'
+			       infinite-scroll-distance='1'>
 				<thead>
 					<tr>
 						<th style="width: 115px;" ng-show="currentUser.admin"></th>
@@ -97,10 +98,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<pagination
-				num-pages="paging.numPages"
-				current-page="paging.page">
-			</pagination>
+			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
 		</twocolumn-content>
 	</div>
 </container>
