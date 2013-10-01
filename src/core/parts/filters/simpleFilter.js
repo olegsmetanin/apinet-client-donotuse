@@ -5,7 +5,7 @@ angular.module('core')
 		return {
 			/* This one is important: */
 			scope: {},
-			compile: function(element, attrs, transclude) {
+			compile: function(element, attrs) {
 
 				var filterNgModel = attrs.filterNgModel;
 
@@ -22,7 +22,7 @@ angular.module('core')
 				// element[0].setAttribute("ng-model", '$parent.' + filterNgModel + '.value');
 				// element[0].setAttribute("ui-select2", 'lookupOptions');
 
-				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.value"/></div>');
+				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.value" class="span12"/></div>');
 
 				return function($scope, element, attrs) {
 
@@ -62,11 +62,11 @@ angular.module('core')
 		return {
 			/* This one is important: */
 			scope: {},
-			compile: function(element, attrs, transclude) {
+			compile: function(element, attrs) {
 
 				var filterNgModel = attrs.filterNgModel;
 
-				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.value" ui-select2="lookupOptions" style="width:300px;"/></div>');
+				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.value" ui-select2="lookupOptions" class="span12"/></div>');
 
 				return function($scope, element, attrs) {
 
@@ -95,16 +95,19 @@ angular.module('core')
 				};
 			},
 
-			controller: ["$scope", "$element", "$attrs", "$http", "$timeout",
-				function($scope, $element, $attrs, $http, $timeout) {
+			controller: ["$scope", "$element", "$attrs", "$http", "$timeout", "sysConfig",
+				function($scope, $element, $attrs, $http, $timeout, sysConfig) {
 
 					$scope.lookupOptions = {
 						multiple: true,
 						query: function(query) {
 							//console.log("in query");
-
+							//TODO why not apinetService??
 							$timeout(function() {
-								$http.post($attrs.action, { term: query.term }).then(function(response) {
+								$http.post($attrs.action, { 
+									project: sysConfig.project,
+									term: query.term })
+								.then(function(response) {
 									query.callback({
 										results: response.data || [ ]
 									});
