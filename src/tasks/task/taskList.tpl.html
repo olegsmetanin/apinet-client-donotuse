@@ -9,10 +9,28 @@
 				<tab heading="Simple">
 					<form>
 						<fieldset>
+							<label>Статус</label>
+							<input filter-lookup="{path: 'Status', op: '='}" action="/api/tasks/dictionary/lookupTaskStatuses" filter-ng-model="filter.simple.Status">
+							<label>Пользовательский статус</label>
+							<input filter-lookup="{path: 'CustomStatus', op: '='}" action="/api/tasks/dictionary/lookupCustomStatuses" filter-ng-model="filter.simple.CustomStatus">
+							<label>Номер задачи</label>
+							<input filter-lookup="{path: 'Id', op: '='}" action="/api/tasks/tasks/lookupTasks" filter-ng-model="filter.simple.SeqNumber">
+							<label>Тип задачи</label>
+							<input filter-lookup="{path: 'TaskType', op: '='}" action="/api/tasks/dictionary/lookupTaskTypes" filter-ng-model="filter.simple.TaskType">
+							<label>Срок</label>
+							<input value="TODO" />
+							<br>
+							<input value="TODO" /> - <input value="TODO" />
+							<label>Исполнители</label>
+							<input value="TODO" />
 							<label>Содержание</label>
 							<input filter-input="{path: 'Content', op:'like'}" filter-ng-model="filter.simple.Name" />
 						</fieldset>
 					</form>
+				</tab>
+
+				<tab heading="Props">
+					<div user-filter filter-ng-model="filter.user"></div>
 				</tab>
 
 				<tab heading="Complex">
