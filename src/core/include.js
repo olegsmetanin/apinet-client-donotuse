@@ -18,6 +18,8 @@ sysConfig.modules['core'] = {
 		'src/core/directives/lookup.js',
 		'src/core/directives/requiredMultiple.js',
 		'src/core/directives/affix.js',
+		'src/core/directives/fixHeight.js',
+		'src/core/directives/scrollspy.js',
 		
 		'src/core/parts/header/breadCrumbs/breadCrumbsCtrl.js',
 		'src/core/parts/header/tabBar/tabBar.js',

@@ -1,9 +1,8 @@
 <div class="container-fluid" ng-controller="taskListCtrl" filtered-list="{method: 'tasks/tasks/getTasks'}">
 	<div class="row-fluid">
-
+<!-- data-offset-top="50" -->
 		<div class="span3">
-			<!-- affix -->
-			<div data-offset-top="50">
+			<div fix-height affix style="overflow: auto">
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
 
