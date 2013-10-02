@@ -198,6 +198,27 @@ angular.module('tasks')
 			}			
 		};
 
+		$scope.toggleDetails = function(task) {
+			task.details.expanded = !task.details.expanded;
+			if (!task.details.expanded) {
+				//not expanded - nothing to show
+				return;
+			}
+			if (task.details.loaded === true) {
+				//data already loaded, simply show
+				return;
+			}
+			//need to load data
+			apinetService.action({
+				method: 'tasks/tasks/GetTaskDetails',
+				project: sysConfig.project,
+				numpp: task.SeqNumber})
+			.then(function(response) {
+				angular.extend(task.details, response);
+				task.details.loaded = true;
+			}, handleException);
+		};
+
 		var handleException = function(error) {
 			$scope.resetValidation();
 			$scope.validation.generalErrors = [error];

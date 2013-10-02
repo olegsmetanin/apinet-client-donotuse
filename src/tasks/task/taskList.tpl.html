@@ -59,7 +59,10 @@
 				<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="Удалить отмеченные задачи">Удалить</button>
 			</div>
 
-			<table class="table table-bordered sortable">
+			<table class="table table-bordered sortable"
+					infinite-scroll='paging.page = paging.page + 1'
+					infinite-scroll-disabled='indication.loading || applyEnabled'
+					infinite-scroll-distance='1'>
 				<thead>
 					<tr>
 						<th class="onepct">
@@ -74,8 +77,10 @@
 						<th class="onepct">&nbsp;</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr ng-repeat="model in models">
+				<!-- TODO waiting for new angular version
+				http://stackoverflow.com/questions/16900050/angular-js-ng-repeat-across-multiple-elements -->
+				<tbody ng-repeat="model in models">
+					<tr ng-click="toggleDetails(model)">
 						<td>
 							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 						</td>
@@ -98,6 +103,45 @@
 						<td>{{ model.CustomStatus }}</td>
 						<td>
 							<button type="button" class="close" title="Удалить задачу" ng-click="delete(model)">&times;</button>
+						</td>
+					</tr>
+					<tr ng-show="model.details.expanded" ng-init="model.details.loaded = false">
+						<td colspan="8">
+							<div ng-hide="model.details.loaded">Загрузка данных...</div>
+							<div ng-show="model.details.loaded">
+								<table class="table table-bordered">
+									<tr>
+										<td>Приоритет</td>
+										<td>{{ model.details.Priority }}</td>
+									</tr>
+									<tr>
+										<td>Содержание</td>
+										<td>
+											<pre>{{ model.details.Content }}</pre>
+										</td>
+									</tr>
+									<tr>
+										<td>Примечание</td>
+										<td>{{ model.details.Note }}</td>
+									</tr>
+									<tr>
+										<td>Согласования</td>
+										<td>
+											<span ng-repeat="a in model.details.Agreements">
+												<i ng-class="{'icon-check': a.Done, 'icon-check-empty': !a.Done}"></i>{{ a.Agreemer }}
+											</span>&nbsp; &nbsp;
+										</td>
+									</tr>
+									<tr>
+										<td>Файлы (топ 5)</td>
+										<td>
+											<a href="/services/download/file/{{f}}" target="_blank" ng-repeat="f in model.details.Files">
+												<i class="icon-paper-clip"></i>{{ f }}
+											</a>
+										</td>
+									</tr>
+								</table>
+							</div>
 						</td>
 					</tr>
 				</tbody>
