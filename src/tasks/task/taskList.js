@@ -99,6 +99,105 @@ angular.module('tasks')
 			return false;
 		};
 
+		$scope.constructCombinedFilter = function() {
+			var today = new Date();
+			today.setHours(0, 0, 0, 0); //clear time part
+			switch($scope.customFilter.selected.value) {
+				case $scope.customFilter.OVERDUE:
+					//if due date is today - already overdue (strange logic)
+					today.setDate(today.getDate() + 1);
+					//due date is less then tomorrow and task is not closed
+					$scope.filter.simple.Combined = {
+						op: '&&',
+						items: [
+							{path: 'DueDate', op: '<', value: today},
+							{path: 'Status', op: '!=', value: 'Closed'}]
+					};
+					break;
+				case $scope.customFilter.DAY_LEFT:
+					today.setDate(today.getDate() + 2);
+					//due date for task is next day and task is not closed
+					$scope.filter.simple.Combined = {
+						op: '&&',
+						items: [
+							{path: 'DueDate', op: '<', value: today},
+							{path: 'Status', op: '!=', value: 'Closed'}]
+					};
+					break;
+				case $scope.customFilter.WEEK_LEFT:
+					today.setDate(today.getDate() + 8);
+					//due date for task is next day and task is not closed
+					$scope.filter.simple.Combined = {
+						op: '&&',
+						items: [
+							{path: 'DueDate', op: '<', value: today},
+							{path: 'Status', op: '!=', value: 'Closed'}]
+					};
+					break;
+				case $scope.customFilter.NO_LIMIT:
+					//no due date
+					$scope.filter.simple.Combined = {path: 'DueDate', op: 'not exists'};
+					break;
+				case $scope.customFilter.CLOSED_TODAY:
+					var tomorrow = new Date();
+					tomorrow.setHours(0, 0, 0, 0);
+					tomorrow.setDate(tomorrow.getDate() + 1);
+					//task is closed and closed today
+					$scope.filter.simple.Combined = {
+						op: '&&',
+						items: [
+							{path: 'Status', op: '=', value: 'Closed'},
+							{path: 'StatusHistory.Status', op: '=', value: 'Closed'},
+							{path: 'StatusHistory.Start', op: '>=', value: today},
+							{path: 'StatusHistory.Start', op: '<', value: tomorrow}]
+					};
+					break;
+				case $scope.customFilter.CLOSED_YESTERDAY:
+					var yesterday = new Date();
+					yesterday.setHours(0, 0, 0, 0);
+					yesterday.setDate(yesterday.getDate() - 1);
+					//task is closed and closed yesterday
+					$scope.filter.simple.Combined = {
+						op: '&&',
+						path: '',
+						value: '',
+						items: [
+							{path: 'Status', op: '=', value: 'Closed'},
+							{path: 'StatusHistory.Status', op: '=', value: 'Closed'},
+							{path: 'StatusHistory.Start', op: '>=', value: yesterday},
+							{path: 'StatusHistory.Start', op: '<', value: today}]
+					};
+					break;
+				case $scope.customFilter.ALL:
+				default:
+					$scope.filter.simple.Combined = null;
+			}
+		};
+
+		$scope.constructDueDateFilter = function() {
+			if ($scope.customFilter.lDate) {
+				$scope.filter.simple.DueDateLeft = {
+					path: 'DueDate',
+					op: '>=',
+					value: $scope.customFilter.lDate
+				}
+			} else {
+				$scope.filter.simple.DueDateLeft = null;
+			}
+
+			if ($scope.customFilter.rDate) {
+				var dr = new Date($scope.customFilter.rDate.getTime());
+				dr.setDate(dr.getDate() + 1);
+				$scope.filter.simple.DueDateRight = {
+					path: 'DueDate',
+					op: '<',
+					value: dr
+				}
+			} else {
+				$scope.filter.simple.DueDateRight = null;
+			}			
+		};
+
 		var handleException = function(error) {
 			$scope.resetValidation();
 			$scope.validation.generalErrors = [error];
@@ -106,4 +205,28 @@ angular.module('tasks')
 
 		$scope.loading = promiseTracker('tasks');
 		$scope.requestParams = { project: sysConfig.project };
+		$scope.customFilter = {
+			ALL: 'all',
+			OVERDUE: 'overdue',
+			DAY_LEFT: 'dayLeft',
+			WEEK_LEFT: 'weekLeft',
+			NO_LIMIT: 'noLimit',
+			CLOSED_TODAY: 'closedToday',
+			CLOSED_YESTERDAY: 'closedYesterday',
+
+			selected: null,
+			predefined: null,
+			lDate: null,
+			rDate: null
+		};
+		$scope.customFilter.predefined = [
+			{value: $scope.customFilter.ALL, text: 'Все' },
+			{value: $scope.customFilter.OVERDUE, text: 'Просроченные' },
+			{value: $scope.customFilter.DAY_LEFT, text: 'Срок 1 день' },
+			{value: $scope.customFilter.WEEK_LEFT, text: 'Срок 7 дней' },
+			{value: $scope.customFilter.NO_LIMIT, text: 'Без даты окончания' },
+			{value: $scope.customFilter.CLOSED_TODAY, text: 'Закрыты сегодня' },
+			{value: $scope.customFilter.CLOSED_YESTERDAY, text: 'Закрыты вчера' }
+		];
+		$scope.customFilter.selected = $scope.customFilter.predefined[0];
 }]);
