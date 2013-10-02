@@ -17,7 +17,7 @@ angular.module('core')
 					$vm.css('height', sideBarHeight + 'px');
 				}
 
-				console.log(sideBarHeight + 'px');
+				//console.log(sideBarHeight + 'px');
 			};
 
 			$(window).on('resize', adjastSideBarHeight);
