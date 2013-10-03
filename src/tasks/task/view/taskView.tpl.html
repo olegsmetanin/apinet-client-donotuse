@@ -14,6 +14,11 @@
 						</a>
 					</li>
 					<li>
+						<a href="#agreements">
+							Согласования
+						</a>
+					</li>
+					<li>
 						<a href="#statusHistory">
 							История&nbsp;статуса
 						</a>
@@ -75,6 +80,29 @@
 						<td>Создано</td>
 						<td>{{ model.CreationTiime }}</td>
 					</tr>
+				</table>
+			</section>
+			<section id="agreements">
+				<h3>Согласования</h3>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Согласующий</th>
+							<th class="onepct">Согласовано</th>
+							<th class="span3">Дата</th>
+							<th class="span4">Комментарий</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="a in model.Agreements">
+							<td>{{ a.Agreemer }}</td>
+							<td>
+								<i ng-class="{'icon-check': a.Done, 'icon-check-empty': !a.Done}"></i>
+							</td>
+							<td>{{ a.AgreedAt | date:'dd.MM.yyyy hh:mm' }}</td>
+							<td>{{ a.Comment }}</td>
+						</tr>
+					</tbody>
 				</table>
 			</section>
 			<section id="statusHistory">
