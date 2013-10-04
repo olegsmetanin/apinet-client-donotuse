@@ -56,69 +56,64 @@ angular.module('core')
 		};
 	}
 ])
+.directive('filterLookup', ['$timeout', function($timeout) {
+	return {
+		scope: {
+			action: '@',
+			single: '@',
+			filterLookup: '@',
+			filterNgModel: '='
+		},
+		template: '<div><input ui-select2="lookupOptions" ng-model="lookupValue" class="span12" /></div>',
+		replace: true,
 
-.directive('filterLookup', ['$timeout',
-	function($timeout) {
-		return {
-			/* This one is important: */
-			scope: {},
-			compile: function(element, attrs) {
-
-				var filterNgModel = attrs.filterNgModel;
-
-				element.replaceWith('<div><input ng-model="$parent.' + filterNgModel + '.value" ui-select2="lookupOptions" class="span12"/></div>');
-
-				return function($scope, element, attrs) {
-
-					var opts = $scope.$eval(attrs.filterLookup);
-
-					function prop2JSON(props, val) {
-						var cursor = val,
-							collect;
-						for (var i = props.length - 1; i >= 0; i--) {
-							collect = {};
-							collect[props[i]] = cursor;
-							cursor = collect;
-						}
-						return collect;
+		controller: ['$scope', 'apinetService', 'sysConfig', function($scope, $apinetService, sysConfig) {
+			$scope.lookupOptions = {
+				multiple: !$scope.single,
+				query: function(query) {
+					if($scope.timeout) {
+						$timeout.cancel($scope.timeout);
+						$scope.timeout = null;
 					}
 
-					var props = filterNgModel.split('.');
+					$scope.timeout = $timeout(function() {
+						console.log('query', query);
+						$scope.timeout = null;
 
-					var state = prop2JSON(props, opts);
-
-					element.bind('change', function() {
-						$scope.$apply(function() {
-							$.extend(true, $scope.$parent, state);
-						});
-					});
-				};
-			},
-
-			controller: ["$scope", "$element", "$attrs", "$http", "$timeout", "sysConfig",
-				function($scope, $element, $attrs, $http, $timeout, sysConfig) {
-
-					$scope.lookupOptions = {
-						multiple: true,
-						query: function(query) {
-							//console.log("in query");
-							//TODO why not apinetService??
-							$timeout(function() {
-								$http.post($attrs.action, { 
-									project: sysConfig.project,
-									term: query.term })
-								.then(function(response) {
-									query.callback({
-										results: response.data || [ ]
-									});
-								});
+						$apinetService.getModels({
+							method: $scope.action,
+							project: sysConfig.project,
+							term: query.term,
+							page: query.page - 1
+						}).then(function(result) {
+							query.callback({
+								results: result,
+								more: result.length > 0,
+								context: true
 							});
-						}
-
-					};
+						},
+						function(error) {
+							console.log('error', error);
+						});
+					}, !query.context ? 300 : 0);
 				}
-			]
+			};
 
-		};
-	}
-]);
+			$scope.$watch('lookupValue', function(value) {
+				var wrapper = $scope.$eval($scope.filterLookup);
+				if(!wrapper) {
+					return;
+				}
+				wrapper.value = value;
+				$scope.filterNgModel = wrapper;
+			});
+
+			$scope.$watch('filterNgModel.value', function(value) {
+				if(value === $scope.lookupValue) {
+					return;
+				}
+				$scope.lookupValue = value;
+			});
+		}]
+	};
+}]);

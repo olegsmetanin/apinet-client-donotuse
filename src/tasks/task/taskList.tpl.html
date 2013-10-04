@@ -14,17 +14,17 @@
 							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="span12">
 							</select>
 							<label>Статус</label>
-							<input filter-lookup="{path: 'Status', op: '='}" action="/api/tasks/dictionary/lookupTaskStatuses" filter-ng-model="filter.simple.Status">
+							<input filter-lookup="{path: 'Status', op: '='}" action="tasks/dictionary/lookupTaskStatuses" filter-ng-model="filter.simple.Status">
 							<label>Пользовательский статус</label>
-							<input filter-lookup="{path: 'CustomStatus', op: '='}" action="/api/tasks/dictionary/lookupCustomStatuses" filter-ng-model="filter.simple.CustomStatus">
+							<input filter-lookup="{path: 'CustomStatus', op: '='}" action="tasks/dictionary/lookupCustomStatuses" filter-ng-model="filter.simple.CustomStatus">
 							<label>Номер задачи</label>
-							<input filter-lookup="{path: 'Id', op: '='}" action="/api/tasks/tasks/lookupTasks" filter-ng-model="filter.simple.SeqNumber">
+							<input filter-lookup="{path: 'Id', op: '='}" action="tasks/tasks/lookupTasks" filter-ng-model="filter.simple.SeqNumber">
 							<label>Тип задачи</label>
-							<input filter-lookup="{path: 'TaskType', op: '='}" action="/api/tasks/dictionary/lookupTaskTypes" filter-ng-model="filter.simple.TaskType">
+							<input filter-lookup="{path: 'TaskType', op: '='}" action="tasks/dictionary/lookupTaskTypes" filter-ng-model="filter.simple.TaskType">
 							<label>Срок</label>
 							<input type="text" ng-model="customFilter.lDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" /> - <input type="text" ng-model="customFilter.rDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" />
 							<label>Исполнители</label>
-							<input filter-lookup="{path: 'Executors.Executor.Id', op: '='}" action="/api/home/projects/lookupParticipant" filter-ng-model="filter.simple.Executors">
+							<input filter-lookup="{path: 'Executors.Executor.Id', op: '='}" action="home/projects/lookupParticipant" filter-ng-model="filter.simple.Executors">
 							<label>Содержание</label>
 							<input filter-input="{path: 'Content', op:'like'}" filter-ng-model="filter.simple.Content" />
 						</fieldset>
