@@ -48,8 +48,6 @@
 		</div><!-- sidebar -->
 
 		<div class="span9">
-			<div ng-show="loading.active()" us-spinner="{top:100}"></div>
-
 			<div class="alert alert-error span12" ng-show="validation.generalErrors">
 				{{ validation.generalErrors }}
 			</div>
@@ -85,7 +83,7 @@
 							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 						</td>
 						<td>
-							<a href="#!/tasks/{{model.SeqNumber}}">
+							<a href="#!/tasks/{{model.SeqNumber}}" style="white-space: nowrap">
 								{{ model.SeqNumber }}
 							</a>
 						</td>
@@ -146,6 +144,7 @@
 					</tr>
 				</tbody>
 			</table>
+			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
 		</div><!-- content -->
 
 	</div><!-- row -->

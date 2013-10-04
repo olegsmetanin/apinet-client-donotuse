@@ -1,51 +1,55 @@
 angular.module('core')
-    .directive('inlineEdit', ['$timeout', function($timeout) {
-    	return {
-    		restrict: 'A',
-            scope: true,
-    		link: function(scope, element, attr) {
-    			scope.emodel = { 
-    				model: scope.$eval(attr.editModel),
-    				original: null,
-    				value: null
-    			};
-    			scope.editMode = false;
-    			var elInput = element.find('input')[0];
+.directive('inlineEdit', ['$timeout', '$parse', function($timeout, $parse) {
+	return {
+		restrict: 'A',
+        scope: true,
+		link: function(scope, element, attr) {
+			scope.emodel = { 
+				original: null,
+				value: null
+			};
+			scope.editMode = false;
+			var elInput = element.find('input')[0] || 
+                element.find('textarea')[0] ||
+                element.find('select')[0];
 
-    			scope.edit = function() {
-    				scope.editMode = true;
-    				scope.emodel.original = scope.emodel.value = scope.$eval(attr.inlineEdit);
-    				$timeout(function() {
-    					elInput.focus();
-    				}, 0, false);
-    			};
+            var callback = function(cb) {
+                if (cb) {
+                    $parse(cb)(scope, {val: scope.emodel.value});
+                }
+            };
 
-    			scope.update = function() {
-    				scope.editMode = false;
-    				var handler = scope.$eval(attr.onUpdate);
-    				if (angular.isDefined(handler))
-    					handler({ model: scope.emodel.model, value: scope.emodel.value });
-    			};
+			scope.edit = function() {
+				scope.editMode = true;
+				scope.emodel.original = scope.emodel.value = scope.$eval(attr.inlineEdit);
+				$timeout(function() { elInput.focus(); }, 0, false);
+			};
 
-    			scope.cancel = function() {
-    				scope.editMode = false;
-    				scope.emodel.value = scope.emodel.original;
-    				var handler = scope.$eval(attr.onCancel);
-    				if (angular.isDefined(handler))
-    					handler({ model: scope.emodel.model, value: scope.emodel.value });
-    			};
+			scope.update = function() {
+				scope.editMode = false;
+                callback(attr.onUpdate);
+			};
 
-    			angular.element(elInput).on('keypress', function(e) {
-			    	if (e.keyCode === 13) {
-			    		scope.$apply(scope.update);
-			    	}
-			    });
+			scope.cancel = function() {
+				scope.editMode = false;
+				scope.emodel.value = scope.emodel.original;
+                callback(attr.onCancel);
+			};
 
-			    angular.element(elInput).on('keydown', function(e) {
-			    	if (e.keyCode === 27) {
-			    		scope.$apply(scope.cancel);
-			    	}
-			    });
-    		}
-    	};
-    }]);
+		    angular.element(elInput).on('keydown', function(e) {
+		    	var isTextArea = $(elInput).is('textarea');
+		    	var isSubmit = isTextArea 
+		    		? (e.ctrlKey || e.metaKey) && e.keyCode === 13
+		    		: e.keyCode === 13;
+		    	var isEsc = e.keyCode === 27;
+
+		    	if (isSubmit) {
+		    		scope.$apply(scope.update);	
+		    	} else if (isEsc) {
+		    		scope.$apply(scope.cancel);
+		    	}
+		    	return true;
+		    });
+		}
+	};
+}]);

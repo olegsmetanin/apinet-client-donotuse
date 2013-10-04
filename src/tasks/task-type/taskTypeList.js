@@ -1,156 +1,152 @@
 angular.module('tasks')
-	.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
-		function ($stateProvider, sysConfig, securityAuthorizationProvider) {
+.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
+	function ($stateProvider, sysConfig, securityAuthorizationProvider) {
 
-			var types = {
-				name: 'page.types',
-				url: '/dictionary/types',
-				views: {
-					'content': {
-						templateUrl: sysConfig.src('tasks/task-type/taskTypeList.tpl.html')
-					}
-				},
-				resolve: {
-					pageConfig: 'pageConfig',
-					promiseTracker: 'promiseTracker',
-					authUser: securityAuthorizationProvider.requireAuthenticatedUser()
-				},
-				onEnter: function(pageConfig) {
-					pageConfig.setConfig({
-						breadcrumbs: [
-							{ name: 'Tasks', url: '#!/' },
-							{ name: 'Tasks types', url: '#!/dictionary/types' }]
-					});
+		var types = {
+			name: 'page.types',
+			url: '/dictionary/types',
+			views: {
+				'content': {
+					templateUrl: sysConfig.src('tasks/task-type/taskTypeList.tpl.html')
 				}
-			};
+			},
+			resolve: {
+				pageConfig: 'pageConfig',
+				authUser: securityAuthorizationProvider.requireAuthenticatedUser()
+			},
+			onEnter: function(pageConfig) {
+				pageConfig.setConfig({
+					breadcrumbs: [
+						{ name: 'Tasks', url: '#!/' },
+						{ name: 'Tasks types', url: '#!/dictionary/types' }]
+				});
+			}
+		};
 
-			$stateProvider.state(types);
-		}
-	])
-	.controller('taskTypeCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window', '$timeout',
-		function($scope, promiseTracker, sysConfig, apinetService, $window, $timeout) {
-			var handleException = function(error) {
-				$scope.resetValidation();
-				$scope.validation.generalError = error;
-			};
-			var handleError = function(result) {
-				$scope.resetValidation();
-				angular.extend($scope.validation, result);
-			};
-			var refresh = function() {
-				$scope.refreshList();
-				$scope.resetValidation();
-			};
+		$stateProvider.state(types);
+	}
+])
+.controller('taskTypeCtrl', ['$scope', 'sysConfig', 'apinetService', '$window',
+	function($scope, sysConfig, apinetService, $window) {
+		var handleException = function(error) {
+			$scope.resetValidation();
+			$scope.validation.generalErrors = [error];
+		};
+		var handleError = function(validation) {
+			$scope.resetValidation();
+			angular.extend($scope.validation, validation);
+		};
 
-			$scope.createTaskType = function() {
-				$scope.editModel.id = null;
-				apinetService.action({
-					method: 'tasks/dictionary/editTaskType',
-					project: sysConfig.project,
-					model: $scope.editModel})
-				.then(function(result) {
-					if(result.success) {
-						$scope.editModel.name = '';
-						$scope.createTaskTypeForm.$setPristine();
-						refresh();
-					} else {
-						handleError(result);
-					}
-				}, handleException);
-			};
+		$scope.removeFromModels = function(modelsToRemove) {
+			for(var i = 0; i < modelsToRemove.length; i++) {
+				var index = $scope.models.indexOf(modelsToRemove[i]);
+				if (index < 0) continue;
+				$scope.models.splice(index, 1);
+			}
+		};
 
-			$scope.hasSelected = function() {
-				for(var i = 0; i < $scope.models.length; i++) {
-					if ($scope.models[i].selected && $scope.models[i].selected === true) {
-						return true;
-					}
+		$scope.createTaskType = function() {
+			$scope.resetValidation();
+			$scope.editModel.id = null;
+
+			apinetService.action({
+				method: 'tasks/dictionary/editTaskType',
+				project: sysConfig.project,
+				model: $scope.editModel})
+			.then(function(result) {
+				if(result.validation.success) {
+					$scope.editModel.name = '';
+					$scope.createTaskTypeForm.$setPristine();
+					$scope.models.unshift(result.model);
+				} else {
+					handleError(result);
 				}
+			}, handleException);
+		};
 
-				return false;
-			};
-
-			$scope.deleteSelected = function() {
-				if (!$window.confirm('Вы действительно хотите удалить записи?')) {
-					return;
+		$scope.hasSelected = function() {
+			for(var i = 0; i < $scope.models.length; i++) {
+				if ($scope.models[i].selected && $scope.models[i].selected === true) {
+					return true;
 				}
+			}
 
-				var ids = [];
-				for(var i = 0; i < $scope.models.length; i++) {
-					if ($scope.models[i].selected && $scope.models[i].selected === true) {
-						ids.push($scope.models[i].Id);
-					}
+			return false;
+		};
+
+		$scope.deleteSelected = function() {
+			if (!$window.confirm('Вы действительно хотите удалить записи?')) {
+				return;
+			}
+
+			var ids = [];
+			var modelsToRemove = [];
+			for(var i = 0; i < $scope.models.length; i++) {
+				if ($scope.models[i].selected && $scope.models[i].selected === true) {
+					ids.push($scope.models[i].Id);
+					modelsToRemove.push($scope.models[i]);
 				}
-				if (ids.length <= 0) {
-					return;
+			}
+			if (ids.length <= 0) {
+				return;
+			}
+
+			$scope.resetValidation();
+
+			var replaceId = null;
+			if ($scope.deleteModel.replacementType && $scope.deleteModel.replacementType.id) {
+				replaceId = $scope.deleteModel.replacementType.id;
+			}
+
+			apinetService.action({
+				method: 'tasks/dictionary/deleteTaskTypes',
+				project: sysConfig.project,
+				ids: ids,
+				replacementTypeId: replaceId })
+			.then(function() {
+				$scope.removeFromModels(modelsToRemove);
+			}, handleException);
+		};
+
+		$scope.delete = function(model) {
+			if (!model) {
+				return;
+			}
+			if (!$window.confirm('Вы действительно хотите удалить запись?')) {
+				return;
+			}
+
+			apinetService.action({
+				method: 'tasks/dictionary/deleteTaskType',
+				project: sysConfig.project,
+				id: model.Id })
+			.then(function() {
+				$scope.removeFromModels([model]);
+			}, handleException);	
+		};
+
+		$scope.onUpdate = function(model, val) {
+			//not changed
+			if (model.Name === val) {
+				return;
+			}
+
+			$scope.resetValidation();
+
+			apinetService.action({
+				method: 'tasks/dictionary/editTaskType',
+				project: sysConfig.project,
+				model: { id: model.Id, Name: val }
+			}).then(function(response) {
+				if (response.validation.success) {
+					angular.extend(model, response.model);
+				} else {
+					handleError(response.validation);
 				}
+			}, handleException);
+		};
 
-				var replaceId = null;
-				if ($scope.deleteModel.replacementType && $scope.deleteModel.replacementType.id) {
-					replaceId = $scope.deleteModel.replacementType.id;
-				}
-
-				apinetService.action({
-					method: 'tasks/dictionary/deleteTaskTypes',
-					project: sysConfig.project,
-					ids: ids,
-					replacementTypeId: replaceId })
-				.then(refresh, handleException);
-			};
-
-			$scope.delete = function(id) {
-				if (!id) {
-					return;
-				}
-				if (!$window.confirm('Вы действительно хотите удалить запись?')) {
-					return;
-				}
-
-				apinetService.action({
-					method: 'tasks/dictionary/deleteTaskType',
-					project: sysConfig.project,
-					id: id })
-				.then(refresh, handleException);	
-			};
-
-			$scope.onUpdate = function(val) {
-				//problem in code
-				if (!val || !val.model || !val.value) {
-					return;
-				}
-				//not changed
-				if (val.model.Name === val.value) {
-					return;
-				}
-
-				//temporary change with unsaved indicator
-				val.model.Name = val.value + ' *';
-				apinetService.action({
-					method: 'tasks/dictionary/editTaskType',
-					project: sysConfig.project,
-					model: { id: val.model.Id, Name: val.value }
-				}).then(refresh, handleException);
-			};
-
-			$scope.replaceLookupOptions = {
-				allowClear: true,
-				multiple: false,
-				query: function(query) {
-					$timeout(function(){
-						apinetService.action({
-							method: 'tasks/dictionary/lookupTaskTypes',
-							project: sysConfig.project,
-							term: query.term })
-						.then(function(response) {
-							query.callback({ results: response || [] });
-						}, handleException);
-					});
-				}
-			};
-
-			$scope.loading = promiseTracker('taskTypes');
-			$scope.requestParams = { project: sysConfig.project };
-
-			$scope.editModel = {id: null, name: ''};
-			$scope.deleteModel = { replacementType: null };
-	}]);
-	
+		$scope.requestParams = { project: sysConfig.project };
+		$scope.editModel = {id: null, name: ''};
+		$scope.deleteModel = { replacementType: null };
+}]);

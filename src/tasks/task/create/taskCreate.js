@@ -41,7 +41,7 @@ angular.module('tasks')
 				project: sysConfig.project,
 				model: req })
 			.then(function(response) {
-				if (response.success) {
+				if (response.validation.success) {
 					if ($scope.nextAction === 'goToTask') {
 						$state.transitionTo('page.taskView', {num: response.model}, true);
 					} else if ($scope.nextAction === 'goToList') {
@@ -52,19 +52,13 @@ angular.module('tasks')
 					}
 				} else {
 					resetValidation();
-					angular.extend($scope.validation, response);
+					angular.extend($scope.validation, response.validation);
 				}
 			}, function(error) {
 				resetValidation();
 				$scope.validation.generalErrors.push(error);
 			});
 		};
-
-		$scope.priorities = [
-			{name: 'Низкий', value: 'Low'},
-			{name: 'Нормальный', value: 'Normal'},
-			{name: 'Высокий', value: 'High'}
-		];
 
 		var initModel = function() {
 			return {
@@ -73,7 +67,7 @@ angular.module('tasks')
 				dueDate: null,
 				content: null,
 				customStatus: null,
-				priority: $scope.priorities[1]
+				priority: null
 			};
 		};
 
@@ -92,7 +86,7 @@ angular.module('tasks')
 				DueDate: m.dueDate,
 				Content: m.content,
 				CustomStatus: m.customStatus ? m.customStatus.id : null,
-				Priority: m.priority.value
+				Priority: m.priority ? m.priority.id : null
 			};
 		};
 

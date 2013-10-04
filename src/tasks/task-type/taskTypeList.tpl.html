@@ -44,7 +44,7 @@
 					</span>
 					<div class="span6 pull-right">
 						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">Удалить</button>
-						<input type="text" ui-select2="replaceLookupOptions" ng-model="deleteModel.replacementType" placeholder="Тип для замены удаляемых (опционально)" style="width: 80%"/>
+						<input type="text" lookup="tasks/dictionary/lookupTaskTypes" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementType" placeholder="Тип для замены удаляемых (опционально)" style="width: 80%"/>
 					</div>
 				</fieldset>
 			</form>
@@ -55,13 +55,13 @@
 					infinite-scroll-distance='1'>
 				<thead>
 					<tr>
-						<th style="width: 1%">
+						<th class="onepct">
 							<input type="checkbox" checker="items: 'models'">
 						</th>
 						<th data-sortproperty="Name" data-defaultsort="asc">Наименование</th>
 						<th data-sortproperty="Creator.FIO" style="width: 15%">Автор</th>
 						<th data-sortproperty="CreationTime" style="width: 17%">Дата создания</th>
-						<th style="width: 1%">&nbsp;</th>
+						<th class="onepct">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -69,19 +69,19 @@
 						<td>
 							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 						</td>
-						<td inline-edit="model.Name" edit-model="model" on-update="onUpdate">
+						<td inline-edit="model.Name" on-update="onUpdate(model, val)">
 							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
 								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Name }}</span>
 								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
 									<i class="icon-pencil"></i>
 								</button>
 	    					</span>
-	    					<form name="editTaskTypeForm" ng-show="editMode" class="input-append" style="width: 100%" novalidate>
+	    					<form name="editNameForm" ng-show="editMode" class="input-append" style="width: 100%" novalidate>
 	    						<input ng-show="editMode" type="text" ng-model="emodel.value" class="span10" required>
 	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
 									<i class="icon-reply"></i>
 								</button>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editTaskTypeForm.$invalid" title="Сохранить">
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editNameForm.$invalid" title="Сохранить">
 									<i class="icon-ok"></i>
 								</button>
 							</form>
@@ -89,7 +89,7 @@
 						<td>{{ model.Author }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
 						<td>
-							<button type="button" class="close" title="Удалить тип задачи" ng-click="delete(model.Id)">&times;</button>
+							<button type="button" class="close" title="Удалить тип задачи" ng-click="delete(model)">&times;</button>
 						</td>
 					</tr>
 				</tbody>

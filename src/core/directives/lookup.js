@@ -13,6 +13,8 @@ angular.module('core')
 				var link = $compile(element);
 				return function(scope, element, attrs) {
 					scope.action = action;
+					var extendedOptions = scope.$eval(attrs.lookupOptions) || {};
+					angular.extend(scope.lookupOptions, extendedOptions);
 
 					link(scope, function(clonedElement) {
 						element.replaceWith(clonedElement);
@@ -37,6 +39,7 @@ angular.module('core')
 							});
 						}
 					};
+					
 				}]
 		};
 	}]

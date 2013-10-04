@@ -1,7 +1,6 @@
 angular.module('core', ['ui.state', 'ui.bootstrap', 'core.security', 'core.templates',
     'ajoslin.promise-tracker', 'angularMoment', 'angularSpinner', 'ui.bootstrap.datetimepicker', 'ui.select2',
-	'infinite-scroll'
-]);
+	'infinite-scroll']);
 
 angular.module('core')
     .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
@@ -86,7 +85,7 @@ angular.module('core')
             return result.substring(0, max - 1) + '…';
         };
     })
-    .run(['security',
+    .run(['security', 
         function(security) {
             // Get the current user when the application starts
             // (in case they are still logged in from a previous session or on project change)

@@ -52,8 +52,7 @@
 			<div class="control-group">
 				<label class="control-label">Приоритет</label>
 				<div class="controls">
-					<select name="priority" ng-model="model.priority" ng-options="c.name for c in priorities">
-					</select>
+					<input type="text" lookup="tasks/dictionary/lookupTaskPriorities" lookup-options="{allowClear: true}" ng-model="model.priority" placeholder="Выберите приоритет" class="span10" />
 				</div>
 			</div>
 			<div class="control-group">

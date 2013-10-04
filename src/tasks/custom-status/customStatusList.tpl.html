@@ -52,7 +52,7 @@
 
 					<div class="span6 pull-right">
 						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">Удалить</button>
-						<input type="text" ui-select2="replaceLookupOptions" ng-model="deleteModel.replacementStatus" placeholder="Статус для замены удаляемых (опционально)" style="width: 80%"/>
+						<input type="text" lookup="tasks/dictionary/lookupCustomStatuses" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementStatus" placeholder="Статус для замены удаляемых (опционально)" style="width: 80%"/>
 					</div>
 				</fieldset>
 			</form>
@@ -78,7 +78,7 @@
 						<td>
 							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 						</td>
-						<td inline-edit="model.Name" edit-model="model" on-update="onUpdateName">
+						<td inline-edit="model.Name" on-update="onUpdateProp(model, 'Name', val)">
 							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
 								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Name }}</span>
 								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
@@ -95,7 +95,7 @@
 								</button>
 							</form>
 						</td>
-						<td inline-edit="model.ViewOrder" edit-model="model" on-update="onUpdateViewOrder">
+						<td inline-edit="model.ViewOrder" on-update="onUpdateProp(model, 'ViewOrder', val)">
 							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
 								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.ViewOrder }}</span>
 								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
@@ -115,7 +115,7 @@
 						<td>{{ model.Author }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
 						<td>
-							<button type="button" class="close" title="Удалить статус задачи" ng-click="delete(model.Id)">&times;</button>
+							<button type="button" class="close" title="Удалить статус задачи" ng-click="delete(model)">&times;</button>
 						</td>
 					</tr>
 				</tbody>

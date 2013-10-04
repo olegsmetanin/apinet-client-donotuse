@@ -37,6 +37,10 @@
 			</div>
 		</div>
 		<div class="span9">
+			<div class="alert alert-error span12" ng-show="validation.generalErrors">
+				{{ validation.generalErrors }}
+			</div>
+
 			<section id="general">
 				<h3>Общие свойства</h3>
 				<table class="table">
@@ -46,7 +50,24 @@
 					</tr>
 					<tr>
 						<td>Тип</td>
-						<td>{{ model.TaskType }}</td>
+						<td inline-edit="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)">
+							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
+								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.TaskType.text }}</span>
+								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
+									<i class="icon-pencil"></i>
+								</button>
+	    					</span>
+							<form name="editTaskTypeForm" ng-show="editMode" style="width: 100%" novalidate>
+								<input type="text" name="taskType" lookup="tasks/dictionary/lookupTaskTypes" ng-model="emodel.value" placeholder="Выберите тип задачи" required class="span10" />
+
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
+									<i class="icon-reply"></i>
+								</button>
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editTaskTypeForm.$invalid" title="Сохранить">
+									<i class="icon-ok"></i>
+								</button>
+							</form>
+						</td>
 					</tr>
 					<tr>
 						<td>Исполнители</td>
@@ -54,15 +75,66 @@
 					</tr>
 					<tr>
 						<td>Содержание</td>
-						<td>{{ model.Content }}</td>
+						<td inline-edit="model.Content" on-update="onUpdateProp(model, 'Content', val)">
+							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
+								<pre ng-hide="editMode" ng-dblclick="edit()" class="span10">{{ model.Content }}</pre>
+								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
+									<i class="icon-pencil"></i>
+								</button>
+	    					</span>
+							<div ng-show="editMode" class="input-append" style="width: 100%" novalidate>
+								<textarea ng-model="emodel.value" rows="3" class="span10"></textarea>
+
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
+									<i class="icon-reply"></i>
+								</button>
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" title="Сохранить">
+									<i class="icon-ok"></i>
+								</button>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<td>Срок</td>
-						<td>{{ model.DueDate | date:'dd.mm.yyyy' }}</td>
+						<td inline-edit="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)">
+							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
+								<span ng-hide="editMode" ng-dblclick="edit()">{{ (model.DueDate | date:'dd.MM.yyyy') || '---' }}</span>
+								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
+									<i class="icon-pencil"></i>
+								</button>
+	    					</span>
+							<div ng-show="editMode" class="input-append" style="width: 100%" novalidate>
+								<input type="text" ng-model="emodel.value" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ui-date-format=""></input>
+
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
+									<i class="icon-reply"></i>
+								</button>
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" title="Сохранить">
+									<i class="icon-ok"></i>
+								</button>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<td>Статус</td>
-						<td>{{ model.Status }}</td>
+						<td inline-edit="model.Status" on-update="onUpdateProp(model, 'Status', val)">
+							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
+								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Status.text }}</span>
+								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
+									<i class="icon-pencil"></i>
+								</button>
+	    					</span>
+							<form name="editStatusForm" ng-show="editMode" style="width: 100%" novalidate>
+								<input type="text" lookup="tasks/dictionary/lookupTaskStatuses" ng-model="emodel.value" placeholder="Выберите статус" required class="span10" />
+
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
+									<i class="icon-reply"></i>
+								</button>
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editStatusForm.$invalid" title="Сохранить">
+									<i class="icon-ok"></i>
+								</button>
+							</form>
+						</td>
 					</tr>
 					<tr>
 						<td>Пользовательский статус</td>
@@ -70,7 +142,24 @@
 					</tr>
 					<tr>
 						<td>Приоритет</td>
-						<td>{{ model.Priority }}</td>
+						<td inline-edit="model.Priority" on-update="onUpdateProp(model, 'Priority', val)">
+							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
+								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Priority.text }}</span>
+								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
+									<i class="icon-pencil"></i>
+								</button>
+	    					</span>
+							<form name="editPriorityForm" ng-show="editMode" style="width: 100%" novalidate>
+								<input type="text" lookup="tasks/dictionary/lookupTaskPriorities" ng-model="emodel.value" placeholder="Выберите приоритет" class="span10" required />
+
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
+									<i class="icon-reply"></i>
+								</button>
+	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editPriorityForm.$invalid" title="Сохранить">
+									<i class="icon-ok"></i>
+								</button>
+							</form>
+						</td>
 					</tr>
 					<tr>
 						<td>Автор</td>
@@ -91,6 +180,7 @@
 							<th class="onepct">Согласовано</th>
 							<th class="span3">Дата</th>
 							<th class="span4">Комментарий</th>
+							<th class="onepct">&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -101,8 +191,21 @@
 							</td>
 							<td>{{ a.AgreedAt | date:'dd.MM.yyyy hh:mm' }}</td>
 							<td>{{ a.Comment }}</td>
+							<td>
+								<button type="button" class="close" title="Удалить согласущего" ng-click="removeAgreement(a)">&times;</button>
+							</td>
 						</tr>
 					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="5">
+								<form name="addAgreemerForm" style="margin: 0" novalidate>
+									<input type="text" name="agreemer" lookup="home/projects/lookupParticipant" ng-model="editables.newAgreemer" placeholder="Выберите согласущего" required class="span6" />
+									<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="addAgreemerForm.$invalid">Добавить</button>
+								</form>
+							</td>
+						</tr>
+					</tfoot>
 				</table>
 			</section>
 			<section id="statusHistory">
