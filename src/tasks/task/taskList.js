@@ -159,8 +159,6 @@ angular.module('tasks')
 					//task is closed and closed yesterday
 					$scope.filter.simple.Combined = {
 						op: '&&',
-						path: '',
-						value: '',
 						items: [
 							{path: 'Status', op: '=', value: 'Closed'},
 							{path: 'StatusHistory.Status', op: '=', value: 'Closed'},
