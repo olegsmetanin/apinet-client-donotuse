@@ -1,5 +1,5 @@
 angular.module('core')
-.directive('inlineTextArea', function() {
+.directive('inlineTextArea', [function() {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -20,14 +20,14 @@ angular.module('core')
 	(attr.inputRows ? 'rows="' + attr.inputRows + '"' : '') + 
 	(attr.hasOwnProperty('required') ? ' required="required"' : '') +
 	' ng-model="emodel.value" />' +
-'		<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">' +
+'		<button type="button" class="btn" ng-show="isChanged" ng-click="cancel()" title="Отменить">' +
 '			<i class="icon-reply"></i>' + 
 '		</button>' +
-'		<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editForm.$invalid" title="Сохранить">' +
+'		<button type="button" class="btn" ng-show="isChanged" ng-click="update()" ng-disabled="editForm.$invalid" title="Сохранить">' +
 '			<i class="icon-ok"></i>' +
 '		</button>' +
 '	</form>' +
 '</div>'; return tmpl;
 		}
  	};
-});
+}]);

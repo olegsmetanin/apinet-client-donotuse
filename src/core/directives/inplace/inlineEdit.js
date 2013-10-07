@@ -4,12 +4,16 @@ angular.module('core')
 		restrict: 'A',
         scope: true,
 		link: function(scope, element, attr) {
+			console.log('inplaceEdit: %s', attr.inlineEdit);
+
 			scope.emodel = { 
 				original: null,
 				value: null
 			};
 			scope.editMode = false;
-			var elInput = element.find('input')[0] || 
+			scope.isChanged = false;
+			scope.elInput = scope.elInput || //<-- can be provided from aggregate directives
+				element.find('input')[0] || 
                 element.find('textarea')[0] ||
                 element.find('select')[0];
 
@@ -18,29 +22,41 @@ angular.module('core')
                     $parse(cb)(scope, {val: scope.emodel.value});
                 }
             };
+            var unwatch = null;
 
 			scope.edit = function() {
-				scope.editMode = true;
 				scope.emodel.original = scope.emodel.value = scope.$eval(attr.inlineEdit);
-				$timeout(function() { elInput.focus(); }, 0, false);
+				scope.editMode = true;
+				$timeout(function() { scope.elInput.focus(); }, 0, false);
+				unwatch = scope.$watch('emodel.value', function() {
+					scope.isChanged = scope.emodel.value !== scope.emodel.original;
+				}, true);
 			};
 
 			scope.update = function() {
 				if (scope.editForm && scope.editForm.$invalid) {
 					return;
 				}
-				scope.editMode = false;
+				unwatch();
                 callback(attr.onUpdate);
+                scope.editMode = scope.isChanged = false;
 			};
 
 			scope.cancel = function() {
-				scope.editMode = false;
-				scope.emodel.value = scope.emodel.original;
+				unwatch();
                 callback(attr.onCancel);
+				scope.emodel.value = scope.emodel.original;
+				scope.editMode = scope.isChanged = false;
 			};
 
-		    angular.element(elInput).on('keydown', function(e) {
-		    	var isTextArea = $(elInput).is('textarea');
+			scope.onBlur = function() {
+				if (!scope.isChanged) {
+					scope.$apply(scope.cancel);
+				}
+			};
+
+		    angular.element(scope.elInput).on('keydown', function(e) {
+		    	var isTextArea = $(scope.elInput).is('textarea');
 		    	var isSubmit = isTextArea 
 		    		? (e.ctrlKey || e.metaKey) && e.keyCode === 13
 		    		: e.keyCode === 13;
@@ -53,9 +69,8 @@ angular.module('core')
 		    	}
 		    	return true;
 		    });
-		    angular.element(elInput).on('blur', function(e) {
-		    	//scope.$apply(scope.update);	
-		    });
+
+		    angular.element(scope.elInput).on('blur', scope.onBlur);
 		}
 	};
 }]);
