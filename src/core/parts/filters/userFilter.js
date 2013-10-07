@@ -66,7 +66,7 @@ angular.module('core')
 							delete value.value;
 							delete value.not;
 							if(!value.items) {
-								value.items = [];
+								value.items = [ ];
 							}
 						}
 						else {
@@ -225,7 +225,7 @@ angular.module('core')
 						if($scope.node === $scope.rootNode) {
 							$scope.editMode = 'new';
 							$scope.editingNode = {
-								op: '||',
+								op: '&&',
 								items: [ ]
 							};
 							$filterHelpers.ensurePropertyValueNode($scope.editingNode);
@@ -239,7 +239,7 @@ angular.module('core')
 							var propertyTypeNode = $filterHelpers.ensurePropertyTypeNode($scope.node);
 							var propertyValueNode = $filterHelpers.ensurePropertyValueNode($scope.node);
 							$scope.editingNode = {
-								op: '||',
+								op: '&&',
 								items: [
 									angular.extend({ }, propertyTypeNode),
 									angular.extend({ }, propertyValueNode)

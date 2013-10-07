@@ -136,7 +136,7 @@ angular.module('tasks')
 					break;
 				case $scope.customFilter.NO_LIMIT:
 					//no due date
-					$scope.filter.simple.Combined = {path: 'DueDate', op: 'not exists'};
+					$scope.filter.simple.Combined = {path: 'DueDate', op: 'exists', not: true};
 					break;
 				case $scope.customFilter.CLOSED_TODAY:
 					var tomorrow = new Date();
