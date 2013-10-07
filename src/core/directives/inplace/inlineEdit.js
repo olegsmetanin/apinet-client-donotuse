@@ -54,7 +54,7 @@ angular.module('core')
 		    	return true;
 		    });
 		    angular.element(elInput).on('blur', function(e) {
-		    	scope.$apply(scope.update);	
+		    	//scope.$apply(scope.update);	
 		    });
 		}
 	};

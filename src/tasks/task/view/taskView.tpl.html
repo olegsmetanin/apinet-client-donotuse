@@ -76,45 +76,13 @@
 					<tr>
 						<td>Содержание</td>
 						<td>
-							<!-- inline-edit="model.Content" on-update="onUpdateProp(model, 'Content', val)" -->
 							<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" pre-class="span10" input-class="span10" input-rows="3" />
-							<!-- <span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
-								<pre ng-hide="editMode" ng-dblclick="edit()" class="span10">{{ model.Content }}</pre>
-								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
-									<i class="icon-pencil"></i>
-								</button>
-	    					</span>
-							<div ng-show="editMode" class="input-append" style="width: 100%" novalidate>
-								<textarea ng-model="emodel.value" rows="3" class="span10"></textarea>
-
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
-									<i class="icon-reply"></i>
-								</button>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" title="Сохранить">
-									<i class="icon-ok"></i>
-								</button>
-							</div> -->
 						</td>
 					</tr>
 					<tr>
 						<td>Срок</td>
-						<td inline-edit="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)">
-							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
-								<span ng-hide="editMode" ng-dblclick="edit()">{{ (model.DueDate | date:'dd.MM.yyyy') || '---' }}</span>
-								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
-									<i class="icon-pencil"></i>
-								</button>
-	    					</span>
-							<div ng-show="editMode" class="input-append" style="width: 100%" novalidate>
-								<input type="text" ng-model="emodel.value" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ui-date-format=""></input>
-
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
-									<i class="icon-reply"></i>
-								</button>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" title="Сохранить">
-									<i class="icon-ok"></i>
-								</button>
-							</div>
+						<td>
+							<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" date-format="dd.MM.yyyy" />
 						</td>
 					</tr>
 					<tr>

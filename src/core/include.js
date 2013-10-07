@@ -24,6 +24,8 @@ sysConfig.modules['core'] = {
 		'src/core/directives/inplace/inlineEdit.js',
 		'src/core/directives/inplace/inlineText.js',
 		'src/core/directives/inplace/inlineTextArea.js',
+		'src/core/directives/inplace/inlineLookup.js',
+		'src/core/directives/inplace/inlineDate.js',
 		
 		'src/core/parts/header/breadCrumbs/breadCrumbsCtrl.js',
 		'src/core/parts/header/tabBar/tabBar.js',
