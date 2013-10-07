@@ -8,8 +8,7 @@ angular.module('core')
 			controller: ['$scope', function($scope) {
 				angular.extend($scope, {
 					filter: {
-						simple: {},
-						complex: {}
+						simple: { }
 					},
 					sorters: { },
 					paging: {

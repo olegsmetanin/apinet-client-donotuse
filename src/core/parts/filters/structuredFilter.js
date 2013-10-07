@@ -94,7 +94,10 @@ angular.module('core')
 								value.items = [];
 							}
 						}
-					}, true);
+						else {
+							$scope.rootNode = { };
+						}
+					});
 
 					$scope.$watch('shared.selectedNode', function() {
 						$scope.refreshActionsState();
