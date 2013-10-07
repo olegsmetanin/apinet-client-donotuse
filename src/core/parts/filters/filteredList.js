@@ -1,5 +1,5 @@
 angular.module('core')
-	.directive('filteredList', ['apinetService', function($apinetService) {
+	.directive('filteredList', ['apinetService', '$timeout', function($apinetService, $timeout) {
 		return {
 			scope: false,
 
@@ -28,6 +28,18 @@ angular.module('core')
 					},
 
 					refreshList: function(append) {
+						if($scope.timeout) {
+							$scope.indication.loading = true;
+
+							$timeout.cancel($scope.timeout);
+							$scope.timeout = $timeout(function() {
+								$scope.timeout = null;
+								$scope.indication.loading = false;
+								$scope.refreshList(append);
+							}, 1000);
+							return;
+						}
+
 						if(!append) {
 							$scope.paging.page = 0;
 							$scope.paging.loadedPages = [];
@@ -47,6 +59,8 @@ angular.module('core')
 						$scope.resetValidation();
 
 						$scope.indication.loading = true;
+						$scope.timeout = $timeout(function() { $scope.timeout = null; }, 500);
+
 						$apinetService.getModels(params).then(function(result) {
 							$scope.indication.loading = false;
 							$scope.applyEnabled = false;
@@ -96,8 +110,14 @@ angular.module('core')
 					}
 
 					if(value === oldValue + 1) {
-						$scope.refreshList(true);
+						if($scope.timeout) {
+							$scope.paging.page = oldValue;
+						}
+						else {
+							$scope.refreshList(true);
+						}
 					}
+
 				}, true);
 			}],
 			//endregion

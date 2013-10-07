@@ -58,9 +58,9 @@
 			</div>
 
 			<table class="table table-bordered sortable"
-					infinite-scroll='paging.page = paging.page + 1'
-					infinite-scroll-disabled='indication.loading || applyEnabled'
-					infinite-scroll-distance='1'>
+					infinite-scroll="paging.page = paging.page + 1"
+					infinite-scroll-disabled="applyEnabled"
+					infinite-scroll-distance="1">
 				<thead>
 					<tr>
 						<th class="onepct">
@@ -144,7 +144,10 @@
 					</tr>
 				</tbody>
 			</table>
+
 			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
+			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
+			        ng-disabled="applyEnabled">More</button>
 		</div><!-- content -->
 
 	</div><!-- row -->
