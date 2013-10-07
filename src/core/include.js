@@ -5,7 +5,8 @@ sysConfig.modules['core'] = {
 		'src/core/assets/spinner.css',
 		'src/core/assets/breadcrumbs.css',
 		'src/core/assets/header.css',
-		'src/core/assets/chartbox.css'
+		'src/core/assets/chartbox.css',
+		'src/core/assets/inline-edit.css'
 	],
 	js: [
 		'src/core/_module.js',
@@ -13,13 +14,16 @@ sysConfig.modules['core'] = {
 		'src/core/directives/relinclude.js',
 		'src/core/directives/buttonToggle.js',
 		'src/core/directives/checker.js',
-		'src/core/directives/inlineEdit.js',
 		'src/core/directives/integer.js',
 		'src/core/directives/lookup.js',
 		'src/core/directives/requiredMultiple.js',
 		'src/core/directives/affix.js',
 		'src/core/directives/fixHeight.js',
 		'src/core/directives/scrollspy.js',
+
+		'src/core/directives/inplace/inlineEdit.js',
+		'src/core/directives/inplace/inlineText.js',
+		'src/core/directives/inplace/inlineTextArea.js',
 		
 		'src/core/parts/header/breadCrumbs/breadCrumbsCtrl.js',
 		'src/core/parts/header/tabBar/tabBar.js',

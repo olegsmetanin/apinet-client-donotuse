@@ -78,39 +78,11 @@
 						<td>
 							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 						</td>
-						<td inline-edit="model.Name" on-update="onUpdateProp(model, 'Name', val)">
-							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
-								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Name }}</span>
-								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
-									<i class="icon-pencil"></i>
-								</button>
-	    					</span>
-	    					<form name="editStatusForm" ng-show="editMode" class="input-append" style="width: 100%" novalidate>
-	    						<input ng-show="editMode" type="text" ng-model="emodel.value" class="span10" required>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
-									<i class="icon-reply"></i>
-								</button>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editStatusForm.$invalid" title="Сохранить">
-									<i class="icon-ok"></i>
-								</button>
-							</form>
+						<td>
+							<inline-text model="model.Name" on-update="onUpdateProp(model, 'Name', val)" input-class="span8" required />
 						</td>
-						<td inline-edit="model.ViewOrder" on-update="onUpdateProp(model, 'ViewOrder', val)">
-							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
-								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.ViewOrder }}</span>
-								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
-									<i class="icon-pencil"></i>
-								</button>
-	    					</span>
-	    					<form name="editViewOrderForm" ng-show="editMode" class="input-append" style="width: 100%" novalidate>
-	    						<input ng-show="editMode" type="text" ng-model="emodel.value" class="span3">
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
-									<i class="icon-reply"></i>
-								</button>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editViewOrderForm.$invalid" title="Сохранить">
-									<i class="icon-ok"></i>
-								</button>
-							</form>
+						<td>
+							<inline-text model="model.ViewOrder" on-update="onUpdateProp(model, 'ViewOrder', val)" input-class="span3" />
 						</td>
 						<td>{{ model.Author }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>

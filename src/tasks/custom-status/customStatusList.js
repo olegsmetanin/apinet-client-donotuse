@@ -18,7 +18,7 @@ angular.module('tasks')
 				pageConfig.setConfig({
 					breadcrumbs: [
 						{ name: 'Tasks', url: '#!/' },
-						{ name: 'Tasks statuses', url: '#!/dictionary/statuses' }]
+						{ name: 'Task statuses', url: '#!/dictionary/statuses' }]
 				});
 			}
 		};

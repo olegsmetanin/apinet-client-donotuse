@@ -75,8 +75,10 @@
 					</tr>
 					<tr>
 						<td>Содержание</td>
-						<td inline-edit="model.Content" on-update="onUpdateProp(model, 'Content', val)">
-							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
+						<td>
+							<!-- inline-edit="model.Content" on-update="onUpdateProp(model, 'Content', val)" -->
+							<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" pre-class="span10" input-class="span10" input-rows="3" />
+							<!-- <span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
 								<pre ng-hide="editMode" ng-dblclick="edit()" class="span10">{{ model.Content }}</pre>
 								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
 									<i class="icon-pencil"></i>
@@ -91,7 +93,7 @@
 	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" title="Сохранить">
 									<i class="icon-ok"></i>
 								</button>
-							</div>
+							</div> -->
 						</td>
 					</tr>
 					<tr>

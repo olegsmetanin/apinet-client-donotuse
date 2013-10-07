@@ -26,6 +26,9 @@ angular.module('core')
 			};
 
 			scope.update = function() {
+				if (scope.editForm && scope.editForm.$invalid) {
+					return;
+				}
 				scope.editMode = false;
                 callback(attr.onUpdate);
 			};
@@ -49,6 +52,9 @@ angular.module('core')
 		    		scope.$apply(scope.cancel);
 		    	}
 		    	return true;
+		    });
+		    angular.element(elInput).on('blur', function(e) {
+		    	scope.$apply(scope.update);	
 		    });
 		}
 	};

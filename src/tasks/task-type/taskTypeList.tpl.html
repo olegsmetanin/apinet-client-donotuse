@@ -1,4 +1,4 @@
-<!-- <container> -->
+<container> -->
 <div class="container-fluid" ng-controller="taskTypeCtrl" filtered-list="{method: 'tasks/dictionary/getTaskTypes'}">
 	<div class="row-fluid">
 		<!-- <twocolumn-side> -->
@@ -69,22 +69,8 @@
 						<td>
 							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 						</td>
-						<td inline-edit="model.Name" on-update="onUpdate(model, val)">
-							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
-								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Name }}</span>
-								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
-									<i class="icon-pencil"></i>
-								</button>
-	    					</span>
-	    					<form name="editNameForm" ng-show="editMode" class="input-append" style="width: 100%" novalidate>
-	    						<input ng-show="editMode" type="text" ng-model="emodel.value" class="span10" required>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
-									<i class="icon-reply"></i>
-								</button>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editNameForm.$invalid" title="Сохранить">
-									<i class="icon-ok"></i>
-								</button>
-							</form>
+						<td>
+							<inline-text model="model.Name" on-update="onUpdate(model, val)" input-class="span10" required/>
 						</td>
 						<td>{{ model.Author }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
@@ -99,4 +85,4 @@
 		<!-- </twocolumn-content> -->
 	</div>
 </div>
-<!-- </container> -->
+<!-- </container>
