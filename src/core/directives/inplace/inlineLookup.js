@@ -3,24 +3,32 @@ angular.module('core')
 	return {
 		restrict: 'E',
 		replace: true,
+		transclude: true,
 		template: function(elm, attr) {
+			var viewTmpl = attr.hasOwnProperty('multiple')
+				? '<div style="display: inline-block" ng-transclude></div>'
+				: '{{ ' + attr.model + '.text || \'---\' }}';
+
+			var editTmpl = '<input type="text" ng-model="emodel.value"' + 
+				' lookup="' + attr.inputLookup + '" ' +
+				(attr.inputClass ? ' class="' + attr.inputClass + '"' : '') + 
+				(attr.hasOwnProperty('required') 
+					? (attr.hasOwnProperty('multiple') ? ' required-multiple' : ' required="required"') 
+					: '') +
+				(attr.hasOwnProperty('multiple') ? ' multiple="multiple"' : '') +
+				' lookup-options="{openOnEnter: false' + 
+					(attr.inputLookupOptions ?  + ', ' + attr.inputLookupOptions : '') + '}" />';
+
 			var tmpl =
 '<div inline-edit="' + attr.model + '">' +
 '	<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false" class="editable">' +
-'		<span ng-click="edit()">{{ ' + attr.model + '.text || \'---\' }}</span>' +
+'		<span ng-click="edit()">' + viewTmpl + '</span>' +
 '		<button type="button" class="btn btn-mini" ng-click="edit()" ng-show="showEdit" title="Редактировать">' +
 '			<i class="icon-pencil"></i>' +
 '		</button>' +
 '	</span>' +
 '	<form name="editForm" class="span12" ng-show="editMode" novalidate>' +
-'		<input type="text" ' + 
-	(attr.inputClass ? 'class="' + attr.inputClass + '"' : '') + 
-	(attr.hasOwnProperty('required') ? 
-		(attr.hasOwnProperty('multiple') ? 'required-multiple' : ' required="required"') 
-		: '') +
-	' ng-model="emodel.value" lookup="' + attr.inputLookup + '" ' +
-	' lookup-options="{openOnEnter: false' + 
-	(attr.inputLookupOptions ?  + ', ' + attr.inputLookupOptions : '') + '}" />' +
+editTmpl +
 '		<button type="button" class="btn" ng-show="isChanged" ng-click="cancel()" title="Отменить">' +
 '			<i class="icon-reply"></i>' + 
 '		</button>' +

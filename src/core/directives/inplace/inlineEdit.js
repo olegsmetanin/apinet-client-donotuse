@@ -48,7 +48,6 @@ angular.module('core')
 			};
 
 			scope.onBlur = function() {
-				console.log('blur');
 				if (!scope.isChanged) {
 					scope.$apply(scope.cancel);
 				}

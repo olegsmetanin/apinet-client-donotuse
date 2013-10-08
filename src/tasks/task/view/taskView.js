@@ -32,7 +32,11 @@ angular.module('tasks')
 		//TODO move to utils??
 		var make = function(task, prop, value, valueProp) {
 			valueProp = valueProp || 'id';
-			var val = angular.isObject(value) && !angular.isDate(value) ? value[valueProp] : value;
+			var val = angular.isArray(value)
+				? value.map(function(item) { return item[valueProp] })
+				: angular.isObject(value) && !angular.isDate(value) 
+					? value[valueProp] 
+					: value;
 			return {Id: task.Id, ModelVersion: task.ModelVersion, Prop: prop, Value: val};
 		}
 

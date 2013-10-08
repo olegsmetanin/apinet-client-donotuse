@@ -3,7 +3,7 @@ angular.module('tasks')
 	return {
 		restrict: 'E',
 		replace: true,
-		template: '<span ng-repeat="e in executors" title="{{ e.Description }}">{{ e.Name }}</span>',
+		template: '<span ng-repeat="e in executors" title="{{ e.description }}">{{ e.text }}</span>',
 		scope: {
 			executors: '=model'
 		}

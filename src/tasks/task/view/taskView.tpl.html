@@ -56,7 +56,12 @@
 					</tr>
 					<tr>
 						<td>Исполнители</td>
-						<td><executors model="model.Executors" /></td>
+						<td>
+							<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" input-lookup="home/projects/lookupParticipant" input-class="span10" multiple required>
+								<executors model="model.Executors" />
+							</inline-lookup>
+							
+						</td>
 					</tr>
 					<tr>
 						<td>Содержание</td>

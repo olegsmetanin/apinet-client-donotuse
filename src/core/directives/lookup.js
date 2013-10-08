@@ -26,6 +26,7 @@ angular.module('core')
 				function($scope, apinetService, sysConfig, $timeout) {
 
 					$scope.lookupOptions = {
+						id: function(item) { return item.id.toLowerCase(); /*sometimes our id in uppercase*/ },
 						query: function(query) {
 							$timeout(function() {
 								apinetService.action({
