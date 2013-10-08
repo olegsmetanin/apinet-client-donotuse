@@ -15,7 +15,7 @@ angular.module('core')
 '			<i class="icon-pencil"></i>' +
 '		</button>' +
 '	</span>' +
-'	<form name="editForm" class="input-append span12" ng-show="editMode">' +
+'	<form name="editForm" class="input-append span12" ng-show="editMode" novalidate>' +
 '		<input type="text" ' + 
 	(attr.inputClass ? 'class="' + attr.inputClass + '"' : '') + 
 	(attr.hasOwnProperty('required') ? ' required="required"' : '') +

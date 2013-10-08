@@ -14,7 +14,7 @@ angular.module('core')
 '			<i class="icon-pencil"></i>' +
 '		</button>' +
 '	</span>' +
-'	<form name="editForm" class="input-append span12" ng-show="editMode">' +
+'	<form name="editForm" class="input-append span12" ng-show="editMode" novalidate>' +
 '		<textarea ' + 
 	(attr.inputClass ? 'class="' + attr.inputClass + '"' : '') + 
 	(attr.inputRows ? 'rows="' + attr.inputRows + '"' : '') + 

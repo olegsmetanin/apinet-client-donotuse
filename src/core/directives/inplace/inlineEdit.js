@@ -4,8 +4,6 @@ angular.module('core')
 		restrict: 'A',
         scope: true,
 		link: function(scope, element, attr) {
-			console.log('inplaceEdit: %s', attr.inlineEdit);
-
 			scope.emodel = { 
 				original: null,
 				value: null
@@ -50,6 +48,7 @@ angular.module('core')
 			};
 
 			scope.onBlur = function() {
+				console.log('blur');
 				if (!scope.isChanged) {
 					scope.$apply(scope.cancel);
 				}

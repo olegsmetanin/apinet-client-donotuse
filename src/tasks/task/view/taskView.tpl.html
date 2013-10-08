@@ -50,23 +50,8 @@
 					</tr>
 					<tr>
 						<td>Тип</td>
-						<td inline-edit="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)">
-							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
-								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.TaskType.text }}</span>
-								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
-									<i class="icon-pencil"></i>
-								</button>
-	    					</span>
-							<form name="editTaskTypeForm" ng-show="editMode" style="width: 100%" novalidate>
-								<input type="text" name="taskType" lookup="tasks/dictionary/lookupTaskTypes" ng-model="emodel.value" placeholder="Выберите тип задачи" required class="span10" />
-
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
-									<i class="icon-reply"></i>
-								</button>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editTaskTypeForm.$invalid" title="Сохранить">
-									<i class="icon-ok"></i>
-								</button>
-							</form>
+						<td>
+							<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" input-lookup="tasks/dictionary/lookupTaskTypes" input-class="span10" required />
 						</td>
 					</tr>
 					<tr>
@@ -87,48 +72,20 @@
 					</tr>
 					<tr>
 						<td>Статус</td>
-						<td inline-edit="model.Status" on-update="onUpdateProp(model, 'Status', val)">
-							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
-								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Status.text }}</span>
-								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
-									<i class="icon-pencil"></i>
-								</button>
-	    					</span>
-							<form name="editStatusForm" ng-show="editMode" style="width: 100%" novalidate>
-								<input type="text" lookup="tasks/dictionary/lookupTaskStatuses" ng-model="emodel.value" placeholder="Выберите статус" required class="span10" />
-
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
-									<i class="icon-reply"></i>
-								</button>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editStatusForm.$invalid" title="Сохранить">
-									<i class="icon-ok"></i>
-								</button>
-							</form>
+						<td>
+							<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" input-lookup="tasks/dictionary/lookupTaskStatuses" input-class="span10" required />
 						</td>
 					</tr>
 					<tr>
 						<td>Пользовательский статус</td>
-						<td>{{ model.CustomStatus }}</td>
+						<td>
+							<inline-lookup model="model.CustomStatus" on-update="onUpdateProp(model, 'CustomStatus', val)" input-lookup="tasks/dictionary/lookupCustomStatuses" input-class="span10" />
+						</td>
 					</tr>
 					<tr>
 						<td>Приоритет</td>
-						<td inline-edit="model.Priority" on-update="onUpdateProp(model, 'Priority', val)">
-							<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
-								<span ng-hide="editMode" ng-dblclick="edit()">{{ model.Priority.text }}</span>
-								<button type="button" class="btn btn-mini" ng-show="showEdit" ng-click="edit()">
-									<i class="icon-pencil"></i>
-								</button>
-	    					</span>
-							<form name="editPriorityForm" ng-show="editMode" style="width: 100%" novalidate>
-								<input type="text" lookup="tasks/dictionary/lookupTaskPriorities" ng-model="emodel.value" placeholder="Выберите приоритет" class="span10" required />
-
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="cancel()" title="Отменить">
-									<i class="icon-reply"></i>
-								</button>
-	    						<button type="button" class="btn" ng-show="editMode" ng-click="update()" ng-disabled="editPriorityForm.$invalid" title="Сохранить">
-									<i class="icon-ok"></i>
-								</button>
-							</form>
+						<td>
+							<inline-lookup model="model.Priority" on-update="onUpdateProp(model, 'Priority', val)" input-lookup="tasks/dictionary/lookupTaskPriorities" input-class="span10" required />
 						</td>
 					</tr>
 					<tr>
