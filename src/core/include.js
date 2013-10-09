@@ -48,7 +48,7 @@ sysConfig.modules['core'] = {
 		'src/core/parts/filters/filterHelpers.js',
 		'src/core/parts/filters/structuredFilter.js',
 		'src/core/parts/filters/userFilter.js',
-		'src/core/parts/filters/simpleFilter.js',
+		'src/core/parts/filters/filterInputs.js',
 		'src/core/parts/filters/filteredList.js',
 		'src/core/parts/filters/filterPersister.js',
 

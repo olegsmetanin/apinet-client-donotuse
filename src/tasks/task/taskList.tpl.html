@@ -13,7 +13,7 @@
 					<form>
 						<fieldset>
 							<label>Комбинированный</label>
-							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="span12">
+							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="filterInput">
 							</select>
 							<label>Статус</label>
 							<input filter-lookup="tasks/dictionary/lookupTaskStatuses" ng-model="filter.simple.Status" node="{path: 'Status', op: '='}" multiple />
@@ -28,7 +28,7 @@
 							<label>Исполнители</label>
 							<input filter-lookup="home/projects/lookupParticipant" ng-model="filter.simple.Executors" node="{path: 'Executors.Executor.Id', op: '='}" multiple />
 							<label>Содержание</label>
-							<input filter-input="{path: 'Content', op:'like'}" filter-ng-model="filter.simple.Content" />
+							<input filter-input="{path: 'Content', op:'like'}" ng-model="filter.simple.Content" />
 						</fieldset>
 					</form>
 				</tab>

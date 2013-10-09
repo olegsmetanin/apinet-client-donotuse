@@ -1,5 +1,5 @@
-angular.module('core')
-	.service('dictionaryService', ['apinetService', 'helpers', function ($apinetService, $helpers) {
+angular.module('core').service('dictionaryService', ['apinetService', 'helpers', 'sysConfig',
+	function ($apinetService, $helpers, sysConfig) {
 		angular.extend(this, {
 			pageSize: 10,
 
@@ -31,11 +31,11 @@ angular.module('core')
 				}
 
 				return $apinetService.getModels({
+					project: sysConfig.project,
 					method: requestData ? requestData.method : null,
 					filter: filter,
 					sorters: sorters,
-					page: requestData ? parseInt(requestData.page, 10) : 0,
-					pageSize: this.pageSize
+					page: requestData ? parseInt(requestData.page, 10) : 0
 				});
 			},
 
@@ -50,23 +50,6 @@ angular.module('core')
 			getCustomPropertyType: function (id) {
 				return $apinetService.getModel({
 					method: 'core/dictionary/getCustomPropertyType',
-					id: id,
-					cacheable: true,
-					dontFetchReferences: true
-				});
-			},
-
-			lookupDocumentStatuses: function (requestData) {
-				return this.lookupModels(angular.extend({
-					method: 'core/dictionary/getDocumentStatuses',
-					filterProps: ['FullName'],
-					sortProps : ['FullName']
-				}, requestData));
-			},
-
-			getDocumentStatus: function (id) {
-				return $apinetService.getModel({
-					method: 'core/dictionary/getDocumentStatus',
 					id: id,
 					cacheable: true,
 					dontFetchReferences: true

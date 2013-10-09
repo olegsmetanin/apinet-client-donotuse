@@ -7,7 +7,7 @@ angular.module('core')
 				ngModel: '='
 			},
 			template: [
-				'<span class="filterLookup">',
+				'<span class="lookup">',
 					'<span class="error" ng-show="error" title="{{ error }}">',
 						'<i class="icon-exclamation-sign"></i>',
 					'</span>',
@@ -21,6 +21,7 @@ angular.module('core')
 					.attr('ui-select2', 'lookupOptions')
 					.attr('ng-model', 'ngModel')
 					.attr('style', 'width: 95%;')
+					.attr('class', null)
 				)($scope));
 			},
 
@@ -53,55 +54,10 @@ angular.module('core')
 								function(error) {
 									$scope.error = error;
 								});
-							}, !query.context ? 300 : 0);
+							}, !query.context ? 600 : 0);
 						}
 					};
 				}
 			]
-		};
-	}])
-	.directive('filterLookup', ['$compile', function($compile) {
-		return {
-			restrict: 'A',
-			scope: {
-				action: '@filterLookup',
-				ngModel: '=',
-				node: '@'
-			},
-			template: '<span class="lookup" />',
-			replace: true,
-
-			link: function($scope, element) {
-				element.append($compile(element.clone()
-					.attr('lookup', $scope.action)
-					.attr('ng-model', 'lookupValue')
-					.attr('filter-lookup', null)
-					.attr('class', null)
-					.attr('style', null)
-					.attr('node', null)
-				)($scope));
-
-				$scope.$watch('lookupValue', function(value) {
-					var wrapper = $scope.$eval($scope.node);
-					if(wrapper) {
-						wrapper.value = value;
-						value = wrapper;
-					}
-
-					if(value === $scope.ngModel || (value && value.value === $scope.ngModel)) {
-						return;
-					}
-
-					$scope.ngModel = value;
-				});
-
-				$scope.$watch('ngModel', function(value) {
-					if(value === $scope.lookupValue || (value && value.value === $scope.lookupValue)) {
-						return;
-					}
-
-					$scope.lookupValue = value && value.value ? value.value : value;
-				});
-			}
 		};
 	}]);
