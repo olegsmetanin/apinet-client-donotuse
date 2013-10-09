@@ -5,8 +5,8 @@ sysConfig.modules['core'] = {
 		'src/core/assets/spinner.css',
 		'src/core/assets/breadcrumbs.css',
 		'src/core/assets/header.css',
-		'src/core/assets/chartbox.css',
-		'src/core/assets/inline-edit.css'
+		'src/core/assets/inline-edit.css',
+		'src/core/assets/validators.css'
 	],
 	js: [
 		'src/core/_module.js',

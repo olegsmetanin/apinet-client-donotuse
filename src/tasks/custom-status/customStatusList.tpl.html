@@ -1,5 +1,8 @@
 <!-- <container> -->
-<div class="container-fluid" ng-controller="customStatusCtrl" filtered-list="{method: 'tasks/dictionary/getCustomStatuses'}">
+<div class="container-fluid" ng-controller="customStatusCtrl"
+     filtered-list="{method: 'tasks/dictionary/getCustomStatuses'}"
+     initial-sorters="{ ViewOrder: 'asc' }">
+
 	<div class="row-fluid">
 		<!-- <twocolumn-side> -->
 		<div class="span3">
@@ -47,49 +50,50 @@
 						<span ng-show="validation.fieldErrors['ViewOrder']" class="help-inline alert-error">
 							{{ validation.fieldErrors['ViewOrder'] | joinBy }}
 						</span>
-						<button type="button" class="btn" ng-click="createStatus()" ng-disabled="createStatusForm.$invalid">Добавить</button>	
+						<button type="button" class="btn" ng-click="createStatus()" ng-disabled="createStatusForm.$invalid">Добавить</button>
 					</div>
 
 					<div class="span6 pull-right">
 						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">Удалить</button>
-						<input type="text" lookup="tasks/dictionary/lookupCustomStatuses" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementStatus" placeholder="Статус для замены удаляемых (опционально)" style="width: 80%"/>
+						<input type="text" lookup="tasks/dictionary/lookupCustomStatuses" lookup-options="{allowClear: true}"
+						       ng-model="deleteModel.replacementStatus" placeholder="Статус для замены удаляемых (опционально)" style="width: 80%"/>
 					</div>
 				</fieldset>
 			</form>
 
-			<table class="table table-bordered sortable"
-					infinite-scroll="paging.page = paging.page + 1"
-					infinite-scroll-disabled="applyEnabled"
-					infinite-scroll-distance="1">
+			<table class="table table-bordered"
+			       infinite-scroll="paging.page = paging.page + 1"
+			       infinite-scroll-disabled="applyEnabled"
+			       infinite-scroll-distance="1">
 				<thead>
-					<tr>
-						<th style="width: 1%">
-							<input type="checkbox" checker="items: 'models'">
-						</th>
-						<th data-sortproperty="Name">Наименование</th>
-						<th data-sortproperty="ViewOrder" data-defaultsort="asc" style="width: 10%">Порядок</th>
-						<th data-sortproperty="Creator.FIO" style="width: 15%">Автор</th>
-						<th data-sortproperty="CreationTime" style="width: 17%">Дата создания</th>
-						<th style="width: 1%">&nbsp;</th>
-					</tr>
+				<tr>
+					<th style="width: 1%">
+						<input type="checkbox" checker="items: 'models'">
+					</th>
+					<th><span sortable-heading="sorters.Name" caption="Наименование"></span></th>
+					<th><span sortable-heading="sorters.ViewOrder" caption="Порядок"></span></th>
+					<th><span sortable-heading="sorters.Creator_FIO" caption="Автор"></span></th>
+					<th><span sortable-heading="sorters.CreationTime" caption="Дата создания"></span></th>
+					<th style="width: 1%">&nbsp;</th>
+				</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="model in models">
-						<td>
-							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
-						</td>
-						<td>
-							<inline-text model="model.Name" on-update="onUpdateProp(model, 'Name', val)" input-class="span8" required />
-						</td>
-						<td>
-							<inline-text model="model.ViewOrder" on-update="onUpdateProp(model, 'ViewOrder', val)" input-class="span3" />
-						</td>
-						<td>{{ model.Author }}</td>
-						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
-						<td>
-							<button type="button" class="close" title="Удалить статус задачи" ng-click="delete(model)">&times;</button>
-						</td>
-					</tr>
+				<tr ng-repeat="model in models">
+					<td>
+						<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
+					</td>
+					<td>
+						<inline-text model="model.Name" on-update="onUpdateProp(model, 'Name', val)" input-class="span8" required />
+					</td>
+					<td>
+						<inline-text model="model.ViewOrder" on-update="onUpdateProp(model, 'ViewOrder', val)" input-class="span3" />
+					</td>
+					<td>{{ model.Author }}</td>
+					<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+					<td>
+						<button type="button" class="close" title="Удалить статус задачи" ng-click="delete(model)">&times;</button>
+					</td>
+				</tr>
 				</tbody>
 			</table>
 

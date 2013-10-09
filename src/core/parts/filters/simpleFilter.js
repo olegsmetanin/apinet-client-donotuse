@@ -56,7 +56,7 @@ angular.module('core')
 		};
 	}
 ])
-.directive('filterLookup', ['$timeout', function($timeout) {
+/*.directive('filterLookup', ['$timeout', function($timeout) {
 	return {
 		scope: {
 			action: '@',
@@ -116,4 +116,4 @@ angular.module('core')
 			});
 		}]
 	};
-}]);
+}])*/;

@@ -1,0 +1,10 @@
+span.lookup, span.filterLookup {
+	display: inline-block;
+	width: 100%;
+}
+
+span.lookup .error {
+	font-size: 18px;
+	color: #af1903;
+	cursor: pointer;
+}
