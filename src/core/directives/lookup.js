@@ -18,7 +18,7 @@ angular.module('core')
 			link: function($scope, element) {
 				element.prepend($compile(element.clone()
 					.attr('lookup', null)
-					.attr('ui-select2', 'lookupOptions')
+					.attr('ago-select2', 'lookupOptions')
 					.attr('ng-model', 'ngModel')
 					.attr('style', 'width: 95%;')
 					.attr('class', null)

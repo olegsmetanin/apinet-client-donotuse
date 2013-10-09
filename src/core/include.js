@@ -20,6 +20,7 @@ sysConfig.modules['core'] = {
 		'src/core/directives/affix.js',
 		'src/core/directives/fixHeight.js',
 		'src/core/directives/scrollspy.js',
+		'src/core/directives/ago.select2.js',
 
 		'src/core/directives/inplace/inlineEdit.js',
 		'src/core/directives/inplace/inlineText.js',

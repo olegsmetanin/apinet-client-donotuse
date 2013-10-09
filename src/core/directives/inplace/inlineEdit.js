@@ -23,11 +23,11 @@ angular.module('core')
             var unwatch = null;
 
 			scope.edit = function() {
-				scope.emodel.original = scope.emodel.value = scope.$eval(attr.inlineEdit);
-				scope.editMode = true;
 				if (scope.editForm) {
 					scope.editForm.$setPristine();
 				}
+				scope.emodel.original = scope.emodel.value = scope.$eval(attr.inlineEdit);
+				scope.editMode = true;
 				$timeout(function() { 
 					scope.elInput.focus(); 
 				}, 0, false);

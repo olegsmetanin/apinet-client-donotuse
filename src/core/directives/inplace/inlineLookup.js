@@ -13,7 +13,7 @@ angular.module('core')
 				' lookup="' + attr.inputLookup + '" ' +
 				(attr.inputClass ? ' class="' + attr.inputClass + '"' : '') + 
 				(attr.hasOwnProperty('required') 
-					? (attr.hasOwnProperty('multiple') ? ' required-multiple' : ' required="required"') 
+					? (attr.hasOwnProperty('multiple') ? ' required-multiple="true"' : ' ng-required="true"') 
 					: '') +
 				(attr.hasOwnProperty('multiple') ? ' multiple="multiple"' : '') +
 				' lookup-options="{openOnEnter: false' + 
@@ -46,16 +46,16 @@ editTmpl +
 					? $('input.select2-input', elm)
 					: $('.select2-focusser', elm);
 				//select2 has self specific blur
-				$('input', elm).off('blur', scope.onBlur);
+				$('span[lookup]', elm).off('blur', scope.onBlur);
 
-				$('input', elm).on('select2-blur', scope.onBlur);
-				$('input', elm).on('select2-opening', function(e) { 
-					$('input', elm).off('select2-blur', scope.onBlur);
+				$('span[lookup]', elm).on('select2-blur', scope.onBlur);
+				$('span[lookup]', elm).on('select2-opening', function(e) { 
+					$('span[lookup]', elm).off('select2-blur', scope.onBlur);
 				});
-				$('input', elm).on('select2-close', function(e) {
+				$('span[lookup]', elm).on('select2-close', function(e) {
 					//if attach without timeout, blur handled right after close
 					$timeout(function() {
-						$('input', elm).on('select2-blur', scope.onBlur);	
+						$('span[lookup]', elm).on('select2-blur', scope.onBlur);	
 					});
 				});
 				//enter and esc handling does not work, because of killEvent in select2 code
