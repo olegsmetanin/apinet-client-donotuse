@@ -1,5 +1,7 @@
 <container>
-	<div ng-controller="projectTagsCtrl" filtered-list="{ method: 'home/dictionary/getProjectTags'}">
+	<div ng-controller="projectTagsCtrl"
+		     filtered-list="{ method: 'home/dictionary/getProjectTags'}"
+		     initial-sorters="{ FullName: 'asc' }">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
@@ -14,7 +16,7 @@
 								<option value="Common">Общие теги</option>
 							</select>
 							<label>Наименование</label>
-							<input filter-lookup="{path: 'Id', op:'='}" action="home/dictionary/lookupProjectTags" filter-ng-model="filter.simple.Id" />
+							<input filter-lookup="home/dictionary/lookupProjectTags" ng-model="filter.simple.Id" node="{path: 'Id', op:'='}" multiple />
 						</fieldset>
 					</form>
 				</tab>
@@ -62,16 +64,16 @@
 				</form>
 			</div>
 
-			<table class="table table-bordered sortable"
+			<table class="table table-bordered"
 			       infinite-scroll="paging.page = paging.page + 1"
 			       infinite-scroll-disabled="applyEnabled"
 			       infinite-scroll-distance="1">
 				<thead>
 					<tr>
-						<th style="width: 115px;" ng-show="currentUser.admin || requestParams.mode === 'Personal'"></th>
-						<th data-sortproperty="Name" data-defaultsort="asc">Наименование</th>
-						<th data-sortproperty="FullName">Полное наименование</th>
-						<th data-sortproperty="CreationTime">Дата создания</th>
+						<th style="width: 115px;" ng-show="currentUser.admin"></th>
+						<th><span sortable-heading="sorters.Name" caption="Наименование"></span></th>
+						<th><span sortable-heading="sorters.FullName" caption="Полное наименование"></span></th>
+						<th><span sortable-heading="sorters.CreationTime" caption="Дата создания"></span></th>
 					</tr>
 				</thead>
 				<tbody>

@@ -1,5 +1,7 @@
 <container>
-	<div ng-controller="projectsListCtrl" filtered-list="{method: 'home/projects/getProjects'}">
+	<div ng-controller="projectsListCtrl"
+		     filtered-list="{method: 'home/projects/getProjects'}"
+		     initial-sorters="{ CreationTime: 'desc' }">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
@@ -9,18 +11,17 @@
 					<form>
 						<fieldset>
 							<label>Наименование</label>
-							<input filter-lookup="{path: 'Name', op:'='}" action="home/projects/lookupProjectNames" filter-ng-model="filter.simple.Name" />
+							<input filter-lookup="home/projects/lookupProjectNames" ng-model="filter.simple.Name" node="{path: 'Name', op:'='}" multiple />
 							<label>Статус</label>
-							<input filter-lookup="{path: 'Status', op:'='}" action="home/dictionary/lookupProjectStatuses" filter-ng-model="filter.simple.Status" />
+							<input filter-lookup="home/dictionary/lookupProjectStatuses" ng-model="filter.simple.Status" node="{path: 'Status', op:'='}" multiple />
 							<label>Участие</label>
 							<select ng-model="requestParams.mode">
 								<option value="All">Все</option>
 								<option value="Participated">Я участник</option>
 							</select>
 							<label>Теги</label>
-							<input filter-lookup="{path: 'Tags.Tag', op:'='}" action="home/dictionary/lookupProjectTags" filter-ng-model="filter.simple.Tags" />
+							<input filter-lookup="home/dictionary/lookupProjectTags" ng-model="filter.simple.Tags" node="{path: 'Tags.Tag', op:'='}" multiple />
 						</fieldset>
-
 					</form>
 				</tab>
 				<tab heading="Complex">
@@ -44,18 +45,18 @@
 				</a>
 			</div>
 
-			<table class="table table-bordered sortable"
+			<table class="table table-bordered"
 			       infinite-scroll="paging.page = paging.page + 1"
 			       infinite-scroll-disabled="applyEnabled"
 			       infinite-scroll-distance="1">
 				<thead>
 					<tr>
-						<th data-sortproperty="Name">Наименование</th>
-						<th data-sortproperty="Type.Name">Тип</th>
-						<th data-sortproperty="Description">Описание</th>
-						<th data-sortproperty="Status.Name">Статус</th>
-						<th data-sortproperty="CreationTime" data-defaultsort="desc">Дата создания</th>
-						<th data-sortproperty="IsArchive">Архив</th>
+						<th><span sortable-heading="sorters.Name" caption="Наименование"></span></th>
+						<th><span sortable-heading="sorters.Type_Name" caption="Тип"></span></th>
+						<th><span sortable-heading="sorters.Description" caption="Описание"></span></th>
+						<th><span sortable-heading="sorters.Status_Name" caption="Статус"></span></th>
+						<th><span sortable-heading="sorters.CreationTime" caption="Дата создания"></span></th>
+						<th><span sortable-heading="sorters.IsArchive" caption="Архив"></span></th>
 					</tr>
 				</thead>
 				<tbody>

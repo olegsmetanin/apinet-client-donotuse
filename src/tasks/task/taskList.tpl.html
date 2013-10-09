@@ -1,4 +1,6 @@
-<div class="container-fluid" ng-controller="taskListCtrl" filtered-list="{method: 'tasks/tasks/getTasks'}">
+<div class="container-fluid" ng-controller="taskListCtrl"
+        filtered-list="{method: 'tasks/tasks/getTasks'}"
+        initial-sorters="{ InternalSeqNumber: 'desc' }">
 	<div class="row-fluid">
 <!-- data-offset-top="50" -->
 		<div class="span3">
@@ -11,22 +13,22 @@
 					<form>
 						<fieldset>
 							<label>Комбинированный</label>
-							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="span12">
+							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="filterInput">
 							</select>
 							<label>Статус</label>
-							<input filter-lookup="{path: 'Status', op: '='}" action="tasks/dictionary/lookupTaskStatuses" filter-ng-model="filter.simple.Status">
+							<input filter-lookup="tasks/dictionary/lookupTaskStatuses" ng-model="filter.simple.Status" node="{path: 'Status', op: '='}" multiple />
 							<label>Пользовательский статус</label>
-							<input filter-lookup="{path: 'CustomStatus', op: '='}" action="tasks/dictionary/lookupCustomStatuses" filter-ng-model="filter.simple.CustomStatus">
+							<input filter-lookup="tasks/dictionary/lookupCustomStatuses" ng-model="filter.simple.CustomStatus" node="{path: 'CustomStatus', op: '='}" multiple />
 							<label>Номер задачи</label>
-							<input filter-lookup="{path: 'Id', op: '='}" action="tasks/tasks/lookupTasks" filter-ng-model="filter.simple.SeqNumber">
+							<input filter-lookup="tasks/tasks/lookupTasks" ng-model="filter.simple.SeqNumber" node="{path: 'Id', op: '='}" multiple />
 							<label>Тип задачи</label>
-							<input filter-lookup="{path: 'TaskType', op: '='}" action="tasks/dictionary/lookupTaskTypes" filter-ng-model="filter.simple.TaskType">
+							<input filter-lookup="tasks/dictionary/lookupTaskTypes" ng-model="filter.simple.TaskType" node="{path: 'TaskType', op: '='}" multiple />
 							<label>Срок</label>
 							<input type="text" ng-model="customFilter.lDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" /> - <input type="text" ng-model="customFilter.rDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" />
 							<label>Исполнители</label>
-							<input filter-lookup="{path: 'Executors.Executor.Id', op: '='}" action="home/projects/lookupParticipant" filter-ng-model="filter.simple.Executors">
+							<input filter-lookup="home/projects/lookupParticipant" ng-model="filter.simple.Executors" node="{path: 'Executors.Executor.Id', op: '='}" multiple />
 							<label>Содержание</label>
-							<input filter-input="{path: 'Content', op:'like'}" filter-ng-model="filter.simple.Content" />
+							<input filter-input="{path: 'Content', op:'like'}" ng-model="filter.simple.Content" />
 						</fieldset>
 					</form>
 				</tab>
@@ -57,7 +59,7 @@
 				<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="Удалить отмеченные задачи">Удалить</button>
 			</div>
 
-			<table class="table table-bordered sortable"
+			<table class="table table-bordered"
 					infinite-scroll="paging.page = paging.page + 1"
 					infinite-scroll-disabled="applyEnabled"
 					infinite-scroll-distance="1">
@@ -66,12 +68,12 @@
 						<th class="onepct">
 							<input type="checkbox" checker="items: 'models'">
 						</th>
-						<th data-sortproperty="InternalSeqNumber" data-defaultsort="desc" style="width: 5%">№</th>
-						<th data-sortproperty="TaskType.Name">Тип</th>
+						<th><span sortable-heading="sorters.InternalSeqNumber" caption="№"></span></th>
+						<th><span sortable-heading="sorters.TaskType_Name" caption="Тип"></span></th>
 						<th style="width: 20%">Исполнители</th>
-						<th data-sortproperty="DueDate" style="width: 10%">Срок</th>
-						<th data-sortproperty="Status" style="width: 10%">Статус</th>
-						<th data-sortproperty="CustomStatus.Name" style="width: 15%">Пользовательский статус</th>
+						<th><span sortable-heading="sorters.DueDate" caption="Срок"></span></th>
+						<th><span sortable-heading="sorters.Status" caption="Статус"></span></th>
+						<th><span sortable-heading="sorters.CustomStatus_Name" caption="Пользовательский статус"></span></th>
 						<th class="onepct">&nbsp;</th>
 					</tr>
 				</thead>

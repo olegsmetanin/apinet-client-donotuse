@@ -3,14 +3,15 @@ angular.module('core')
 		return {
 			scope: false,
 
-			//region Refreshing, filtering, infinite scroll
-
 			controller: ['$scope', function($scope) {
 				angular.extend($scope, {
 					filter: {
 						simple: { }
 					},
+
 					sorters: { },
+					sortersArray: [ ],
+
 					paging: {
 						page: 0,
 						loadedPages: []
@@ -18,7 +19,7 @@ angular.module('core')
 
 					applyEnabled: false,
 					firstEvent: true,
-					models: [],
+					models: [ ],
 					validation: { },
 					indication: { loading: false },
 
@@ -53,7 +54,7 @@ angular.module('core')
 						var params = angular.extend({ }, $scope.requestParams, {
 							method: $scope.method,
 							filter: $scope.filter,
-							sorters: $scope.sorters,
+							sorters: $scope.sortersArray,
 							page: $scope.paging.page
 						});
 						$scope.resetValidation();
@@ -90,7 +91,6 @@ angular.module('core')
 					}
 				});
 
-
 				$scope.$watch('filter', function() {
 					$scope.applyEnabled = true;
 				}, true);
@@ -99,7 +99,67 @@ angular.module('core')
 					$scope.applyEnabled = true;
 				}, true);
 
-				$scope.$watch('sorters', function() {
+				$scope.$watch('sorters', function(value) {
+					var tempArray = [ ];
+					var sorter;
+					var key;
+
+					var maxPriority = 0;
+					for(key in value) {
+						if(!$scope.sorters.hasOwnProperty(key)) {
+							continue;
+						}
+
+						sorter = $scope.sorters[key];
+						if(!sorter.direction || !sorter.priority ||
+								(sorter.direction !== 'asc' && sorter.direction !== 'desc') || !sorter.priority) {
+							continue;
+						}
+
+						maxPriority = sorter.priority > maxPriority ? sorter.priority : maxPriority;
+
+						sorter.property = key.replace('_', '.');
+						tempArray.push(sorter);
+					}
+
+					for(key in value) {
+						if(!$scope.sorters.hasOwnProperty(key)) {
+							continue;
+						}
+
+						sorter = $scope.sorters[key];
+						if(!sorter.direction || sorter.priority ||
+								(sorter.direction !== 'asc' && sorter.direction !== 'desc')) {
+							continue;
+						}
+
+						maxPriority = maxPriority + 1;
+						sorter.priority = maxPriority;
+
+						sorter.property = key.replace('_', '.');
+						tempArray.push(sorter);
+					}
+
+					tempArray.sort(function(s1, s2) {
+						if (s1.priority > s2.priority) {
+							return 1;
+						}
+						return s1.priority < s2.priority ? -1 : 0;
+					});
+
+					$scope.sortersArray = [ ];
+					for(var i = 0; i < tempArray.length; i++) {
+						sorter = tempArray[i];
+
+						$scope.sortersArray.push({
+							property: sorter.property,
+							descending: sorter.direction === 'desc'
+						});
+
+						sorter.priority = i + 1;
+						delete sorter.property;
+					}
+
 					$scope.refreshList();
 				}, true);
 
@@ -120,92 +180,50 @@ angular.module('core')
 
 				}, true);
 			}],
-			//endregion
-
-			//region Sorting, input params
 
 			link: function($scope, element, attrs) {
-				if(!$scope.requestParams) {
-					return;
+				var initialSorters = $scope.$eval(attrs.initialSorters) || { };
+
+				var i = 1;
+				for(var key in initialSorters) {
+					if(!initialSorters.hasOwnProperty(key)) {
+						continue;
+					}
+
+					var direction = initialSorters[key];
+					if(!direction || (direction !== 'asc' && direction !== 'desc')) {
+						continue;
+					}
+
+					$scope.sorters[key] = {
+						direction: direction,
+						priority: i
+					};
+
+					i = i + 1;
 				}
-				var $element = angular.element(element);
 
 				var inputParams = $scope.$eval(attrs.filteredList);
 				angular.extend($scope, inputParams);
-
-				$scope.sorters = [];
-				$element.find('table.sortable thead th').each(function () {
-					var $this = angular.element(this);
-
-					if (!$this.attr('data-sortproperty') || !$this.attr('data-defaultsort')) {
-						return;
-					}
-
-					var sorter = {
-						property: $this.attr('data-sortproperty'),
-						descending: $this.attr('data-defaultsort') === 'desc'
-					};
-					$scope.sorters.push(sorter);
-					$this.append(!sorter.descending ? '<span class="arrow up"></span>' :
-						'<span class="arrow"></span>');
-				});
-
-				angular.element(element).on('click', 'table.sortable thead th', function ($event) {
-					var $this = angular.element(this);
-
-					var sortProperty = $this.attr('data-sortproperty');
-					if (!sortProperty) {
-						return;
-					}
-
-					if(!$event.shiftKey) {
-						var $spans = $element.find('span');
-						if($spans.length) {
-							$spans.remove();
-						}
-					}
-					else {
-						var $span = $this.find('span');
-						if($span.length) {
-							$span.remove();
-						}
-					}
-
-					var existingSorter = null;
-					var existingIndex = -1;
-					angular.forEach($scope.sorters, function(sorter, index) {
-						existingSorter = sorter.property === sortProperty ? sorter : existingSorter;
-						existingIndex = sorter.property === sortProperty ? index : existingIndex;
-					});
-
-					$scope.$apply(function() {
-						if(!$event.shiftKey) {
-							$scope.sorters = [ ];
-							if(existingSorter && !existingSorter.descending) {
-								$scope.sorters.push(existingSorter);
-							}
-						}
-
-						if(existingSorter) {
-							if(!existingSorter.descending) {
-								existingSorter.descending = true;
-								$this.append('<span class="arrow"></span>');
-							}
-							else if($event.shiftKey) {
-								$scope.sorters.splice(existingIndex, 1);
-							}
-						}
-						else {
-							$scope.sorters.push({
-								property: sortProperty,
-								descending: false
-							});
-							$this.append('<span class="arrow up"></span>');
-						}
-					});
-				});
 			}
+		};
+	}])
+	.directive('sortableHeading', ['sysConfig', function(sysConfig) {
+		return {
+			replace: true,
+			restrict: 'A',
+			scope: {
+				sorter: '=sortableHeading',
+				caption: '@'
+			},
+			templateUrl: sysConfig.src('core/parts/filters/sortableHeading.tpl.html'),
 
-			//endregion
+			controller: ['$scope', function($scope) {
+				$scope.$watch('sorter.direction', function(value) {
+					if(!value && $scope.sorter) {
+						$scope.sorter.priority = null;
+					}
+				}, true);
+			}]
 		};
 	}]);

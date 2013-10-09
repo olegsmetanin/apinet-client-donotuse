@@ -1,5 +1,7 @@
 <container>
-	<div ng-controller="projectStatusesCtrl" filtered-list="{ method: 'home/dictionary/getProjectStatuses'}">
+	<div ng-controller="projectStatusesCtrl"
+		     filtered-list="{ method: 'home/dictionary/getProjectStatuses'}"
+		     initial-sorters="{ Name: 'asc' }">
 		<twocolumn-side>
 			<button type="button" class="btn btn-success" ng-click="refreshList()"
 			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
@@ -9,7 +11,7 @@
 					<form>
 						<fieldset>
 							<label>Наименование</label>
-							<input filter-lookup="{path: 'Id', op:'='}" action="home/dictionary/lookupProjectStatuses" filter-ng-model="filter.simple.Id" />
+							<input filter-lookup="home/dictionary/lookupProjectStatuses" ng-model="filter.simple.Id" node="{path: 'Id', op:'='}" multiple />
 						</fieldset>
 					</form>
 				</tab>
@@ -66,16 +68,16 @@
 				</form>
 			</div>
 
-			<table class="table table-bordered sortable"
+			<table class="table table-bordered"
 			       infinite-scroll="paging.page = paging.page + 1"
 			       infinite-scroll-disabled="applyEnabled"
 			       infinite-scroll-distance="1">
 				<thead>
 					<tr>
 						<th style="width: 115px;" ng-show="currentUser.admin"></th>
-						<th data-sortproperty="Name" data-defaultsort="asc">Наименование</th>
-						<th data-sortproperty="Description">Описание</th>
-						<th data-sortproperty="CreationTime">Дата создания</th>
+						<th><span sortable-heading="sorters.Name" caption="Наименование"></span></th>
+						<th><span sortable-heading="sorters.Description" caption="Описание"></span></th>
+						<th><span sortable-heading="sorters.CreationTime" caption="Дата создания"></span></th>
 					</tr>
 				</thead>
 				<tbody>

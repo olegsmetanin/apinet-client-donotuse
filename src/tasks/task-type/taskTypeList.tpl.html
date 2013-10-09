@@ -1,5 +1,7 @@
-<container> -->
-<div class="container-fluid" ng-controller="taskTypeCtrl" filtered-list="{method: 'tasks/dictionary/getTaskTypes'}">
+<!-- <container> -->
+<div class="container-fluid" ng-controller="taskTypeCtrl"
+        filtered-list="{method: 'tasks/dictionary/getTaskTypes'}"
+        initial-sorters="{ Name: 'asc' }">
 	<div class="row-fluid">
 		<!-- <twocolumn-side> -->
 		<div class="span3">
@@ -11,7 +13,7 @@
 					<form>
 						<fieldset>
 							<label>Наименование</label>
-							<input filter-input="{path: 'Name', op:'like'}" filter-ng-model="filter.simple.Name" />
+							<input filter-input="{path: 'Name', op:'like'}" ng-model="filter.simple.Name" />
 						</fieldset>
 					</form>
 				</tab>
@@ -49,7 +51,7 @@
 				</fieldset>
 			</form>
 
-			<table class="table table-bordered sortable"
+			<table class="table table-bordered"
 					infinite-scroll="paging.page = paging.page + 1"
 					infinite-scroll-disabled="applyEnabled"
 					infinite-scroll-distance="1">
@@ -58,9 +60,9 @@
 						<th class="onepct">
 							<input type="checkbox" checker="items: 'models'">
 						</th>
-						<th data-sortproperty="Name" data-defaultsort="asc">Наименование</th>
-						<th data-sortproperty="Creator.FIO" style="width: 15%">Автор</th>
-						<th data-sortproperty="CreationTime" style="width: 17%">Дата создания</th>
+						<th><span sortable-heading="sorters.Name" caption="Наименование"></span></th>
+						<th><span sortable-heading="sorters.Creator_FIO" caption="Автор"></span></th>
+						<th><span sortable-heading="sorters.CreationTime" caption="Дата создания"></span></th>
 						<th class="onepct">&nbsp;</th>
 					</tr>
 				</thead>
@@ -88,4 +90,4 @@
 		<!-- </twocolumn-content> -->
 	</div>
 </div>
-<!-- </container>
+<!-- </container> -->
