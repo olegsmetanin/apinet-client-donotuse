@@ -25,9 +25,14 @@ angular.module('core')
 			scope.edit = function() {
 				scope.emodel.original = scope.emodel.value = scope.$eval(attr.inlineEdit);
 				scope.editMode = true;
-				$timeout(function() { scope.elInput.focus(); }, 0, false);
+				if (scope.editForm) {
+					scope.editForm.$setPristine();
+				}
+				$timeout(function() { 
+					scope.elInput.focus(); 
+				}, 0, false);
 				unwatch = scope.$watch('emodel.value', function() {
-					scope.isChanged = scope.emodel.value !== scope.emodel.original;
+					scope.isChanged = !angular.equals(scope.emodel.value, scope.emodel.original);
 				}, true);
 			};
 
@@ -47,7 +52,7 @@ angular.module('core')
 				scope.editMode = scope.isChanged = false;
 			};
 
-			scope.onBlur = function() {
+			scope.onBlur = function(e) {
 				if (!scope.isChanged) {
 					scope.$apply(scope.cancel);
 				}

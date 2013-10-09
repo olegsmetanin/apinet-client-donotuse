@@ -42,7 +42,9 @@ editTmpl +
 			//select2 not initialized if call without timeout
 			$timeout(function() { 
 				//inplaceEdit use this for focus() when enter in edit mode
-				scope.elInput = $('.select2-focusser', elm);
+				scope.elInput = attr.hasOwnProperty('multiple')
+					? $('input.select2-input', elm)
+					: $('.select2-focusser', elm);
 				//select2 has self specific blur
 				$('input', elm).off('blur', scope.onBlur);
 
