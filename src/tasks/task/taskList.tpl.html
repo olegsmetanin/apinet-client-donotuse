@@ -13,22 +13,22 @@
 					<form>
 						<fieldset>
 							<label>Комбинированный</label>
-							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="filterInput">
+							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="span12" >
 							</select>
 							<label>Статус</label>
-							<input filter-lookup="tasks/dictionary/lookupTaskStatuses" ng-model="filter.simple.Status" node="{path: 'Status', op: '='}" multiple />
+							<input lookup="tasks/dictionary/lookupTaskStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op: '='}" class="span12" multiple />
 							<label>Пользовательский статус</label>
-							<input filter-lookup="tasks/dictionary/lookupCustomStatuses" ng-model="filter.simple.CustomStatus" node="{path: 'CustomStatus', op: '='}" multiple />
+							<input lookup="tasks/dictionary/lookupCustomStatuses" ng-model="filter.simple.CustomStatus" filter-node="{path: 'CustomStatus', op: '='}" class="span12" multiple />
 							<label>Номер задачи</label>
-							<input filter-lookup="tasks/tasks/lookupTasks" ng-model="filter.simple.SeqNumber" node="{path: 'Id', op: '='}" multiple />
+							<input lookup="tasks/tasks/lookupTasks" ng-model="filter.simple.SeqNumber" filter-node="{path: 'Id', op: '='}" class="span12" multiple />
 							<label>Тип задачи</label>
-							<input filter-lookup="tasks/dictionary/lookupTaskTypes" ng-model="filter.simple.TaskType" node="{path: 'TaskType', op: '='}" multiple />
+							<input lookup="tasks/dictionary/lookupTaskTypes" ng-model="filter.simple.TaskType" filter-node="{path: 'TaskType', op: '='}" class="span12" multiple />
 							<label>Срок</label>
 							<input type="text" ng-model="customFilter.lDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" /> - <input type="text" ng-model="customFilter.rDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" />
 							<label>Исполнители</label>
-							<input filter-lookup="home/projects/lookupParticipant" ng-model="filter.simple.Executors" node="{path: 'Executors.Executor.Id', op: '='}" multiple />
+							<input lookup="home/projects/lookupParticipant" ng-model="filter.simple.Executors" filter-node="{path: 'Executors.Id', op: '='}" class="span12" multiple />
 							<label>Содержание</label>
-							<input filter-input="{path: 'Content', op:'like'}" ng-model="filter.simple.Content" />
+							<input type="text" ng-model="filter.simple.Content" filter-node="{path: 'Content', op:'like'}" class="span12"  />
 						</fieldset>
 					</form>
 				</tab>

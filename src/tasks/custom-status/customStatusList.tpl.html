@@ -14,7 +14,7 @@
 					<form>
 						<fieldset>
 							<label>Наименование</label>
-							<input filter-input="{path: 'Name', op:'like'}" ng-model="filter.simple.Name" />
+							<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}"  class="span12" />
 						</fieldset>
 					</form>
 				</tab>

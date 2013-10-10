@@ -83,7 +83,7 @@ angular.module('core').value('agoSelect2Config', {}).directive('agoSelect2', ['a
           // Watch the model for programmatic changes
            scope.$watch(tAttrs.ngModel, function(current, old) {
             //ago change: this code fix bug with not refreshed css validation classes
-             controller.$setViewValue(current);
+            //controller.$setViewValue(current);
              
             if (!current) {
               return;

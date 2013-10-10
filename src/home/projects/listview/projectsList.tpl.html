@@ -11,16 +11,16 @@
 					<form>
 						<fieldset>
 							<label>Наименование</label>
-							<input filter-lookup="home/projects/lookupProjectNames" ng-model="filter.simple.Name" node="{path: 'Name', op:'='}" multiple />
+							<input lookup="home/projects/lookupProjectNames" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'='}" class="span12" multiple />
 							<label>Статус</label>
-							<input filter-lookup="home/dictionary/lookupProjectStatuses" ng-model="filter.simple.Status" node="{path: 'Status', op:'='}" multiple />
+							<input lookup="home/dictionary/lookupProjectStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op:'='}" class="span12" />
 							<label>Участие</label>
-							<select ng-model="requestParams.mode">
+							<select ng-model="requestParams.mode" class="span12">
 								<option value="All">Все</option>
 								<option value="Participated">Я участник</option>
 							</select>
 							<label>Теги</label>
-							<input filter-lookup="home/dictionary/lookupProjectTags" ng-model="filter.simple.Tags" node="{path: 'Tags.Tag', op:'='}" multiple />
+							<input lookup="home/dictionary/lookupProjectTags" ng-model="filter.simple.Tags" filter-node="{path: 'Tags.Tag', op:'='}" class="span12" multiple />
 						</fieldset>
 					</form>
 				</tab>
