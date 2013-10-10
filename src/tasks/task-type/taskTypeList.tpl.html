@@ -37,13 +37,16 @@
 			</div>
 			<form name="createTaskTypeForm" novalidate>
 				<fieldset>
-					<div class="input-append">
-						<input type="text" ng-model="editModel.name" placeholder="Наименование типа задачи" required />
-						<button type="button" class="btn" ng-click="createTaskType()" ng-disabled="createTaskTypeForm.$invalid">Добавить</button>
+					<div style="display: inline-block">
+						<div class="input-append">
+							<input type="text" ng-model="editModel.name" placeholder="Наименование типа задачи" required />
+							<button type="button" class="btn" ng-click="createTaskType()" ng-disabled="createTaskTypeForm.$invalid">Добавить</button>
+						</div>
+						<span ng-show="validation.fieldErrors['Name']" class="help-block alert-error">
+							{{ validation.fieldErrors['Name'] | joinBy }}
+						</span>
 					</div>
-					<span ng-show="validation.fieldErrors['Name']" class="help-inline alert-error">
-						{{ validation.fieldErrors['Name'] }}
-					</span>
+					
 					<div class="span6 pull-right">
 						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">Удалить</button>
 						<input type="text" lookup="tasks/dictionary/lookupTaskTypes" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementType" placeholder="Тип для замены удаляемых (опционально)" style="width: 80%"/>

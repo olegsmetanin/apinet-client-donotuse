@@ -34,7 +34,7 @@ angular.module('tasks')
 		};
 		var handleError = function(validation) {
 			$scope.resetValidation();
-			angular.extend($scope.validation, validation);
+			angular.extend($scope, validation);
 		};
 
 		$scope.removeFromModels = function(modelsToRemove) {
