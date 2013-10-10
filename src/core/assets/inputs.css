@@ -1,0 +1,5 @@
+.row-fluid .select2-container[class*="span"] {
+	margin-left: 0;
+	margin-bottom: 10px;
+	display: inline-block;
+}

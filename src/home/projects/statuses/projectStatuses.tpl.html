@@ -11,7 +11,7 @@
 					<form>
 						<fieldset>
 							<label>Наименование</label>
-							<input filter-lookup="home/dictionary/lookupProjectStatuses" ng-model="filter.simple.Id" node="{path: 'Id', op:'='}" multiple />
+							<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}"  class="span12" />
 						</fieldset>
 					</form>
 				</tab>

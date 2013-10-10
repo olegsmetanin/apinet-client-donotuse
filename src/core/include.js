@@ -6,7 +6,7 @@ sysConfig.modules['core'] = {
 		'src/core/assets/breadcrumbs.css',
 		'src/core/assets/header.css',
 		'src/core/assets/inline-edit.css',
-		'src/core/assets/validators.css'
+		'src/core/assets/inputs.css'
 	],
 	js: [
 		'src/core/_module.js',
