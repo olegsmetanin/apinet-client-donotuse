@@ -38,18 +38,24 @@
 			</div>
 			<form name="createStatusForm" class="form-inline" novalidate>
 				<fieldset>
-					<div class="span6">
-						<input type="text" ng-model="editModel.name" class="span5" placeholder="Наименование статуса" required />
-						<span ng-show="validation.fieldErrors['Name']" class="help-inline alert-error">
-							{{ validation.fieldErrors['Name'] | joinBy }}
-						</span>
-						<input type="text" name="viewOrder" integer ng-model="editModel.viewOrder" class="span2" placeholder="№ п/п" />
-						<span ng-show="isViewOrderInvalid()" class="help-inline alert-error">
-							Значение должно быть числом в диапазоне [0-255]
-						</span>
-						<span ng-show="validation.fieldErrors['ViewOrder']" class="help-inline alert-error">
-							{{ validation.fieldErrors['ViewOrder'] | joinBy }}
-						</span>
+					<div class="span6 controls">
+						<div class="span5" style="display: inline-block">
+							<input type="text" ng-model="editModel.name" class="span12" placeholder="Наименование статуса" required />
+							<span ng-show="validation.fieldErrors['Name']" class="help-block alert-error">
+								{{ validation.fieldErrors['Name'] | joinBy }}
+							</span>
+						</div>
+
+						<div class="span3" style="display: inline-block">
+							<input type="text" name="viewOrder" ago-integer ago-min="0" ago-max="255" required ng-model="editModel.viewOrder" class="span12" placeholder="№ п/п" />
+							<span ng-show="isViewOrderInvalid()" class="help-inline alert-error">
+								Значение должно быть числом в диапазоне [0-255]
+							</span>
+							<span ng-show="validation.fieldErrors['ViewOrder']" class="help-inline alert-error">
+								{{ validation.fieldErrors['ViewOrder'] | joinBy }}
+							</span>
+						</div>
+
 						<button type="button" class="btn" ng-click="createStatus()" ng-disabled="createStatusForm.$invalid">Добавить</button>
 					</div>
 
