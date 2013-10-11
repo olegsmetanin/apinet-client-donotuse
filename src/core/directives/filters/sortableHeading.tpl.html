@@ -1,18 +1,16 @@
 <div>
 	<span>{{ caption }}</span>
-	<div class="btn-group">
-		<button type="button" class="btn btn-mini" ng-model="sorter.direction"
+
+	<div class="sorter pull-right">
+		<button ng-show="sorter.direction !== 'desc'" type="button" class="btn btn-mini" ng-model="sorter.direction"
 		        btn-checkbox btn-checkbox-true="'asc'" btn-checkbox-false="''" title="По возрастанию">
-			<i class="icon-arrow-up"></i>
+			<span class="arrow">▲</span>
+			<span class="priority" ng-show="sorter.direction">{{ sorter.priority }}</span>
 		</button>
-		<button type="button" class="btn btn-mini" ng-model="sorter.direction"
+		<button ng-show="sorter.direction !== 'asc'" type="button" class="btn btn-mini" ng-model="sorter.direction"
 		        btn-checkbox btn-checkbox-true="'desc'" btn-checkbox-false="''" title="По убыванию">
-			<i class="icon-arrow-down"></i>
+			<span class="priority" ng-show="sorter.direction">{{ sorter.priority }}</span>
+			<span class="arrow">▼</span>
 		</button>
 	</div>
-	<span style="display: inline-block; width: 20px; text-align: center;">
-		<span ng-show="sorter.direction && sorter.priority" class="badge badge-info">
-			{{ sorter.priority }}
-		</span>
-	</span>
 </div>
