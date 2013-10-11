@@ -134,7 +134,7 @@
 						<tr ng-show="editables.addState">
 							<td colspan="6" class="form-inline">
 								<input type="text" name="agreemer" lookup="home/projects/lookupParticipant" ng-model="editables.newAgreemer" placeholder="Выберите согласущего" class="span4" />
-								<input type="text" ng-model="editables.dueDate" ui-date="{dateFormat:'dd.mm.yy', changeMonth: true, changeYear: true}" span="3" placeholde="Срок" />
+								<input type="text" ng-model="editables.dueDate" ui-date="{dateFormat:'dd.mm.yy', changeMonth: true, changeYear: true}" class="span2" placeholde="Срок" />
 								<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="!addAgreementAvailable()">Добавить</button>
 
 								<div class="btn-group">
