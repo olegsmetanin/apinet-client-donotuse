@@ -41,11 +41,11 @@ angular.module('tasks')
 		}
 
 		$scope.changeStatus = function(hrecord) {
-			console.log('Change status for %s', hrecord.Text);
+			$scope.onUpdateProp($scope.model, 'Status', hrecord.id);
 		};
 
 		$scope.changeCustomStatus = function(hrecord) {
-			console.log('Change custom status for %s', hrecord.Text);
+			$scope.onUpdateProp($scope.model, 'CustomStatus', hrecord.id);
 		};
 
 		$scope.onUpdateProp = function(task, prop, val) {

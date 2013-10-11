@@ -6,7 +6,7 @@ angular.module('tasks')
 		templateUrl: sysConfig.src('tasks/task/statusHistoryView.tpl.html'),
 		scope: {
 			model: '=',
-			onChange: '&change'
+			onChange: '=change'
 		},
 		link: function(scope, elm, attr) {
 			scope.isClosedRecord = function(hrecord) {
@@ -37,8 +37,9 @@ angular.module('tasks')
 			};
 
 			scope.changeStatus = function(hrecord) {
-				if (angular.isFunction(scope.onChange))
+				if (angular.isFunction(scope.onChange)) {
 					scope.onChange(hrecord);
+				}
 			};
 		}
 	}
