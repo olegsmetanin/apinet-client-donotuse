@@ -7,7 +7,7 @@ angular.module('core')
 				sorter: '=sortableHeading',
 				caption: '@'
 			},
-			templateUrl: sysConfig.src('core/directives/filters/sortableHeading.tpl.html'),
+			templateUrl: sysConfig.src('core/directives/sortableHeading.tpl.html'),
 
 			controller: ['$scope', function($scope) {
 				angular.extend($scope, {
