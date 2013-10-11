@@ -109,6 +109,7 @@
 					<thead>
 						<tr>
 							<th>Согласующий</th>
+							<th>Срок</th>
 							<th class="onepct">Согласовано</th>
 							<th class="span3">Дата</th>
 							<th class="span4">Комментарий</th>
@@ -118,23 +119,49 @@
 					<tbody>
 						<tr ng-repeat="a in model.Agreements">
 							<td>{{ a.Agreemer }}</td>
+							<td>{{ a.DueDate | date:'dd.MM.yyyy' }}</td>
 							<td>
 								<i ng-class="{'icon-check': a.Done, 'icon-check-empty': !a.Done}"></i>
 							</td>
 							<td>{{ a.AgreedAt | date:'dd.MM.yyyy hh:mm' }}</td>
 							<td>{{ a.Comment }}</td>
 							<td>
-								<button type="button" class="close" title="Удалить согласущего" ng-click="removeAgreement(a)">&times;</button>
+								<button type="button" class="close" title="Удалить согласущего" ng-click="removeAgreement(a)" ng-show="isAgreementsEditable()">&times;</button>
 							</td>
 						</tr>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="5">
-								<form name="addAgreemerForm" style="margin: 0" novalidate>
-									<input type="text" name="agreemer" lookup="home/projects/lookupParticipant" ng-model="editables.newAgreemer" placeholder="Выберите согласущего" required class="span6" />
-									<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="addAgreemerForm.$invalid">Добавить</button>
-								</form>
+					<tfoot ng-show="isAgreementsEditable()">
+						<tr ng-show="editables.addState">
+							<td colspan="6" class="form-inline">
+								<input type="text" name="agreemer" lookup="home/projects/lookupParticipant" ng-model="editables.newAgreemer" placeholder="Выберите согласущего" class="span4" />
+								<input type="text" ng-model="editables.dueDate" ui-date="{dateFormat:'dd.mm.yy', changeMonth: true, changeYear: true}" span="3" placeholde="Срок" />
+								<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="!addAgreementAvailable()">Добавить</button>
+
+								<div class="btn-group">
+									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+										Согласование
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a ng-click="agree()">Согласовать</a></li>
+										<li><a ng-click="toggleAgree()">Согласовать с комментарием</a></li>
+										<li class="divider"></li>
+										<li><a ng-click="revoke()">Отозвать согласование</a></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr ng-hide="editables.addState">
+							<td colspan="6">
+								<div class="input-append span12">
+									<input type="text" ng-model="editables.comment" class="span6" placeholder="Комментарий к согласованию">
+									<button type="button" class="btn" ng-click="toggleAgree()" title="Отменить">
+										<i class="icon-reply"></i>
+									</button>
+									<button type="button" class="btn" ng-click="agree()" title="Согласовать">
+										<i class="icon-ok"></i>
+									</button>
+								</div>
 							</td>
 						</tr>
 					</tfoot>
