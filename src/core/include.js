@@ -21,12 +21,19 @@ sysConfig.modules['core'] = {
 		'src/core/directives/fixHeight.js',
 		'src/core/directives/scrollspy.js',
 		'src/core/directives/ago.select2.js',
+		'src/core/directives/grids.js',
 
 		'src/core/directives/inplace/inlineEdit.js',
 		'src/core/directives/inplace/inlineText.js',
 		'src/core/directives/inplace/inlineTextArea.js',
 		'src/core/directives/inplace/inlineLookup.js',
 		'src/core/directives/inplace/inlineDate.js',
+
+		'src/core/directives/filters/filters.js',
+		'src/core/directives/filters/services.js',
+		'src/core/directives/filters/directives.js',
+		'src/core/directives/filters/userFilter.js',
+		'src/core/directives/filters/structuredFilter.js',
 		
 		'src/core/parts/header/breadCrumbs/breadCrumbsCtrl.js',
 		'src/core/parts/header/tabBar/tabBar.js',
@@ -45,14 +52,7 @@ sysConfig.modules['core'] = {
 
 		'src/core/services/services.js',
 		'src/core/services/i18n/localizedMessages.js',
-		'src/core/parts/filters/complex.js',
-		'src/core/parts/filters/filterHelpers.js',
-		'src/core/parts/filters/structuredFilter.js',
-		'src/core/parts/filters/userFilter.js',
-		'src/core/parts/filters/filterInputs.js',
-		'src/core/parts/filters/filteredList.js',
-		'src/core/parts/filters/filterPersister.js',
-
+		
 		'src/core/services/i18n/i18n.js',
 		'src/core/parts/header/moduleMenu/moduleMenu.js',
 

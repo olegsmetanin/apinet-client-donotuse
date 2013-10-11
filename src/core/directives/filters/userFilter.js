@@ -3,7 +3,7 @@ angular.module('core')
 		function(sysConfig) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/parts/filters/userFilter.tpl.html'),
+				templateUrl: sysConfig.src('core/directives/filters/userFilter.tpl.html'),
 				scope: {
 					rootNode: '=filterNgModel'
 				},
@@ -94,7 +94,7 @@ angular.module('core')
 					rootNode: '=',
 					shared: '='
 				},
-				templateUrl: sysConfig.src('core/parts/filters/userFilterNode.tpl.html'),
+				templateUrl: sysConfig.src('core/directives/filters/userFilterNode.tpl.html'),
 				controller: ['$scope', function($scope) {
 					var propertyTypeNode = $scope.node !== $scope.rootNode ?
 						$filterHelpers.ensurePropertyTypeNode($scope.node) : null;
@@ -345,7 +345,7 @@ angular.module('core')
 		function(sysConfig, $filterHelpers, $filter, $dictionaryService, $metadataService) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/parts/filters/userFilterNodeEditor.tpl.html'),
+				templateUrl: sysConfig.src('core/directives/filters/userFilterNodeEditor.tpl.html'),
 				scope: {
 					node: '=',
 					shared: '=',
@@ -438,7 +438,7 @@ angular.module('core')
 								editorType = metadata.PropertyType;
 							}
 
-							$scope.valueEditorUrl = sysConfig.src('core/parts/filters/') +
+							$scope.valueEditorUrl = sysConfig.src('core/directives/filters/') +
 								editorType + 'ValueEditor.tpl.html';
 						}
 					});

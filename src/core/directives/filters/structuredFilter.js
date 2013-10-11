@@ -3,7 +3,7 @@ angular.module('core')
 		function(sysConfig, $helpers, $filterHelpers, $metadataService) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/parts/filters/structuredFilter.tpl.html'),
+				templateUrl: sysConfig.src('core/directives/filters/structuredFilter.tpl.html'),
 				scope: {
 					rootNode: '=filterNgModel',
 					meta: '='
@@ -121,7 +121,7 @@ angular.module('core')
 					meta: '=',
 					getParentMetadata: '&'
 				},
-				templateUrl: sysConfig.src('core/parts/filters/structuredFilterNode.tpl.html'),
+				templateUrl: sysConfig.src('core/directives/filters/structuredFilterNode.tpl.html'),
 				controller: ['$scope', function($scope) {
 					angular.extend($scope, {
 						nodeChildrenClass: { nodeChildren: $scope.node !== $scope.rootNode },
@@ -352,7 +352,7 @@ angular.module('core')
 		function(sysConfig, $filterHelpers, $filter) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/parts/filters/structuredFilterNodeEditor.tpl.html'),
+				templateUrl: sysConfig.src('core/directives/filters/structuredFilterNodeEditor.tpl.html'),
 				scope: {
 					node: '=',
 					shared: '=',
@@ -434,7 +434,7 @@ angular.module('core')
 								editorType = metadata.PropertyType;
 							}
 
-							$scope.valueEditorUrl = sysConfig.src('core/parts/filters/') +
+							$scope.valueEditorUrl = sysConfig.src('core/directives/filters/') +
 								editorType + 'ValueEditor.tpl.html';
 						});
 					}, true);
