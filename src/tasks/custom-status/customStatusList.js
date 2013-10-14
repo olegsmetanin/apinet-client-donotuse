@@ -138,15 +138,14 @@ angular.module('tasks')
 				return;
 			}
 
-			var prms = angular.copy(model);
-			prms[prop] = val;
+			model[prop] = val;
 
 			$scope.resetValidation();
 
 			apinetService.action({
 				method: 'tasks/dictionary/editCustomStatus',
 				project: sysConfig.project,
-				model: prms
+				model: model
 			}).then(function(response) {
 				if (response.validation.success) {
 					angular.extend(model, response.model);

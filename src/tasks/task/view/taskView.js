@@ -49,6 +49,8 @@ angular.module('tasks')
 		};
 
 		$scope.onUpdateProp = function(task, prop, val) {
+			task[prop] = val;
+
 			apinetService.action({
 				method: 'tasks/tasks/UpdateTask',
 				project: sysConfig.project,

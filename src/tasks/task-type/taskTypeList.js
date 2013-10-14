@@ -132,6 +132,7 @@ angular.module('tasks')
 			}
 
 			$scope.resetValidation();
+			model.Name = val;
 
 			apinetService.action({
 				method: 'tasks/dictionary/editTaskType',
