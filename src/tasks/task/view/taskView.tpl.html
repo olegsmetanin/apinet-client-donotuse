@@ -51,46 +51,80 @@
 					<tr>
 						<td>Тип</td>
 						<td>
-							<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" input-lookup="tasks/dictionary/lookupTaskTypes" input-class="span10" required />
+							<div>
+								<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskTypes" input-class="span6" required />
+							</div>
+							<span ng-show="validation.fieldErrors['TaskType']" class="help-block alert-error">
+								{{ validation.fieldErrors['TaskType'] | joinBy }}
+							</span>
 						</td>
 					</tr>
 					<tr>
 						<td>Исполнители</td>
 						<td>
-							<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" input-lookup="home/projects/lookupParticipant" input-class="span10" multiple required>
+							<div>
+								<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()" input-lookup="home/projects/lookupParticipant" input-class="span10" multiple required>
 								<executors model="model.Executors" />
 							</inline-lookup>
-							
+							</div>
+							<span ng-show="validation.fieldErrors['Executors']" class="help-block alert-error">
+								{{ validation.fieldErrors['Executors'] | joinBy }}
+							</span>
 						</td>
 					</tr>
 					<tr>
 						<td>Содержание</td>
 						<td>
-							<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" pre-class="span10" input-class="span10" input-rows="3" />
+							<div>
+								<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" pre-class="span10" input-class="span10" input-rows="3" />
+							</div>
+							<span ng-show="validation.fieldErrors['Content']" class="help-block alert-error">
+								{{ validation.fieldErrors['Content'] | joinBy }}
+							</span>
 						</td>
 					</tr>
 					<tr>
 						<td>Срок</td>
 						<td>
-							<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" date-format="dd.MM.yyyy" />
+							<div>
+								<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" on-cancel="resetValidation()" date-format="dd.MM.yyyy" />
+							</div>
+							<span ng-show="validation.fieldErrors['DueDate']" class="help-block alert-error">
+								{{ validation.fieldErrors['DueDate'] | joinBy }}
+							</span>
 						</td>
 					</tr>
 					<tr>
 						<td>Статус</td>
 						<td>
-							<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" input-lookup="tasks/dictionary/lookupTaskStatuses" input-class="span10" required />
+							<div>
+								<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskStatuses" input-class="span6" required />
+							</div>
+							<span ng-show="validation.fieldErrors['Status']" class="help-block alert-error">
+								{{ validation.fieldErrors['Status'] | joinBy }}
+							</span>
 						</td>
 					</tr>
 					<tr>
 						<td>Пользовательский статус</td>
 						<td>
-							<inline-lookup model="model.CustomStatus" on-update="onUpdateProp(model, 'CustomStatus', val)" input-lookup="tasks/dictionary/lookupCustomStatuses" input-class="span10" />
+							<div>
+								<inline-lookup model="model.CustomStatus" on-update="onUpdateProp(model, 'CustomStatus', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupCustomStatuses" input-class="span6" />
+							</div>
+							<span ng-show="validation.fieldErrors['CustomStatus']" class="help-block alert-error">
+								{{ validation.fieldErrors['CustomStatus'] | joinBy }}
+							</span>
 						</td>
 					</tr>
 					<tr>
 						<td>Приоритет</td>
 						<td>
-							<inline-lookup model="model.Priority" on-update="onUpdateProp(model, 'Priority', val)" input-lookup="tasks/dictionary/lookupTaskPriorities" input-class="span10" required />
+							<div>
+								<inline-lookup model="model.Priority" on-update="onUpdateProp(model, 'Priority', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskPriorities" input-class="span6" required />
+							</div>
+							<span ng-show="validation.fieldErrors['Priority']" class="help-block alert-error">
+								{{ validation.fieldErrors['Priority'] | joinBy }}
+							</span>
 						</td>
 					</tr>
 					<tr>

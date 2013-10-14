@@ -1,5 +1,5 @@
 angular.module('core')
-.directive('inlineEdit', ['$timeout', '$parse', function($timeout, $parse) {
+.directive('inlineEdit', ['$timeout', '$parse', '$q', function($timeout, $parse, $q) {
 	return {
 		restrict: 'A',
         scope: true,
@@ -10,6 +10,7 @@ angular.module('core')
 			};
 			scope.editMode = false;
 			scope.isChanged = false;
+			scope.waiting = false;
 			scope.elInput = scope.elInput || //<-- can be provided from aggregate directives
 				element.find('input')[0] || 
                 element.find('textarea')[0] ||
@@ -17,8 +18,9 @@ angular.module('core')
 
             var callback = function(cb) {
                 if (cb) {
-                    $parse(cb)(scope, {val: scope.emodel.value});
+                    return $parse(cb)(scope, {val: scope.emodel.value});
                 }
+                return true;
             };
             var unwatch = null;
 
@@ -40,9 +42,16 @@ angular.module('core')
 				if (scope.editForm && scope.editForm.$invalid) {
 					return;
 				}
-				unwatch();
-                callback(attr.onUpdate);
-                scope.editMode = scope.isChanged = false;
+				//return undefined or true - success. Anything else - error, stay in edit mode
+				scope.waiting = true;
+                $q.when(callback(attr.onUpdate))
+                .then(function(result) {
+                	scope.waiting = false;
+                	if (!angular.isDefined(result) || result === true) {
+                		unwatch();
+                		scope.editMode = scope.isChanged = false;
+                	}
+                }, function() { scope.waiting = false; });
 			};
 
 			scope.cancel = function() {
@@ -50,6 +59,15 @@ angular.module('core')
                 callback(attr.onCancel);
 				scope.emodel.value = scope.emodel.original;
 				scope.editMode = scope.isChanged = false;
+			};
+
+			scope.cancelEnabled = function() {
+				return scope.isChanged && !scope.waiting;
+			};
+
+			scope.updateEnabled = function() {
+				return scope.isChanged && !scope.waiting &&
+					!(scope.editForm && scope.editForm.$invalid);
 			};
 
 			scope.onBlur = function(e) {

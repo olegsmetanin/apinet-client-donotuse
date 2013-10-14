@@ -126,25 +126,25 @@ angular.module('tasks')
 		};
 
 		$scope.onUpdate = function(model, val) {
-			//not changed
-			if (model.Name === val) {
-				return;
-			}
-
 			$scope.resetValidation();
-			model.Name = val;
 
-			apinetService.action({
+			return apinetService.action({
 				method: 'tasks/dictionary/editTaskType',
 				project: sysConfig.project,
-				model: { id: model.Id, Name: val }
+				model: { Id: model.Id, Name: val, ModelVersion: model.ModelVersion }
 			}).then(function(response) {
 				if (response.validation.success) {
 					angular.extend(model, response.model);
+					model.validation = {};
 				} else {
-					handleError(response.validation);
+					model.validation = response.validation;
 				}
+				return response.validation.success;
 			}, handleException);
+		};
+
+		$scope.onCancel = function(model, val) {
+			model.validation = {};
 		};
 
 		$scope.requestParams = { project: sysConfig.project };

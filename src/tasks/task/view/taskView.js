@@ -49,9 +49,7 @@ angular.module('tasks')
 		};
 
 		$scope.onUpdateProp = function(task, prop, val) {
-			task[prop] = val;
-
-			apinetService.action({
+			return apinetService.action({
 				method: 'tasks/tasks/UpdateTask',
 				project: sysConfig.project,
 				data: make(task, prop, val) })
@@ -59,6 +57,7 @@ angular.module('tasks')
 				$scope.resetValidation();
 				angular.extend($scope.validation, response.validation);
 				angular.extend($scope.model, response.model);
+				return response.validation.success;
 			}, handleException);
 		};
 

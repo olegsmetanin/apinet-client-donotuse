@@ -32,10 +32,12 @@ angular.module('tasks')
 			$scope.resetValidation();
 			$scope.validation.generalErrors = [error];
 		};
+
 		var handleError = function(validation) {
 			$scope.resetValidation();
 			angular.extend($scope.validation, validation);
 		};
+
 		$scope.removeFromModels = function(modelsToRemove) {
 			for(var i = 0; i < modelsToRemove.length; i++) {
 				var index = $scope.models.indexOf(modelsToRemove[i]);
@@ -133,26 +135,32 @@ angular.module('tasks')
 		};
 
 		$scope.onUpdateProp = function(model, prop, val) {
-			//not changed
-			if (model[prop] === val) {
-				return;
-			}
-
-			model[prop] = val;
-
 			$scope.resetValidation();
 
-			apinetService.action({
+			var data = {
+				Id: model.Id,
+				Name: model.Name,
+				ViewOrder: model.ViewOrder,
+				ModelVersion: model.ModelVersion
+			};
+			data[prop] = val;
+			return apinetService.action({
 				method: 'tasks/dictionary/editCustomStatus',
 				project: sysConfig.project,
-				model: model
+				model: data
 			}).then(function(response) {
 				if (response.validation.success) {
 					angular.extend(model, response.model);
+					model.validation = {};
 				} else {
-					handleError(response.validation);
+					model.validation = response.validation;
 				}
+				return response.validation.success;
 			}, handleException);
+		};
+
+		$scope.onCancel = function(model, val) {
+			model.validation = {};
 		};
 
 		$scope.requestParams = { project: sysConfig.project };
