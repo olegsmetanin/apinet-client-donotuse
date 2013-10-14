@@ -19,10 +19,12 @@ angular.module('core')
 				' lookup-options="{openOnEnter: false' + 
 					(attr.inputLookupOptions ?  + ', ' + attr.inputLookupOptions : '') + '}" />';
 
+			//margin-bottom in form is hack - strange margin from top on enter in edit mode
+			//can't fix another
 			var tmpl =
 '<div inline-edit="' + attr.model + '">' +
 '	<span ng-hide="editMode" ng-click="edit()" class="editable">' + viewTmpl + '</span>' +
-'	<form name="editForm" ng-show="editMode" style="width: 100%" novalidate>' +
+'	<form name="editForm" ng-show="editMode" style="width: 100%; margin-bottom: 0px" novalidate>' +
 editTmpl +
 '		<button type="button" class="btn" ng-show="isChanged" ng-disabled="!cancelEnabled()" ng-click="cancel()" title="Отменить">' +
 '			<i class="icon-reply"></i>' + 
