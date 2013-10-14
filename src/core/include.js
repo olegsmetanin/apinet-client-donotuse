@@ -17,9 +17,6 @@ sysConfig.modules['core'] = {
 		'src/core/directives/integer.js',
 		'src/core/directives/lookup.js',
 		'src/core/directives/requiredMultiple.js',
-		'src/core/directives/affix.js',
-		'src/core/directives/fixHeight.js',
-		'src/core/directives/scrollspy.js',
 		'src/core/directives/ago.select2.js',
 		'src/core/directives/grids.js',
 
@@ -28,6 +25,7 @@ sysConfig.modules['core'] = {
 		'src/core/directives/inplace/inlineTextArea.js',
 		'src/core/directives/inplace/inlineLookup.js',
 		'src/core/directives/inplace/inlineDate.js',
+		'src/core/directives/inplace/inlineButtons.js',
 
 		'src/core/directives/filters/filters.js',
 		'src/core/directives/filters/services.js',

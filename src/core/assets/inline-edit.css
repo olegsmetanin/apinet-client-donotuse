@@ -1,3 +1,7 @@
 .editable {
 	cursor: pointer;
 }
+
+.waiting {
+	content: url('ajax-loader.gif');
+}

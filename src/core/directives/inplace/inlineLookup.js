@@ -9,7 +9,7 @@ angular.module('core')
 				? '<div style="display: inline-block" ng-transclude></div>'
 				: '{{ ' + attr.model + '.text || \'---\' }}';
 
-			var editTmpl = '<input type="text" ng-model="emodel.value"' + 
+			var editTmpl = '<input type="text" ng-model="emodel.value" ng-readonly="waiting"' + 
 				' lookup="' + attr.inputLookup + '" ' +
 				(attr.inputClass ? ' class="' + attr.inputClass + '"' : '') + 
 				(attr.hasOwnProperty('required') 
@@ -17,24 +17,16 @@ angular.module('core')
 					: '') +
 				(attr.hasOwnProperty('multiple') ? ' multiple="multiple"' : '') +
 				' lookup-options="{openOnEnter: false' + 
-					(attr.inputLookupOptions ?  + ', ' + attr.inputLookupOptions : '') + '}" />';
+					(attr.inputLookupOptions ?  + ', ' + attr.inputLookupOptions : '') + '}"></input>';
 
+			//margin-bottom in form is hack - strange margin from top on enter in edit mode
+			//can't fix another
 			var tmpl =
 '<div inline-edit="' + attr.model + '">' +
-'	<span ng-hide="editMode" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false" class="editable">' +
-'		<span ng-click="edit()">' + viewTmpl + '</span>' +
-'		<button type="button" class="btn btn-mini" ng-click="edit()" ng-show="showEdit" title="Редактировать">' +
-'			<i class="icon-pencil"></i>' +
-'		</button>' +
-'	</span>' +
-'	<form name="editForm" class="span12" ng-show="editMode" novalidate>' +
+'	<span ng-hide="editMode" ng-click="edit()" class="editable">' + viewTmpl + '</span>' +
+'	<form name="editForm" ng-show="editMode" style="width: 100%; margin-bottom: 0px" novalidate>' +
 editTmpl +
-'		<button type="button" class="btn" ng-show="isChanged" ng-click="cancel()" title="Отменить">' +
-'			<i class="icon-reply"></i>' + 
-'		</button>' +
-'		<button type="button" class="btn" ng-show="isChanged" ng-click="update()" ng-disabled="editForm.$invalid" title="Сохранить">' +
-'			<i class="icon-ok"></i>' +
-'		</button>' +
+'		<inline-buttons></inline-buttons>' +
 '	</form>' +
 '</div>'; return tmpl;
 		},

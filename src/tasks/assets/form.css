@@ -5,18 +5,6 @@
     background-color: rgba(255,255,255,1);
 }
 
-.container-fluid .affix {
-	width: 22.54%;
-}
-
-@media (min-width: 1020px) {
-    section {
-        margin-top: -80px;
-        padding-top: 80px;
-    }
-}
-
-
 .status-prev {
 	text-align: center;
 	white-space: nowrap;

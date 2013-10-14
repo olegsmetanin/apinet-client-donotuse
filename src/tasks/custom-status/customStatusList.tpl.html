@@ -33,7 +33,7 @@
 		<!-- <twocolumn-content> -->
 		<div class="span9">
 			<div class="alert alert-error span12" ng-show="validation.generalErrors">
-				{{ validation.generalErrors }}
+				{{ validation.generalErrors | joinBy }}
 			</div>
 			<form name="createStatusForm" class="form-inline" novalidate>
 				<fieldset>
@@ -59,9 +59,8 @@
 					</div>
 
 					<div class="span6 pull-right">
+						<input type="text" lookup="tasks/dictionary/lookupCustomStatuses" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementStatus" placeholder="Статус для замены удаляемых (опционально)" style="width: 80%"/>
 						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">Удалить</button>
-						<input type="text" lookup="tasks/dictionary/lookupCustomStatuses" lookup-options="{allowClear: true}"
-						       ng-model="deleteModel.replacementStatus" placeholder="Статус для замены удаляемых (опционально)" style="width: 80%"/>
 					</div>
 				</fieldset>
 			</form>
@@ -76,9 +75,9 @@
 						<input type="checkbox" checker="items: 'models'">
 					</th>
 					<th><span sortable-heading="sorters.Name" caption="Наименование"></span></th>
-					<th><span sortable-heading="sorters.ViewOrder" caption="Порядок"></span></th>
-					<th><span sortable-heading="sorters.Creator_FIO" caption="Автор"></span></th>
-					<th><span sortable-heading="sorters.CreationTime" caption="Дата создания"></span></th>
+					<th style="width: 15%"><span sortable-heading="sorters.ViewOrder" caption="Порядок"></span></th>
+					<th style="width: 15%"><span sortable-heading="sorters.Creator_FIO" caption="Автор"></span></th>
+					<th style="width: 20%"><span sortable-heading="sorters.CreationTime" caption="Дата создания"></span></th>
 					<th style="width: 1%">&nbsp;</th>
 				</tr>
 				</thead>
@@ -88,10 +87,16 @@
 						<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 					</td>
 					<td>
-						<inline-text model="model.Name" on-update="onUpdateProp(model, 'Name', val)" input-class="span8" required />
+						<inline-text model="model.Name" on-update="onUpdateProp(model, 'Name', val)" on-cancel="onCancel(model, val)" input-class="span8" required></inline-text>
+						<span ng-show="model.validation.fieldErrors['Name']" class="help-block alert-error">
+							{{ model.validation.fieldErrors['Name'] | joinBy }}
+						</span>
 					</td>
 					<td>
-						<inline-text model="model.ViewOrder" on-update="onUpdateProp(model, 'ViewOrder', val)" input-class="span3" />
+						<inline-text model="model.ViewOrder" on-update="onUpdateProp(model, 'ViewOrder', val)" on-cancel="onCancel(model, val)" input-class="span4" required></inline-text>
+						<span ng-show="model.validation.fieldErrors['ViewOrder']" class="help-block alert-error">
+							{{ model.validation.fieldErrors['ViewOrder'] | joinBy }}
+						</span>
 					</td>
 					<td>{{ model.Author }}</td>
 					<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
