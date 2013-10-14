@@ -87,17 +87,13 @@
 						<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 					</td>
 					<td>
-						<div>
-							<inline-text model="model.Name" on-update="onUpdateProp(model, 'Name', val)" on-cancel="onCancel(model, val)" input-class="span8" required />
-						</div>
+						<inline-text model="model.Name" on-update="onUpdateProp(model, 'Name', val)" on-cancel="onCancel(model, val)" input-class="span8" required></inline-text>
 						<span ng-show="model.validation.fieldErrors['Name']" class="help-block alert-error">
 							{{ model.validation.fieldErrors['Name'] | joinBy }}
 						</span>
 					</td>
 					<td>
-						<div>
-							<inline-text model="model.ViewOrder" on-update="onUpdateProp(model, 'ViewOrder', val)" on-cancel="onCancel(model, val)" input-class="span4" required />
-						</div>
+						<inline-text model="model.ViewOrder" on-update="onUpdateProp(model, 'ViewOrder', val)" on-cancel="onCancel(model, val)" input-class="span4" required></inline-text>
 						<span ng-show="model.validation.fieldErrors['ViewOrder']" class="help-block alert-error">
 							{{ model.validation.fieldErrors['ViewOrder'] | joinBy }}
 						</span>

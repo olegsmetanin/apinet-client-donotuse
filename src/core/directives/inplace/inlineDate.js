@@ -14,14 +14,8 @@ angular.module('core')
 '		<input type="text" ' + 
 	(attr.inputClass ? 'class="' + attr.inputClass + '"' : '') + 
 	(attr.hasOwnProperty('required') ? ' required="required"' : '') +
-	' ng-model="emodel.value" ui-date="{dateFormat:\'dd.mm.yy\', changeMonth: true, changeYear: true}" ui-date-format="" ng-readonly="waiting"/>' +
-'		<button type="button" class="btn" ng-show="isChanged" ng-click="cancel()" ng-disabled="!cancelEnabled()" title="Отменить">' +
-'			<i class="icon-reply"></i>' + 
-'		</button>' +
-'		<button type="button" class="btn" ng-show="isChanged" ng-click="update()" ng-disabled="!updateEnabled()" title="Сохранить">' +
-'			<i class="icon-ok"></i>' +
-'		</button>' +
-'		<img ng-show="waiting" class="waiting"></img>' +
+	' ng-model="emodel.value" ui-date="{dateFormat:\'dd.mm.yy\', changeMonth: true, changeYear: true}" ui-date-format="" ng-readonly="waiting"></input>' +
+'		<inline-buttons></inline-buttons>' +
 '	</form>' +
 '</div>'; return tmpl;
 		},

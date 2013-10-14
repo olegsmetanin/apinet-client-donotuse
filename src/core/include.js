@@ -25,6 +25,7 @@ sysConfig.modules['core'] = {
 		'src/core/directives/inplace/inlineTextArea.js',
 		'src/core/directives/inplace/inlineLookup.js',
 		'src/core/directives/inplace/inlineDate.js',
+		'src/core/directives/inplace/inlineButtons.js',
 
 		'src/core/directives/filters/filters.js',
 		'src/core/directives/filters/services.js',

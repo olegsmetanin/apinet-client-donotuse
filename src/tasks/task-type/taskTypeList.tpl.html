@@ -74,9 +74,7 @@
 							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 						</td>
 						<td>
-							<div>
-								<inline-text model="model.Name" on-update="onUpdate(model, val)" on-cancel="onCancel(model, val)" input-class="span10" required/>
-							</div>
+							<inline-text model="model.Name" on-update="onUpdate(model, val)" on-cancel="onCancel(model, val)" input-class="span10" required></inline-text>
 							<span ng-show="model.validation.fieldErrors['Name']" class="help-block alert-error">
 								{{ model.validation.fieldErrors['Name'] | joinBy }}
 							</span>
