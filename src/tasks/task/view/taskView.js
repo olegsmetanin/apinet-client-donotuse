@@ -1,6 +1,6 @@
 angular.module('tasks')
-.config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig', 'securityAuthorizationProvider',
-	function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig, securityAuthorizationProvider) {
+.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
+	function ($stateProvider, sysConfig, securityAuthorizationProvider) {
 
 	var taskView = {
 			name: 'page.taskView',
