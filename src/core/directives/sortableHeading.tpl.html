@@ -3,12 +3,12 @@
 
 	<div class="sorter pull-right">
 		<button ng-show="sorter.direction !== 'desc'" type="button" class="btn btn-mini" ng-model="sorter.direction"
-		        btn-checkbox btn-checkbox-true="'asc'" btn-checkbox-false="''" title="По возрастанию">
+		        btn-checkbox btn-checkbox-true="'asc'" btn-checkbox-false="''" title="{{ 'core.sorting.ascending' | i18n }}">
 			<span class="arrow">▲</span>
 			<span class="priority" ng-show="sorter.direction">{{ sorter.priority }}</span>
 		</button>
 		<button ng-show="sorter.direction !== 'asc'" type="button" class="btn btn-mini" ng-model="sorter.direction"
-		        btn-checkbox btn-checkbox-true="'desc'" btn-checkbox-false="''" title="По убыванию">
+		        btn-checkbox btn-checkbox-true="'desc'" btn-checkbox-false="''" title="{{ 'core.sorting.descending' | i18n }}">
 			<span class="priority" ng-show="sorter.direction">{{ sorter.priority }}</span>
 			<span class="arrow">▼</span>
 		</button>

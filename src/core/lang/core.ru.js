@@ -1,25 +1,128 @@
-angular.module('core')
-	.run(['i18n',
-		function(i18n) {
-			angular.extend(i18n, {
-				'test':'testru'
-			});
+angular.module('core').run(['i18n', function(i18n) {
+	i18n.addMessages('core', {
+		'labels': {
+			'yes': 'Да',
+			'no': 'Нет'
+		},
+
+		'buttons': {
+			'cancel': 'Отмена',
+			'clear': 'Очистить',
+			'apply': 'Применить',
+			'save': 'Сохранить',
+			'load': 'Загрузить',
+			'delete': 'Удалить',
+			'edit': 'Редактировать',
+			'more': 'Еще'
+		},
+
+		'fields': {
+			'name': 'Наименование',
+			'fullName': 'Полное наименование',
+			'description': 'Описание',
+			'type': 'Тип',
+			'creationTime': 'Дата создания'
+		},
+
+		'sorting': {
+			'ascending': 'По возрастанию',
+			'descending': 'По убыванию'
+		},
+
+		'errors': {
+			'title': 'Ошибка',
+			'unknown': 'Неизвестная ошибка'
+		},
+
+		'confirm': {
+			'delete': {
+				'records': 'Вы действительно хотите удалить записи?'
+			}
+		},
+
+		'menu' :{
+			'user': {
+				'currentUser': 'Пользователь',
+				'profile': 'Профиль',
+				'messages': 'Сообщения',
+				'reports': 'Отчеты',
+				'system': 'Система'
+			}
+		},
+
+		'auth': {
+			'credentials': {
+				'legend': 'Введите данные для авторизации',
+				'email': 'E-mail',
+				'password': 'Пароль'
+			},
+			'buttons': {
+				'signIn': 'Вход',
+				'signOut': 'Выход'
+			},
+			'reason': {
+				'notAuthorized': 'У вас недостаточно прав. Возможно вы хотите войти под другим именем?',
+				'notAuthenticated': 'Вы должны быть авторизованы, для доступа к этой части приложения.'
+			},
+			'errors': {
+				'invalidCredentials': 'Неудачная попытка входа в систему. Проверьте введенные данные, и попробуйте еще раз.',
+				'serverError': 'Непредвиденная ошибка при входе в систему: {{exception}}.'
+			}
+		},
+
+		'filters': {
+			'simple': 'Простой',
+			'complex': 'Сложный',
+			'user': 'По параметрам',
+			'favorites': 'Избранные',
+
+			'ops': {
+				'exists': 'СУЩЕСТВУЕТ',
+				'like': 'СОДЕРЖИТ',
+				'and': 'И',
+				'or': 'ИЛИ',
+
+				'not': {
+					'exists': 'НЕ СУЩЕСТВУЕТ',
+					'like': 'НЕ СОДЕРЖИТ',
+					'and': 'И НЕ'
+				}
+			},
+
+			'buttons': {
+				'newRootNode': 'Добавить верхний уровень',
+				'rootNode': 'верхний уровень',
+				'newNode': 'Добавить',
+				'editNode': 'Редактировать',
+				'deleteNode': 'Удалить'
+			},
+
+			errors: {
+				'unexpected': {
+					op: 'Данное условие не может содержать оператора',
+					value: 'Данное условие не может содержать значения',
+					child: 'Данное условие не должно содержать вложенных условий'
+				},
+				'missing': {
+					'op': 'Не указан оператор',
+					'value': 'Не указано значение'
+				},
+				'invalid': {
+					'op': 'Недопустимый оператор'
+				},
+				expected: {
+					'guid': 'Значение должно уникальным идентификатором (Guid)',
+					'int': 'Значение должно быть целочисленным',
+					'float': 'Значение должно быть численным',
+					'bool': 'Значение должно быть "Да" или "Нет"',
+					'date': 'Значение должно быть валидной датой',
+					'enum': 'Значение не входит в список допустимых'
+				}
+			}
+		},
+
+		'application': {
+			'creator': 'AGO Systems'
 		}
-	]);
-
-
-angular.module('core')
-	.constant('I18N.MESSAGES', {
-		'errors.route.changeError': 'Route change error',
-		'crud.user.save.success': "A user with id '{{id}}' was saved successfully.",
-		'crud.user.remove.success': "A user with id '{{id}}' was removed successfully.",
-		'crud.user.remove.error': "Something went wrong when removing user with id '{{id}}'.",
-		'crud.user.save.error': "Something went wrong when saving a user...",
-		'crud.project.save.success': "A project with id '{{id}}' was saved successfully.",
-		'crud.project.remove.success': "A project with id '{{id}}' was removed successfully.",
-		'crud.project.save.error': "Something went wrong when saving a project...",
-		'login.reason.notAuthorized': "You do not have the necessary access permissions.  Do you want to login as someone else?",
-		'login.reason.notAuthenticated': "You must be logged in to access this part of the application.",
-		'login.error.invalidCredentials': "Login failed.  Please check your credentials and try again.",
-		'login.error.serverError': "There was a problem with authenticating: {{exception}}."
 	});
+}]);

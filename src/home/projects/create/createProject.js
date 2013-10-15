@@ -5,20 +5,21 @@ angular.module('home')
 				name: 'page.createProject',
 				url: '/projects/create',
 				resolve: {
+					i18n: 'i18n',
 					$location: '$location',
 					pageConfig: 'pageConfig',
 					dictionaryService: 'dictionaryService',
 					currentUser: securityAuthorizationProvider.requireAdminUser()
 				},
-				onEnter: function(pageConfig) {
+				onEnter: function(pageConfig, i18n) {
 					pageConfig.setConfig({
 						breadcrumbs: [
 							{
-								name: 'Projects',
+								name: i18n.msg('projects.list.title'),
 								url: '/#!/projects/listview'
 							},
 							{
-								name: 'New project' ,
+								name: i18n.msg('projects.create.title'),
 								url: '/#!/projects/newProject'
 							}
 						]

@@ -1,5 +1,5 @@
 angular.module('core')
-	.service('apinetService', ['$q', '$http', '$cacheFactory', function ($q, $http, $cacheFactory) {
+	.service('apinetService', ['$q', '$http', '$cacheFactory', 'i18n', function ($q, $http, $cacheFactory, i18n) {
 		angular.extend(this, {
 			getModel: function (requestData, postProcessFn) {
 				var deferred = $q.defer();
@@ -31,10 +31,11 @@ angular.module('core')
 							deferred.resolve(data);
 							return;
 						}
-						deferred.reject('Error: ' + (data.message ? data.message : 'unknown error'));
+						deferred.reject('Error: ' + (data.message ? data.message : i18n.msg('core.errors.unknown')));
 					})
 					.error(function (data, status) {
-						deferred.reject(data && data.message ? data.message : 'Error: ' + status);
+						deferred.reject(data && data.message ?
+							data.message : i18n.msg('core.errors.title') + ': ' + status);
 					});
 				return deferred.promise;
 			},
@@ -51,10 +52,11 @@ angular.module('core')
 							deferred.resolve(data);
 							return;
 						}
-						deferred.reject('Error: ' + (data.message ? data.message : 'unknown error'));
+						deferred.reject('Error: ' + (data.message ? data.message : i18n.msg('core.errors.unknown')));
 					})
 					.error(function (data, status) {
-						deferred.reject(data && data.message ? data.message : 'Error: ' + status);
+						deferred.reject(data && data.message ?
+							data.message : i18n.msg('core.errors.title') + ': ' + status);
 					});
 				return deferred.promise;
 			},
@@ -68,11 +70,12 @@ angular.module('core')
 							deferred.resolve(data);
 						}
 						else {
-							deferred.reject(data && data.message ? data.message : 'Unknown error');
+							deferred.reject(data && data.message ? data.message : i18n.msg('core.errors.unknown'));
 						}
 					})
 					.error(function (data, status) {
-						deferred.reject(data && data.message ? data.message : 'Error: ' + status);
+						deferred.reject(data && data.message ?
+							data.message : i18n.msg('core.errors.title') + ': ' + status);
 					});
 
 				return deferred.promise;

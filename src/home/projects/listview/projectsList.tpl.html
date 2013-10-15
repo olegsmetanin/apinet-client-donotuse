@@ -6,29 +6,29 @@
 			<div filtered-list-actions></div>
 
 			<tabset>
-				<tab heading="Simple">
+				<tab heading="{{ 'core.filters.simple' | i18n }}">
 					<form>
 						<fieldset>
-							<label>Наименование</label>
+							<label>{{ 'core.fields.name' | i18n }}</label>
 							<input lookup="home/projects/lookupProjectNames" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'='}" class="span12" multiple />
-							<label>Статус</label>
+							<label>{{ 'projects.fields.status' | i18n }}</label>
 							<input lookup="home/dictionary/lookupProjectStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op:'='}" class="span12" multiple />
-							<label>Участие</label>
+							<label>{{ 'projects.list.filters.participation' | i18n }}</label>
 							<select ng-model="requestParams.mode" class="span12">
-								<option value="All">Все</option>
-								<option value="Participated">Я участник</option>
+								<option value="All">{{ 'projects.list.filters.participation.all' | i18n }}</option>
+								<option value="Participated">{{ 'projects.list.filters.participation.me' | i18n }}</option>
 							</select>
-							<label>Теги</label>
+							<label>{{ 'projects.fields.tags' | i18n}}</label>
 							<input lookup="home/dictionary/lookupProjectTags" ng-model="filter.simple.Tags" filter-node="{path: 'Tags.Tag', op:'='}" class="span12" multiple />
 						</fieldset>
 					</form>
 				</tab>
-				<tab heading="Complex">
+				<tab heading="{{ 'core.filters.complex' | i18n }}">
 					<div structured-filter filter-ng-model="filter.complex" meta="'home/projects/projectMetadata'">
 					</div>
 				</tab>
 
-				<tab heading="Favorites">
+				<tab heading="{{ 'core.filters.favorites' | i18n }}">
 					<div filter-persister group="'Projects'" filter="filter"></div>
 				</tab>
 
@@ -40,7 +40,7 @@
 			<div style="margin-bottom: 10px;" ng-show="currentUser.admin">
 				<a class="btn btn-primary" href="#!/projects/create">
 					<i class="icon-plus icon-white"></i>
-					<span>Добавить проект</span>
+					<span>{{ 'projects.list.buttons.add' | i18n }}</span>
 				</a>
 			</div>
 
@@ -50,12 +50,12 @@
 			       infinite-scroll-distance="1">
 				<thead>
 					<tr>
-						<th><span sortable-heading="sorters.Name" caption="Наименование"></span></th>
-						<th><span sortable-heading="sorters.Type_Name" caption="Тип"></span></th>
-						<th><span sortable-heading="sorters.Description" caption="Описание"></span></th>
-						<th><span sortable-heading="sorters.Status_Name" caption="Статус"></span></th>
-						<th><span sortable-heading="sorters.CreationTime" caption="Дата создания"></span></th>
-						<th><span sortable-heading="sorters.IsArchive" caption="Архив"></span></th>
+						<th><span sortable-heading="sorters.Name" caption="{{ 'core.fields.name' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.Type_Name" caption="{{ 'core.fields.type' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.Description" caption="{{ 'core.fields.description' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.Status_Name" caption="{{ 'projects.fields.status' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.CreationTime" caption="{{ 'core.fields.creationTime' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.IsArchive" caption="{{ 'projects.fields.isArchive' | i18n }}"></span></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -63,10 +63,7 @@
 						<td>
 							<a href="/projects/{{model.ProjectCode}}" target="_blank">
 								{{ model.Name }}
-							</a>&nbsp;(
-							<a href="#!/projects/projectDetails/{{ model.Id }}">
-								details
-							</a>)
+							</a>
 						</td>
 						<td>{{ model.Type.Name }}</td>
 						<td>{{ model.Description }}</td>
@@ -79,7 +76,7 @@
 
 			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
 			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-				ng-disabled="applyEnabled">More</button>
+				ng-disabled="applyEnabled">{{ 'core.buttons.more' | i18n }}</button>
 		</twocolumn-content>
 	</div>
 </container>

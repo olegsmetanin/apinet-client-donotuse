@@ -4,17 +4,19 @@
 	<ul ng-controller="userRoleCtrl" class="dropdown-menu">
 		<li class="nav-header">Roles {{role}}</li>
 
-		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('admin')"><i ng-show="roleIs('admin')" class="icon-ok" style="float:right;"></i>Admin</a>
+		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('admin')">
+			<i ng-show="roleIs('admin')" class="icon-ok" style="float:right;"></i>{{ 'projects.roles.admin' | i18n }}</a>
 		</li>
-		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('manager')"><i ng-show="roleIs('manager')" class="icon-ok" style="float:right;"></i>Manager</a>
+		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('manager')">
+			<i ng-show="roleIs('manager')" class="icon-ok" style="float:right;"></i>{{ 'projects.roles.manager' | i18n }}</a>
 		</li>
 
 
 		<li class="divider"></li>
 
-		<li><a href="/#!/projects/statuses">Statuses</a>
+		<li><a href="/#!/projects/statuses">{{ 'projects.statuses.title' | i18n }}</a>
 		</li>
-		<li><a href="/#!/projects/tags">Tags</a>
+		<li><a href="/#!/projects/tags">{{ 'projects.tags.title' | i18n }}</a>
 		</li>
 	</ul>
 

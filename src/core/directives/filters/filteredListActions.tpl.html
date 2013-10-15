@@ -1,8 +1,13 @@
 <div class="btn-group pull-right">
-	<button type="button" class="btn btn-info" ng-click="clearFilter();">
+	<button type="button" class="btn btn-info"
+	        ng-click="clearFilter();"
+	        title="{{ 'core.buttons.clear' | i18n }}">
 		<i class="icon-remove"></i>
 	</button>
-	<button type="button" class="btn btn-success" ng-click="refreshList();" ng-disabled="!applyEnabled">
+	<button type="button" class="btn btn-success"
+	        ng-click="refreshList();"
+	        ng-disabled="!applyEnabled"
+	        title="{{ 'core.buttons.apply' | i18n }}">
 		<i class="icon-ok"></i>
 	</button>
 </div>

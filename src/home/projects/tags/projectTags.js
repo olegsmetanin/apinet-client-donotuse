@@ -5,20 +5,21 @@ angular.module('home')
 				name: 'page.projectTags',
 				url: '/projects/tags',
 				resolve: {
+					i18n: 'i18n',
 					pageConfig: 'pageConfig',
 					promiseTracker: 'promiseTracker',
 					apinetService: 'apinetService',
 					currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
 				},
-				onEnter: function(pageConfig) {
+				onEnter: function(pageConfig, i18n) {
 					pageConfig.setConfig({
 						breadcrumbs: [
 							{
-								name: 'Projects',
+								name: i18n.msg('projects.list.title'),
 								url: '/#!/projects/listview'
 							},
 							{
-								name: 'Tags' ,
+								name: i18n.msg('projects.tags.title'),
 								url: '/#!/projects/tags'
 							}
 						]
@@ -35,8 +36,8 @@ angular.module('home')
 			});
 		}
 	])
-	.controller('projectTagsCtrl', ['$scope', 'apinetService', '$window',
-		function($scope, apinetService, $window) {
+	.controller('projectTagsCtrl', ['$scope', 'apinetService', '$window', 'i18n',
+		function($scope, apinetService, $window, i18n) {
 			angular.extend($scope, {
 				requestParams: { mode: 'Personal' },
 				editFormVisible: false,
@@ -55,7 +56,7 @@ angular.module('home')
 				},
 
 				deleteItem: function(item) {
-					if (!$window.confirm('Вы действительно хотите удалить записи?')) {
+					if (!$window.confirm(i18n.msg('core.confirm.delete.records'))) {
 						return;
 					}
 

@@ -49,9 +49,8 @@ sysConfig.modules['core'] = {
 		'src/core/parts/header/userMenu/userMenu.js',
 
 		'src/core/services/services.js',
-		'src/core/services/i18n/localizedMessages.js',
-		
 		'src/core/services/i18n/i18n.js',
+
 		'src/core/parts/header/moduleMenu/moduleMenu.js',
 
 		'src/core/services/reportService/reportService.js',

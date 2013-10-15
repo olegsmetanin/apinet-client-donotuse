@@ -3,30 +3,29 @@
 		     filtered-list="{ method: 'home/dictionary/getProjectTags'}"
 		     initial-sorters="{ FullName: 'asc' }">
 		<twocolumn-side>
-			<button type="button" class="btn btn-success" ng-click="refreshList()"
-			        ng-disabled="!applyEnabled" style="float:right;">Apply</button>
+			<div filtered-list-actions></div>
 
 			<tabset>
-				<tab heading="Simple">
+				<tab heading="{{ 'core.filters.simple' | i18n }}">
 					<form>
 						<fieldset>
-							<label>Принадлежность</label>
+							<label>{{ 'projects.tags.filters.ownership' | i18n }}</label>
 							<select ng-model="requestParams.mode">
-								<option value="Personal">Персональные теги</option>
-								<option value="Common">Общие теги</option>
+								<option value="Personal">{{ 'projects.tags.filters.ownership.personal' | i18n }}</option>
+								<option value="Common">{{ 'projects.tags.filters.ownership.common' | i18n }}</option>
 							</select>
-							<label>Наименование</label>
+							<label>{{ 'core.fields.name' | i18n }}</label>
 							<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}"  class="span12" />
 						</fieldset>
 					</form>
 				</tab>
-				<tab heading="Complex">
+				<tab heading="{{ 'core.filters.complex' | i18n }}">
 					<div structured-filter
 					     filter-ng-model="filter.complex"
 					     meta="'home/dictionary/projectTagMetadata'">
 					</div>
 				</tab>
-				<tab heading="Favorites">
+				<tab heading="{{ 'core.filters.favorites' | i18n }}">
 					<div filter-persister group="'ProjectTags'" filter="filter"></div>
 				</tab>
 			</tabset>
@@ -37,7 +36,7 @@
 			<div ng-show="currentUser.admin || requestParams.mode === 'Personal'">
 				<button style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">
 					<i class="icon-plus icon-white"></i>
-					<span>New tag</span>
+					<span>{{ 'projects.tags.buttons.add' | i18n }}</span>
 				</button>
 
 				<div class="alert alert-error" ng-show="validation.generalErrors">
@@ -47,7 +46,7 @@
 				<form style="margin-top: 10px;" name="newItemForm" class="form-horizontal" novalidate ng-show="editFormVisible">
 					<fieldset>
 						<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['Name'] }">
-							<label class="control-label">Наименование</label>
+							<label class="control-label">{{ 'core.fields.name' | i18n }}</label>
 							<div class="controls">
 								<input class="span3" name="Name" type="text" ng-model="editingItem.Name" required />
 							<span ng-show="validation.fieldErrors['Name']" class="help-inline">
@@ -58,8 +57,8 @@
 					</fieldset>
 					<div>
 						<button class="btn btn-primary login" ng-click="saveItem();"
-						        ng-disabled='newItemForm.$invalid'>Сохранить</button>
-						<button class="btn btn-warning" ng-click="cancelEdit();">Отменить</button>
+						        ng-disabled='newItemForm.$invalid'>{{ 'core.buttons.save' | i18n }}</button>
+						<button class="btn btn-warning" ng-click="cancelEdit();">{{ 'core.buttons.cancel' | i18n }}</button>
 					</div>
 				</form>
 			</div>
@@ -70,34 +69,34 @@
 			       infinite-scroll-distance="1">
 				<thead>
 					<tr>
-						<th style="width: 115px;" ng-show="currentUser.admin"></th>
-						<th><span sortable-heading="sorters.Name" caption="Наименование"></span></th>
-						<th><span sortable-heading="sorters.FullName" caption="Полное наименование"></span></th>
-						<th><span sortable-heading="sorters.CreationTime" caption="Дата создания"></span></th>
+						<th><span sortable-heading="sorters.Name" caption="{{ 'core.fields.name' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.FullName" caption="{{ 'core.fields.fullName' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.CreationTime" caption="{{ 'core.fields.creationTime' | i18n }}"></span></th>
+						<th style="width: 200px;" ng-show="currentUser.admin"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="model in models">
-						<td ng-show="currentUser.admin || requestParams.mode === 'Personal'">
-							<button class="btn-mini btn-info" ng-click="editItem(model);">
-								<i class="icon-edit icon-white"></i>
-								<span>Edit</span>
-							</button>
-							<button class="btn-mini btn-danger" ng-click="deleteItem(model);">
-								<i class="icon-edit icon-white"></i>
-								<span>Delete</span>
-							</button>
-						</td>
 						<td>{{ model.Name }} </td>
 						<td>{{ model.FullName }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+						<td ng-show="currentUser.admin">
+							<button class="btn-mini btn-info" ng-click="editItem(model);">
+								<i class="icon-edit icon-white"></i>
+								<span>{{ 'core.buttons.edit' | i18n }}</span>
+							</button>
+							<button class="btn-mini btn-danger" ng-click="deleteItem(model);">
+								<i class="icon-edit icon-white"></i>
+								<span>{{ 'core.buttons.delete' | i18n }}</span>
+							</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
 
 			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
 			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-			        ng-disabled="applyEnabled">More</button>
+			        ng-disabled="applyEnabled">{{ 'core.buttons.more' | i18n }}</button>
 		</twocolumn-content>
 	</div>
 </container>

@@ -5,14 +5,15 @@
 				name: 'page.projectList',
 				url: '/projects/listview',
 				resolve: {
+					i18n: 'i18n',
 					pageConfig: 'pageConfig',
 					promiseTracker: 'promiseTracker',
 					currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
 				},
-				onEnter: function(pageConfig) {
+				onEnter: function(pageConfig, i18n) {
 					pageConfig.setConfig({
 						breadcrumbs: [{
-							name: 'Projects',
+							name: i18n.msg('projects.list.title'),
 							url: '/#!/projects/listview'
 						}]
 					});

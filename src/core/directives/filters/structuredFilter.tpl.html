@@ -1,15 +1,15 @@
 <div class="filteringComponent structuredFilter">
 	<div class="buttons btn-group">
-		<button class="btn btn-success" title="Добавить верхний уровень" ng-click="newRootNode()" ng-disabled="!newRootNodeEnabled">
-			<i class="icon-plus icon-white"></i> верхний уровень
+		<button class="btn btn-success" title="{{ 'core.filters.buttons.newRootNode' | i18n }}" ng-click="newRootNode()" ng-disabled="!newRootNodeEnabled">
+			<i class="icon-plus icon-white"></i> {{ 'core.filters.buttons.rootNode' | i18n }}
 		</button>
-		<button class="btn" disabled="disabled" title="Добавить" ng-click="newNode()" ng-disabled="!newNodeEnabled">
+		<button class="btn" disabled="disabled" title="{{ 'core.filters.buttons.newNode' | i18n }}" ng-click="newNode()" ng-disabled="!newNodeEnabled">
 			<i class="icon-plus"></i>
 		</button>
-		<button class="btn" disabled="disabled" title="Редактировать" ng-click="editNode()" ng-disabled="!editNodeEnabled">
+		<button class="btn" disabled="disabled" title="{{ 'core.filters.buttons.editNode' | i18n }}" ng-click="editNode()" ng-disabled="!editNodeEnabled">
 			<i class="icon-pencil"></i>
 		</button>
-		<button class="btn" disabled="disabled" title="Удалить" ng-click="deleteNode()" ng-disabled="!deleteNodeEnabled">
+		<button class="btn" disabled="disabled" title="{{ 'core.filters.buttons.deleteNode' | i18n }}" ng-click="deleteNode()" ng-disabled="!deleteNodeEnabled">
 			<i class="icon-minus"></i>
 		</button>
 	</div>
@@ -23,8 +23,8 @@
 		</div>
 	</div>
 	<div class="buttons btn-group">
-		<button class="btn btn-warning" title="Очистить" ng-click="clear()" ng-disabled="!clearEnabled">
-			<i class="icon-remove-circle icon-white"></i> Очистить
+		<button class="btn btn-warning" title="{{ 'core.buttons.clear' | i18n }}" ng-click="clear()" ng-disabled="!clearEnabled">
+			<i class="icon-remove-circle icon-white"></i> {{ 'core.buttons.clear' | i18n }}
 		</button>
 	</div>
 </div>

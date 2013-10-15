@@ -1,5 +1,5 @@
 angular.module('core')
-	.service('filterHelpers', ['helpers', 'metadataService', function($helpers, $metadataService) {
+	.service('filterHelpers', ['helpers', 'metadataService', 'i18n', function($helpers, $metadataService, i18n) {
 		angular.extend(this, {
 			getNodeMetadata: function(method, node, parentMetadata, callback) {
 				var metadata;
@@ -122,13 +122,13 @@ angular.module('core')
 
 			pathDisplayName: function (path, parentMeta, nodeMeta) {
 				if (path === '||') {
-					return 'ИЛИ';
+					return i18n.msg('core.filters.ops.or');
 				}
 				if (path === '&&') {
-					return 'И';
+					return i18n.msg('core.filters.ops.and');
 				}
 				if (path === '&&!') {
-					return 'И НЕ';
+					return i18n.msg('core.filters.ops.not.and');
 				}
 
 				var metadata = path && nodeMeta ? nodeMeta : { };
@@ -148,16 +148,19 @@ angular.module('core')
 					return not || op === '!=' ? '!=' : '=';
 				}
 				if (op === 'exists' || op === 'not exists') {
-					return not || op === 'not exists' ? 'НЕ СУЩЕСТВУЕТ' : 'СУЩЕСТВУЕТ';
+					return not || op === 'not exists' ?
+						i18n.msg('core.filters.ops.not.exists') : i18n.msg('core.filters.ops.exists');
 				}
 				if (op === 'like' || op === 'not like') {
-					return not || op === 'not like' ? 'НЕ СОДЕРЖИТ' : 'СОДЕРЖИТ';
+					return not || op === 'not like' ?
+						i18n.msg('core.filters.ops.not.like') : i18n.msg('core.filters.ops.like');
 				}
 				if (op === '||') {
-					return path ? '' : 'ИЛИ';
+					return path ? '' : i18n.msg('core.filters.ops.or');
 				}
 				if (op === '&&' || op === '&&!') {
-					return path ? '' : (not || op === '&&!' ? 'И НЕ' : 'И');
+					return path ? '' : (not || op === '&&!' ?
+						i18n.msg('core.filters.ops.not.and') : i18n.msg('core.filters.ops.and'));
 				}
 
 				return op;
@@ -171,8 +174,8 @@ angular.module('core')
 				}
 
 				if (metadata && metadata.PropertyType === 'boolean') {
-					value = value === 'true' || value === '1' ?	'Да' : value;
-					value = value === 'false' || value === '0' ? 'Нет' : value;
+					value = value === 'true' || value === '1' ?	i18n.msg('core.labels.yes') : value;
+					value = value === 'false' || value === '0' ? i18n.msg('core.labels.no') : value;
 				}
 				else if (metadata && metadata.PropertyType === 'date') {
 					date = new Date(value);
@@ -218,11 +221,11 @@ angular.module('core')
 				}
 
 				if (node.path && !(node.op === '&&' || node.op === '||')) {
-					validationErrors.path.push('Данное условие не может содержать оператора');
+					validationErrors.path.push(i18n.msg('core.filters.errors.unexpected.op'));
 				}
 
 				if (node.path && node.value) {
-					validationErrors.path.push('Данное условие не может содержать значения');
+					validationErrors.path.push(i18n.msg('core.filters.errors.unexpected.value'));
 				}
 			},
 
@@ -230,11 +233,11 @@ angular.module('core')
 				var found, possibleValues, key, propertyType;
 
 				if (node.items && node.items.length) {
-					validationErrors.path.push('Данное условие не должно содержать вложенных условий');
+					validationErrors.path.push(i18n.msg('core.filters.errors.unexpected.child'));
 				}
 
 				if (!node.op) {
-					validationErrors.op.push('Не указан оператор');
+					validationErrors.op.push(i18n.msg('core.filters.errors.missing.op'));
 				}
 
 				if (this.isUnaryNode(node)) {
@@ -242,7 +245,7 @@ angular.module('core')
 				}
 
 				if (!node.value) {
-					validationErrors.value.push('Не указано значение');
+					validationErrors.value.push(i18n.msg('core.filters.errors.missing.value'));
 				}
 
 				propertyType = metadata.PropertyType;
@@ -250,26 +253,25 @@ angular.module('core')
 				if (propertyType === 'guid' && !new RegExp(
 						'^(\\{){0,1}[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]' +
 						'{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}(\\}){0,1}$').test(node.value)) {
-					validationErrors.value.push('Значение должно уникальным идентификатором (Guid)');
+					validationErrors.value.push(i18n.msg('core.filters.errors.expected.guid'));
 				}
 				if (propertyType === 'int' && isNaN(parseInt(node.value, 10))) {
-					validationErrors.value.push('Значение должно быть целочисленным');
+					validationErrors.value.push(i18n.msg('core.filters.errors.expected.int'));
 				}
 				if (propertyType === 'float' && isNaN(parseFloat(node.value))) {
-					validationErrors.value.push('Значение должно быть численным');
+					validationErrors.value.push(i18n.msg('core.filters.errors.expected.float'));
 				}
 				if (propertyType === 'bool' && node.value !== 'true' &&	node.value !== 'false') {
-					validationErrors.value.push('Значение должно быть "Да" или "Нет"');
+					validationErrors.value.push(i18n.msg('core.filters.errors.expected.bool'));
 				}
 				if (propertyType === 'date' || propertyType === 'datetime') {
 					if (isNaN((new Date(node.value).valueOf()))) {
-						validationErrors.value.push('Значение должно быть валидной датой');
+						validationErrors.value.push(i18n.msg('core.filters.errors.expected.date'));
 					}
 				}
 				if (propertyType === 'datetime') {
 					if (node.op === '=' || node.op === '!=') {
-						validationErrors.value.push('Временная метка не может проверяться ' +
-							'на равенство, так как не является дискретной величиной');
+						validationErrors.value.push(i18n.msg('core.filters.errors.invalid.op'));
 					}
 				}
 				if (propertyType === 'enum') {
@@ -286,7 +288,7 @@ angular.module('core')
 					}
 
 					if (!found) {
-						validationErrors.value.push('Значение не входит в список допустимых');
+						validationErrors.value.push(i18n.msg('core.filters.errors.expected.enum'));
 					}
 				}
 			},

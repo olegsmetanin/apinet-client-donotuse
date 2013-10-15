@@ -9,15 +9,21 @@
         <div class="alert alert-error" ng-show="authError">
             {{authError}}
         </div>
-        <div class="alert alert-info">Please enter your login details</div>
-        <label>E-mail</label>
+        <div class="alert alert-info">{{ 'core.auth.credentials.legend' | i18n }}</div>
+        <label>{{ 'core.auth.credentials.email' | i18n }}</label>
         <input name="login" type="email" ng-model="user.email" required autofocus>
-        <label>Password</label>
+        <label>{{ 'core.auth.credentials.password' | i18n }}</label>
         <input name="pass" type="password" ng-model="user.password" required>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary login" ng-click="login()" ng-disabled='form.$invalid'>Sign in</button>
-        <button class="btn clear" ng-click="clearForm()">Clear</button>
-        <button class="btn btn-warning cancel" ng-click="cancelLogin()">Cancel</button>
+        <button class="btn btn-primary login" ng-click="login()" ng-disabled='form.$invalid'>
+	        {{ 'core.auth.buttons.signIn' | i18n }}
+        </button>
+        <button class="btn clear" ng-click="clearForm()">
+	        {{ 'core.buttons.clear' | i18n }}
+        </button>
+        <button class="btn btn-warning cancel" ng-click="cancelLogin()">
+	        {{ 'core.buttons.cancel' | i18n }}
+        </button>
     </div>
 </form>

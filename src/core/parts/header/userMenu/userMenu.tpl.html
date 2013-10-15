@@ -2,20 +2,21 @@
     <a ng-show="!isAuthenticated()" ng-click="login()" href="#">Login</a>
 
     <a ng-show="isAuthenticated()" href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-        <img class="avatar-menu" src="http://beer2code.com/themes/core-admin/images/avatars/avatar1.jpg">User{{currentUser.name}} <b class="caret"></b>
+        <img class="avatar-menu" src="http://beer2code.com/themes/core-admin/images/avatars/avatar1.jpg" />
+	    {{ 'core.menu.user.currentUser' | i18n }} {{ currentUser.name }}
+	    <b class="caret"></b>
     </a>
     <ul ng-show="isAuthenticated()" class="dropdown-menu">
-        <li><a href="#">Profile</a>
+        <li><a href="#">{{ 'core.menu.user.profile' | i18n }}</a>
         </li>
-        <li><a href="#">Messages</a>
+        <li><a href="#">{{ 'core.menu.user.messages' | i18n }}</a>
         </li>
-        <li><a href="#">Reports</a>
+        <li><a href="#">{{ 'core.menu.user.reports' | i18n }}</a>
         </li>
-        <li><a href="#">System</a>
+        <li><a href="#">{{ 'core.menu.user.system' | i18n }}</a>
         </li>
         <li class="divider"></li>
-        <li><a href="#" ng-click="logout()">Logout</a>
+        <li><a href="#" ng-click="logout()">{{ 'core.auth.buttons.signOut' | i18n }}</a>
         </li>
     </ul>
 </li>
