@@ -11,15 +11,16 @@ angular.module('tasks')
 				}
 			},
 			resolve: {
+				i18n: 'i18n',
 				pageConfig: 'pageConfig',
 				currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
 				//, projectMember: securityAuthorizationProvider.requireGroups(['admins', 'managers'])
 			},
-			onEnter: function(pageConfig) {
+			onEnter: function(pageConfig, i18n) {
 				pageConfig.setConfig({
 					breadcrumbs: [
-						{ name: 'Tasks', url: '#!/' },
-						{ name: 'New', url: '#!/tasks/new' } ]
+						{ name: i18n.msg('tasks.list.title'), url: '#!/' },
+						{ name: i18n.msg('tasks.create.title'), url: '#!/tasks/new' } ]
 				});
 			}
 		};
@@ -45,7 +46,7 @@ angular.module('tasks')
 					if ($scope.nextAction === 'goToTask') {
 						$state.transitionTo('page.taskView', {num: response.model}, true);
 					} else if ($scope.nextAction === 'goToList') {
-						$state.transitionTo('page.root', {}, true)
+						$state.transitionTo('page.root', {}, true);
 					} else if ($scope.nextAction === 'stayHere') {
 						$scope.model = initModel();
 						$scope.form.$setPristine();
@@ -79,7 +80,7 @@ angular.module('tasks')
 		var modelToRequest = function() {
 			var m = $scope.model;
 			var e = [];
-			angular.forEach(m.executors, function(v, k) { this.push(v.id) }, e);
+			angular.forEach(m.executors, function(v) { this.push(v.id); }, e);
 			return {
 				TaskType: m.taskType.id,
 				Executors: e,

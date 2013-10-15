@@ -7,40 +7,41 @@
 			<div filtered-list-actions></div>
 
 			<tabset>
-				<tab heading="Simple">
+				<tab heading="{{ 'core.filters.simple' | i18n }}">
 					<form>
 						<fieldset>
-							<label>Комбинированный</label>
+							<label>{{ 'tasks.list.filters.custom' | i18n }}</label>
 							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="span12" >
 							</select>
-							<label>Статус</label>
+							<label>{{ 'tasks.fields.status' | i18n }}</label>
 							<input lookup="tasks/dictionary/lookupTaskStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op: '='}" class="span12" multiple />
-							<label>Пользовательский статус</label>
+							<label>{{ 'tasks.fields.customStatus' | i18n }}</label>
 							<input lookup="tasks/dictionary/lookupCustomStatuses" ng-model="filter.simple.CustomStatus" filter-node="{path: 'CustomStatus', op: '='}" class="span12" multiple />
-							<label>Номер задачи</label>
+							<label>{{ 'tasks.fields.seqNumber' | i18n }}</label>
 							<input lookup="tasks/tasks/lookupTasks" ng-model="filter.simple.SeqNumber" filter-node="{path: 'Id', op: '='}" class="span12" multiple />
-							<label>Тип задачи</label>
+							<label>{{ 'tasks.fields.type' | i18n }}</label>
 							<input lookup="tasks/dictionary/lookupTaskTypes" ng-model="filter.simple.TaskType" filter-node="{path: 'TaskType', op: '='}" class="span12" multiple />
-							<label>Срок</label>
-							<input type="text" ng-model="customFilter.lDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" /> - <input type="text" ng-model="customFilter.rDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" />
-							<label>Исполнители</label>
+							<label>{{ 'tasks.fields.dueDate' | i18n }}</label>
+							<input type="text" ng-model="customFilter.lDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" />
+								- <input type="text" ng-model="customFilter.rDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" />
+							<label>{{ 'tasks.fields.executors' | i18n }}</label>
 							<input lookup="home/projects/lookupParticipant" ng-model="filter.simple.Executors" filter-node="{path: 'Executors.Id', op: '='}" class="span12" multiple />
-							<label>Содержание</label>
+							<label>{{ 'tasks.fields.content' | i18n }}</label>
 							<input type="text" ng-model="filter.simple.Content" filter-node="{path: 'Content', op:'like'}" class="span12"  />
 						</fieldset>
 					</form>
 				</tab>
 
-				<tab heading="Props">
+				<tab heading="{{ 'core.filters.user' | i18n }}">
 					<div user-filter filter-ng-model="filter.user"></div>
 				</tab>
 
-				<tab heading="Complex">
+				<tab heading="{{ 'core.filters.complex' | i18n }}">
 					<div structured-filter filter-ng-model="filter.complex" meta="'tasks/tasks/taskMetadata'">
 					</div>
 				</tab>
 
-				<tab heading="Favorites">
+				<tab heading="{{ 'core.filters.favorites' | i18n }}">
 					<div filter-persister group="'Tasks.Task'" filter="filter"></div>
 				</tab>
 			</tabset>
@@ -52,8 +53,13 @@
 			</div>
 
 			<div>
-				<a href="#!/tasks/new">Создать задачу...</a>
-				<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="Удалить отмеченные задачи">Удалить</button>
+				<a href="#!/tasks/new" style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">
+					<i class="icon-plus icon-white"></i>
+					<span>{{ 'tasks.list.buttons.add' | i18n }}</span>
+				</a>
+				<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ 'tasks.list.placeholders.deleteSelected' | i18n }}">
+					{{ 'core.buttons.delete' | i18n }}
+				</button>
 			</div>
 
 			<table class="table table-bordered"
@@ -65,12 +71,12 @@
 						<th class="onepct">
 							<input type="checkbox" checker="items: 'models'">
 						</th>
-						<th><span sortable-heading="sorters.InternalSeqNumber" caption="№"></span></th>
-						<th><span sortable-heading="sorters.TaskType_Name" caption="Тип"></span></th>
-						<th style="width: 20%">Исполнители</th>
-						<th><span sortable-heading="sorters.DueDate" caption="Срок"></span></th>
-						<th><span sortable-heading="sorters.Status" caption="Статус"></span></th>
-						<th><span sortable-heading="sorters.CustomStatus_Name" caption="Пользовательский статус"></span></th>
+						<th><span sortable-heading="sorters.InternalSeqNumber" caption="{{ 'tasks.fields.seqNumber' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.TaskType_Name" caption="{{ 'tasks.fields.type' | i18n }}"></span></th>
+						<th style="width: 20%">{{ 'tasks.fields.executors' | i18n }}</th>
+						<th><span sortable-heading="sorters.DueDate" caption="{{ 'tasks.fields.dueDate' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.Status" caption="{{ 'tasks.fields.status' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.CustomStatus_Name" caption="{{ 'tasks.fields.customStatus' | i18n }}"></span></th>
 						<th class="onepct">&nbsp;</th>
 					</tr>
 				</thead>
@@ -93,36 +99,36 @@
 							</p>
 						</td>
 						<td>
-							<executors model="model.Executors" />
+							<executors model="model.Executors" ></executors>
 						</td>
 						<td>{{ model.DueDate | date:'dd.MM.yyyy' }}</td>
 						<td>{{ model.Status }}</td>
 						<td>{{ model.CustomStatus }}</td>
 						<td>
-							<button type="button" class="close" title="Удалить задачу" ng-click="delete(model)">&times;</button>
+							<button type="button" class="close" title="{{ 'tasks.list.placeholders.delete' | i18n }}" ng-click="delete(model)">&times;</button>
 						</td>
 					</tr>
 					<tr ng-show="model.details.expanded" ng-init="model.details.loaded = false">
 						<td colspan="8">
-							<div ng-hide="model.details.loaded">Загрузка данных...</div>
+							<div ng-hide="model.details.loaded">{{ 'core.labels.loading' | i18n }}...</div>
 							<div ng-show="model.details.loaded">
 								<table class="table table-bordered">
 									<tr>
-										<td>Приоритет</td>
+										<td>{{ 'tasks.fields.priority' | i18n }}</td>
 										<td>{{ model.details.Priority }}</td>
 									</tr>
 									<tr>
-										<td>Содержание</td>
+										<td>{{ 'tasks.fields.content' | i18n }}</td>
 										<td>
 											<pre>{{ model.details.Content }}</pre>
 										</td>
 									</tr>
 									<tr>
-										<td>Примечание</td>
+										<td>{{ 'tasks.fields.note' | i18n }}</td>
 										<td>{{ model.details.Note }}</td>
 									</tr>
 									<tr>
-										<td>Согласования</td>
+										<td>{{ 'tasks.fields.agreements' | i18n }}</td>
 										<td>
 											<span ng-repeat="a in model.details.Agreements">
 												<i ng-class="{'icon-check': a.Done, 'icon-check-empty': !a.Done}"></i>{{ a.Agreemer }}
@@ -130,7 +136,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td>Файлы (топ 5)</td>
+										<td>{{ 'tasks.fields.topFiles' | i18n:{ count: 5 } }}</td>
 										<td>
 											<a href="/services/download/file/{{f}}" target="_blank" ng-repeat="f in model.details.Files">
 												<i class="icon-paper-clip"></i>{{ f }}
@@ -146,7 +152,7 @@
 
 			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
 			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-			        ng-disabled="applyEnabled">More</button>
+			        ng-disabled="applyEnabled">{{ 'core.buttons.more' | i18n }}</button>
 		</div><!-- content -->
 
 	</div><!-- row -->

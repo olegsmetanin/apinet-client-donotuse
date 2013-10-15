@@ -1,8 +1,157 @@
-angular.module('tasks')
-    .run(['i18n',
-        function(i18n) {
-             angular.extend(i18n, {
-                'tasks.title':'Tasks'
-            });
-        }
-    ]);
+angular.module('tasks').run(['i18n', function(i18n) {
+	i18n.addMessages('tasks', {
+		'menu': {
+			'projectInfo': 'Project info'
+		},
+
+		'fields': {
+			'seqNumber': 'Task number',
+			'type': 'Task type',
+			'executors': 'Executors',
+			'dueDate': 'Due date',
+			'content': 'Content',
+			'status': 'Status',
+			'customStatus': 'Custom status',
+			'priority': 'Priority',
+			'note': 'Note',
+			'agreements': 'Agreements',
+			'topFiles': 'Files (top {{count}})'
+		},
+
+		'confirm': {
+			'delete': {
+				'task': 'Are you really want to delete this task?',
+				'tasks': 'Are you really want to delete this tasks?',
+				'agreemer': 'Are you really want to delete this agreemer?'
+			}
+		},
+
+		'view': {
+			'tabs': {
+				'overview': 'Task',
+				'comments': 'Comments',
+				'files': 'Files'
+			},
+
+			'general': {
+				'title': 'General properties'
+			},
+			'agreements': {
+				'title': 'Agreements',
+
+				'fields': {
+					'agreemer': 'Agreemer',
+					'dueDate': 'Due date',
+					'done': 'Agreed',
+					'agreedAt': 'Agreed at',
+					'comment': 'Comment'
+				},
+
+				'placeholders': {
+					'agreemer': 'Select agreemer',
+					'dueDate': 'Select due date',
+					'comment': 'Type your comment here'
+				},
+
+				'buttons': {
+					'agreement': {
+						'dropdown': 'Agreement',
+						'agree': 'Agree',
+						'toggleAgree': 'Agree with comment',
+						'revoke': 'Revoke agreement'
+					}
+				}
+			},
+			'statusHistory': {
+				'title': 'Status history',
+
+				'fields': {
+					'status': 'Status',
+					'author': 'Set by',
+					'effectivePeriod': 'Effective period',
+					'duration': 'Duration'
+				}
+			},
+			'customStatusHistory': {
+				'title': 'Custom status history'
+			},
+			'params': {
+				'title': 'Custom parameters'
+			}
+		},
+
+		'list': {
+			'title': 'Tasks',
+
+			'filters': {
+				'custom': 'Predefinded templates',
+				'custom.predefined': {
+					'all': 'All tasks',
+					'overdue': 'Overdued tasks',
+					'dayLeft': '1 day to deadline',
+					'weekLeft': '1 week to deadline',
+					'noLimit': 'Without deadline',
+					'closedToday': 'Closed today',
+					'closedYesterday': 'Closed yesterday'
+				}
+			},
+
+			'buttons': {
+				'add': 'Create task'
+			},
+
+			'placeholders': {
+				'delete': 'Delete task',
+				'deleteSelected': 'Delete selected tasks'
+			}
+		},
+
+		'create': {
+			'title': 'Create new task',
+
+			'placeholders': {
+				'type': 'Select task type',
+				'executors': 'Select executors',
+				'customStatus': 'Select status',
+				'priority': 'Select priority'
+			},
+
+			'labels': {
+				'afterCreation': 'After task created',
+				'afterCreation.goToTask': 'Navagate to new task',
+				'afterCreation.goToList': 'Navagate to tasks list',
+				'afterCreation.stayHere': 'Create another task'
+			},
+
+			'buttons': {
+				'save': 'Create task'
+			}
+		},
+
+		'types': {
+			'title': 'Task types dictionary',
+
+			'placeholders': {
+				'name': 'Task type name',
+				'replacementType': 'Task type for deleted substitution (optional)'
+			},
+
+			'buttons': {
+				'delete': 'Delete task type'
+			}
+		},
+
+		'customStatuses': {
+			'title': 'Custom task statuses dictionary',
+
+			'placeholders': {
+				'name': 'Task status name',
+				'replacementStatus': 'Task status for deleted substitution (optional)'
+			},
+
+			'buttons': {
+				'delete': 'Delete task status'
+			}
+		}
+	});
+}]);

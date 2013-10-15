@@ -2,7 +2,9 @@ angular.module('core').run(['i18n', function(i18n) {
 	i18n.addMessages('core', {
 		'labels': {
 			'yes': 'Yes',
-			'no': 'No'
+			'no': 'No',
+			'loading': 'Loading',
+			'presentTime': 'present time'
 		},
 
 		'buttons': {
@@ -10,6 +12,7 @@ angular.module('core').run(['i18n', function(i18n) {
 			'clear': 'Clear',
 			'apply': 'Apply',
 			'save': 'Save',
+			'add': 'Add',
 			'load': 'Load',
 			'delete': 'Delete',
 			'edit': 'Edit',
@@ -21,7 +24,14 @@ angular.module('core').run(['i18n', function(i18n) {
 			'fullName': 'Full name',
 			'description': 'Description',
 			'type': 'Type',
-			'creationTime': 'Creation time'
+			'creationTime': 'Creation time',
+			'creator': 'Author',
+			'viewOrder': 'Seq.#',
+
+			'customProperties': {
+				'type': 'Parameter',
+				'value': 'Value'
+			}
 		},
 
 		'sorting': {
@@ -31,12 +41,16 @@ angular.module('core').run(['i18n', function(i18n) {
 
 		'errors': {
 			'title': 'Error',
-			'unknown': 'Unknown error'
+			'unknown': 'Unknown error',
+			'integerInRange': 'Must be integer in range {range}',
+			'requiredField': 'Required field',
+			'nothingToDelete': 'Record for deletion not found (refresh page)'
 		},
 
 		'confirm': {
 			'delete': {
-				'records': 'You really want to delete this records?'
+				'records': 'Are you really want to delete this records?',
+				'record': 'Are you really want to delete this record?'
 			}
 		},
 
@@ -47,7 +61,8 @@ angular.module('core').run(['i18n', function(i18n) {
 				'messages': 'Messages',
 				'reports': 'Reports',
 				'system': 'System'
-			}
+			},
+			'dictionaries': 'Dictionaries'
 		},
 
 		'auth': {
@@ -73,7 +88,7 @@ angular.module('core').run(['i18n', function(i18n) {
 		'filters': {
 			'simple': 'Simple',
 			'complex': 'Complex',
-			'user': 'User',
+			'user': 'Props',
 			'favorites': 'Favorites',
 
 			'ops': {

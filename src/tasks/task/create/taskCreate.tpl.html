@@ -5,11 +5,12 @@
 		</div>
 		<form name="form" class="form-horizontal span7 offset2" novalidate>
 			<div class="control-group" ng-class="{error: form.taskType.$invalid}">
-				<label class="control-label">Тип задачи</label>
+				<label class="control-label">{{ 'tasks.fields.type' | i18n }}</label>
 				<div class="controls">
-					<input type="text" name="taskType" lookup="tasks/dictionary/lookupTaskTypes" ng-model="model.taskType" placeholder="Выберите тип задачи" autofocus required class="span10" />
+					<input type="text" name="taskType" lookup="tasks/dictionary/lookupTaskTypes"
+					       ng-model="model.taskType" placeholder="{{ 'tasks.create.placeholders.type' | i18n }}" autofocus required class="span10" />
 					<span ng-show="form.taskType.$error.required" class="help-inline alert-error">
-						* обязательное поле
+						* {{ 'core.errors.requiredField' | i18n }}
 					</span>
 					<span ng-show="validation.fieldErrors['TaskType']" class="help-block alert-error">
 						{{ validation.fieldErrors['TaskType'] | joinBy }}
@@ -17,11 +18,12 @@
 				</div>
 			</div>
 			<div class="control-group" ng-class="{error: form.executors.$invalid}">
-				<label class="control-label">Исполнители</label>
+				<label class="control-label">{{ 'tasks.fields.executors' | i18n }}</label>
 				<div class="controls">
-					<input type="text" name="executors" lookup="home/projects/lookupParticipant" ng-model="model.executors" multiple placeholder="Выберите исполнителей" required-multiple class="span10" />
+					<input type="text" name="executors" lookup="home/projects/lookupParticipant"
+					       ng-model="model.executors" multiple placeholder="{{ 'tasks.create.placeholders.executors' | i18n }}" required-multiple class="span10" />
 					<span ng-show="form.executors.$error.required" class="help-inline alert-error">
-						* обязательное поле
+						* {{ 'core.errors.requiredField' | i18n }}
 					</span>
 					<span ng-show="validation.fieldErrors['Executors']" class="help-block alert-error">
 						{{ validation.fieldErrors['Executors'] | joinBy }}
@@ -29,50 +31,52 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">Срок</label>
+				<label class="control-label">{{ 'tasks.fields.dueDate' | i18n }}</label>
 				<div class="controls">
 					<input name="dueDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-model="model.dueDate" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">Содержание</label>
+				<label class="control-label">{{ 'tasks.fields.content' | i18n }}</label>
 				<div class="controls">
-					<textarea name="content" ng-model="model.content" rows="3" class="span10" />
+					<textarea name="content" ng-model="model.content" rows="3" class="span10"></textarea>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">Пользовательский статус</label>
+				<label class="control-label">{{ 'tasks.fields.customStatus' | i18n }}</label>
 				<div class="controls">
-					<input type="text" name="customStatus" lookup="tasks/dictionary/lookupCustomStatuses" ng-model="model.customStatus" placeholder="Выберите статус" class="span10" />
+					<input type="text" name="customStatus" lookup="tasks/dictionary/lookupCustomStatuses"
+					       ng-model="model.customStatus" placeholder="{{ 'tasks.create.placeholders.customStatus' | i18n }}" class="span10" />
 					<span ng-show="validation.fieldErrors['CustomStatus']" class="help-block alert-error">
 						{{ validation.fieldErrors['CustomStatus'] | joinBy }}
 					</span>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">Приоритет</label>
+				<label class="control-label">{{ 'tasks.fields.priority' | i18n }}</label>
 				<div class="controls">
-					<input type="text" lookup="tasks/dictionary/lookupTaskPriorities" lookup-options="{allowClear: true}" ng-model="model.priority" placeholder="Выберите приоритет" class="span10" />
+					<input type="text" lookup="tasks/dictionary/lookupTaskPriorities" lookup-options="{allowClear: true}"
+					       ng-model="model.priority" placeholder="{{ 'tasks.create.placeholders.priority' | i18n }}" class="span10" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">После создания задачи:</label>
+				<label class="control-label">{{ 'tasks.create.labels.afterCreation' | i18n }}:</label>
 				<div class="controls">
 					<label class="radio inline">
-						<input type="radio" ng-model="nextAction" value="goToTask">Перейти к созданной
+						<input type="radio" ng-model="nextAction" value="goToTask">{{ 'tasks.create.labels.afterCreation.goToTask' | i18n }}
 					</label>
 					<label class="radio inline">
-						<input type="radio" ng-model="nextAction" value="goToList">Перейти в реестр задач
+						<input type="radio" ng-model="nextAction" value="goToList">{{ 'tasks.create.labels.afterCreation.goToList' | i18n }}
 					</label>
 					<label class="radio inline">
-						<input type="radio" ng-model="nextAction" value="stayHere">Создать другую задачу
+						<input type="radio" ng-model="nextAction" value="stayHere">{{ 'tasks.create.labels.afterCreation.stayHere' | i18n }}
 					</label>
 				</div>
 			</div>
 			<div class="control-group">
 				<div class="controls">
-					<button type="button" class="btn" ng-click="cancel()">Отменить</button>
-					<button type="button" class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">Создать задачу</button>
+					<button type="button" class="btn" ng-click="cancel()">{{ 'core.buttons.cancel' | i18n }}</button>
+					<button type="button" class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">{{ 'tasks.create.buttons.save' | i18n }}</button>
 				</div>
 			</div>			
 		</form>

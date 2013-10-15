@@ -2,7 +2,9 @@ angular.module('core').run(['i18n', function(i18n) {
 	i18n.addMessages('core', {
 		'labels': {
 			'yes': 'Да',
-			'no': 'Нет'
+			'no': 'Нет',
+			'loading': 'Загрузка данных',
+			'presentTime': 'настоящее время'
 		},
 
 		'buttons': {
@@ -10,6 +12,7 @@ angular.module('core').run(['i18n', function(i18n) {
 			'clear': 'Очистить',
 			'apply': 'Применить',
 			'save': 'Сохранить',
+			'add': 'Добавить',
 			'load': 'Загрузить',
 			'delete': 'Удалить',
 			'edit': 'Редактировать',
@@ -21,7 +24,14 @@ angular.module('core').run(['i18n', function(i18n) {
 			'fullName': 'Полное наименование',
 			'description': 'Описание',
 			'type': 'Тип',
-			'creationTime': 'Дата создания'
+			'creationTime': 'Дата создания',
+			'creator': 'Автор',
+			'viewOrder': '№ п/п',
+
+			'customProperties': {
+				'type': 'Параметр',
+				'value': 'Значение'
+			}
 		},
 
 		'sorting': {
@@ -31,12 +41,16 @@ angular.module('core').run(['i18n', function(i18n) {
 
 		'errors': {
 			'title': 'Ошибка',
-			'unknown': 'Неизвестная ошибка'
+			'unknown': 'Неизвестная ошибка',
+			'integerInRange': 'Значение должно быть числом в диапазоне {{range}}',
+			'requiredField': 'Обязательное поле',
+			'nothingToDelete': 'Не найдена запись для удаления (обновите страницу)'
 		},
 
 		'confirm': {
 			'delete': {
-				'records': 'Вы действительно хотите удалить записи?'
+				'records': 'Вы действительно хотите удалить записи?',
+				'record': 'Вы действительно хотите удалить запись?'
 			}
 		},
 
@@ -47,7 +61,8 @@ angular.module('core').run(['i18n', function(i18n) {
 				'messages': 'Сообщения',
 				'reports': 'Отчеты',
 				'system': 'Система'
-			}
+			},
+			'dictionaries': 'Справочники'
 		},
 
 		'auth': {

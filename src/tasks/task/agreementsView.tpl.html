@@ -1,11 +1,11 @@
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<th>Согласующий</th>
-			<th>Срок</th>
-			<th class="onepct">Согласовано</th>
-			<th class="span3">Дата</th>
-			<th class="span4">Комментарий</th>
+			<th>{{ 'tasks.view.agreements.fields.agreemer' | i18n }}</th>
+			<th>{{ 'tasks.view.agreements.fields.dueDate' | i18n }}</th>
+			<th class="onepct">{{ 'tasks.view.agreements.fields.done' | i18n }}</th>
+			<th class="span3">{{ 'tasks.view.agreements.fields.agreedAt' | i18n }}</th>
+			<th class="span4">{{ 'tasks.view.agreements.fields.comment' | i18n }}</th>
 			<th class="onepct">&nbsp;</th>
 		</tr>
 	</thead>
@@ -34,20 +34,22 @@
 		</tr>
 		<tr ng-show="editables.addState">
 			<td colspan="6" class="form-inline">
-				<input type="text" name="agreemer" lookup="home/projects/lookupParticipant" ng-model="editables.newAgreemer" placeholder="Выберите согласущего" class="span4" />
-				<input type="text" ng-model="editables.dueDate" ui-date="{dateFormat:'dd.mm.yy', changeMonth: true, changeYear: true}" class="span2" placeholde="Срок" />
-				<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="!addAgreementAvailable()">Добавить</button>
+				<input type="text" name="agreemer" lookup="home/projects/lookupParticipant"
+				       ng-model="editables.newAgreemer" placeholder="{{ 'tasks.view.agreements.placeholders.agreemer' | i18n }}" class="span4" />
+				<input type="text" ui-date="{dateFormat:'dd.mm.yy', changeMonth: true, changeYear: true}"
+				       ng-model="editables.dueDate"  class="span2" placeholder="{{ 'tasks.view.agreements.placeholders.dueDate' | i18n }}" />
+				<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="!addAgreementAvailable()">{{ 'core.buttons.add' | i18n }}</button>
 
 				<div class="btn-group">
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						Согласование
+						{{ 'tasks.view.agreements.buttons.agreement.dropdown' | i18n }}
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a ng-click="agree()">Согласовать</a></li>
-						<li><a ng-click="toggleAgree()">Согласовать с комментарием</a></li>
+						<li><a ng-click="agree()">{{ 'tasks.view.agreements.buttons.agreement.agree' | i18n }}</a></li>
+						<li><a ng-click="toggleAgree()">{{ 'tasks.view.agreements.buttons.agreement.toggleAgree' | i18n }}</a></li>
 						<li class="divider"></li>
-						<li><a ng-click="revoke()">Отозвать согласование</a></li>
+						<li><a ng-click="revoke()">{{ 'tasks.view.agreements.buttons.agreement.revoke' | i18n }}</a></li>
 					</ul>
 				</div>
 			</td>
@@ -55,11 +57,11 @@
 		<tr ng-hide="editables.addState">
 			<td colspan="6">
 				<div class="input-append span12">
-					<input type="text" ng-model="editables.comment" class="span6" placeholder="Комментарий к согласованию">
-					<button type="button" class="btn" ng-click="toggleAgree()" title="Отменить">
+					<input type="text" ng-model="editables.comment" class="span6" placeholder="{{ 'tasks.view.agreements.placeholders.comment' | i18n }}">
+					<button type="button" class="btn" ng-click="toggleAgree()" title="{{ 'core.buttons.cancel' | i18n }}">
 						<i class="icon-reply"></i>
 					</button>
-					<button type="button" class="btn" ng-click="agree()" title="Согласовать">
+					<button type="button" class="btn" ng-click="agree()" title="{{ 'tasks.view.agreements.buttons.agreement.agree' | i18n }}">
 						<i class="icon-ok"></i>
 					</button>
 				</div>

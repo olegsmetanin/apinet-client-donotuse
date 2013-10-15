@@ -11,13 +11,14 @@ angular.module('tasks')
 				}
 			},
 			resolve: {
+				i18n: 'i18n',
 				pageConfig: 'pageConfig',
 				currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
 			},
-			onEnter: ['pageConfig', '$stateParams', function(pageConfig, $stateParams) {
+			onEnter: ['pageConfig', '$stateParams', 'i18n', function(pageConfig, $stateParams, i18n) {
 				pageConfig.setConfig({
 					breadcrumbs: [
-						{ name: 'Tasks', url: '#!/' },
+						{ name: i18n.msg('tasks.list.title'), url: '#!/' },
 						{ name: $stateParams.num, url: '#!/tasks/' + $stateParams.num }]
 				});
 			}]
@@ -32,13 +33,10 @@ angular.module('tasks')
 		//TODO move to utils??
 		var make = function(task, prop, value, valueProp) {
 			valueProp = valueProp || 'id';
-			var val = angular.isArray(value)
-				? value.map(function(item) { return item[valueProp] })
-				: angular.isObject(value) && !angular.isDate(value) 
-					? value[valueProp] 
-					: value;
+			var val = angular.isArray(value) ? value.map(function(item) { return item[valueProp]; })
+				: angular.isObject(value) && !angular.isDate(value)	? value[valueProp] : value;
 			return {Id: task.Id, ModelVersion: task.ModelVersion, Prop: prop, Value: val};
-		}
+		};
 
 		$scope.changeStatus = function(hrecord) {
 			$scope.onUpdateProp($scope.model, 'Status', hrecord.id);

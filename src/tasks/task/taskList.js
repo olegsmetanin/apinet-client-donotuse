@@ -11,14 +11,15 @@ angular.module('tasks')
 				}
 			},
 			resolve: {
+				i18n: 'i18n',
 				pageConfig: 'pageConfig',
 				promiseTracker: 'promiseTracker',
 				authUser: securityAuthorizationProvider.requireAuthenticatedUser()
 			},
-			onEnter: function(pageConfig) {
+			onEnter: function(pageConfig, i18n) {
 				pageConfig.setConfig({
 					breadcrumbs: [{
-						name: 'Tasks',
+						name: i18n.msg('tasks.list.title'),
 						url: '/#!/'
 					}]
 				});
@@ -38,11 +39,11 @@ angular.module('tasks')
 		$stateProvider.state(tasks);
 	}
 ])
-.controller('taskListCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window', '$timeout', 
-	function($scope, promiseTracker, sysConfig, apinetService, $window, $timeout) {
+.controller('taskListCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window', 'i18n',
+	function($scope, promiseTracker, sysConfig, apinetService, $window, i18n) {
 
 		$scope.deleteSelected = function() {
-			if (!$window.confirm('Вы действительно хотите удалить задачи?')) {
+			if (!$window.confirm(i18n.msg('tasks.confirm.delete.tasks'))) {
 				return;
 			}
 
@@ -62,17 +63,19 @@ angular.module('tasks')
 				method: 'tasks/tasks/deleteTasks',
 				project: sysConfig.project,
 				ids: ids })
-			.then(function(response) {
+			.then(function() {
 				for(var i = 0; i < modelsToRemove.length; i++) {
 					var index = $scope.models.indexOf(modelsToRemove[i]);
-					if (index < 0) continue;
+					if (index < 0) {
+						continue;
+					}
 					$scope.models.splice(index, 1);
 				}
 			}, handleException);
-		}
+		};
 
 		$scope.delete = function(task) {
-			if (!$window.confirm('Вы действительно хотите удалить задачу?')) {
+			if (!$window.confirm(i18n.msg('tasks.confirm.delete.task'))) {
 				return;
 			}
 
@@ -80,13 +83,13 @@ angular.module('tasks')
 				method: 'tasks/tasks/deleteTask',
 				project: sysConfig.project,
 				id: task.Id})
-			.then(function(response) {
+			.then(function() {
 				var taskIndex = $scope.models.indexOf(task);
 				if(taskIndex === -1) {
 					return;
 				}
 				$scope.models.splice(taskIndex, 1);
-			}, handleException)
+			}, handleException);
 		};
 
 		$scope.hasSelected = function() {
@@ -100,6 +103,8 @@ angular.module('tasks')
 		};
 
 		$scope.constructCombinedFilter = function() {
+			$scope.filter.simple = $scope.filter.simple ? $scope.filter.simple : { };
+
 			var today = new Date();
 			today.setHours(0, 0, 0, 0); //clear time part
 			switch($scope.customFilter.selected.value) {
@@ -167,18 +172,22 @@ angular.module('tasks')
 					};
 					break;
 				case $scope.customFilter.ALL:
+					$scope.filter.simple.Combined = null;
+					break;
 				default:
 					$scope.filter.simple.Combined = null;
 			}
 		};
 
 		$scope.constructDueDateFilter = function() {
+			$scope.filter.simple = $scope.filter.simple ? $scope.filter.simple : { };
+
 			if ($scope.customFilter.lDate) {
 				$scope.filter.simple.DueDateLeft = {
 					path: 'DueDate',
 					op: '>=',
 					value: $scope.customFilter.lDate
-				}
+				};
 			} else {
 				$scope.filter.simple.DueDateLeft = null;
 			}
@@ -190,7 +199,7 @@ angular.module('tasks')
 					path: 'DueDate',
 					op: '<',
 					value: dr
-				}
+				};
 			} else {
 				$scope.filter.simple.DueDateRight = null;
 			}			
@@ -239,13 +248,13 @@ angular.module('tasks')
 			rDate: null
 		};
 		$scope.customFilter.predefined = [
-			{value: $scope.customFilter.ALL, text: 'Все' },
-			{value: $scope.customFilter.OVERDUE, text: 'Просроченные' },
-			{value: $scope.customFilter.DAY_LEFT, text: 'Срок 1 день' },
-			{value: $scope.customFilter.WEEK_LEFT, text: 'Срок 7 дней' },
-			{value: $scope.customFilter.NO_LIMIT, text: 'Без даты окончания' },
-			{value: $scope.customFilter.CLOSED_TODAY, text: 'Закрыты сегодня' },
-			{value: $scope.customFilter.CLOSED_YESTERDAY, text: 'Закрыты вчера' }
+			{value: $scope.customFilter.ALL, text: i18n.msg('tasks.list.filters.custom.predefined.all') },
+			{value: $scope.customFilter.OVERDUE, text: i18n.msg('tasks.list.filters.custom.predefined.overdue') },
+			{value: $scope.customFilter.DAY_LEFT, text: i18n.msg('tasks.list.filters.custom.predefined.dayLeft') },
+			{value: $scope.customFilter.WEEK_LEFT, text: i18n.msg('tasks.list.filters.custom.predefined.weekLeft') },
+			{value: $scope.customFilter.NO_LIMIT, text: i18n.msg('tasks.list.filters.custom.predefined.noLimit') },
+			{value: $scope.customFilter.CLOSED_TODAY, text: i18n.msg('tasks.list.filters.custom.predefined.closedToday') },
+			{value: $scope.customFilter.CLOSED_YESTERDAY, text: i18n.msg('tasks.list.filters.custom.predefined.closedYesterday') }
 		];
 		$scope.customFilter.selected = $scope.customFilter.predefined[0];
 }]);

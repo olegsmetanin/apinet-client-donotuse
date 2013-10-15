@@ -1,5 +1,5 @@
 angular.module('tasks')
-.directive('agreements', ['apinetService', 'sysConfig', '$window', function(apinetService, sysConfig, $window){
+.directive('agreements', ['apinetService', 'sysConfig', '$window', 'i18n', function(apinetService, sysConfig, $window, i18n){
 	return {
 		restrict: 'E',
 		templateUrl: sysConfig.src('tasks/task/agreementsView.tpl.html'),
@@ -41,7 +41,7 @@ angular.module('tasks')
 			};
 
 			$scope.removeAgreement = function(agreement) {
-				if (!$window.confirm('Вы действительно хотите удалить согласующего?')) {
+				if (!$window.confirm(i18n.msg('tasks.confirm.delete.agreemer'))) {
 					return;
 				}
 
@@ -56,8 +56,7 @@ angular.module('tasks')
 							$scope.model.Agreements.splice(index, 1);	
 						}
 					} else {
-						//TODO localize
-						$scope.validation.generalErrors = ['No agreement found. Refresh page.'];
+						$scope.validation.generalErrors = [i18n.msg('core.errors.nothingToDelete')];
 					}
 				}, handleException);
 			};

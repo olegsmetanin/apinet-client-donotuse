@@ -11,14 +11,15 @@ angular.module('tasks')
 				}
 			},
 			resolve: {
+				i18n: 'i18n',
 				pageConfig: 'pageConfig',
 				authUser: securityAuthorizationProvider.requireAuthenticatedUser()
 			},
-			onEnter: function(pageConfig) {
+			onEnter: function(pageConfig, i18n) {
 				pageConfig.setConfig({
 					breadcrumbs: [
-						{ name: 'Tasks', url: '#!/' },
-						{ name: 'Task types', url: '#!/dictionary/types' }]
+						{ name: i18n.msg('tasks.list.title'), url: '#!/' },
+						{ name: i18n.msg('tasks.types.title'), url: '#!/dictionary/types' }]
 				});
 			}
 		};
@@ -26,8 +27,8 @@ angular.module('tasks')
 		$stateProvider.state(types);
 	}
 ])
-.controller('taskTypeCtrl', ['$scope', 'sysConfig', 'apinetService', '$window',
-	function($scope, sysConfig, apinetService, $window) {
+.controller('taskTypeCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n',
+	function($scope, sysConfig, apinetService, $window, i18n) {
 		var handleException = function(error) {
 			$scope.resetValidation();
 			$scope.validation.generalErrors = [error];
@@ -40,7 +41,9 @@ angular.module('tasks')
 		$scope.removeFromModels = function(modelsToRemove) {
 			for(var i = 0; i < modelsToRemove.length; i++) {
 				var index = $scope.models.indexOf(modelsToRemove[i]);
-				if (index < 0) continue;
+				if (index < 0) {
+					continue;
+				}
 				$scope.models.splice(index, 1);
 			}
 		};
@@ -75,7 +78,7 @@ angular.module('tasks')
 		};
 
 		$scope.deleteSelected = function() {
-			if (!$window.confirm('Вы действительно хотите удалить записи?')) {
+			if (!$window.confirm(i18n.msg('core.confirm.delete.records'))) {
 				return;
 			}
 
@@ -112,7 +115,7 @@ angular.module('tasks')
 			if (!model) {
 				return;
 			}
-			if (!$window.confirm('Вы действительно хотите удалить запись?')) {
+			if (!$window.confirm(i18n.msg('core.confirm.delete.record'))) {
 				return;
 			}
 
