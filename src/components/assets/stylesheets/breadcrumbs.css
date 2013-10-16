@@ -1,0 +1,55 @@
+    header .navbar .breadcrumbfull-nav {
+        height: 32px;
+        overflow: hidden;
+    }
+    @media (max-width: 336px) {
+        header .navbar .breadcrumb-nav {
+            display: none;
+        }
+    }
+    @media (min-width: 992px) {
+        header .navbar .breadcrumb-nav {
+            display: none;
+        }
+    }
+    @media (max-width: 991px) {
+        header .navbar .breadcrumb-nav {
+            color: white;
+            text-shadow: none;
+            vertical-align: middle;
+            padding: 4px 12px;
+            margin-top: 5px;
+            margin-left: 15px;
+            background-color: #f34541;
+            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+            -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+            -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+    }
+    @media (max-width: 991px) {
+        header .navbar .breadcrumbfull-nav {
+            display: none;
+        }
+    }
+    @media (min-width: 992px) {
+        header .navbar .breadcrumbfull-nav {
+            background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+            display: block;
+            float: left;
+            margin: 0;
+            color:#FFF;
+            max-width: 380px;
+        }
+        header .navbar .breadcrumbfull-nav a {
+            color:#FFF;
+        }
+        header .navbar .breadcrumbfull-nav li:first-child > a:hover {
+            color:#FFF !important;
+        }
+    }
+    @media (min-width: 1200px) {
+        header .navbar .breadcrumbfull-nav {
+            max-width: none;
+        }
+    }

@@ -3,7 +3,6 @@ sysConfig.modules['core'] = {
 		'src/core/assets/filtering-component.css',
 		'src/core/assets/filtered-list.css',
 		'src/core/assets/spinner.css',
-		'src/core/assets/breadcrumbs.css',
 		'src/core/assets/header.css',
 		'src/core/assets/inline-edit.css',
 		'src/core/assets/inputs.css'
@@ -36,7 +35,6 @@ sysConfig.modules['core'] = {
 		'src/core/parts/header/breadCrumbs/breadCrumbsCtrl.js',
 		'src/core/parts/header/tabBar/tabBar.js',
 		'src/core/parts/header/tabBar/topTabBar.js',
-
 		'src/core/parts/masterpages/directives.js',
 
 		'src/core/services/security/index.js',
@@ -46,15 +44,15 @@ sysConfig.modules['core'] = {
 		'src/core/services/security/security.js',
 		'src/core/parts/loginform/login.js',
 		'src/core/parts/loginform/LoginFormController.js',
-		'src/core/parts/header/userMenu/userMenu.js',
-
-		'src/core/services/services.js',
-		'src/core/services/i18n/i18n.js',
 
 		'src/core/parts/header/moduleMenu/moduleMenu.js',
-
+		'src/core/parts/header/userMenu/userMenu.js',
 		'src/core/services/reportService/reportService.js',
 		'src/core/parts/header/reportNotifier/reportNotifier.js',
+		'src/core/parts/header/eventNotifier/eventNotifier.js',
+		
+		'src/core/services/services.js',
+		'src/core/services/i18n/i18n.js',
 
 		'src/core/services/messageService/messageService.js',
 

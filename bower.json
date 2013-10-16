@@ -15,6 +15,7 @@
 		"angular-mocks": "angular-mocks#1.0.7",
 		"angular-ui-router-0.0.1": "angular-ui-router#0.0.1",
 		"angular-ui-bootstrap-0.5.0": "https://github.com/angular-ui/bootstrap/archive/gh-pages.zip",
+		"angular-ui-bootstrap-fork": "https://github.com/olegsmith/bootstrap/archive/bootstrap3_bis2.zip",
 		"angular-ui-select2-0.0.2": "angular-ui-select2#0.0.2",
 		"angular-ui-date-0.0.3": "angular-ui-date#0.0.3",
 		"angular-promise-tracker-1.3.3":"angular-promise-tracker#1.3.3",

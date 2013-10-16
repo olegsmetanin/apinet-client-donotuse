@@ -1,4 +1,4 @@
-<form name="form" novalidate class="login-form">
+<form name="form" novalidate class="form-horizontal login-form" role="form">
     <div class="modal-header">
         <h4>Sign in</h4>
     </div>
@@ -10,19 +10,27 @@
             {{authError}}
         </div>
         <div class="alert alert-info">{{ 'core.auth.credentials.legend' | i18n }}</div>
-        <label>{{ 'core.auth.credentials.email' | i18n }}</label>
-        <input name="login" type="email" ng-model="user.email" required autofocus>
-        <label>{{ 'core.auth.credentials.password' | i18n }}</label>
-        <input name="pass" type="password" ng-model="user.password" required>
+        <div class="form-group">
+            <label for="login" class="col-lg-2 control-label">{{ 'core.auth.credentials.email' | i18n }}</label>
+            <div class="col-lg-10">
+                <input id="login" name="login" class="form-control" type="email" ng-model="user.email" placeholder="Enter email" required autofocus></input>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pass" class="col-lg-2 control-label">{{ 'core.auth.credentials.password' | i18n }}</label>
+            <div class="col-lg-10">
+                <input id="pass" name="pass" type="password" class="form-control" ng-model="user.password" required></input>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary login" ng-click="login()" ng-disabled='form.$invalid'>
+        <button type="button" class="btn btn-primary login" ng-click="login()" ng-disabled='form.$invalid'>
 	        {{ 'core.auth.buttons.signIn' | i18n }}
         </button>
-        <button class="btn clear" ng-click="clearForm()">
+        <button type="button" class="btn clear" ng-click="clearForm()">
 	        {{ 'core.buttons.clear' | i18n }}
         </button>
-        <button class="btn btn-warning cancel" ng-click="cancelLogin()">
+        <button type="button" class="btn btn-warning cancel" ng-click="cancelLogin()">
 	        {{ 'core.buttons.cancel' | i18n }}
         </button>
     </div>

@@ -1,22 +1,23 @@
+<a href="#" class="dropdown-collapse" data-toggle="dropdown">
+	<span>Projects</span>
+	<i class='icon-angle-down angle-down'></i>
+</a>
 
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+<ul ng-controller="userRoleCtrl" class="nav nav-stacked">
+	<li class="nav-header">Roles {{role}}</li>
 
-	<ul ng-controller="userRoleCtrl" class="dropdown-menu">
-		<li class="nav-header">Roles {{role}}</li>
-
-		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('admin')">
-			<i ng-show="roleIs('admin')" class="icon-ok" style="float:right;"></i>{{ 'projects.roles.admin' | i18n }}</a>
-		</li>
-		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('manager')">
-			<i ng-show="roleIs('manager')" class="icon-ok" style="float:right;"></i>{{ 'projects.roles.manager' | i18n }}</a>
-		</li>
+	<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('admin')">
+		<i ng-show="roleIs('admin')" class="icon-ok" style="float:right;"></i>{{ 'projects.roles.admin' | i18n }}</a>
+	</li>
+	<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('manager')">
+		<i ng-show="roleIs('manager')" class="icon-ok" style="float:right;"></i>{{ 'projects.roles.manager' | i18n }}</a>
+	</li>
 
 
-		<li class="divider"></li>
+	<li class="divider"></li>
 
-		<li><a href="/#!/projects/statuses">{{ 'projects.statuses.title' | i18n }}</a>
-		</li>
-		<li><a href="/#!/projects/tags">{{ 'projects.tags.title' | i18n }}</a>
-		</li>
-	</ul>
-
+	<li><a href="/#!/projects/statuses">{{ 'projects.statuses.title' | i18n }}</a>
+	</li>
+	<li><a href="/#!/projects/tags">{{ 'projects.tags.title' | i18n }}</a>
+	</li>
+</ul>

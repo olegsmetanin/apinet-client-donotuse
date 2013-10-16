@@ -1,5 +1,8 @@
 angular.module('core', ['ui.state', 'ui.bootstrap', 'core.security', 'core.templates',
-    'ajoslin.promise-tracker', 'angularMoment', 'angularSpinner', 'ui.bootstrap.datetimepicker', 'ui.select2',
+    'ajoslin.promise-tracker', 'angularMoment', 'angularSpinner', 
+    'ui.bootstrap.datepicker', 
+    //'ui.bootstrap.datetimepicker', 
+    'ui.select2',
 	'infinite-scroll']);
 
 angular.module('core')
@@ -55,10 +58,11 @@ angular.module('core')
         'login.error.invalidCredentials': "Login failed.  Please check your credentials and try again.",
         'login.error.serverError': "There was a problem with authenticating: {{exception}}."
     })
-    .controller('HeaderCtrl', ['$scope', 'security', 'moduleMenuUrl',
-        function($scope, security, moduleMenuUrl) {
+    .controller('HeaderCtrl', ['$scope', 'security', 'moduleMenuUrl', 'sysConfig',
+        function($scope, security, moduleMenuUrl, sysConfig) {
             $scope.isAuthenticated = security.isAuthenticated;
             $scope.moduleMenuUrl = moduleMenuUrl;
+            $scope.project = sysConfig.project;
         }
     ])
 	.filter('yesNo', function() {

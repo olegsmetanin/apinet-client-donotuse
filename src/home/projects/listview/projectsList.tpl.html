@@ -1,82 +1,119 @@
-<container>
-	<div ng-controller="projectsListCtrl"
-		     filtered-list="{method: 'home/projects/getProjects'}"
-		     initial-sorters="{ CreationTime: 'desc' }">
-		<twocolumn-side>
-			<div filtered-list-actions></div>
-
-			<tabset>
-				<tab heading="{{ 'core.filters.simple' | i18n }}">
-					<form>
-						<fieldset>
-							<label>{{ 'core.fields.name' | i18n }}</label>
-							<input lookup="home/projects/lookupProjectNames" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'='}" class="span12" multiple />
-							<label>{{ 'projects.fields.status' | i18n }}</label>
-							<input lookup="home/dictionary/lookupProjectStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op:'='}" class="span12" multiple />
-							<label>{{ 'projects.list.filters.participation' | i18n }}</label>
-							<select ng-model="requestParams.mode" class="span12">
-								<option value="All">{{ 'projects.list.filters.participation.all' | i18n }}</option>
-								<option value="Participated">{{ 'projects.list.filters.participation.me' | i18n }}</option>
-							</select>
-							<label>{{ 'projects.fields.tags' | i18n}}</label>
-							<input lookup="home/dictionary/lookupProjectTags" ng-model="filter.simple.Tags" filter-node="{path: 'Tags.Tag', op:'='}" class="span12" multiple />
-						</fieldset>
-					</form>
-				</tab>
-				<tab heading="{{ 'core.filters.complex' | i18n }}">
-					<div structured-filter filter-ng-model="filter.complex" meta="'home/projects/projectMetadata'">
+<div class="container" 
+		ng-controller="projectsListCtrl"
+		filtered-list="{method: 'home/projects/getProjects'}"
+		initial-sorters="{ CreationTime: 'desc' }">
+	<div class="row" id="content-wrapper">
+		<div class="col-lg-12">
+			<div class="box box-nomargin">
+				<div class="box-header purple-background">
+					<div class="title">Filters</div>
+					<div class="actions">
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
 					</div>
-				</tab>
+				</div>
+				<div class="box-content">
+					<div class="box-toolbox box-toolbox-top">
+						<div filtered-list-actions></div>
+					</div>
 
-				<tab heading="{{ 'core.filters.favorites' | i18n }}">
-					<div filter-persister group="'Projects'" filter="filter"></div>
-				</tab>
+					<tabset>
+						<tab heading="{{ 'core.filters.simple' | i18n }}">
+							<form class="form form-horizontal">
+								<div class="form-group">
+									<label for="names" class="col-md-2 control-label">{{ 'core.fields.name' | i18n }}</label>
+									<div class="col-md-5">
+										<input id="names" lookup="home/projects/lookupProjectNames" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'='}" class="form-control" multiple />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="statuses" class="col-md-2 control-label">{{ 'projects.fields.status' | i18n }}</label>
+									<div class="col-md-5">
+										<input id="statuses" lookup="home/dictionary/lookupProjectStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op:'='}" class="form-control" multiple />	
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="participation" class="col-md-2 control-label">{{ 'projects.list.filters.participation' | i18n }}</label>
+									<div class="col-md-5">
+										<select id="participation" ng-model="requestParams.mode" class="form-control">
+											<option value="All">{{ 'projects.list.filters.participation.all' | i18n }}</option>
+											<option value="Participated">{{ 'projects.list.filters.participation.me' | i18n }}</option>
+										</select>	
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="tags" class="col-md-2 control-label">{{ 'projects.fields.tags' | i18n}}</label>
+									<div class="col-md-5">
+										<input id="tags" lookup="home/dictionary/lookupProjectTags" ng-model="filter.simple.Tags" filter-node="{path: 'Tags.Tag', op:'='}" class="form-control" multiple />	
+									</div>
+								</div>
+							</form>
+						</tab>
+						<tab heading="{{ 'core.filters.complex' | i18n }}">
+							<div structured-filter filter-ng-model="filter.complex" meta="'home/projects/projectMetadata'">
+							</div>
+						</tab>
 
-			</tabset>
-		</twocolumn-side>
+						<tab heading="{{ 'core.filters.favorites' | i18n }}">
+							<div filter-persister group="'Projects'" filter="filter"></div>
+						</tab>
 
+					</tabset>
+				</div><!-- box-content -->
+			</div><!-- box box-nomargin -->
+		</div><!-- col-lg-12 -->
 
-		<twocolumn-content>
-			<div style="margin-bottom: 10px;" ng-show="currentUser.admin">
-				<a class="btn btn-primary" href="#!/projects/create">
-					<i class="icon-plus icon-white"></i>
-					<span>{{ 'projects.list.buttons.add' | i18n }}</span>
-				</a>
-			</div>
+		<div class="col-lg-12">
+			<div class="box box-nomargin">
+				<div class="box-header purple-background">
+					<div class="title">Projects</div>
+					<div class="actions">
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+					</div>
+				</div>
+				<div class="box-content">
+					<div class="box-toolbox box-toolbox-top">
+						<a ng-show="currentUser.admin" class="btn btn-primary" href="#!/projects/create">
+							<i class="icon-plus icon-white"></i>
+							<span>{{ 'projects.list.buttons.add' | i18n }}</span>
+						</a>
+					</div>
 
-			<table class="table table-bordered"
-			       infinite-scroll="paging.page = paging.page + 1"
-			       infinite-scroll-disabled="applyEnabled"
-			       infinite-scroll-distance="1">
-				<thead>
-					<tr>
-						<th><span sortable-heading="sorters.Name" caption="{{ 'core.fields.name' | i18n }}"></span></th>
-						<th><span sortable-heading="sorters.Type_Name" caption="{{ 'core.fields.type' | i18n }}"></span></th>
-						<th><span sortable-heading="sorters.Description" caption="{{ 'core.fields.description' | i18n }}"></span></th>
-						<th><span sortable-heading="sorters.Status_Name" caption="{{ 'projects.fields.status' | i18n }}"></span></th>
-						<th><span sortable-heading="sorters.CreationTime" caption="{{ 'core.fields.creationTime' | i18n }}"></span></th>
-						<th><span sortable-heading="sorters.IsArchive" caption="{{ 'projects.fields.isArchive' | i18n }}"></span></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="model in models">
-						<td>
-							<a href="/projects/{{model.ProjectCode}}" target="_blank">
-								{{ model.Name }}
-							</a>
-						</td>
-						<td>{{ model.Type.Name }}</td>
-						<td>{{ model.Description }}</td>
-						<td>{{ model.Status.Name }}</td>
-						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
-						<td>{{ model.IsArchive | yesNo }}</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
-			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-				ng-disabled="applyEnabled">{{ 'core.buttons.more' | i18n }}</button>
-		</twocolumn-content>
-	</div>
-</container>
+					<table class="table table-bordered"
+					       infinite-scroll="paging.page = paging.page + 1"
+					       infinite-scroll-disabled="applyEnabled"
+					       infinite-scroll-distance="1">
+						<thead>
+							<tr>
+								<th><span sortable-heading="sorters.Name" caption="{{ 'core.fields.name' | i18n }}"></span></th>
+								<th><span sortable-heading="sorters.Type_Name" caption="{{ 'core.fields.type' | i18n }}"></span></th>
+								<th><span sortable-heading="sorters.Description" caption="{{ 'core.fields.description' | i18n }}"></span></th>
+								<th><span sortable-heading="sorters.Status_Name" caption="{{ 'projects.fields.status' | i18n }}"></span></th>
+								<th><span sortable-heading="sorters.CreationTime" caption="{{ 'core.fields.creationTime' | i18n }}"></span></th>
+								<th><span sortable-heading="sorters.IsArchive" caption="{{ 'projects.fields.isArchive' | i18n }}"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="model in models">
+								<td>
+									<a href="/projects/{{model.ProjectCode}}" target="_blank">
+										{{ model.Name }}
+									</a>
+								</td>
+								<td>{{ model.Type.Name }}</td>
+								<td>{{ model.Description }}</td>
+								<td>{{ model.Status.Name }}</td>
+								<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+								<td>{{ model.IsArchive | yesNo }}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div ng-show="indication.loading" us-spinner="{top:100}"></div>
+					<div class="box-toolbox box-toolbox-bottom">
+						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
+						ng-disabled="applyEnabled">{{ 'core.buttons.more' | i18n }}</button>
+					</div>
+				</div><!-- box-content -->
+			</div><!-- box box-nomargin -->
+		</div><!-- col-lg-12 -->
+	</div><!-- row -->
+</div><!-- container -->
