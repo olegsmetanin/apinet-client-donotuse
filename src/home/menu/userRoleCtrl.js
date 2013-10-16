@@ -5,7 +5,7 @@ angular.module('home')
 			$scope.role = '';
 
 			moduleConfig.getRole().then(function(role) {
-				$scope.role = role;
+				//TODO restore working $scope.role = role;
 			});
 
 			$scope.roleIs = function(role) {
@@ -13,12 +13,15 @@ angular.module('home')
 			};
 
 			$scope.setRole = function(role) {
-				$http.post('/api/home/users/setRole', {
-					role: role,
-					project: sysConfig.project
-				}).then(function(response) {
-					location.reload();
-				});
+				//TODO testing, remove
+				$scope.role = role;
+
+				// $http.post('/api/home/users/setRole', {
+				// 	role: role,
+				// 	project: sysConfig.project
+				// }).then(function(response) {
+				// 	location.reload();
+				// });
 			};
 		}
 	]);

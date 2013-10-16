@@ -65,7 +65,7 @@
 		<div class="col-lg-12">
 			<div class="box box-nomargin">
 				<div class="box-header purple-background">
-					<div class="title">Projects</div>
+					<div class="title">{{ 'projects.list.title' | i18n }}</div>
 					<div class="actions">
 						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
 					</div>
@@ -78,36 +78,41 @@
 						</a>
 					</div>
 
-					<table class="table table-bordered"
-					       infinite-scroll="paging.page = paging.page + 1"
-					       infinite-scroll-disabled="applyEnabled"
-					       infinite-scroll-distance="1">
-						<thead>
-							<tr>
-								<th><span sortable-heading="sorters.Name" caption="{{ 'core.fields.name' | i18n }}"></span></th>
-								<th><span sortable-heading="sorters.Type_Name" caption="{{ 'core.fields.type' | i18n }}"></span></th>
-								<th><span sortable-heading="sorters.Description" caption="{{ 'core.fields.description' | i18n }}"></span></th>
-								<th><span sortable-heading="sorters.Status_Name" caption="{{ 'projects.fields.status' | i18n }}"></span></th>
-								<th><span sortable-heading="sorters.CreationTime" caption="{{ 'core.fields.creationTime' | i18n }}"></span></th>
-								<th><span sortable-heading="sorters.IsArchive" caption="{{ 'projects.fields.isArchive' | i18n }}"></span></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="model in models">
-								<td>
-									<a href="/projects/{{model.ProjectCode}}" target="_blank">
-										{{ model.Name }}
-									</a>
-								</td>
-								<td>{{ model.Type.Name }}</td>
-								<td>{{ model.Description }}</td>
-								<td>{{ model.Status.Name }}</td>
-								<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
-								<td>{{ model.IsArchive | yesNo }}</td>
-							</tr>
-						</tbody>
-					</table>
-					<div ng-show="indication.loading" us-spinner="{top:100}"></div>
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="table table-bordered"
+							       infinite-scroll="paging.page = paging.page + 1"
+							       infinite-scroll-disabled="applyEnabled"
+							       infinite-scroll-distance="1">
+								<thead>
+									<tr>
+										<th><span sortable-heading="sorters.Name" caption="{{ 'core.fields.name' | i18n }}"></span></th>
+										<th><span sortable-heading="sorters.Type_Name" caption="{{ 'core.fields.type' | i18n }}"></span></th>
+										<th class="hidden-xs"><span sortable-heading="sorters.Description" caption="{{ 'core.fields.description' | i18n }}"></span></th>
+										<th><span sortable-heading="sorters.Status_Name" caption="{{ 'projects.fields.status' | i18n }}"></span></th>
+										<th class="hidden-xs"><span sortable-heading="sorters.CreationTime" caption="{{ 'core.fields.creationTime' | i18n }}"></span></th>
+										<th class="hidden-xs"><span sortable-heading="sorters.IsArchive" caption="{{ 'projects.fields.isArchive' | i18n }}"></span></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="model in models">
+										<td>
+											<a href="/projects/{{model.ProjectCode}}" target="_blank">
+												{{ model.Name }}
+											</a>
+										</td>
+										<td>{{ model.Type.Name }}</td>
+										<td class="hidden-xs">{{ model.Description }}</td>
+										<td>{{ model.Status.Name }}</td>
+										<td class="hidden-xs">{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+										<td class="hidden-xs">{{ model.IsArchive | yesNo }}</td>
+									</tr>
+								</tbody>
+							</table>
+							<div ng-show="indication.loading" us-spinner="{top:100}"></div>
+						</div><!-- scollable-area -->
+					</div><!-- responsive-table -->
+					
 					<div class="box-toolbox box-toolbox-bottom">
 						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
 						ng-disabled="applyEnabled">{{ 'core.buttons.more' | i18n }}</button>

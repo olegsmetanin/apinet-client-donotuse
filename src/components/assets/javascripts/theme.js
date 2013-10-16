@@ -1,12 +1,13 @@
 (function() {
   $(document).ready(function() {
-    var body, click_event, content, nav, nav_toggler;
-    nav_toggler = $("header .toggle-nav");
+    var body, click_event, content, nav/*, nav_toggler*/;
+    //nav_toggler = $("header .toggle-nav");
     nav = $("#main-nav");
     content = $("#content");
     body = $("body");
     click_event = (jQuery.support.touch ? "tap" : "click");
-    $("#main-nav .dropdown-collapse").on(click_event, function(e) {
+    //$("#main-nav .dropdown-collapse").on(click_event, function(e) {
+    $(document.body).on(click_event, '#main-nav .dropdown-collapse', function(e) {
       var link, list;
       e.preventDefault();
       link = $(this);
@@ -39,7 +40,8 @@
         return $(document).trigger("nav-close");
       });
     }
-    nav_toggler.on(click_event, function() {
+    //nav_toggler.on(click_event, function() {
+    $(document).on(click_event, 'header .toggle-nav', function() {
       if (nav_open()) {
         $(document).trigger("nav-close");
       } else {
