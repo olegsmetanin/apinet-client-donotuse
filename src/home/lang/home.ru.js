@@ -1,8 +1,10 @@
 angular.module('home').run(['i18n', function(i18n) {
 	i18n.addMessages('projects', {
 		'roles': {
+			'title': 'Роли ({{role}})',
 			'admin': 'Администратор',
-			'manager': 'Менеджер'
+			'manager': 'Менеджер',
+			'nothing': 'отсутствует'
 		},
 
 		'fields': {

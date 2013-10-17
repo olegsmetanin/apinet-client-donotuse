@@ -92,6 +92,7 @@ angular.module('core').run(['i18n', function(i18n) {
 		},
 
 		'filters': {
+			'title': 'Фильтр',
 			'simple': 'Простой',
 			'complex': 'Сложный',
 			'user': 'По параметрам',
@@ -143,7 +144,8 @@ angular.module('core').run(['i18n', function(i18n) {
 		},
 
 		'application': {
-			'creator': 'AGO Systems'
+			'creator': 'AGO Systems',
+			'landing': 'Проекты'
 		}
 	});
 }]);

@@ -48,7 +48,7 @@ angular.module('core').run(['i18n', function(i18n) {
 		'errors': {
 			'title': 'Error',
 			'unknown': 'Unknown error',
-			'integerInRange': 'Must be integer in range {range}',
+			'integerInRange': 'Must be integer in range {{range}}',
 			'requiredField': 'Required field',
 			'nothingToDelete': 'Record for deletion not found (refresh page)'
 		},
@@ -92,6 +92,7 @@ angular.module('core').run(['i18n', function(i18n) {
 		},
 
 		'filters': {
+			'title': 'Filter',
 			'simple': 'Simple',
 			'complex': 'Complex',
 			'user': 'Props',
@@ -143,7 +144,8 @@ angular.module('core').run(['i18n', function(i18n) {
 		},
 
 		'application': {
-			'creator': 'AGO Systems'
+			'creator': 'AGO Systems',
+			'landing': 'Projects'
 		}
 	});
 }]);

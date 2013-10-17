@@ -1,7 +1,7 @@
 <li ng-controller="userRoleCtrl">
 	<a href="#" class="dropdown-collapse">
 		<i class='icon-user'></i>
-		<span>Roles (now is <em>{{ role || 'nothing' }}</em>)</span>
+		<span>{{ 'projects.roles.title' | i18n:{role: (roleName || i18n.projects.roles.nothing)} }}</span>
 		<i class='icon-angle-down angle-down'></i>
 	</a>
 	<ul class="nav nav-stacked">

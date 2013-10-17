@@ -1,8 +1,9 @@
 angular.module('home')
-	.controller('userRoleCtrl', ['$scope', '$http', 'moduleConfig', 'sysConfig',
-		function($scope, $http, moduleConfig, sysConfig) {
+	.controller('userRoleCtrl', ['$scope', '$http', 'moduleConfig', 'sysConfig', 'i18n',
+		function($scope, $http, moduleConfig, sysConfig, i18n) {
 
 			$scope.role = '';
+			$scope.roleName = '';
 
 			moduleConfig.getRole().then(function(role) {
 				//TODO restore working $scope.role = role;
@@ -15,6 +16,7 @@ angular.module('home')
 			$scope.setRole = function(role) {
 				//TODO testing, remove
 				$scope.role = role;
+				$scope.roleName = i18n.msg('projects.roles.' + $scope.role);
 
 				// $http.post('/api/home/users/setRole', {
 				// 	role: role,
