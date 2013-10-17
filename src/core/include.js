@@ -3,7 +3,6 @@ sysConfig.modules['core'] = {
 		'src/core/assets/filtering-component.css',
 		'src/core/assets/filtered-list.css',
 		'src/core/assets/spinner.css',
-		'src/core/assets/header.css',
 		'src/core/assets/inline-edit.css',
 		'src/core/assets/inputs.css'
 	],
