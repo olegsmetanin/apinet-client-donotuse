@@ -58,11 +58,18 @@ angular.module('core')
         'login.error.invalidCredentials': "Login failed.  Please check your credentials and try again.",
         'login.error.serverError': "There was a problem with authenticating: {{exception}}."
     })
-    .controller('HeaderCtrl', ['$scope', 'security', 'moduleMenuUrl', 'sysConfig',
-        function($scope, security, moduleMenuUrl, sysConfig) {
+    .controller('HeaderCtrl', ['$scope', 'security', 'moduleMenuUrl', 'sysConfig', 'pageConfig',
+        function($scope, security, moduleMenuUrl, sysConfig, pageConfig) {
             $scope.isAuthenticated = security.isAuthenticated;
             $scope.moduleMenuUrl = moduleMenuUrl;
             $scope.project = sysConfig.project;
+
+            $scope.isActiveMenu = function(item) {
+                return angular.isDefined(pageConfig) &&
+                    angular.isDefined(pageConfig.current) &&
+                    angular.isDefined(pageConfig.current.menu) &&
+                    pageConfig.current.menu === item;
+            };
         }
     ])
 	.filter('yesNo', function() {

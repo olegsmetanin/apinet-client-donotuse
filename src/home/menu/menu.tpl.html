@@ -14,19 +14,19 @@
 	</ul>
 </li>
 
-<li>
+<li ng-class="{'active': isActiveMenu('projects.list')}">
 	<a href="/#!/projects/listView">
 		<i class="icon-table"></i>
 		<span>{{ i18n.projects.list.title }}</span>
 	</a>
 </li>
-<li>
+<li ng-class="{'active': isActiveMenu('projects.statuses')}">
 	<a href="/#!/projects/statuses">
 		<i class="icon-cog"></i>
 		<span>{{ i18n.projects.statuses.title }}</span>
 	</a>
 </li>
-<li>
+<li ng-class="{'active': isActiveMenu('projects.tags')}">
 	<a href="/#!/projects/tags">
 		<i class="icon-cog"></i>
 		<span>{{ i18n.projects.tags.title }}</span>

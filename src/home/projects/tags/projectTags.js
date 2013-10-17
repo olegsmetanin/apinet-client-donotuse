@@ -13,15 +13,10 @@ angular.module('home')
 				},
 				onEnter: function(pageConfig, i18n) {
 					pageConfig.setConfig({
+						menu: 'projects.tags',
 						breadcrumbs: [
-							{
-								name: i18n.msg('projects.list.title'),
-								url: '/#!/projects/listview'
-							},
-							{
-								name: i18n.msg('projects.tags.title'),
-								url: '/#!/projects/tags'
-							}
+							{ name: i18n.msg('projects.list.title'), url: '/#!/projects/listview' },
+							{ name: i18n.msg('projects.tags.title'), url: '/#!/projects/tags' }
 						]
 					});
 				},

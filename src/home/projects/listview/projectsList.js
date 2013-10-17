@@ -11,6 +11,7 @@
 				},
 				onEnter: function(pageConfig, i18n) {
 					pageConfig.setConfig({
+						menu: 'projects.list',
 						breadcrumbs: [{
 							name: i18n.msg('projects.list.title'),
 							url: '/#!/projects/listview'
