@@ -368,7 +368,7 @@ angular.module('core')
 		transclude: true,
 		template: function(elm, attr) {
 			var tmpl = 
-'<div class="box box-nomargin">' +
+'<div class="box box-nomargin box-collapsed">' +
 '	<div class="box-header purple-background">' +
 '		<div class="title">' + i18n.msg('core.filters.title') + '</div>' +
 '		<div class="actions">' +
