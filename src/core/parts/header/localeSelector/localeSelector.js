@@ -1,5 +1,5 @@
-angular.module('security.login.toolbar', ['ngCookies'])
-	.directive('userMenu', ['sysConfig', '$cookies', '$location', '$window', function (sysConfig, $cookies, $location, $window) {
+angular.module('security.login.toolbar')
+	.directive('localeSelector', ['sysConfig', '$cookies', '$window', function (sysConfig, $cookies, $window) {
 		return {
 			templateUrl: sysConfig.src('core/parts/header/localeSelector/localeSelector.tpl.html'),
 			restrict: 'EA',
