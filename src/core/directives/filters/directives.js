@@ -341,4 +341,58 @@ angular.module('core')
 
 			templateUrl: sysConfig.src('core/directives/filters/filteredListActions.tpl.html')
 		};
-	}]);
+	}])
+.directive('filterPart', ['i18n', function(i18n) {
+	return {
+		restrict: 'E',
+		replace: true,
+		transclude: true,
+		template: function(elm, attr) {
+			var tmpl = 
+				'<div class="box col-lg-4">' +
+				'	<div class="box-header">' +
+				'		<div class="title">' + i18n.msg(attr.title) + '</div>'+
+				'	</div>' +
+				'	<div class="box-content">' +
+				'		<div ng-transclude></div>' +
+				'	</div>' +
+				'</div>';
+			return tmpl;
+		}
+	};
+}])
+.directive('filter', ['i18n', function(i18n) {
+	return {
+		restrict: 'E',
+		replace: true,
+		transclude: true,
+		template: function(elm, attr) {
+			var tmpl = 
+'<div class="box box-nomargin">' +
+'	<div class="box-header purple-background">' +
+'		<div class="title">' + i18n.msg('core.filters.title') + '</div>' +
+'		<div class="actions">' +
+'			<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>' +
+'		</div>' +
+'	</div>' +
+'	<div class="box-content">' +
+'		<div class="box-toolbox box-toolbox-top">' +
+'			<div filtered-list-actions></div>' +
+'		</div>' +
+'		<div class="row">' +
+'			<filter-part title="core.filters.simple">' +
+'				<div ng-transclude></div>' +
+'			</filter-part>' +
+'			<filter-part title="core.filters.complex">' +
+'				<div structured-filter filter-ng-model="filter.complex" meta="\'' + attr.meta + '\'"></div>' +
+'			</filter-part>' +
+'			<filter-part title="core.filters.favorites">' +
+'				<div filter-persister group="\'' + attr.group + '\'" filter="filter"></div>' +
+'			</filter-part>' +
+'		</div>' +
+'	</div>' +
+'</div>';
+			return tmpl;
+		}
+	};
+}]);
