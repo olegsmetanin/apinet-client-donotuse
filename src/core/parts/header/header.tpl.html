@@ -1,17 +1,15 @@
-<header>
-	<nav class="navbar navbar-default navbar-fixed-top" ng-controller="HeaderCtrl">
-		<a class="navbar-brand" href="/">{{ project || 'Projects' }}</a>
-		<a class='toggle-nav btn pull-left' href='#'>
-			<i class='icon-reorder'></i>
-		</a>
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="HeaderCtrl">
+	<a class="navbar-brand" href="/">{{ project || 'Projects' }}</a>
+	<a class='toggle-nav btn pull-left' href='#'>
+		<i class='icon-reorder'></i>
+	</a>
 
-		<div bread-crumbs></div>
-		<ul bread-crumbs-full></ul>
+	<div bread-crumbs></div>
+	<ul bread-crumbs-full></ul>
 
-		<ul class="nav">
-			<li report-notifier></li>
-			<li event-notifier></li>
-			<li user-menu></li>
-		</ul>
-	</nav>
-</header>
+	<ul class="nav">
+		<li report-notifier></li>
+		<li event-notifier></li>
+		<li user-menu></li>
+	</ul>
+</nav>

@@ -10,7 +10,7 @@ angular.module('core')
 		restrict: 'A',
 		replace: true,
 		template: 
-'<div class="btn-group" ng-controller="breadCrumbsCtrl">' +
+'<div class="btn-group pull-left" ng-controller="breadCrumbsCtrl">' +
 '	<a class="breadcrumb-nav btn dropdown-toggle" data-toggle="dropdown">' +
 '		<i class=\'icon-chevron-right\'></i>' +
 '	</a>' +
