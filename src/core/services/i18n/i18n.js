@@ -1,9 +1,7 @@
 angular.module('core')
-	.service('i18n', ['$locale', '$interpolate', 'sysConfig', function ($locale, $interpolate) {
-		angular.extend(this, {
-			messages: {
-			},
+	.service('i18n', ['$interpolate', '$locale', '$rootScope', function ($interpolate, $locale, $rootScope) {
 
+		$rootScope.i18n = angular.extend({
 			addMessages: function () {
 				var prefix = arguments[0];
 				var messages = arguments[1];
@@ -15,6 +13,8 @@ angular.module('core')
 				if (!angular.isObject(messages)) {
 					return;
 				}
+
+				$rootScope.i18n[prefix] = messages;
 
 				for (var key in messages) {
 					if (!messages.hasOwnProperty(key)) {
@@ -29,11 +29,11 @@ angular.module('core')
 					var msg = messages[key];
 
 					if(angular.isObject(msg)) {
-						this.addMessages(fullKey, msg);
+						$rootScope.i18n.addMessages(fullKey, msg);
 					}
 
 					if(angular.isString(msg)) {
-						this.messages[fullKey] = msg;
+						$rootScope.i18n[fullKey] = msg;
 					}
 				}
 			},
@@ -43,15 +43,21 @@ angular.module('core')
 					return '';
 				}
 
-				params = angular.isObject(params) ? params : { };
-
-				var msg = this.messages[key];
-				return msg ? $interpolate(msg)(params) : this.handleNotFound(key);
+				var msg = $rootScope.i18n[key];
+				return angular.isString(msg) ? (params ? $interpolate(msg)(params) : msg) : (angular.isObject(msg) ?
+					$interpolate(key)(msg) : $rootScope.i18n.handleNotFound(key));
 			},
 
 			handleNotFound: function(key) {
 				return '?' + key + '?';
 			}
+		}, $locale);
+
+
+		angular.extend(this, {
+			addMessages: $rootScope.i18n.addMessages,
+			msg: $rootScope.i18n.msg,
+			handleNotFound: $rootScope.i18n.handleNotFound
 		});
 	}])
 	.filter('i18n', ['i18n', function (i18n) {

@@ -14,12 +14,17 @@ angular.module('home').run(['i18n', function(i18n) {
 
 		'list': {
 			'title': 'Проекты',
-			'buttons.add': 'Новый проект',
+			'buttons': {
+				'add': 'Новый проект'
+			},
 
 			'filters': {
-				'participation': 'Участие',
-				'participation.all': 'Все',
-				'participation.me': 'Я участник'
+				'participation': {
+					'label': 'Участие',
+
+					'all': 'Все',
+					'me': 'Я участник'
+				}
 			}
 		},
 		'create': {
@@ -28,16 +33,22 @@ angular.module('home').run(['i18n', function(i18n) {
 		},
 		'statuses': {
 			'title': 'Справочник статусов',
-			'buttons.add': 'Новый статус'
+			'buttons': {
+				'add': 'Новый статус'
+			}
 		},
 		'tags': {
 			'title': 'Справочник тегов',
-			'buttons.add': 'Новый тег',
+			'buttons': {
+				'add': 'Новый тег'
+			},
 
 			'filters': {
-				'ownership': 'Принадлежность',
-				'ownership.personal': 'Персональные теги',
-				'ownership.common': 'Общие теги'
+				'ownership': {
+					'label': 'Принадлежность',
+					'personal': 'Персональные теги',
+					'common': 'Общие теги'
+				}
 			}
 		}
 	});

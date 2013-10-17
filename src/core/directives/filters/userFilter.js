@@ -7,8 +7,10 @@ angular.module('core')
 				scope: {
 					rootNode: '=filterNgModel'
 				},
-				controller: ['$scope', function($scope) {
+				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 					angular.extend($scope, {
+						i18n: $rootScope.i18n,
+
 						shared: {
 							selectedNode: null,
 							editMode: null
@@ -95,7 +97,9 @@ angular.module('core')
 					shared: '='
 				},
 				templateUrl: sysConfig.src('core/directives/filters/userFilterNode.tpl.html'),
-				controller: ['$scope', function($scope) {
+				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
+					$scope.i18n = $rootScope.i18n;
+
 					var propertyTypeNode = $scope.node !== $scope.rootNode ?
 						$filterHelpers.ensurePropertyTypeNode($scope.node) : null;
 					var propertyValueNode = $scope.node !== $scope.rootNode ?
@@ -352,7 +356,9 @@ angular.module('core')
 					commitEdit: '&',
 					cancelEdit: '&'
 				},
-				controller: ['$scope', function($scope) {
+				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
+					$scope.i18n = $rootScope.i18n;
+
 					var propertyTypeNode = $filterHelpers.ensurePropertyTypeNode($scope.node);
 					var propertyValueNode = $filterHelpers.ensurePropertyValueNode($scope.node);
 

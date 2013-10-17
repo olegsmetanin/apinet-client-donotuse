@@ -8,21 +8,21 @@
 			<div filtered-list-actions></div>
 
 			<tabset>
-				<tab heading="{{ 'core.filters.simple' | i18n }}">
+				<tab heading="{{ i18n.core.filters.simple }}">
 					<form>
 						<fieldset>
-							<label>{{ 'core.fields.name' | i18n }}</label>
+							<label>{{ i18n.core.fields.name }}</label>
 							<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="span12" />
 						</fieldset>
 					</form>
 				</tab>
 
-				<tab heading="{{ 'core.filters.complex' | i18n }}">
+				<tab heading="{{ i18n.core.filters.complex }}">
 					<div structured-filter filter-ng-model="filter.complex" meta="'tasks/dictionary/taskTypeMetadata'">
 					</div>
 				</tab>
 
-				<tab heading="{{ 'core.filters.favorites' | i18n }}">
+				<tab heading="{{ i18n.core.filters.favorites }}">
 					<div filter-persister group="'Tasks.TaskType'" filter="filter"></div>
 				</tab>
 			</tabset>
@@ -38,9 +38,9 @@
 				<fieldset>
 					<div style="display: inline-block">
 						<div class="input-append">
-							<input type="text" ng-model="editModel.name" placeholder="{{ 'tasks.types.placeholders.name' | i18n }}" required />
+							<input type="text" ng-model="editModel.name" placeholder="{{ i18n.tasks.types.placeholders.name }}" required />
 							<button type="button" class="btn" ng-click="createTaskType()"
-							        ng-disabled="createTaskTypeForm.$invalid">{{ 'core.buttons.add' | i18n }}</button>
+							        ng-disabled="createTaskTypeForm.$invalid">{{ i18n.core.buttons.add }}</button>
 						</div>
 						<span ng-show="validation.fieldErrors['Name']" class="help-block alert-error">
 							{{ validation.fieldErrors['Name'] | joinBy }}
@@ -48,9 +48,9 @@
 					</div>
 					
 					<div class="span6 pull-right">
-						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">{{ 'core.buttons.delete' | i18n }}</button>
+						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">{{ i18n.core.buttons.delete }}</button>
 						<input type="text" lookup="tasks/dictionary/lookupTaskTypes" lookup-options="{allowClear: true}"
-						       ng-model="deleteModel.replacementType" placeholder="{{ 'tasks.types.placeholders.replacementType' | i18n }}" style="width: 80%"/>
+						       ng-model="deleteModel.replacementType" placeholder="{{ i18n.tasks.types.placeholders.replacementType }}" style="width: 80%"/>
 					</div>
 				</fieldset>
 			</form>
@@ -64,9 +64,9 @@
 						<th class="onepct">
 							<input type="checkbox" checker="items: 'models'">
 						</th>
-						<th><span sortable-heading="sorters.Name" caption="{{ 'core.fields.name' | i18n }}"></span></th>
-						<th style="width: 15%"><span sortable-heading="sorters.Creator_FIO" caption="{{ 'core.fields.creator' | i18n }}"></span></th>
-						<th style="width: 20%"><span sortable-heading="sorters.CreationTime" caption="{{ 'core.fields.creationTime' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
+						<th style="width: 15%"><span sortable-heading="sorters.Creator_FIO" caption="{{ i18n.core.fields.creator }}"></span></th>
+						<th style="width: 20%"><span sortable-heading="sorters.CreationTime" caption="{{ i18n.core.fields.creationTime }}"></span></th>
 						<th class="onepct">&nbsp;</th>
 					</tr>
 				</thead>
@@ -84,7 +84,7 @@
 						<td>{{ model.Author }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
 						<td>
-							<button type="button" class="close" title="{{ 'tasks.types.buttons.delete' | i18n }}" ng-click="delete(model)">&times;</button>
+							<button type="button" class="close" title="{{ i18n.tasks.types.buttons.delete }}" ng-click="delete(model)">&times;</button>
 						</td>
 					</tr>
 				</tbody>
@@ -92,7 +92,7 @@
 
 			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
 			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-			        ng-disabled="applyEnabled">{{ 'core.buttons.more' | i18n }}</button>
+			        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
 		</div>
 		<!-- </twocolumn-content> -->
 	</div>

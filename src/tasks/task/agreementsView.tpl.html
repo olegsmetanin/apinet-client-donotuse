@@ -1,11 +1,11 @@
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<th>{{ 'tasks.view.agreements.fields.agreemer' | i18n }}</th>
-			<th>{{ 'tasks.view.agreements.fields.dueDate' | i18n }}</th>
-			<th class="onepct">{{ 'tasks.view.agreements.fields.done' | i18n }}</th>
-			<th class="span3">{{ 'tasks.view.agreements.fields.agreedAt' | i18n }}</th>
-			<th class="span4">{{ 'tasks.view.agreements.fields.comment' | i18n }}</th>
+			<th>{{ i18n.tasks.view.agreements.fields.agreemer }}</th>
+			<th>{{ i18n.tasks.view.agreements.fields.dueDate }}</th>
+			<th class="onepct">{{ i18n.tasks.view.agreements.fields.done }}</th>
+			<th class="span3">{{ i18n.tasks.view.agreements.fields.agreedAt }}</th>
+			<th class="span4">{{ i18n.tasks.view.agreements.fields.comment }}</th>
 			<th class="onepct">&nbsp;</th>
 		</tr>
 	</thead>
@@ -35,21 +35,21 @@
 		<tr ng-show="editables.addState">
 			<td colspan="6" class="form-inline">
 				<input type="text" name="agreemer" lookup="home/projects/lookupParticipant"
-				       ng-model="editables.newAgreemer" placeholder="{{ 'tasks.view.agreements.placeholders.agreemer' | i18n }}" class="span4" />
+				       ng-model="editables.newAgreemer" placeholder="{{ i18n.tasks.view.agreements.placeholders.agreemer }}" class="span4" />
 				<input type="text" ui-date="{dateFormat:'dd.mm.yy', changeMonth: true, changeYear: true}"
-				       ng-model="editables.dueDate"  class="span2" placeholder="{{ 'tasks.view.agreements.placeholders.dueDate' | i18n }}" />
-				<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="!addAgreementAvailable()">{{ 'core.buttons.add' | i18n }}</button>
+				       ng-model="editables.dueDate"  class="span2" placeholder="{{ i18n.tasks.view.agreements.placeholders.dueDate }}" />
+				<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="!addAgreementAvailable()">{{ i18n.core.buttons.add }}</button>
 
 				<div class="btn-group">
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						{{ 'tasks.view.agreements.buttons.agreement.dropdown' | i18n }}
+						{{ i18n.tasks.view.agreements.buttons.agreement.dropdown }}
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a ng-click="agree()">{{ 'tasks.view.agreements.buttons.agreement.agree' | i18n }}</a></li>
-						<li><a ng-click="toggleAgree()">{{ 'tasks.view.agreements.buttons.agreement.toggleAgree' | i18n }}</a></li>
+						<li><a ng-click="agree()">{{ i18n.tasks.view.agreements.buttons.agreement.agree }}</a></li>
+						<li><a ng-click="toggleAgree()">{{ i18n.tasks.view.agreements.buttons.agreement.toggleAgree }}</a></li>
 						<li class="divider"></li>
-						<li><a ng-click="revoke()">{{ 'tasks.view.agreements.buttons.agreement.revoke' | i18n }}</a></li>
+						<li><a ng-click="revoke()">{{ i18n.tasks.view.agreements.buttons.agreement.revoke }}</a></li>
 					</ul>
 				</div>
 			</td>
@@ -57,11 +57,11 @@
 		<tr ng-hide="editables.addState">
 			<td colspan="6">
 				<div class="input-append span12">
-					<input type="text" ng-model="editables.comment" class="span6" placeholder="{{ 'tasks.view.agreements.placeholders.comment' | i18n }}">
-					<button type="button" class="btn" ng-click="toggleAgree()" title="{{ 'core.buttons.cancel' | i18n }}">
+					<input type="text" ng-model="editables.comment" class="span6" placeholder="{{ i18n.tasks.view.agreements.placeholders.comment }}">
+					<button type="button" class="btn" ng-click="toggleAgree()" title="{{ i18n.core.buttons.cancel }}">
 						<i class="icon-reply"></i>
 					</button>
-					<button type="button" class="btn" ng-click="agree()" title="{{ 'tasks.view.agreements.buttons.agreement.agree' | i18n }}">
+					<button type="button" class="btn" ng-click="agree()" title="{{ i18n.tasks.view.agreements.buttons.agreement.agree }}">
 						<i class="icon-ok"></i>
 					</button>
 				</div>

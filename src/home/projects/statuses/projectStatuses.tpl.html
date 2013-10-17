@@ -6,21 +6,21 @@
 			<div filtered-list-actions></div>
 
 			<tabset>
-				<tab heading="{{ 'core.filters.simple' | i18n }}">
+				<tab heading="{{ i18n.core.filters.simple }}">
 					<form>
 						<fieldset>
-							<label>{{ 'core.fields.name' | i18n }}</label>
+							<label>{{ i18n.core.fields.name }}</label>
 							<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}"  class="span12" />
 						</fieldset>
 					</form>
 				</tab>
-				<tab heading="{{ 'core.filters.complex' | i18n }}">
+				<tab heading="{{ i18n.core.filters.complex }}">
 					<div structured-filter
 					     filter-ng-model="filter.complex"
 					     meta="'home/dictionary/projectStatusMetadata'">
 					</div>
 				</tab>
-				<tab heading="{{ 'core.filters.favorites' | i18n }}">
+				<tab heading="{{ i18n.core.filters.favorites }}">
 					<div filter-persister group="'ProjectStatuses'" filter="filter"></div>
 				</tab>
 			</tabset>
@@ -31,7 +31,7 @@
 			<div ng-show="currentUser.admin">
 				<button style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">
 					<i class="icon-plus icon-white"></i>
-					<span>{{ 'projects.statuses.buttons.add' | i18n }}</span>
+					<span>{{ i18n.projects.statuses.buttons.add }}</span>
 				</button>
 
 				<div class="alert alert-error" ng-show="validation.generalErrors">
@@ -41,7 +41,7 @@
 				<form style="margin-top: 10px;" name="newItemForm" class="form-horizontal" novalidate ng-show="editFormVisible">
 					<fieldset>
 						<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['Name'] }">
-							<label class="control-label">{{ 'core.fields.name' | i18n }}</label>
+							<label class="control-label">{{ i18n.core.fields.name }}</label>
 							<div class="controls">
 								<input class="span3" name="Name" type="text" ng-model="editingItem.Name" required />
 							<span ng-show="validation.fieldErrors['Name']" class="help-inline">
@@ -50,7 +50,7 @@
 						</div>
 						</div>
 						<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['Description'] }">
-							<label class="control-label">{{ 'core.fields.description' | i18n }}</label>
+							<label class="control-label">{{ i18n.core.fields.description }}</label>
 							<div class="controls">
 								<textarea class="span3" name="Description" ng-model="editingItem.Description"></textarea>
 							<span ng-show="validation.fieldErrors['Description']" class="help-inline">
@@ -61,8 +61,8 @@
 					</fieldset>
 					<div>
 						<button class="btn btn-primary login" ng-click="saveItem();"
-							ng-disabled='newItemForm.$invalid'>{{ 'core.buttons.save' | i18n }}</button>
-						<button class="btn btn-warning" ng-click="cancelEdit();">{{ 'core.buttons.cancel' | i18n }}</button>
+							ng-disabled='newItemForm.$invalid'>{{ i18n.core.buttons.save }}</button>
+						<button class="btn btn-warning" ng-click="cancelEdit();">{{ i18n.core.buttons.cancel }}</button>
 					</div>
 				</form>
 			</div>
@@ -73,9 +73,9 @@
 			       infinite-scroll-distance="1">
 				<thead>
 					<tr>
-						<th><span sortable-heading="sorters.Name" caption="{{ 'core.fields.name' | i18n }}"></span></th>
-						<th><span sortable-heading="sorters.Description" caption="{{ 'core.fields.description' | i18n }}"></span></th>
-						<th><span sortable-heading="sorters.CreationTime" caption="{{ 'core.fields.creationTime' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
+						<th><span sortable-heading="sorters.Description" caption="{{ i18n.core.fields.description }}"></span></th>
+						<th><span sortable-heading="sorters.CreationTime" caption="{{ i18n.core.fields.creationTime }}"></span></th>
 						<th style="width: 200px;" ng-show="currentUser.admin"></th>
 					</tr>
 				</thead>
@@ -89,11 +89,11 @@
 						<td ng-show="currentUser.admin">
 							<button class="btn-mini btn-info" ng-click="editItem(model);">
 								<i class="icon-edit icon-white"></i>
-								<span>{{ 'core.buttons.edit' | i18n }}</span>
+								<span>{{ i18n.core.buttons.edit }}</span>
 							</button>
 							<button class="btn-mini btn-danger" ng-click="deleteItem(model);">
 								<i class="icon-edit icon-white"></i>
-								<span>{{ 'core.buttons.delete' | i18n }}</span>
+								<span>{{ i18n.core.buttons.delete }}</span>
 							</button>
 						</td>
 					</tr>
@@ -102,7 +102,7 @@
 
 			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
 			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-			        ng-disabled="applyEnabled">{{ 'core.buttons.more' | i18n }}</button>
+			        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
 		</twocolumn-content>
 	</div>
 </container>

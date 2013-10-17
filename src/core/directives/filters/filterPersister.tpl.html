@@ -9,7 +9,7 @@
 			{{ validation.fieldErrors['name'] }}
 		</span>
 		<button class="btn btn-primary" style="margin-left: 13px;" ng-click="saveFilter()"
-			ng-disabled='saveFilterForm.$invalid'>{{ 'core.buttons.save' | i18n }}</button>
+			ng-disabled='saveFilterForm.$invalid'>{{ i18n.core.buttons.save }}</button>
 	</form>
 
 	<form name="loadFilterForm" class="form-inline" novalidate>
@@ -17,8 +17,8 @@
 		        ng-options="name for name in filterNames">
 		</select>
 		<button class="btn btn-success" style="margin-left: 5px;" ng-click="loadFilter()"
-			ng-disabled='loadFilterForm.$invalid'>{{ 'core.buttons.load' | i18n }}</button>
+			ng-disabled='loadFilterForm.$invalid'>{{ i18n.core.buttons.load }}</button>
 		<button class="btn btn-danger" ng-click="deleteFilter()"
-		    ng-disabled='loadFilterForm.$invalid'>{{ 'core.buttons.delete' | i18n }}</button>
+		    ng-disabled='loadFilterForm.$invalid'>{{ i18n.core.buttons.delete }}</button>
 	</form>
 </div>

@@ -8,8 +8,10 @@ angular.module('core')
 				group: '=',
 				filter: '='
 			},
-			controller: ['$scope', function($scope) {
+			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				angular.extend($scope, {
+					i18n: $rootScope.i18n,
+
 					filterNames: [ ],
 					validation: {
 						generalErrors: [],
@@ -89,8 +91,6 @@ angular.module('core')
 	}])
 	.directive('filteredList', ['apinetService', '$timeout', function($apinetService, $timeout) {
 		return {
-			scope: false,
-
 			controller: ['$scope', function($scope) {
 				angular.extend($scope, {
 					filter: { },
@@ -338,7 +338,7 @@ angular.module('core')
 		return {
 			restrict: 'A',
 			replace: true,
-			scope: false,
+
 			templateUrl: sysConfig.src('core/directives/filters/filteredListActions.tpl.html')
 		};
 	}]);

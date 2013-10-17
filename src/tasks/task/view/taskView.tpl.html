@@ -10,27 +10,27 @@
 				<ul class="nav nav-list">
 					<li>
 						<a href="#general">
-							{{ 'tasks.view.general.title' | i18n }}
+							{{ i18n.tasks.view.general.title }}
 						</a>
 					</li>
 					<li>
 						<a href="#agreements">
-							{{ 'tasks.view.agreements.title' | i18n }}
+							{{ i18n.tasks.view.agreements.title }}
 						</a>
 					</li>
 					<li>
 						<a href="#statusHistory">
-							{{ 'tasks.view.statusHistory.title' | i18n }}
+							{{ i18n.tasks.view.statusHistory.title }}
 						</a>
 					</li>
 					<li>
 						<a href="#customStatusHistory">
-							{{ 'tasks.view.customStatusHistory.title' | i18n }}
+							{{ i18n.tasks.view.customStatusHistory.title }}
 						</a>
 					</li>
 					<li>
 						<a href="#params">
-							{{ 'tasks.view.params.title' | i18n }}
+							{{ i18n.tasks.view.params.title }}
 						</a>
 					</li>
 				</ul>
@@ -42,14 +42,14 @@
 			</div>
 
 			<section id="general">
-				<h3>{{ 'tasks.view.general.title' | i18n }}</h3>
+				<h3>{{ i18n.tasks.view.general.title }}</h3>
 				<table class="table">
 					<tr>
-						<td class="span3">{{ 'tasks.fields.seqNumber' | i18n }}</td>
+						<td class="span3">{{ i18n.tasks.fields.seqNumber }}</td>
 						<td>{{ model.SeqNumber }}</td>
 					</tr>
 					<tr>
-						<td>{{ 'tasks.fields.type' | i18n }}</td>
+						<td>{{ i18n.tasks.fields.type }}</td>
 						<td>
 							<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" on-cancel="resetValidation()"
 							               input-lookup="tasks/dictionary/lookupTaskTypes" input-class="span6" required></inline-lookup>
@@ -59,7 +59,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ 'tasks.fields.executors' | i18n }}</td>
+						<td>{{ i18n.tasks.fields.executors }}</td>
 						<td>
 							<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()"
 							               input-lookup="home/projects/lookupParticipant" input-class="span10" multiple required>
@@ -71,7 +71,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ 'tasks.fields.content' | i18n }}</td>
+						<td>{{ i18n.tasks.fields.content }}</td>
 						<td>
 							<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()"
 							                  pre-class="span10" input-class="span10" input-rows="3"></inline-text-area>
@@ -81,7 +81,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ 'tasks.fields.dueDate' | i18n }}</td>
+						<td>{{ i18n.tasks.fields.dueDate }}</td>
 						<td>
 							<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" on-cancel="resetValidation()" date-format="dd.MM.yyyy"></inline-date>
 							<span ng-show="validation.fieldErrors['DueDate']" class="help-block alert-error">
@@ -90,7 +90,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ 'tasks.fields.status' | i18n }}</td>
+						<td>{{ i18n.tasks.fields.status }}</td>
 						<td>
 							<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" on-cancel="resetValidation()"
 							               input-lookup="tasks/dictionary/lookupTaskStatuses" input-class="span6" required></inline-lookup>
@@ -100,7 +100,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ 'tasks.fields.customStatus' | i18n }}</td>
+						<td>{{ i18n.tasks.fields.customStatus }}</td>
 						<td>
 							<inline-lookup model="model.CustomStatus" on-update="onUpdateProp(model, 'CustomStatus', val)" on-cancel="resetValidation()"
 							               input-lookup="tasks/dictionary/lookupCustomStatuses" input-class="span6"></inline-lookup>
@@ -110,7 +110,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ 'tasks.fields.priority' | i18n }}</td>
+						<td>{{ i18n.tasks.fields.priority }}</td>
 						<td>
 							<inline-lookup model="model.Priority" on-update="onUpdateProp(model, 'Priority', val)" on-cancel="resetValidation()"
 							               input-lookup="tasks/dictionary/lookupTaskPriorities" input-class="span6" required></inline-lookup>
@@ -120,29 +120,29 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ 'core.fields.creator' | i18n }}</td>
+						<td>{{ i18n.core.fields.creator }}</td>
 						<td>{{ model.Author }}</td>
 					</tr>
 					<tr>
-						<td>{{ 'core.fields.creationTime' | i18n }}</td>
+						<td>{{ i18n.core.fields.creationTime }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
 					</tr>
 				</table>
 			</section>
 			<section id="agreements">
-				<h3>{{ 'tasks.view.agreements.title' | i18n }}</h3>
+				<h3>{{ i18n.tasks.view.agreements.title }}</h3>
 				<agreements model="model"></agreements>
 			</section>
 			<section id="statusHistory">
-				<h3>{{ 'tasks.view.statusHistory.title' | i18n }}</h3>
+				<h3>{{ i18n.tasks.view.statusHistory.title }}</h3>
 				<status-history model="model.StatusHistory" change="changeStatus"></status-history>
 			</section>
 			<section id="customStatusHistory">
-				<h3>{{ 'tasks.view.customStatusHistory.title' | i18n }}</h3>
+				<h3>{{ i18n.tasks.view.customStatusHistory.title }}</h3>
 				<status-history model="model.CustomStatusHistory" change="changeCustomStatus"></status-history>
 			</section>
 			<section id="params">
-				<h3>{{ 'tasks.view.params.title' | i18n }}</h3>
+				<h3>{{ i18n.tasks.view.params.title }}</h3>
 				<custom-properties model="model.Parameters"></custom-properties>
 			</section>
 		</div>

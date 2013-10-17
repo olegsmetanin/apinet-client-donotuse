@@ -9,8 +9,10 @@ angular.module('core')
 			},
 			templateUrl: sysConfig.src('core/directives/sortableHeading.tpl.html'),
 
-			controller: ['$scope', function($scope) {
+			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				angular.extend($scope, {
+					i18n: $rootScope.i18n,
+
 					ascButtonText: function() {
 						return $scope.sorter && $scope.sorter.direction === 'desc' ? $scope.sorter.priority : '▲';
 					},

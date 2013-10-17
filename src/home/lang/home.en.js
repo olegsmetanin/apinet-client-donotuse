@@ -14,12 +14,16 @@ angular.module('home').run(['i18n', function(i18n) {
 
 		'list': {
 			'title': 'Projects',
-			'buttons.add': 'New project',
+			'buttons': {
+				'add': 'New project'
+			},
 
 			'filters': {
-				'participation': 'Participation',
-				'participation.all': 'All',
-				'participation.me': 'I\'am participant'
+				'participation': {
+					'label': 'Participation',
+					'all': 'All',
+					'me': 'I\'am participant'
+				}
 			}
 		},
 		'create': {
@@ -28,16 +32,23 @@ angular.module('home').run(['i18n', function(i18n) {
 		},
 		'statuses': {
 			'title': 'Statuses dictionary',
-			'buttons.add': 'New status'
+			'buttons': {
+				'add': 'New status'
+			}
 		},
 		'tags': {
 			'title': 'Tags dictionary',
-			'buttons.add': 'New tag',
+			'buttons': {
+				'add': 'New tag'
+			},
 
 			'filters': {
-				'ownership': 'Ownership',
-				'ownership.personal': 'Personal tags',
-				'ownership.common': 'Common tags'
+				'ownership': {
+					'label': 'Ownership',
+
+					'personal': 'Personal tags',
+					'common': 'Common tags'
+				}
 			}
 		}
 	});

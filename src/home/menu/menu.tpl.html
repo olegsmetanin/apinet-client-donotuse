@@ -6,10 +6,10 @@
 	</a>
 	<ul class="nav nav-stacked">
 		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('admin')">
-			<i ng-show="roleIs('admin')" class="icon-ok" style="float:right;"></i>{{ 'projects.roles.admin' | i18n }}</a>
+			<i ng-show="roleIs('admin')" class="icon-ok" style="float:right;"></i>{{ i18n.projects.roles.admin }}</a>
 		</li>
 		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('manager')">
-			<i ng-show="roleIs('manager')" class="icon-ok" style="float:right;"></i>{{ 'projects.roles.manager' | i18n }}</a>
+			<i ng-show="roleIs('manager')" class="icon-ok" style="float:right;"></i>{{ i18n.projects.roles.manager }}</a>
 		</li>
 	</ul>
 </li>
@@ -17,18 +17,18 @@
 <li>
 	<a href="/#!/projects/listView">
 		<i class="icon-table"></i>
-		<span>{{ 'projects.list.title' | i18n }}</span>
+		<span>{{ i18n.projects.list.title }}</span>
 	</a>
 </li>
 <li>
 	<a href="/#!/projects/statuses">
 		<i class="icon-cog"></i>
-		<span>{{ 'projects.statuses.title' | i18n }}</span>
+		<span>{{ i18n.projects.statuses.title }}</span>
 	</a>
 </li>
 <li>
 	<a href="/#!/projects/tags">
 		<i class="icon-cog"></i>
-		<span>{{ 'projects.tags.title' | i18n }}</span>
+		<span>{{ i18n.projects.tags.title }}</span>
 	</a>
 </li>

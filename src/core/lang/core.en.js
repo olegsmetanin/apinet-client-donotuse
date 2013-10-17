@@ -1,5 +1,11 @@
 angular.module('core').run(['i18n', function(i18n) {
 	i18n.addMessages('core', {
+		'locale': {
+			'label': 'Language',
+			'ru': 'Russian',
+			'en': 'English'
+		},
+
 		'labels': {
 			'yes': 'Yes',
 			'no': 'No',

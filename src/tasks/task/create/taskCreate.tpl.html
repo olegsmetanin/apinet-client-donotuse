@@ -5,12 +5,12 @@
 		</div>
 		<form name="form" class="form-horizontal span7 offset2" novalidate>
 			<div class="control-group" ng-class="{error: form.taskType.$invalid}">
-				<label class="control-label">{{ 'tasks.fields.type' | i18n }}</label>
+				<label class="control-label">{{ i18n.tasks.fields.type }}</label>
 				<div class="controls">
 					<input type="text" name="taskType" lookup="tasks/dictionary/lookupTaskTypes"
-					       ng-model="model.taskType" placeholder="{{ 'tasks.create.placeholders.type' | i18n }}" autofocus required class="span10" />
+					       ng-model="model.taskType" placeholder="{{ i18n.tasks.create.placeholders.type }}" autofocus required class="span10" />
 					<span ng-show="form.taskType.$error.required" class="help-inline alert-error">
-						* {{ 'core.errors.requiredField' | i18n }}
+						* {{ i18n.core.errors.requiredField }}
 					</span>
 					<span ng-show="validation.fieldErrors['TaskType']" class="help-block alert-error">
 						{{ validation.fieldErrors['TaskType'] | joinBy }}
@@ -18,12 +18,12 @@
 				</div>
 			</div>
 			<div class="control-group" ng-class="{error: form.executors.$invalid}">
-				<label class="control-label">{{ 'tasks.fields.executors' | i18n }}</label>
+				<label class="control-label">{{ i18n.tasks.fields.executors }}</label>
 				<div class="controls">
 					<input type="text" name="executors" lookup="home/projects/lookupParticipant"
-					       ng-model="model.executors" multiple placeholder="{{ 'tasks.create.placeholders.executors' | i18n }}" required-multiple class="span10" />
+					       ng-model="model.executors" multiple placeholder="{{ i18n.tasks.create.placeholders.executors }}" required-multiple class="span10" />
 					<span ng-show="form.executors.$error.required" class="help-inline alert-error">
-						* {{ 'core.errors.requiredField' | i18n }}
+						* {{ i18n.core.errors.requiredField }}
 					</span>
 					<span ng-show="validation.fieldErrors['Executors']" class="help-block alert-error">
 						{{ validation.fieldErrors['Executors'] | joinBy }}
@@ -31,52 +31,52 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">{{ 'tasks.fields.dueDate' | i18n }}</label>
+				<label class="control-label">{{ i18n.tasks.fields.dueDate }}</label>
 				<div class="controls">
 					<input name="dueDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-model="model.dueDate" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">{{ 'tasks.fields.content' | i18n }}</label>
+				<label class="control-label">{{ i18n.tasks.fields.content }}</label>
 				<div class="controls">
 					<textarea name="content" ng-model="model.content" rows="3" class="span10"></textarea>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">{{ 'tasks.fields.customStatus' | i18n }}</label>
+				<label class="control-label">{{ i18n.tasks.fields.customStatus }}</label>
 				<div class="controls">
 					<input type="text" name="customStatus" lookup="tasks/dictionary/lookupCustomStatuses"
-					       ng-model="model.customStatus" placeholder="{{ 'tasks.create.placeholders.customStatus' | i18n }}" class="span10" />
+					       ng-model="model.customStatus" placeholder="{{ i18n.tasks.create.placeholders.customStatus }}" class="span10" />
 					<span ng-show="validation.fieldErrors['CustomStatus']" class="help-block alert-error">
 						{{ validation.fieldErrors['CustomStatus'] | joinBy }}
 					</span>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">{{ 'tasks.fields.priority' | i18n }}</label>
+				<label class="control-label">{{ i18n.tasks.fields.priority }}</label>
 				<div class="controls">
 					<input type="text" lookup="tasks/dictionary/lookupTaskPriorities" lookup-options="{allowClear: true}"
-					       ng-model="model.priority" placeholder="{{ 'tasks.create.placeholders.priority' | i18n }}" class="span10" />
+					       ng-model="model.priority" placeholder="{{ i18n.tasks.create.placeholders.priority }}" class="span10" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label">{{ 'tasks.create.labels.afterCreation' | i18n }}:</label>
+				<label class="control-label">{{ i18n.tasks.create.labels.afterCreation }}:</label>
 				<div class="controls">
 					<label class="radio inline">
-						<input type="radio" ng-model="nextAction" value="goToTask">{{ 'tasks.create.labels.afterCreation.goToTask' | i18n }}
+						<input type="radio" ng-model="nextAction" value="goToTask">{{ i18n.tasks.create.labels.afterCreation.goToTask }}
 					</label>
 					<label class="radio inline">
-						<input type="radio" ng-model="nextAction" value="goToList">{{ 'tasks.create.labels.afterCreation.goToList' | i18n }}
+						<input type="radio" ng-model="nextAction" value="goToList">{{ i18n.tasks.create.labels.afterCreation.goToList }}
 					</label>
 					<label class="radio inline">
-						<input type="radio" ng-model="nextAction" value="stayHere">{{ 'tasks.create.labels.afterCreation.stayHere' | i18n }}
+						<input type="radio" ng-model="nextAction" value="stayHere">{{ i18n.tasks.create.labels.afterCreation.stayHere }}
 					</label>
 				</div>
 			</div>
 			<div class="control-group">
 				<div class="controls">
-					<button type="button" class="btn" ng-click="cancel()">{{ 'core.buttons.cancel' | i18n }}</button>
-					<button type="button" class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">{{ 'tasks.create.buttons.save' | i18n }}</button>
+					<button type="button" class="btn" ng-click="cancel()">{{ i18n.core.buttons.cancel }}</button>
+					<button type="button" class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">{{ i18n.tasks.create.buttons.save }}</button>
 				</div>
 			</div>			
 		</form>

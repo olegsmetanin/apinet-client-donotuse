@@ -2,14 +2,14 @@
 	<onecolumn-content>
 		<form name="createProjectForm" class="form-horizontal" novalidate>
 			<fieldset>
-				<legend>{{ 'projects.create.legend' | i18n }}</legend>
+				<legend>{{ i18n.projects.create.legend }}</legend>
 
 				<div class="alert alert-error" ng-show="validation.generalErrors">
 					{{ validation.generalErrors | joinBy }}
 				</div>
 
 				<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['Type'] }">
-					<label class="control-label">{{ 'core.fields.type' | i18n }}</label>
+					<label class="control-label">{{ i18n.core.fields.type }}</label>
 					<div class="controls">
 						<input class="span3" name="Type" type="text"
 						       ui-select2="projectTypeSelectOptions" ng-model="lookups.projectType" autofocus required />
@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['ProjectCode'] }">
-					<label class="control-label">{{ 'projects.fields.code' | i18n }}</label>
+					<label class="control-label">{{ i18n.projects.fields.code }}</label>
 					<div class="controls">
 						<input class="span3" name="ProjectCode" type="text" ng-model="project.ProjectCode" required />
 						<span ng-show="validation.fieldErrors['ProjectCode']" class="help-inline">
@@ -28,7 +28,7 @@
 					</div>
 				</div>
 				<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['Name'] }">
-					<label class="control-label">{{ 'core.fields.name' | i18n }}</label>
+					<label class="control-label">{{ i18n.core.fields.name }}</label>
 					<div class="controls">
 						<input class="span3" name="Name" type="text" ng-model="project.Name" required />
 						<span ng-show="validation.fieldErrors['Name']" class="help-inline">
@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				<div ng-class="{ 'control-group': true, 'error': !!validation.fieldErrors['Description'] }">
-					<label class="control-label">{{ 'core.fields.description' | i18n }}</label>
+					<label class="control-label">{{ i18n.core.fields.description }}</label>
 					<div class="controls">
 						<textarea class="span3" name="Description" ng-model="project.Description"></textarea>
 						<span ng-show="validation.fieldErrors['Description']" class="help-inline">
@@ -48,8 +48,8 @@
 			</fieldset>
 			<div>
 				<button class="btn btn-primary" ng-click="createProject()"
-				        ng-disabled='createProjectForm.$invalid'>{{ 'core.buttons.save' | i18n }}</button>
-				<a class="btn btn-warning" href="/#!/projects/listview">{{ 'core.buttons.cancel' | i18n }}</a>
+				        ng-disabled='createProjectForm.$invalid'>{{ i18n.core.buttons.save }}</button>
+				<a class="btn btn-warning" href="/#!/projects/listview">{{ i18n.core.buttons.cancel }}</a>
 			</div>
 		</form>
 

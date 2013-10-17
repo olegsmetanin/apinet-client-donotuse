@@ -8,8 +8,10 @@ angular.module('core')
 					rootNode: '=filterNgModel',
 					meta: '='
 				},
-				controller: ['$scope', function($scope) {
+				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 					angular.extend($scope, {
+						i18n: $rootScope.i18n,
+
 						shared: {
 							selectedNode: null,
 							isCompositeSelected: false,
@@ -122,8 +124,10 @@ angular.module('core')
 					getParentMetadata: '&'
 				},
 				templateUrl: sysConfig.src('core/directives/filters/structuredFilterNode.tpl.html'),
-				controller: ['$scope', function($scope) {
+				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 					angular.extend($scope, {
+						i18n: $rootScope.i18n,
+
 						nodeChildrenClass: { nodeChildren: $scope.node !== $scope.rootNode },
 						editMode: null,
 						pathDisplayName: null,
@@ -361,8 +365,10 @@ angular.module('core')
 					commitEdit: '&',
 					cancelEdit: '&'
 				},
-				controller: ['$scope', function($scope) {
+				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 					angular.extend($scope, {
+						i18n: $rootScope.i18n,
+
 						paths: [],
 						ops: [],
 						opSelectVisible: false,

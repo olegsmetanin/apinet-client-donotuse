@@ -5,7 +5,6 @@
 				name: 'page.projectList',
 				url: '/projects/listview',
 				resolve: {
-					i18n: 'i18n',
 					pageConfig: 'pageConfig',
 					promiseTracker: 'promiseTracker',
 					currentUser: securityAuthorizationProvider.requireAuthenticatedUser()

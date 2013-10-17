@@ -7,41 +7,41 @@
 			<div filtered-list-actions></div>
 
 			<tabset>
-				<tab heading="{{ 'core.filters.simple' | i18n }}">
+				<tab heading="{{ i18n.core.filters.simple }}">
 					<form>
 						<fieldset>
-							<label>{{ 'tasks.list.filters.custom' | i18n }}</label>
+							<label>{{ i18n.tasks.list.filters.custom }}</label>
 							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="span12" >
 							</select>
-							<label>{{ 'tasks.fields.status' | i18n }}</label>
+							<label>{{ i18n.tasks.fields.status }}</label>
 							<input lookup="tasks/dictionary/lookupTaskStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op: '='}" class="span12" multiple />
-							<label>{{ 'tasks.fields.customStatus' | i18n }}</label>
+							<label>{{ i18n.tasks.fields.customStatus }}</label>
 							<input lookup="tasks/dictionary/lookupCustomStatuses" ng-model="filter.simple.CustomStatus" filter-node="{path: 'CustomStatus', op: '='}" class="span12" multiple />
-							<label>{{ 'tasks.fields.seqNumber' | i18n }}</label>
+							<label>{{ i18n.tasks.fields.seqNumber }}</label>
 							<input lookup="tasks/tasks/lookupTasks" ng-model="filter.simple.SeqNumber" filter-node="{path: 'Id', op: '='}" class="span12" multiple />
-							<label>{{ 'tasks.fields.type' | i18n }}</label>
+							<label>{{ i18n.tasks.fields.type }}</label>
 							<input lookup="tasks/dictionary/lookupTaskTypes" ng-model="filter.simple.TaskType" filter-node="{path: 'TaskType', op: '='}" class="span12" multiple />
-							<label>{{ 'tasks.fields.dueDate' | i18n }}</label>
+							<label>{{ i18n.tasks.fields.dueDate }}</label>
 							<input type="text" ng-model="customFilter.lDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" />
 								- <input type="text" ng-model="customFilter.rDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" />
-							<label>{{ 'tasks.fields.executors' | i18n }}</label>
+							<label>{{ i18n.tasks.fields.executors }}</label>
 							<input lookup="home/projects/lookupParticipant" ng-model="filter.simple.Executors" filter-node="{path: 'Executors.Id', op: '='}" class="span12" multiple />
-							<label>{{ 'tasks.fields.content' | i18n }}</label>
+							<label>{{ i18n.tasks.fields.content }}</label>
 							<input type="text" ng-model="filter.simple.Content" filter-node="{path: 'Content', op:'like'}" class="span12"  />
 						</fieldset>
 					</form>
 				</tab>
 
-				<tab heading="{{ 'core.filters.user' | i18n }}">
+				<tab heading="{{ i18n.core.filters.user }}">
 					<div user-filter filter-ng-model="filter.user"></div>
 				</tab>
 
-				<tab heading="{{ 'core.filters.complex' | i18n }}">
+				<tab heading="{{ i18n.core.filters.complex }}">
 					<div structured-filter filter-ng-model="filter.complex" meta="'tasks/tasks/taskMetadata'">
 					</div>
 				</tab>
 
-				<tab heading="{{ 'core.filters.favorites' | i18n }}">
+				<tab heading="{{ i18n.core.filters.favorites }}">
 					<div filter-persister group="'Tasks.Task'" filter="filter"></div>
 				</tab>
 			</tabset>
@@ -55,10 +55,10 @@
 			<div>
 				<a href="#!/tasks/new" style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">
 					<i class="icon-plus icon-white"></i>
-					<span>{{ 'tasks.list.buttons.add' | i18n }}</span>
+					<span>{{ i18n.tasks.list.buttons.add }}</span>
 				</a>
-				<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ 'tasks.list.placeholders.deleteSelected' | i18n }}">
-					{{ 'core.buttons.delete' | i18n }}
+				<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
+					{{ i18n.core.buttons.delete }}
 				</button>
 			</div>
 
@@ -71,12 +71,12 @@
 						<th class="onepct">
 							<input type="checkbox" checker="items: 'models'">
 						</th>
-						<th><span sortable-heading="sorters.InternalSeqNumber" caption="{{ 'tasks.fields.seqNumber' | i18n }}"></span></th>
-						<th><span sortable-heading="sorters.TaskType_Name" caption="{{ 'tasks.fields.type' | i18n }}"></span></th>
-						<th style="width: 20%">{{ 'tasks.fields.executors' | i18n }}</th>
-						<th><span sortable-heading="sorters.DueDate" caption="{{ 'tasks.fields.dueDate' | i18n }}"></span></th>
-						<th><span sortable-heading="sorters.Status" caption="{{ 'tasks.fields.status' | i18n }}"></span></th>
-						<th><span sortable-heading="sorters.CustomStatus_Name" caption="{{ 'tasks.fields.customStatus' | i18n }}"></span></th>
+						<th><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
+						<th><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
+						<th style="width: 20%">{{ i18n.tasks.fields.executors }}</th>
+						<th><span sortable-heading="sorters.DueDate" caption="{{ i18n.tasks.fields.dueDate }}"></span></th>
+						<th><span sortable-heading="sorters.Status" caption="{{ i18n.tasks.fields.status }}"></span></th>
+						<th><span sortable-heading="sorters.CustomStatus_Name" caption="{{ i18n.tasks.fields.customStatus }}"></span></th>
 						<th class="onepct">&nbsp;</th>
 					</tr>
 				</thead>
@@ -105,30 +105,30 @@
 						<td>{{ model.Status }}</td>
 						<td>{{ model.CustomStatus }}</td>
 						<td>
-							<button type="button" class="close" title="{{ 'tasks.list.placeholders.delete' | i18n }}" ng-click="delete(model)">&times;</button>
+							<button type="button" class="close" title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)">&times;</button>
 						</td>
 					</tr>
 					<tr ng-show="model.details.expanded" ng-init="model.details.loaded = false">
 						<td colspan="8">
-							<div ng-hide="model.details.loaded">{{ 'core.labels.loading' | i18n }}...</div>
+							<div ng-hide="model.details.loaded">{{ i18n.core.labels.loading }}...</div>
 							<div ng-show="model.details.loaded">
 								<table class="table table-bordered">
 									<tr>
-										<td>{{ 'tasks.fields.priority' | i18n }}</td>
+										<td>{{ i18n.tasks.fields.priority }}</td>
 										<td>{{ model.details.Priority }}</td>
 									</tr>
 									<tr>
-										<td>{{ 'tasks.fields.content' | i18n }}</td>
+										<td>{{ i18n.tasks.fields.content }}</td>
 										<td>
 											<pre>{{ model.details.Content }}</pre>
 										</td>
 									</tr>
 									<tr>
-										<td>{{ 'tasks.fields.note' | i18n }}</td>
+										<td>{{ i18n.tasks.fields.note }}</td>
 										<td>{{ model.details.Note }}</td>
 									</tr>
 									<tr>
-										<td>{{ 'tasks.fields.agreements' | i18n }}</td>
+										<td>{{ i18n.tasks.fields.agreements }}</td>
 										<td>
 											<span ng-repeat="a in model.details.Agreements">
 												<i ng-class="{'icon-check': a.Done, 'icon-check-empty': !a.Done}"></i>{{ a.Agreemer }}
@@ -152,7 +152,7 @@
 
 			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
 			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-			        ng-disabled="applyEnabled">{{ 'core.buttons.more' | i18n }}</button>
+			        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
 		</div><!-- content -->
 
 	</div><!-- row -->

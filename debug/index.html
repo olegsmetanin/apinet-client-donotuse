@@ -418,7 +418,7 @@
 		}
 
 		function getLang() {
-			return (getCookie('lang') || window.navigator.userLanguage ||
+			return (getCookie('currentLocale') || window.navigator.userLanguage ||
 				window.navigator.language).substring(0, 2);
 		}
 

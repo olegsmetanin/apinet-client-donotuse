@@ -9,10 +9,10 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th>{{ 'tasks.view.statusHistory.fields.status' | i18n }}</th>
-				<th>{{ 'tasks.view.statusHistory.fields.author' | i18n }}</th>
-				<th>{{ 'tasks.view.statusHistory.fields.effectivePeriod' | i18n }}</th>
-				<th>{{ 'tasks.view.statusHistory.fields.duration' | i18n }}</th>
+				<th>{{ i18n.tasks.view.statusHistory.fields.status }}</th>
+				<th>{{ i18n.tasks.view.statusHistory.fields.author }}</th>
+				<th>{{ i18n.tasks.view.statusHistory.fields.effectivePeriod }}</th>
+				<th>{{ i18n.tasks.view.statusHistory.fields.duration }}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,7 +23,7 @@
 				<td>{{ h.Author }}</td>
 				<td>
 					с {{ h.Start | date:'dd.MM.yyyy hh:mm' }} 
-					по {{ (h.Finish | date:'dd.MM.yyyy hh:mm') || ('core.labels.presentTime' | i18n) }}
+					по {{ (h.Finish | date:'dd.MM.yyyy hh:mm') || (i18n.core.labels.presentTime) }}
 				</td>
 				<td>
 					{{ duration(h) | date:'dd.MM.yyyy hh:mm' }}
