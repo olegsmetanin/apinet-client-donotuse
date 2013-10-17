@@ -50,7 +50,8 @@ sysConfig.modules['core'] = {
 		'src/core/services/reportService/reportService.js',
 		'src/core/parts/header/reportNotifier/reportNotifier.js',
 		'src/core/parts/header/eventNotifier/eventNotifier.js',
-		
+		'src/core/parts/header/localeSelector/localeSelector.js',
+
 		'src/core/services/services.js',
 		'src/core/services/i18n/i18n.js',
 
@@ -65,6 +66,5 @@ sysConfig.modules['core'] = {
 		'src/core/services/apinet/apinetService.js',
 		'src/core/services/apinet/metadataService.js',
 		'src/core/services/apinet/dictionaryService.js'
-
 	]
 };
