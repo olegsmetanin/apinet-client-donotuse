@@ -119,7 +119,7 @@ angular.module('core').run(['i18n', function(i18n) {
 				'deleteNode': 'Delete'
 			},
 
-			errors: {
+			'errors': {
 				'unexpected': {
 					op: 'No operator allowed for this node type',
 					value: 'No value allowed for this node type',

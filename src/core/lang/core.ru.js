@@ -119,7 +119,7 @@ angular.module('core').run(['i18n', function(i18n) {
 				'deleteNode': 'Удалить'
 			},
 
-			errors: {
+			'errors': {
 				'unexpected': {
 					op: 'Данное условие не может содержать оператора',
 					value: 'Данное условие не может содержать значения',

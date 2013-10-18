@@ -1,5 +1,4 @@
 angular.module('core')
-
 	.directive('filterPersister', ['sysConfig', 'apinetService', function(sysConfig, apinetService) {
 		return {
 			replace: true,
@@ -91,7 +90,7 @@ angular.module('core')
 	}])
 	.directive('filteredList', ['apinetService', '$timeout', function($apinetService, $timeout) {
 		return {
-			controller: ['$scope', function($scope) {
+			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				angular.extend($scope, {
 					filter: { },
 
@@ -109,12 +108,22 @@ angular.module('core')
 					validation: { },
 					indication: { loading: false },
 
+					applyFilter: function() {
+						if(!$scope.applyEnabled) {
+							return;
+						}
+						$scope.refreshList();
+					},
+
 					clearFilter: function() {
-						var clearFn = function() {
+						if(!$rootScope.$$phase) {
+							$scope.$apply(function() {
+								$scope.filter = { };
+							});
+						}
+						else {
 							$scope.filter = { };
-						};
-						clearFn = !$scope.$$phase ? $scope.$apply(function() { clearFn(); }) : clearFn;
-						clearFn();
+						}
 
 						$scope.refreshList();
 					},
@@ -255,7 +264,9 @@ angular.module('core')
 						sorter.priority = i + 1;
 						delete sorter.property;
 					}
+				}, true);
 
+				$scope.$watch('sortersArray', function() {
 					$scope.refreshList();
 				}, true);
 
@@ -342,14 +353,16 @@ angular.module('core')
 			templateUrl: sysConfig.src('core/directives/filters/filteredListActions.tpl.html')
 		};
 	}])
-.directive('filterPart', ['i18n', function(i18n) {
-	return {
-		restrict: 'E',
-		replace: true,
-		transclude: true,
-		template: function(elm, attr) {
-			var tmpl = 
-				'<div class="box col-lg-4">' +
+	.directive('filterPart', ['i18n', function(i18n) {
+		return {
+			restrict: 'E',
+			replace: true,
+			transclude: true,
+			link: function($scope, element, attr) {
+				attr.$set('title', null);
+			},
+			template: function(elm, attr) {
+				return '<div class="box col-lg-4">' +
 				'	<div class="box-header">' +
 				'		<div class="title">' + i18n.msg(attr.title) + '</div>'+
 				'	</div>' +
@@ -357,42 +370,39 @@ angular.module('core')
 				'		<div ng-transclude></div>' +
 				'	</div>' +
 				'</div>';
-			return tmpl;
-		}
-	};
-}])
-.directive('filter', ['i18n', function(i18n) {
-	return {
-		restrict: 'E',
-		replace: true,
-		transclude: true,
-		template: function(elm, attr) {
-			var tmpl = 
-'<div class="box box-nomargin box-collapsed">' +
-'	<div class="box-header purple-background">' +
-'		<div class="title">' + i18n.msg('core.filters.title') + '</div>' +
-'		<div class="actions">' +
-'			<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>' +
-'		</div>' +
-'	</div>' +
-'	<div class="box-content">' +
-'		<div class="box-toolbox box-toolbox-top">' +
-'			<div filtered-list-actions></div>' +
-'		</div>' +
-'		<div class="row">' +
-'			<filter-part title="core.filters.simple">' +
-'				<div ng-transclude></div>' +
-'			</filter-part>' +
-'			<filter-part title="core.filters.complex">' +
-'				<div structured-filter filter-ng-model="filter.complex" meta="\'' + attr.meta + '\'"></div>' +
-'			</filter-part>' +
-'			<filter-part title="core.filters.favorites">' +
-'				<div filter-persister group="\'' + attr.group + '\'" filter="filter"></div>' +
-'			</filter-part>' +
-'		</div>' +
-'	</div>' +
-'</div>';
-			return tmpl;
-		}
-	};
-}]);
+			}
+		};
+	}])
+	.directive('filter', ['i18n', function(i18n) {
+		return {
+			restrict: 'E',
+			replace: true,
+			transclude: true,
+			template: function(elm, attr) {
+				return '<div class="box box-nomargin box-collapsed">' +
+				'	<div class="box-header purple-background">' +
+				'		<div class="title">' + i18n.msg('core.filters.title') + '</div>' +
+				'		<div class="actions">' +
+				'			<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>' +
+				'		</div>' +
+				'	</div>' +
+				'	<div class="box-content">' +
+				'		<div class="box-toolbox box-toolbox-top">' +
+				'			<div filtered-list-actions></div>' +
+				'		</div>' +
+				'		<div class="row">' +
+				'			<filter-part title="core.filters.simple">' +
+				'				<div ng-transclude></div>' +
+				'			</filter-part>' +
+				'			<filter-part title="core.filters.complex">' +
+				'				<div structured-filter filter-ng-model="filter.complex" meta="\'' + attr.meta + '\'"></div>' +
+				'			</filter-part>' +
+				'			<filter-part title="core.filters.favorites">' +
+				'				<div filter-persister group="\'' + attr.group + '\'" filter="filter"></div>' +
+				'			</filter-part>' +
+				'		</div>' +
+				'	</div>' +
+				'</div>';
+			}
+		};
+	}]);

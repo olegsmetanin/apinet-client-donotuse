@@ -10,7 +10,7 @@
 					<div class="form-group">
 						<label for="names" class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
 						<div class="col-md-9">
-							<input id="names" lookup="home/projects/lookupProjectNames" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'='}" class="form-control" multiple />
+							<input id="names" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="form-control" multiple />
 						</div>
 					</div>
 					<div class="form-group">
