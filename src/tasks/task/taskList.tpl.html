@@ -72,9 +72,7 @@
 				</div>
 				<div class="box-content">
 					<div class="box-toolbox box-toolbox-top">
-						<div class="alert alert-error span12" ng-show="validation.generalErrors">
-							{{ validation.generalErrors }}
-						</div>
+						<ago-error-msg></ago-error-msg>
 
 						<div>
 							<a href="#!/tasks/new" style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">

@@ -1,71 +1,77 @@
-<!-- <container> -->
-<div class="container-fluid" ng-controller="customStatusCtrl"
-     filtered-list="{method: 'tasks/dictionary/getCustomStatuses'}"
-     initial-sorters="{ ViewOrder: 'asc' }">
+<div class="container" 
+		ng-controller="customStatusCtrl"
+		filtered-list="{method: 'tasks/dictionary/getCustomStatuses'}"
+		initial-sorters="{ ViewOrder: 'asc' }">
+	<div class="row" id="content-wrapper">
 
-	<div class="row-fluid">
-		<!-- <twocolumn-side> -->
-		<div class="span3">
-			<div filtered-list-actions></div>
-
-			<tabset>
-				<tab heading="{{ i18n.core.filters.simple }}">
-					<form>
-						<fieldset>
-							<label>{{ i18n.core.fields.name }}</label>
-							<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}"  class="span12" />
-						</fieldset>
-					</form>
-				</tab>
-
-				<tab heading="{{ i18n.core.filters.complex }}">
-					<div structured-filter filter-ng-model="filter.complex" meta="'tasks/dictionary/customStatusMetadata'">
+		<!-- Filter -->
+		<div class="col-xs-12">
+			<filter meta="tasks/dictionary/customStatusMetadata" group="Tasks.CustomStatus">
+				<form class="form">
+					<div class="form-group">
+						<label>{{ i18n.core.fields.name }}</label>
+						<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}"  class="form-control" />
 					</div>
-				</tab>
+				</form>
+			</filter>
+		</div><!-- filter -->
 
-				<tab heading="{{ i18n.core.filters.favorites }}">
-					<div filter-persister group="'Tasks.CustomStatus'" filter="filter"></div>
-				</tab>
-			</tabset>
-		</div>
-		<!-- </twocolumn-side> -->
-
-		<!-- <twocolumn-content> -->
-		<div class="span9">
-			<div class="alert alert-error span12" ng-show="validation.generalErrors">
-				{{ validation.generalErrors | joinBy }}
-			</div>
-			<form name="createStatusForm" class="form-inline" novalidate>
-				<fieldset>
-					<div class="span6 controls">
-						<div class="span5" style="display: inline-block">
-							<input type="text" ng-model="editModel.name" class="span12" placeholder="{{ i18n.tasks.customStatuses.placeholders.name }}" required />
-							<span ng-show="validation.fieldErrors['Name']" class="help-block alert-error">
-								{{ validation.fieldErrors['Name'] | joinBy }}
-							</span>
-						</div>
-
-						<div class="span3" style="display: inline-block">
-							<input type="text" name="viewOrder" ago-integer ago-min="0" ago-max="255" required
-							       ng-model="editModel.viewOrder" class="span12" placeholder="{{ i18n.core.fields.viewOrder }}" />
-							<span ng-show="isViewOrderInvalid()" class="help-inline alert-error">
-								{{ 'core.errors.integerInRange' | i18n:{ range: '[0-255]' } }}
-							</span>
-							<span ng-show="validation.fieldErrors['ViewOrder']" class="help-inline alert-error">
-								{{ validation.fieldErrors['ViewOrder'] | joinBy }}
-							</span>
-						</div>
-
-						<button type="button" class="btn" ng-click="createStatus()" ng-disabled="createStatusForm.$invalid">{{ i18n.core.buttons.add }}</button>
+		<!-- Content -->
+		<div class="col-xs-12">
+			<div class="box box-nomargin">
+				<div class="box-header purple-background">
+					<div class="title">{{ i18n.tasks.customStatuses.title }}</div>
+					<div class="actions">
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
 					</div>
+				</div>
+				<div class="box-content">
+					<div class="box-toolbox box-toolbox-top">
+						<ago-error-msg></ago-error-msg>
 
-					<div class="span6 pull-right">
-						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">{{ i18n.core.buttons.delete }}</button>
-						<input type="text" lookup="tasks/dictionary/lookupCustomStatuses" lookup-options="{allowClear: true}"
-						       ng-model="deleteModel.replacementStatus" placeholder="{{ i18n.tasks.customStatuses.placeholders.replacementStatus }}" style="width: 80%"/>
-					</div>
-				</fieldset>
-			</form>
+						<form name="createStatusForm" class="form-inline" novalidate>
+							<div class="col-sm-6" ng-class="{'has-error': (createStatusForm.$invalid || validation.fieldErrors['Name'] || validation.fieldErrors['ViewOrder'])}">
+								<!-- input -->
+								<div class="row">
+									<div class="col-md-6" style="padding-left: 0px">
+										<input type="text" name="name" ng-model="editModel.name" class="form-control" placeholder="{{ i18n.tasks.customStatuses.placeholders.name }}" ng-required="editModel.focused" ng-focus="editModel.focused=true" ng-blur="editModel.focused=false" />
+									</div>
+									<div class="col-md-2" style="padding-left: 0px">
+										<input type="text" name="viewOrder" ago-integer ago-min="0" ago-max="255" ng-model="editModel.viewOrder" class="form-control" placeholder="{{ i18n.core.fields.viewOrder }}" ng-required="editModel.focused" ng-focus="editModel.focused=true" ng-blur="editModel.focused=false" />
+									</div>
+									<div class="col-md-4 btn-group" style="padding-left: 0px">
+										<button type="button" class="btn" ng-click="createStatus()" ng-disabled="!createEnabled()">{{ i18n.core.buttons.add }}</button>
+										<button type="button" class="btn" ng-click="dropChanges()" title="{{ i18n.core.buttons.clear }}">&times;</button>
+									</div>
+								</div>
+								<!-- validation -->
+								<div class="row">
+									<div class="col-md-12">
+										<span ng-show="validation.fieldErrors['Name']" class="help-block has-error">
+											{{ validation.fieldErrors['Name'] | joinBy }}
+										</span>
+										<span ng-show="isViewOrderInvalid()" class="help-block has-error">
+											{{ 'core.errors.integerInRange' | i18n:{ range: '[0-255]' } }}
+										</span>
+										<span ng-show="validation.fieldErrors['ViewOrder']" class="help-block has-error">
+											{{ validation.fieldErrors['ViewOrder'] | joinBy }}
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="row">
+									<div class="col-md-3">
+										<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()">{{ i18n.core.buttons.delete }}</button>
+									</div>
+									<div class="col-md-9" style="padding-left: 0px">
+										<input type="text" lookup="tasks/dictionary/lookupCustomStatuses" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementStatus" placeholder="{{ i18n.tasks.customStatuses.placeholders.replacementStatus }}" class="form-control"></input>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div><!-- toolbox -->
 
 			<table class="table table-bordered"
 			       infinite-scroll="paging.page = paging.page + 1"
@@ -112,8 +118,8 @@
 			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
 			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
 			        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
-		</div>
-		<!-- </twocolumn-content> -->
-	</div>
-</div>
-<!-- </container> -->
+
+		</div><!-- content -->
+
+	</div><!-- row -->
+</div><!-- container -->

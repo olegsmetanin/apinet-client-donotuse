@@ -17,6 +17,9 @@ sysConfig.modules['core'] = {
 		'src/core/directives/requiredMultiple.js',
 		'src/core/directives/ago.select2.js',
 		'src/core/directives/grids.js',
+		'src/core/directives/ago.errorMsg.js',
+		'src/core/directives/ngBlur.js',
+		'src/core/directives/ngFocus.js',
 
 		'src/core/directives/inplace/inlineEdit.js',
 		'src/core/directives/inplace/inlineText.js',

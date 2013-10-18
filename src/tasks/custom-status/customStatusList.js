@@ -27,8 +27,8 @@ angular.module('tasks')
 		$stateProvider.state(statuses);
 	}
 ])
-.controller('customStatusCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n',
-	function($scope, sysConfig, apinetService, $window, i18n) {
+.controller('customStatusCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n', '$timeout',
+	function($scope, sysConfig, apinetService, $window, i18n, $timeout) {
 		var handleException = function(error) {
 			$scope.resetValidation();
 			$scope.validation.generalErrors = [error];
@@ -59,9 +59,7 @@ angular.module('tasks')
 				model: $scope.editModel})
 			.then(function(result) {
 				if(result.validation.success) {
-					$scope.editModel.name = '';
-					$scope.editModel.viewOrder = null;
-					$scope.createStatusForm.$setPristine();
+					$scope.dropChanges();
 					$scope.models.unshift(result.model);
 				} else {
 					handleError(result.validation);
@@ -69,9 +67,24 @@ angular.module('tasks')
 			}, handleException);
 		};
 
+		$scope.dropChanges = function() {
+			$scope.resetValidation();
+			$scope.editModel.name = '';
+			$scope.editModel.viewOrder = null;
+			$scope.editModel.focused = false;
+			//$scope.createStatusForm.$setValidity('integer', true);
+			$scope.createStatusForm.$setPristine();
+			$scope.createStatusForm.$setValidity('integer', true);
+		};
+
 		$scope.isViewOrderInvalid = function() {
 			var f = $scope.createStatusForm;
 			return f.viewOrder.$dirty && !f.viewOrder.$valid;
+		};
+
+		$scope.createEnabled = function() {
+			var f = $scope.createStatusForm;
+			return $scope.editModel.name && $scope.editModel.viewOrder && f.viewOrder.$error.integer === false;
 		};
 
 		$scope.hasSelected = function() {
@@ -167,6 +180,7 @@ angular.module('tasks')
 		};
 
 		$scope.requestParams = { project: sysConfig.project };
-		$scope.editModel = {id: null, name: '', viewOrder: null};
+		$scope.editModel = {id: null, name: '', viewOrder: null, focused: false};
 		$scope.deleteModel = { replacementStatus: null };
+		$timeout(function(){ $scope.createStatusForm.$setPristine(); }, 100);
 }]);

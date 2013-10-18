@@ -6,7 +6,13 @@ angular.module('core')
 		link: function(scope, elm, attrs, ctrl) {
 			var min = attrs.agoMin ? parseInt(attrs.agoMin) : null;
 			var max = attrs.agoMax ? parseInt(attrs.agoMax) : null;
-			ctrl.$parsers.unshift(function(viewValue) {
+
+			var validator = function(viewValue) {
+				if (!viewValue) {
+					ctrl.$setValidity('integer', true);
+					return viewValue;
+				}
+
 				if (INTEGER_REGEXP.test(viewValue)) {
 					// it is valid
 					var ival = parseInt(viewValue);
@@ -22,7 +28,10 @@ angular.module('core')
 					ctrl.$setValidity('integer', false);
 					return undefined;
 				}
-			});
+			};
+
+			ctrl.$formatters.push(validator);
+			ctrl.$parsers.unshift(validator);
 		}
 	};
 });

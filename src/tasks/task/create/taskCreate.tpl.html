@@ -11,11 +11,8 @@
 				</div>
 
 				<div class="box-content">
-					<div class="alert alert-danger alert-dismissable" ng-show="validation.generalErrors">
-						<a class="close" data-dismiss="alert" href="#">&times;</a>
-						<i class="icon-remove-sign"></i>
-						{{ validation.generalErrors }}
-					</div>
+					<ago-error-msg></ago-error-msg>
+					
 					<form name="form" class="form form-horizontal" novalidate>
 						<!-- Task type -->
 						<div class="form-group" ng-class="{'has-error': form.taskType.$invalid}">
