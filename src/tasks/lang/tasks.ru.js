@@ -1,5 +1,11 @@
 angular.module('tasks').run(['i18n', function(i18n) {
 	i18n.addMessages('tasks', {
+
+		'roles': {
+			'manager': 'Менеджер',
+			'executor': 'Исполнитель'
+		},
+
 		'menu': {
 			'projectInfo': 'Информация о проекте'
 		},

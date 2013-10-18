@@ -13,11 +13,11 @@ angular.module('tasks')
 			resolve: {
 				i18n: 'i18n',
 				pageConfig: 'pageConfig',
-				promiseTracker: 'promiseTracker',
 				authUser: securityAuthorizationProvider.requireAuthenticatedUser()
 			},
 			onEnter: function(pageConfig, i18n) {
 				pageConfig.setConfig({
+					menu: 'tasks.list',
 					breadcrumbs: [{
 						name: i18n.msg('tasks.list.title'),
 						url: '/#!/'
@@ -39,8 +39,8 @@ angular.module('tasks')
 		$stateProvider.state(tasks);
 	}
 ])
-.controller('taskListCtrl', ['$scope', 'promiseTracker', 'sysConfig', 'apinetService', '$window', 'i18n',
-	function($scope, promiseTracker, sysConfig, apinetService, $window, i18n) {
+.controller('taskListCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n',
+	function($scope, sysConfig, apinetService, $window, i18n) {
 
 		$scope.deleteSelected = function() {
 			if (!$window.confirm(i18n.msg('tasks.confirm.delete.tasks'))) {
@@ -231,7 +231,6 @@ angular.module('tasks')
 			$scope.validation.generalErrors = [error];
 		};
 
-		$scope.loading = promiseTracker('tasks');
 		$scope.requestParams = { project: sysConfig.project };
 		$scope.customFilter = {
 			ALL: 'all',

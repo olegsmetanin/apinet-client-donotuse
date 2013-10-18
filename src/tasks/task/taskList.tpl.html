@@ -1,159 +1,191 @@
-<div class="container-fluid" ng-controller="taskListCtrl"
+<div class="container" 
+		ng-controller="taskListCtrl"
         filtered-list="{method: 'tasks/tasks/getTasks'}"
         initial-sorters="{ InternalSeqNumber: 'desc' }">
-	<div class="row-fluid">
-<!-- data-offset-top="50" -->
-		<div class="span3">
-			<div filtered-list-actions></div>
-
-			<tabset>
-				<tab heading="{{ i18n.core.filters.simple }}">
-					<form>
-						<fieldset>
+	<div class="row" id="content-wrapper">
+		<!-- Filter -->
+		<div class="col-xs-12">
+			<filter-template>
+				<filter-part box-title="core.filters.simple" box-col="col-xs-12 col-md-6">
+					<form class="form">
+						<div class="form-group">
 							<label>{{ i18n.tasks.list.filters.custom }}</label>
-							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="span12" >
-							</select>
+							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="form-control"></select>
+						</div>
+						<div class="form-group">
 							<label>{{ i18n.tasks.fields.status }}</label>
-							<input lookup="tasks/dictionary/lookupTaskStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op: '='}" class="span12" multiple />
+							<input lookup="tasks/dictionary/lookupTaskStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op: '='}" class="form-control" multiple />
+						</div>
+						<div class="form-group">
 							<label>{{ i18n.tasks.fields.customStatus }}</label>
-							<input lookup="tasks/dictionary/lookupCustomStatuses" ng-model="filter.simple.CustomStatus" filter-node="{path: 'CustomStatus', op: '='}" class="span12" multiple />
+							<input lookup="tasks/dictionary/lookupCustomStatuses" ng-model="filter.simple.CustomStatus" filter-node="{path: 'CustomStatus', op: '='}" class="form-control" multiple />
+						</div>
+						<div class="form-group">
 							<label>{{ i18n.tasks.fields.seqNumber }}</label>
-							<input lookup="tasks/tasks/lookupTasks" ng-model="filter.simple.SeqNumber" filter-node="{path: 'Id', op: '='}" class="span12" multiple />
+							<input lookup="tasks/tasks/lookupTasks" ng-model="filter.simple.SeqNumber" filter-node="{path: 'Id', op: '='}" class="form-control" multiple />
+						</div>
+						<div class="form-group">
 							<label>{{ i18n.tasks.fields.type }}</label>
-							<input lookup="tasks/dictionary/lookupTaskTypes" ng-model="filter.simple.TaskType" filter-node="{path: 'TaskType', op: '='}" class="span12" multiple />
+							<input lookup="tasks/dictionary/lookupTaskTypes" ng-model="filter.simple.TaskType" filter-node="{path: 'TaskType', op: '='}" class="form-control" multiple />
+						</div>
+						<div class="form-group">
 							<label>{{ i18n.tasks.fields.dueDate }}</label>
-							<input type="text" ng-model="customFilter.lDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" />
-								- <input type="text" ng-model="customFilter.rDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="span5" />
+							<div class="col-xs-12" style="padding-left: 0px">
+								<input type="text" ng-model="customFilter.lDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="col-xs-5" />
+								<span class="col-xs-1"> - </span>
+								<input type="text" ng-model="customFilter.rDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-change="constructDueDateFilter()" class="col-xs-5" />
+							</div>
+						</div>
+						<div class="form-group">
 							<label>{{ i18n.tasks.fields.executors }}</label>
-							<input lookup="home/projects/lookupParticipant" ng-model="filter.simple.Executors" filter-node="{path: 'Executors.Id', op: '='}" class="span12" multiple />
+							<input lookup="home/projects/lookupParticipant" ng-model="filter.simple.Executors" filter-node="{path: 'Executors.Id', op: '='}" class="form-control" multiple />
+						</div>
+						<div class="form-group">
 							<label>{{ i18n.tasks.fields.content }}</label>
-							<input type="text" ng-model="filter.simple.Content" filter-node="{path: 'Content', op:'like'}" class="span12"  />
-						</fieldset>
+							<input type="text" ng-model="filter.simple.Content" filter-node="{path: 'Content', op:'like'}" class="form-control"  />
+						</div>
 					</form>
-				</tab>
+				</filter-part>
 
-				<tab heading="{{ i18n.core.filters.user }}">
+				<filter-part box-title="core.filters.user" box-col="col-xs-12 col-md-6">
 					<div user-filter filter-ng-model="filter.user"></div>
-				</tab>
+				</filter-part>
 
-				<tab heading="{{ i18n.core.filters.complex }}">
-					<div structured-filter filter-ng-model="filter.complex" meta="'tasks/tasks/taskMetadata'">
-					</div>
-				</tab>
+				<filter-part box-title="core.filters.complex" box-col="col-xs-12 col-md-6">
+					<div structured-filter filter-ng-model="filter.complex" meta="'tasks/tasks/taskMetadata'"></div>
+				</filter-part>
 
-				<tab heading="{{ i18n.core.filters.favorites }}">
+				<filter-part box-title="core.filters.favorites" box-col="col-xs-12 col-md-6">
 					<div filter-persister group="'Tasks.Task'" filter="filter"></div>
-				</tab>
-			</tabset>
-		</div><!-- sidebar -->
+				</filter-part>
+			</filter-template>
+		</div>
 
-		<div class="span9">
-			<div class="alert alert-error span12" ng-show="validation.generalErrors">
-				{{ validation.generalErrors }}
-			</div>
+		<!-- Content -->
+		<div class="col-xs-12">
+			<div class="box box-nomargin">
+				<div class="box-header purple-background">
+					<div class="title">{{ i18n.tasks.list.title }}</div>
+					<div class="actions">
+						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+					</div>
+				</div>
+				<div class="box-content">
+					<div class="box-toolbox box-toolbox-top">
+						<div class="alert alert-error span12" ng-show="validation.generalErrors">
+							{{ validation.generalErrors }}
+						</div>
 
-			<div>
-				<a href="#!/tasks/new" style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">
-					<i class="icon-plus icon-white"></i>
-					<span>{{ i18n.tasks.list.buttons.add }}</span>
-				</a>
-				<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
-					{{ i18n.core.buttons.delete }}
-				</button>
-			</div>
-
-			<table class="table table-bordered"
-					infinite-scroll="paging.page = paging.page + 1"
-					infinite-scroll-disabled="applyEnabled"
-					infinite-scroll-distance="1">
-				<thead>
-					<tr>
-						<th class="onepct">
-							<input type="checkbox" checker="items: 'models'">
-						</th>
-						<th><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
-						<th><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
-						<th style="width: 20%">{{ i18n.tasks.fields.executors }}</th>
-						<th><span sortable-heading="sorters.DueDate" caption="{{ i18n.tasks.fields.dueDate }}"></span></th>
-						<th><span sortable-heading="sorters.Status" caption="{{ i18n.tasks.fields.status }}"></span></th>
-						<th><span sortable-heading="sorters.CustomStatus_Name" caption="{{ i18n.tasks.fields.customStatus }}"></span></th>
-						<th class="onepct">&nbsp;</th>
-					</tr>
-				</thead>
-				<!-- TODO waiting for new angular version
-				http://stackoverflow.com/questions/16900050/angular-js-ng-repeat-across-multiple-elements -->
-				<tbody ng-repeat="model in models">
-					<tr ng-click="toggleDetails(model)">
-						<td>
-							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
-						</td>
-						<td>
-							<a href="#!/tasks/{{model.SeqNumber}}" style="white-space: nowrap">
-								{{ model.SeqNumber }}
+						<div>
+							<a href="#!/tasks/new" style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">
+								<i class="icon-plus icon-white"></i>
+								<span>{{ i18n.tasks.list.buttons.add }}</span>
 							</a>
-						</td>
-						<td>
-							{{ model.TaskType }}
-							<p ng-show="model.Content" title="{{ model.Content }}">
-								<small class="clip-content">{{ model.Content | textCut:50 }}</small>
-							</p>
-						</td>
-						<td>
-							<executors model="model.Executors" ></executors>
-						</td>
-						<td>{{ model.DueDate | date:'dd.MM.yyyy' }}</td>
-						<td>{{ model.Status }}</td>
-						<td>{{ model.CustomStatus }}</td>
-						<td>
-							<button type="button" class="close" title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)">&times;</button>
-						</td>
-					</tr>
-					<tr ng-show="model.details.expanded" ng-init="model.details.loaded = false">
-						<td colspan="8">
-							<div ng-hide="model.details.loaded">{{ i18n.core.labels.loading }}...</div>
-							<div ng-show="model.details.loaded">
-								<table class="table table-bordered">
+							<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
+								{{ i18n.core.buttons.delete }}
+							</button>
+						</div>
+					</div>
+
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="table table-bordered"
+									infinite-scroll="paging.page = paging.page + 1"
+									infinite-scroll-disabled="applyEnabled"
+									infinite-scroll-distance="1">
+								<thead>
 									<tr>
-										<td>{{ i18n.tasks.fields.priority }}</td>
-										<td>{{ model.details.Priority }}</td>
+										<th class="onepct">
+											<input type="checkbox" checker="items: 'models'">
+										</th>
+										<th><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
+										<th><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
+										<th style="width: 20%">{{ i18n.tasks.fields.executors }}</th>
+										<th><span sortable-heading="sorters.DueDate" caption="{{ i18n.tasks.fields.dueDate }}"></span></th>
+										<th><span sortable-heading="sorters.Status" caption="{{ i18n.tasks.fields.status }}"></span></th>
+										<th><span sortable-heading="sorters.CustomStatus_Name" caption="{{ i18n.tasks.fields.customStatus }}"></span></th>
+										<th class="onepct">&nbsp;</th>
 									</tr>
-									<tr>
-										<td>{{ i18n.tasks.fields.content }}</td>
+								</thead>
+								<!-- TODO waiting for new angular version
+								http://stackoverflow.com/questions/16900050/angular-js-ng-repeat-across-multiple-elements -->
+								<tbody ng-repeat="model in models">
+									<tr ng-click="toggleDetails(model)">
 										<td>
-											<pre>{{ model.details.Content }}</pre>
+											<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 										</td>
-									</tr>
-									<tr>
-										<td>{{ i18n.tasks.fields.note }}</td>
-										<td>{{ model.details.Note }}</td>
-									</tr>
-									<tr>
-										<td>{{ i18n.tasks.fields.agreements }}</td>
 										<td>
-											<span ng-repeat="a in model.details.Agreements">
-												<i ng-class="{'icon-check': a.Done, 'icon-check-empty': !a.Done}"></i>{{ a.Agreemer }}
-											</span>&nbsp; &nbsp;
-										</td>
-									</tr>
-									<tr>
-										<td>{{ 'tasks.fields.topFiles' | i18n:{ count: 5 } }}</td>
-										<td>
-											<a href="/services/download/file/{{f}}" target="_blank" ng-repeat="f in model.details.Files">
-												<i class="icon-paper-clip"></i>{{ f }}
+											<a href="#!/tasks/{{model.SeqNumber}}" style="white-space: nowrap">
+												{{ model.SeqNumber }}
 											</a>
 										</td>
+										<td>
+											{{ model.TaskType }}
+											<p ng-show="model.Content" title="{{ model.Content }}">
+												<small class="clip-content">{{ model.Content | textCut:50 }}</small>
+											</p>
+										</td>
+										<td>
+											<executors model="model.Executors" ></executors>
+										</td>
+										<td>{{ model.DueDate | date:'dd.MM.yyyy' }}</td>
+										<td>{{ model.Status }}</td>
+										<td>{{ model.CustomStatus }}</td>
+										<td>
+											<button type="button" class="close" title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)">&times;</button>
+										</td>
 									</tr>
-								</table>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+									<tr ng-show="model.details.expanded" ng-init="model.details.loaded = false">
+										<td colspan="8">
+											<div ng-hide="model.details.loaded">{{ i18n.core.labels.loading }}...</div>
+											<div ng-show="model.details.loaded">
+												<table class="table table-bordered">
+													<tr>
+														<td>{{ i18n.tasks.fields.priority }}</td>
+														<td>{{ model.details.Priority }}</td>
+													</tr>
+													<tr>
+														<td>{{ i18n.tasks.fields.content }}</td>
+														<td>
+															<pre>{{ model.details.Content }}</pre>
+														</td>
+													</tr>
+													<tr>
+														<td>{{ i18n.tasks.fields.note }}</td>
+														<td>{{ model.details.Note }}</td>
+													</tr>
+													<tr>
+														<td>{{ i18n.tasks.fields.agreements }}</td>
+														<td>
+															<span ng-repeat="a in model.details.Agreements">
+																<i ng-class="{'icon-check': a.Done, 'icon-check-empty': !a.Done}"></i>{{ a.Agreemer }}
+															</span>&nbsp; &nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td>{{ 'tasks.fields.topFiles' | i18n:{ count: 5 } }}</td>
+														<td>
+															<a href="/services/download/file/{{f}}" target="_blank" ng-repeat="f in model.details.Files">
+																<i class="icon-paper-clip"></i>{{ f }}
+															</a>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 
-			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
-			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-			        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
-		</div><!-- content -->
+							<div ng-show="indication.loading" us-spinner="{top:100}"></div>
+						</div><!-- scrollable-area -->
+					</div><!-- responsive-table -->
 
+					<div class="box-toolbox box-toolbox-bottom">
+						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1" ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
+					</div>
+				</div><!-- box-content -->
+			</div><!-- box box-nomargin -->
+		</div><!-- col-xs-12 -->
 	</div><!-- row -->
 </div><!-- container -->

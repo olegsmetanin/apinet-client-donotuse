@@ -1,11 +1,43 @@
-<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tasks <b class="caret"></b></a>
+<li ng-controller="userRoleCtrl">
+	<a href="#" class="dropdown-collapse">
+		<i class='icon-user'></i>
+		<span>{{ 'core.roles.title' | i18n:{role: (roleName || i18n.core.roles.nothing)} }}</span>
+		<i class='icon-angle-down angle-down'></i>
+	</a>
+	<ul class="nav nav-stacked">
+		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('admin')">
+			<i ng-show="roleIs('admin')" class="icon-ok" style="float:right;"></i>{{ i18n.core.roles.admin }}</a>
+		</li>
+		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('manager')">
+			<i ng-show="roleIs('manager')" class="icon-ok" style="float:right;"></i>{{ i18n.tasks.roles.manager }}</a>
+		</li>
+		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('executor')">
+			<i ng-show="roleIs('executor')" class="icon-ok" style="float:right;"></i>{{ i18n.tasks.roles.executor }}</a>
+		</li>
+	</ul>
+</li>
 
-<ul class="dropdown-menu">
-	<li><a href="/#!/projects/listview">{{ i18n.tasks.menu.projectInfo }}</a></li>
-	<li class="divider"></li>
-	<li><a href="#!/">{{ i18n.tasks.list.title }}</a></li>
-	<li class="divider"></li>
-	<li class="nav-header">{{ i18n.core.menu.dictionaries }}</li>
-	<li><a href="#!/dictionary/types">{{ i18n.tasks.types.title }}</a></li>
-	<li><a href="#!/dictionary/statuses">{{ i18n.tasks.customStatuses.title }}</a></li>
-</ul>
+<li ng-class="{'active': isActiveMenu('project.info')}">
+	<a href="#!/project/info">
+		<i class="icon-info"></i>
+		<span>{{ i18n.tasks.menu.projectInfo }}</span>
+	</a>
+</li>
+<li ng-class="{'active': isActiveMenu('tasks.list')}">
+	<a href="#!/">
+		<i class="icon-table"></i>
+		<span>{{ i18n.tasks.list.title }}</span>
+	</a>
+</li>
+<li ng-class="{'active': isActiveMenu('tasks.dictionary.types')}">
+	<a href="#!/dictionary/types">
+		<i class="icon-cog"></i>
+		<span>{{ i18n.tasks.types.title }}</span>
+	</a>
+</li>
+<li ng-class="{'active': isActiveMenu('tasks.dictionary.statuses')}">
+	<a href="#!/dictionary/statuses">
+		<i class="icon-cog"></i>
+		<span>{{ i18n.tasks.customStatuses.title }}</span>
+	</a>
+</li>

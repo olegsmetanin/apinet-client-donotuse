@@ -1,5 +1,11 @@
 angular.module('core').run(['i18n', function(i18n) {
 	i18n.addMessages('core', {
+		'roles': {
+			'title': 'Roles ({{role}})',
+			'admin': 'Admin',
+			'nothing': 'nothing'
+		},
+
 		'locale': {
 			'label': 'Language',
 			'ru': 'Russian',

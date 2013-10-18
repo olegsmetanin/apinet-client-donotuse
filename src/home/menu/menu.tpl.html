@@ -1,19 +1,3 @@
-<li ng-controller="userRoleCtrl">
-	<a href="#" class="dropdown-collapse">
-		<i class='icon-user'></i>
-		<span>{{ 'projects.roles.title' | i18n:{role: (roleName || i18n.projects.roles.nothing)} }}</span>
-		<i class='icon-angle-down angle-down'></i>
-	</a>
-	<ul class="nav nav-stacked">
-		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('admin')">
-			<i ng-show="roleIs('admin')" class="icon-ok" style="float:right;"></i>{{ i18n.projects.roles.admin }}</a>
-		</li>
-		<li><a href="#" onclick="event.preventDefault();" ng-click="setRole('manager')">
-			<i ng-show="roleIs('manager')" class="icon-ok" style="float:right;"></i>{{ i18n.projects.roles.manager }}</a>
-		</li>
-	</ul>
-</li>
-
 <li ng-class="{'active': isActiveMenu('projects.list')}">
 	<a href="/#!/projects/listView">
 		<i class="icon-table"></i>

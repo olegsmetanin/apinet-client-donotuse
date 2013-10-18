@@ -43,6 +43,7 @@ sysConfig.modules['core'] = {
 		'src/core/services/security/security.js',
 		'src/core/parts/loginform/login.js',
 		'src/core/parts/loginform/LoginFormController.js',
+		'src/core/services/security/userRoleCtrl.js',
 
 		'src/core/parts/header/moduleMenu/moduleMenu.js',
 		'src/core/parts/header/userMenu/userMenu.js',
