@@ -3,6 +3,10 @@ angular.module('core')
 		angular.extend(this, {
 			metadata: {},
 
+			reset: function() {
+				this.metadata = {};
+			},
+
 			modelMetadata: function (method, modelType, callback) {
 				if(this.metadata[method]) {
 					if(modelType) {

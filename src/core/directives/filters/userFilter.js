@@ -1,6 +1,6 @@
 angular.module('core')
-	.directive('userFilter', ['sysConfig', 'helpers', 'filterHelpers', 'metadataService',
-		function(sysConfig) {
+	.directive('userFilter', ['sysConfig', 'metadataService',
+		function(sysConfig, $metadataService) {
 			return {
 				replace: true,
 				templateUrl: sysConfig.src('core/directives/filters/userFilter.tpl.html'),
@@ -8,6 +8,8 @@ angular.module('core')
 					rootNode: '=filterNgModel'
 				},
 				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
+					$metadataService.reset();
+
 					angular.extend($scope, {
 						i18n: $rootScope.i18n,
 

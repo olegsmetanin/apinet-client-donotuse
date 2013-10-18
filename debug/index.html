@@ -240,7 +240,9 @@
 		}
 	})(this, document);
 
-	var sysConfig = {};
+	var sysConfig = {
+		supportedLocales: ['ru', 'en']
+	};
 
 	(function() {
 
@@ -268,7 +270,8 @@
 			// use fake backend
 			fakeBackend: true,
 			// make dalay in milliseconds before $http requests when use fake backend
-			delay: 0
+			delay: 0,
+			supportedLocales: sysConfig.supportedLocales
 		};
 
 
@@ -333,7 +336,8 @@
 			},
 			modules: {},
 			module: "home",
-			lang: getLang()
+			lang: getLang(),
+			supportedLocales: sysConfig.supportedLocales
 		};
 
 		var modules = ["components", "core", sysConfig.module];
@@ -418,8 +422,9 @@
 		}
 
 		function getLang() {
-			return (getCookie('currentLocale') || window.navigator.userLanguage ||
+			var locale = (getCookie('currentLocale') || window.navigator.userLanguage ||
 				window.navigator.language).substring(0, 2);
+			return sysConfig.supportedLocales.indexOf(locale) !== -1 ? locale : sysConfig.supportedLocales[0];
 		}
 
 	})();

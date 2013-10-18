@@ -9,6 +9,8 @@ angular.module('core')
 					meta: '='
 				},
 				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
+					$metadataService.reset();
+
 					angular.extend($scope, {
 						i18n: $rootScope.i18n,
 
