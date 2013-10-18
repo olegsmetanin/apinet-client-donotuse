@@ -49,7 +49,6 @@ sysConfig.modules['core'] = {
 		'src/core/services/reportService/reportService.js',
 		'src/core/parts/header/reportNotifier/reportNotifier.js',
 		'src/core/parts/header/eventNotifier/eventNotifier.js',
-		'src/core/parts/header/localeSelector/localeSelector.js',
 
 		'src/core/parts/user-profile/userProfile.js',
 

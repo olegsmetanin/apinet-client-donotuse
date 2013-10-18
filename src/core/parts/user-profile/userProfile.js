@@ -11,7 +11,7 @@ angular.module('core')
 			onEnter: function(pageConfig, i18n) {
 				pageConfig.setConfig({
 					breadcrumbs: [{
-						name: i18n.msg('projects.list.title'),
+						name: i18n.msg('core.profile.title'),
 						url: '/#!/user/profile'
 					}]
 				});
@@ -20,19 +20,19 @@ angular.module('core')
 				'content': {
 					templateUrl: sysConfig.src('core/parts/user-profile/userProfile.tpl.html'),
 
-					controller: ['$scope', '$rootScope', '$cookies', '$window', 
-						function($scope, $rootScope, $cookies, $window, currentUser) {
+					controller: ['$scope', '$rootScope', '$cookiesExt', '$window',
+						function($scope, $rootScope, $cookiesExt, $window, currentUser) {
 
 						$scope.currentUser = currentUser;
 						$scope.i18n = $rootScope.i18n;
-						$scope.locales = ['ru', 'en'];
+						$scope.locales = sysConfig.supportedLocales;
 						$scope.currentLocale = sysConfig.lang;
 						$scope.setLocale = function(locale) {
 							if(locale === $scope.currentLocale) {
 								return;
 							}
 
-							$cookies['currentLocale'] = locale;
+							$cookiesExt('currentLocale', locale, { path: '/'});
 							$scope.currentLocale = locale;
 
 							$window.location.reload();
