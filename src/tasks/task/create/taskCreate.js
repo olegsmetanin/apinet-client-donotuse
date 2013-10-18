@@ -1,9 +1,9 @@
 angular.module('tasks')
-.config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig', 'securityAuthorizationProvider',
-	function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig, securityAuthorizationProvider) {
+.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
+	function ($stateProvider, sysConfig, securityAuthorizationProvider) {
 
 	var taskCreate = {
-			name: 'page.tastCreate',
+			name: 'page.taskCreate',
 			url: '/tasks/new',
 			views: {
 				'content': {
@@ -14,7 +14,6 @@ angular.module('tasks')
 				i18n: 'i18n',
 				pageConfig: 'pageConfig',
 				currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
-				//, projectMember: securityAuthorizationProvider.requireGroups(['admins', 'managers'])
 			},
 			onEnter: function(pageConfig, i18n) {
 				pageConfig.setConfig({
@@ -28,8 +27,8 @@ angular.module('tasks')
 		$stateProvider.state(taskCreate);
 	}
 ])
-.controller('taskCreateCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', '$timeout', '$state', 
-	function($scope, sysConfig, apinetService, $window, $timeout, $state) {
+.controller('taskCreateCtrl', ['$scope', 'sysConfig', 'apinetService', '$state', 
+	function($scope, sysConfig, apinetService, $state) {
 
 		$scope.cancel = function() {
 			$state.transitionTo('page.root', {}, true);
@@ -57,7 +56,7 @@ angular.module('tasks')
 				}
 			}, function(error) {
 				resetValidation();
-				$scope.validation.generalErrors.push(error);
+				$scope.validation.generalErrors = [error];
 			});
 		};
 

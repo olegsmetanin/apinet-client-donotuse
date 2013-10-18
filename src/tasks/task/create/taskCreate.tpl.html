@@ -1,84 +1,111 @@
-<div class="container-fluid" ng-controller="taskCreateCtrl">
-	<div class="row-fluid">
-		<div class="alert alert-error span12" ng-show="validation.generalErrors">
-			{{ validation.generalErrors }}
-		</div>
-		<form name="form" class="form-horizontal span7 offset2" novalidate>
-			<div class="control-group" ng-class="{error: form.taskType.$invalid}">
-				<label class="control-label">{{ i18n.tasks.fields.type }}</label>
-				<div class="controls">
-					<input type="text" name="taskType" lookup="tasks/dictionary/lookupTaskTypes"
-					       ng-model="model.taskType" placeholder="{{ i18n.tasks.create.placeholders.type }}" autofocus required class="span10" />
-					<span ng-show="form.taskType.$error.required" class="help-inline alert-error">
-						* {{ i18n.core.errors.requiredField }}
-					</span>
-					<span ng-show="validation.fieldErrors['TaskType']" class="help-block alert-error">
-						{{ validation.fieldErrors['TaskType'] | joinBy }}
-					</span>
+<div class="container" ng-controller="taskCreateCtrl">
+	<div class="row" id="content-wrapper">
+		<div class="col-xs-12">
+
+			<div class="box ">
+				<div class="box-header purple-background">
+					<div class="title">
+						<i class="icon-plus"></i>
+						{{ i18n.tasks.create.title }}
+					</div>
 				</div>
-			</div>
-			<div class="control-group" ng-class="{error: form.executors.$invalid}">
-				<label class="control-label">{{ i18n.tasks.fields.executors }}</label>
-				<div class="controls">
-					<input type="text" name="executors" lookup="home/projects/lookupParticipant"
-					       ng-model="model.executors" multiple placeholder="{{ i18n.tasks.create.placeholders.executors }}" required-multiple class="span10" />
-					<span ng-show="form.executors.$error.required" class="help-inline alert-error">
-						* {{ i18n.core.errors.requiredField }}
-					</span>
-					<span ng-show="validation.fieldErrors['Executors']" class="help-block alert-error">
-						{{ validation.fieldErrors['Executors'] | joinBy }}
-					</span>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">{{ i18n.tasks.fields.dueDate }}</label>
-				<div class="controls">
-					<input name="dueDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-model="model.dueDate" />
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">{{ i18n.tasks.fields.content }}</label>
-				<div class="controls">
-					<textarea name="content" ng-model="model.content" rows="3" class="span10"></textarea>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">{{ i18n.tasks.fields.customStatus }}</label>
-				<div class="controls">
-					<input type="text" name="customStatus" lookup="tasks/dictionary/lookupCustomStatuses"
-					       ng-model="model.customStatus" placeholder="{{ i18n.tasks.create.placeholders.customStatus }}" class="span10" />
-					<span ng-show="validation.fieldErrors['CustomStatus']" class="help-block alert-error">
-						{{ validation.fieldErrors['CustomStatus'] | joinBy }}
-					</span>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">{{ i18n.tasks.fields.priority }}</label>
-				<div class="controls">
-					<input type="text" lookup="tasks/dictionary/lookupTaskPriorities" lookup-options="{allowClear: true}"
-					       ng-model="model.priority" placeholder="{{ i18n.tasks.create.placeholders.priority }}" class="span10" />
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">{{ i18n.tasks.create.labels.afterCreation }}:</label>
-				<div class="controls">
-					<label class="radio inline">
-						<input type="radio" ng-model="nextAction" value="goToTask">{{ i18n.tasks.create.labels.afterCreation.goToTask }}
-					</label>
-					<label class="radio inline">
-						<input type="radio" ng-model="nextAction" value="goToList">{{ i18n.tasks.create.labels.afterCreation.goToList }}
-					</label>
-					<label class="radio inline">
-						<input type="radio" ng-model="nextAction" value="stayHere">{{ i18n.tasks.create.labels.afterCreation.stayHere }}
-					</label>
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<button type="button" class="btn" ng-click="cancel()">{{ i18n.core.buttons.cancel }}</button>
-					<button type="button" class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">{{ i18n.tasks.create.buttons.save }}</button>
-				</div>
-			</div>			
-		</form>
-	</div>
-</div>
+
+				<div class="box-content">
+					<div class="alert alert-danger alert-dismissable" ng-show="validation.generalErrors">
+						<a class="close" data-dismiss="alert" href="#">&times;</a>
+						<i class="icon-remove-sign"></i>
+						{{ validation.generalErrors }}
+					</div>
+					<form name="form" class="form form-horizontal" novalidate>
+						<!-- Task type -->
+						<div class="form-group" ng-class="{'has-error': form.taskType.$invalid}">
+							<label class="col-md-2 control-label" for="taskType">{{ i18n.tasks.fields.type }}</label>
+							<div class="col-md-5">
+								<input type="text" id="taskType" name="taskType" lookup="tasks/dictionary/lookupTaskTypes"
+								       ng-model="model.taskType" placeholder="{{ i18n.tasks.create.placeholders.type }}" autofocus required class="form-control" />
+							</div>
+							<div class="col-md-5">
+								<span ng-show="form.taskType.$error.required" class="help-block has-error">
+									* {{ i18n.core.errors.requiredField }}
+								</span>
+								<span ng-show="validation.fieldErrors['TaskType']" class="help-block has-error">
+									{{ validation.fieldErrors['TaskType'] | joinBy }}
+								</span>
+							</div>
+						</div>
+						<!-- Executors -->
+						<div class="form-group" ng-class="{'has-error': form.executors.$invalid}">
+							<label for="executors" class="col-md-2 control-label">{{ i18n.tasks.fields.executors }}</label>
+							<div class="col-md-5">
+								<input type="text" id="executors" name="executors" lookup="home/projects/lookupParticipant" ng-model="model.executors" multiple placeholder="{{ i18n.tasks.create.placeholders.executors }}" required-multiple class="form-control" />
+							</div>
+							<div class="col-md-5">
+								<span ng-show="form.executors.$error.required" class="help-block has-error">
+									* {{ i18n.core.errors.requiredField }}
+								</span>
+								<span ng-show="validation.fieldErrors['Executors']" class="help-block has-error">
+									{{ validation.fieldErrors['Executors'] | joinBy }}
+								</span>
+							</div>
+						</div>
+						<!-- Due date -->
+						<div class="form-group">
+							<label for="dueDate" class="col-md-2 control-label">{{ i18n.tasks.fields.dueDate }}</label>
+							<div class="col-md-5">
+								<input id="dueDate" name="dueDate" ui-date="{dateFormat: 'dd.mm.yy', changeMonth: true, changeYear: true}" ng-model="model.dueDate" class="form-control" />
+							</div>
+						</div>
+						<!-- Content -->
+						<div class="form-group">
+							<label for="content" class="col-md-2 control-label">{{ i18n.tasks.fields.content }}</label>
+							<div class="col-md-5">
+								<textarea name="content" ng-model="model.content" rows="3" class="form-control"></textarea>
+							</div>
+						</div>
+						<!-- Custom status -->
+						<div class="form-group">
+							<label for="customStatus" class="col-md-2 control-label">{{ i18n.tasks.fields.customStatus }}</label>
+							<div class="col-md-5">
+								<input type="text" id="customStatus" lookup="tasks/dictionary/lookupCustomStatuses"
+								       ng-model="model.customStatus" placeholder="{{ i18n.tasks.create.placeholders.customStatus }}" class="form-control" />
+							</div>
+						</div>
+						<!-- Priority -->
+						<div class="form-group">
+							<label for="priority" class="col-md-2 control-label">{{ i18n.tasks.fields.priority }}</label>
+							<div class="col-md-5">
+								<input type="text" id="priority" lookup="tasks/dictionary/lookupTaskPriorities" lookup-options="{allowClear: true}" ng-model="model.priority" placeholder="{{ i18n.tasks.create.placeholders.priority }}" class="form-control" />
+							</div>
+						</div>
+						<!-- Goto section -->
+						<div class="form-group">
+							<label class="col-md-2 control-label">{{ i18n.tasks.create.labels.afterCreation }}:</label>
+							<div class="col-md-10">
+								<label class="radio radio-inline">
+									<input type="radio" ng-model="nextAction" value="goToTask">{{ i18n.tasks.create.labels.afterCreationGoToTask }}
+								</label>
+								<label class="radio radio-inline">
+									<input type="radio" ng-model="nextAction" value="goToList">{{ i18n.tasks.create.labels.afterCreationGoToList }}
+								</label>
+								<label class="radio radio-inline">
+									<input type="radio" ng-model="nextAction" value="stayHere">{{ i18n.tasks.create.labels.afterCreationStayHere }}
+								</label>
+							</div>
+						</div>
+						<!-- Action section -->
+						<div class="form-actions form-actions-padding-sm">
+							<div class="row">
+								<div class="col-md-10 col-md-offset-2">
+									<button type="button" class="btn" ng-click="cancel()">{{ i18n.core.buttons.cancel }}</button>
+									<button type="button" class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">{{ i18n.tasks.create.buttons.save }}</button>
+								</div>
+							</div>
+						</div>			
+					</form>
+
+				</div><!-- box-content -->
+			</div><!-- box -->
+
+		</div><!-- col-xs-12 -->
+	</div><!-- row -->
+</div><!-- container -->

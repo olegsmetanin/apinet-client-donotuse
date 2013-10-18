@@ -124,9 +124,9 @@ angular.module('tasks').run(['i18n', function(i18n) {
 
 			'labels': {
 				'afterCreation': 'After task created',
-				'afterCreation.goToTask': 'Navagate to new task',
-				'afterCreation.goToList': 'Navagate to tasks list',
-				'afterCreation.stayHere': 'Create another task'
+				'afterCreationGoToTask': 'Navagate to new task',
+				'afterCreationGoToList': 'Navagate to tasks list',
+				'afterCreationStayHere': 'Create another task'
 			},
 
 			'buttons': {

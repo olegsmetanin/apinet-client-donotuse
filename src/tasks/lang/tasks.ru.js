@@ -124,9 +124,9 @@ angular.module('tasks').run(['i18n', function(i18n) {
 
 			'labels': {
 				'afterCreation': 'После создания задачи',
-				'afterCreation.goToTask': 'Перейти к созданной',
-				'afterCreation.goToList': 'Перейти в реестр задач',
-				'afterCreation.stayHere': 'Создать другую задачу'
+				'afterCreationGoToTask': 'Перейти к созданной',
+				'afterCreationGoToList': 'Перейти в реестр задач',
+				'afterCreationStayHere': 'Создать другую задачу'
 			},
 
 			'buttons': {
