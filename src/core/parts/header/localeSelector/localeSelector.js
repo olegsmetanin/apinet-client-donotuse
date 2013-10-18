@@ -1,3 +1,4 @@
+//TODO remove in not needed (moved to user profile). artem1 at 18.10.2013
 angular.module('security.login.toolbar')
 	.directive('localeSelector', ['sysConfig', '$cookiesExt', '$window', function (sysConfig, $cookiesExt, $window) {
 		return {

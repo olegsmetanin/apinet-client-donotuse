@@ -51,6 +51,8 @@ sysConfig.modules['core'] = {
 		'src/core/parts/header/eventNotifier/eventNotifier.js',
 		'src/core/parts/header/localeSelector/localeSelector.js',
 
+		'src/core/parts/user-profile/userProfile.js',
+
 		'src/core/services/services.js',
 		'src/core/services/i18n/i18n.js',
 

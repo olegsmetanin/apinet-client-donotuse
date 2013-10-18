@@ -146,6 +146,17 @@ angular.module('core').run(['i18n', function(i18n) {
 		'application': {
 			'creator': 'AGO Systems',
 			'landing': 'Projects'
+		},
+
+		'profile': {
+			'title': 'User profile',
+			'personalInfo': 'Personal info',
+			'personalInfoDesc': 'Proin eu nibh ut urna tristique rhoncus. Sed euismod, quam sed dignissim imperdiet, nulla leo vehicula mi, a sagittis lacus augue nec sapien.',
+			'settings': 'Settings',
+			'settingsDesc': 'Personal applicaton settings',
+			'fields': {
+				'firstName': 'First name'
+			}
 		}
 	});
 }]);
