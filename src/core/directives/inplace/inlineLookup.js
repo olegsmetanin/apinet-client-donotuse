@@ -11,7 +11,7 @@ angular.module('core')
 
 			var editTmpl = '<input type="text" ng-model="emodel.value" ng-readonly="waiting"' + 
 				' lookup="' + attr.inputLookup + '"' +
-				' class="form-control' + (attr.inputClass ? ' ' + attr.inputClass + '"' : '"') + 
+				' class="form-control ' + (attr.inputClass ? attr.inputClass + '"' : '"') + 
 				(attr.hasOwnProperty('required') 
 					? (attr.hasOwnProperty('multiple') ? ' required-multiple="true"' : ' ng-required="true"') 
 					: '') +
@@ -25,8 +25,10 @@ angular.module('core')
 '<div inline-edit="' + attr.model + '">' +
 '	<span ng-hide="editMode" ng-click="edit()" class="editable">' + viewTmpl + '</span>' +
 '	<form name="editForm" ng-show="editMode" ng-class="{\'has-error\': editForm.$invalid}" style="width: 100%; margin-bottom: 0px" novalidate>' +
+'		<div class="input-group ' + (attr.inputCol ? ' ' + attr.inputCol : '') + '">' +
 editTmpl +
-'		<inline-buttons></inline-buttons>' +
+'		<inline-buttons class="input-group-btn"></inline-buttons>' +
+'		</div>' +
 '	</form>' +
 '</div>'; return tmpl;
 		},

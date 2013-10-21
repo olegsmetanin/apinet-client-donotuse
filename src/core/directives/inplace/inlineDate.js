@@ -11,12 +11,11 @@ angular.module('core')
 		(attr.dateFormat ? '|date:\'' + attr.dateFormat + '\'' : '') +
 		') || \'---\' }}</span>' +
 '	<form name="editForm" class="form-inline" ng-show="editMode" style="width: 100%" novalidate>' +
-'		<div class="input-group">' +
-'			<input type="text" ' + 
-	(attr.inputClass ? 'class="' + attr.inputClass + '"' : '') + 
+'		<div class="input-group ' + (attr.inputCol ? attr.inputCol : '') + '" style="padding-left: 0px">' +
+'			<input type="text"' + 
+	' class="form-control ' + (attr.inputClass ? attr.inputClass + '"' : '"') + 
 	(attr.hasOwnProperty('required') ? ' required="required"' : '') +
 	' ng-model="emodel.value" ui-date="{dateFormat:\'dd.mm.yy\', changeMonth: true, changeYear: true}" ui-date-format="" ng-readonly="waiting"></input>' +
-
 '			<inline-buttons class="input-group-btn"></inline-buttons>' +
 '		</div>' +
 '	</form>' +
