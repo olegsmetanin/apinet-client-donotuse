@@ -12,8 +12,6 @@
 				<div class="col-xs-12">
 					<ago-error-msg></ago-error-msg>
 
-					
-
 					<div class="box ">
 						<div class="box-header purple-background">
 							<div class="title">
@@ -60,7 +58,7 @@
 										</span>
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="form-group" ng-class="{'has-error': validation.fieldErrors['DueDate']}">
 									<label class="col-md-2 control-label">{{ i18n.tasks.fields.dueDate }}</label>
 									<div class="col-md-10">
 										<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" on-cancel="resetValidation()" date-format="dd.MM.yyyy"></inline-date>
