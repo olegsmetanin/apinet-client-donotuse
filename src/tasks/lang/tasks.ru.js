@@ -135,7 +135,7 @@ angular.module('tasks').run(['i18n', function(i18n) {
 		},
 
 		'types': {
-			'title': 'Справочник типов задач',
+			'title': 'Типы задачи',
 
 			'placeholders': {
 				'name': 'Наименование типа задачи',
@@ -148,7 +148,7 @@ angular.module('tasks').run(['i18n', function(i18n) {
 		},
 
 		'customStatuses': {
-			'title': 'Справочник пользовательских статусов задач',
+			'title': 'Cтатусы задач',
 
 			'placeholders': {
 				'name': 'Наименование статуса задачи',

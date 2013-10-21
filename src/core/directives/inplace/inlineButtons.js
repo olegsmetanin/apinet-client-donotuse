@@ -3,8 +3,7 @@ angular.module('core')
 	return {
 		restrict: 'E',
 		replace: true,
-		template: 
-'<div style="display: inline-block">' +
+		template: '<div>' + 
 '	<button type="button" class="btn" ng-show="isChanged" ng-click="cancel()" ng-disabled="!cancelEnabled()" title="{{ i18n.core.buttons.cancel }}">' +
 '		<i class="icon-reply"></i>' + 
 '	</button>' +

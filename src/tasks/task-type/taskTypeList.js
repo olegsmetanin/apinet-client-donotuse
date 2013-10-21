@@ -16,6 +16,7 @@ angular.module('tasks')
 				authUser: securityAuthorizationProvider.requireAuthenticatedUser()
 			},
 			onEnter: function(pageConfig, i18n) {
+				menu: 'tasks.dictionary.types',
 				pageConfig.setConfig({
 					breadcrumbs: [
 						{ name: i18n.msg('tasks.list.title'), url: '#!/' },

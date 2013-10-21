@@ -17,6 +17,7 @@ angular.module('tasks')
 			},
 			onEnter: function(pageConfig, i18n) {
 				pageConfig.setConfig({
+					menu: 'tasks.dictionary.statuses',
 					breadcrumbs: [
 						{ name: i18n.msg('tasks.list.title'), url: '#!/' },
 						{ name: i18n.msg('tasks.customStatuses.title'), url: '#!/dictionary/statuses' }]

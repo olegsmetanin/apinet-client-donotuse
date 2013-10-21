@@ -135,7 +135,7 @@ angular.module('tasks').run(['i18n', function(i18n) {
 		},
 
 		'types': {
-			'title': 'Task types dictionary',
+			'title': 'Task types',
 
 			'placeholders': {
 				'name': 'Task type name',
@@ -148,7 +148,7 @@ angular.module('tasks').run(['i18n', function(i18n) {
 		},
 
 		'customStatuses': {
-			'title': 'Custom task statuses dictionary',
+			'title': 'Task statuses',
 
 			'placeholders': {
 				'name': 'Task status name',
