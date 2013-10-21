@@ -26,44 +26,49 @@
 	<tfoot ng-show="isAgreementsEditable()">
 		<tr ng-show="validation.generalErrors">
 			<td colspan="6">
-				<span class="alert-error help-block" >
-					{{ validation.generalErrors | joinBy }}
-					<button class="close" ng-click="resetValidation()">&times;</button>
-				</span>
+				<ago-error-msg></ago-error-msg>
 			</td>
 		</tr>
 		<tr ng-show="editables.addState">
-			<td colspan="6" class="form-inline">
-				<input type="text" name="agreemer" lookup="home/projects/lookupParticipant"
-				       ng-model="editables.newAgreemer" placeholder="{{ i18n.tasks.view.agreements.placeholders.agreemer }}" class="span4" />
-				<input type="text" ui-date="{dateFormat:'dd.mm.yy', changeMonth: true, changeYear: true}"
-				       ng-model="editables.dueDate"  class="span2" placeholder="{{ i18n.tasks.view.agreements.placeholders.dueDate }}" />
-				<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="!addAgreementAvailable()">{{ i18n.core.buttons.add }}</button>
+			<td colspan="6">
+				<form class="form-inline" novalidate>
+					<div class="col-xs-4">
+					<input type="text" name="agreemer" lookup="home/projects/lookupParticipant"
+					       ng-model="editables.newAgreemer" placeholder="{{ i18n.tasks.view.agreements.placeholders.agreemer }}" class="form-control" />
+					</div>
+					<div class="col-xs-2">
+					<input type="text" ui-date="{dateFormat:'dd.mm.yy', changeMonth: true, changeYear: true}"
+					       ng-model="editables.dueDate"  class="form-control" placeholder="{{ i18n.tasks.view.agreements.placeholders.dueDate }}" />
+					</div>
+					<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="!addAgreementAvailable()">{{ i18n.core.buttons.add }}</button>
 
-				<div class="btn-group">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						{{ i18n.tasks.view.agreements.buttons.agreement.dropdown }}
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a ng-click="agree()">{{ i18n.tasks.view.agreements.buttons.agreement.agree }}</a></li>
-						<li><a ng-click="toggleAgree()">{{ i18n.tasks.view.agreements.buttons.agreement.toggleAgree }}</a></li>
-						<li class="divider"></li>
-						<li><a ng-click="revoke()">{{ i18n.tasks.view.agreements.buttons.agreement.revoke }}</a></li>
-					</ul>
-				</div>
+					<div class="btn-group">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							{{ i18n.tasks.view.agreements.buttons.agreement.dropdown }}
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a ng-click="agree()">{{ i18n.tasks.view.agreements.buttons.agreement.agree }}</a></li>
+							<li><a ng-click="toggleAgree()">{{ i18n.tasks.view.agreements.buttons.agreement.toggleAgree }}</a></li>
+							<li class="divider"></li>
+							<li><a ng-click="revoke()">{{ i18n.tasks.view.agreements.buttons.agreement.revoke }}</a></li>
+						</ul>
+					</div>
+				</form>
 			</td>
 		</tr>
 		<tr ng-hide="editables.addState">
 			<td colspan="6">
-				<div class="input-append span12">
-					<input type="text" ng-model="editables.comment" class="span6" placeholder="{{ i18n.tasks.view.agreements.placeholders.comment }}">
-					<button type="button" class="btn" ng-click="toggleAgree()" title="{{ i18n.core.buttons.cancel }}">
-						<i class="icon-reply"></i>
-					</button>
-					<button type="button" class="btn" ng-click="agree()" title="{{ i18n.tasks.view.agreements.buttons.agreement.agree }}">
-						<i class="icon-ok"></i>
-					</button>
+				<div class="input-group col-xs-8">
+					<input type="text" ng-model="editables.comment" class="form-control" placeholder="{{ i18n.tasks.view.agreements.placeholders.comment }}">
+					<span class="input-group-btn">
+						<button type="button" class="btn" ng-click="toggleAgree()" title="{{ i18n.core.buttons.cancel }}">
+							<i class="icon-reply"></i>
+						</button>
+						<button type="button" class="btn" ng-click="agree()" title="{{ i18n.tasks.view.agreements.buttons.agreement.agree }}">
+							<i class="icon-ok"></i>
+						</button>
+					</span>
 				</div>
 			</td>
 		</tr>

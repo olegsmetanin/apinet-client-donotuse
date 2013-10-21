@@ -34,7 +34,7 @@ angular.module('tasks').run(['i18n', function(i18n) {
 
 		'view': {
 			'tabs': {
-				'overview': 'Задача',
+				'overview': 'Свойства',
 				'comments': 'Комментарии',
 				'files': 'Файлы'
 			},

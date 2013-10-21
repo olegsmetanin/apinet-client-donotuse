@@ -1,11 +1,13 @@
-<ul class="nav nav-tabs navbar navbar-fixed-top opaque" style="top: 46px; padding-top: 4px; z-index: 1020">
-  <li ng-class="{active: tab == 'overview' }">
-    <a href="#!/tasks/{{ num }}">{{ i18n.tasks.view.tabs.overview }}</a>
-  </li>
-  <li ng-class="{active: tab == 'comments'}">
-  	<a href="#!/tasks/{{ num }}/comments">{{ i18n.tasks.view.tabs.comments }}</a>
-  </li>
-  <li ng-class="{active: tab == 'files'}">
-  	<a href="#!/tasks/{{ num }}/files">{{ i18n.tasks.view.tabs.files }}</a>
-  </li>
-</ul>
+<div class="tabbable">
+	<ul class="nav nav-responsive nav-tabs">
+		<li ng-class="{active: tab == 'overview' }">
+			<a href="#!/tasks/{{ num }}">{{ i18n.tasks.view.tabs.overview }}</a>
+		</li>
+		<li ng-class="{active: tab == 'comments'}">
+			<a href="#!/tasks/{{ num }}/comments">{{ i18n.tasks.view.tabs.comments }}</a>
+		</li>
+		<li ng-class="{active: tab == 'files'}">
+			<a href="#!/tasks/{{ num }}/files">{{ i18n.tasks.view.tabs.files }}</a>
+		</li>
+	</ul>
+</div>

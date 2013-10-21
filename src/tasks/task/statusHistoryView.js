@@ -1,5 +1,5 @@
 angular.module('tasks')
-.directive('statusHistory', ['sysConfig', function(sysConfig) {
+.directive('statusHistory', ['sysConfig', '$rootScope', function(sysConfig, $rootScope) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -9,6 +9,7 @@ angular.module('tasks')
 			onChange: '=change'
 		},
 		link: function(scope, elm, attr) {
+			scope.i18n = $rootScope.i18n;
 			scope.isClosedRecord = function(hrecord) {
 				return hrecord.hasOwnProperty('Finish');
 			};

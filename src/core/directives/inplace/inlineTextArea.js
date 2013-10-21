@@ -9,11 +9,11 @@ angular.module('core')
 '	<pre ng-hide="editMode" ng-click="edit()" class="editable' + 
 	(attr.preClass ? ' ' + attr.preClass + '"' : '"') + 
 	'>{{ ' + attr.model + ' }}</pre>' +
-'	<form name="editForm" class="input-append" ng-show="editMode" style="width: 100%" novalidate>' +
-'		<textarea ' + 
-	(attr.inputClass ? 'class="' + attr.inputClass + '"' : '') + 
-	(attr.inputRows ? 'rows="' + attr.inputRows + '"' : '') + 
-	(attr.hasOwnProperty('required') ? ' required="required"' : '') +
+'	<form name="editForm" class="form-inline" ng-show="editMode" style="width: 100%" novalidate>' +
+'		<textarea' + 
+	' class="form-control ' + (attr.inputClass ? ' ' + attr.inputClass + '"' : '"') + 
+	(attr.inputRows ? ' rows="' + attr.inputRows + '"' : '') + 
+	(attr.hasOwnProperty('required') ? ' required="true"' : '') +
 	' ng-model="emodel.value" ng-readonly="waiting"></textarea>' +
 '		<inline-buttons></inline-buttons>' +
 '	</form>' +

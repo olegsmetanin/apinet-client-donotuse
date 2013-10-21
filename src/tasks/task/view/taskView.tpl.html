@@ -1,150 +1,179 @@
-<div class="container-fluid" ng-controller="taskViewCtrl">
-	<div class="row-fluid">
-		<div class="span12">
-			<task-tabs current-tab="overview" task-num="model.SeqNumber"></task-tabs>
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="span3">
-			<div class="well">
-				<ul class="nav nav-list">
-					<li>
-						<a href="#general">
-							{{ i18n.tasks.view.general.title }}
-						</a>
-					</li>
-					<li>
-						<a href="#agreements">
-							{{ i18n.tasks.view.agreements.title }}
-						</a>
-					</li>
-					<li>
-						<a href="#statusHistory">
-							{{ i18n.tasks.view.statusHistory.title }}
-						</a>
-					</li>
-					<li>
-						<a href="#customStatusHistory">
-							{{ i18n.tasks.view.customStatusHistory.title }}
-						</a>
-					</li>
-					<li>
-						<a href="#params">
-							{{ i18n.tasks.view.params.title }}
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="span9">
-			<div class="alert alert-error span12" ng-show="validation.generalErrors">
-				{{ validation.generalErrors | joinBy }}
+<div class="container" ng-controller="taskViewCtrl">
+	<div class="row" id="content-wrapper">
+		<div class="col-xs-12">
+
+			<div class="row">
+				<div class="col-xs-12">
+					<tas-tabs current-tab="overview" task-num="model.SeqNumber"></tas-tabs>
+				</div>
 			</div>
 
-			<section id="general">
-				<h3>{{ i18n.tasks.view.general.title }}</h3>
-				<table class="table">
-					<tr>
-						<td class="span3">{{ i18n.tasks.fields.seqNumber }}</td>
-						<td>{{ model.SeqNumber }}</td>
-					</tr>
-					<tr>
-						<td>{{ i18n.tasks.fields.type }}</td>
-						<td>
-							<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" on-cancel="resetValidation()"
-							               input-lookup="tasks/dictionary/lookupTaskTypes" input-class="span6" required></inline-lookup>
-							<span ng-show="validation.fieldErrors['TaskType']" class="help-block alert-error">
-								{{ validation.fieldErrors['TaskType'] | joinBy }}
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td>{{ i18n.tasks.fields.executors }}</td>
-						<td>
-							<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()"
-							               input-lookup="home/projects/lookupParticipant" input-class="span10" multiple required>
-								<executors model="model.Executors"></executors>
-							</inline-lookup>
-							<span ng-show="validation.fieldErrors['Executors']" class="help-block alert-error">
-								{{ validation.fieldErrors['Executors'] | joinBy }}
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td>{{ i18n.tasks.fields.content }}</td>
-						<td>
-							<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()"
-							                  pre-class="span10" input-class="span10" input-rows="3"></inline-text-area>
-							<span ng-show="validation.fieldErrors['Content']" class="help-block alert-error">
-								{{ validation.fieldErrors['Content'] | joinBy }}
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td>{{ i18n.tasks.fields.dueDate }}</td>
-						<td>
-							<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" on-cancel="resetValidation()" date-format="dd.MM.yyyy"></inline-date>
-							<span ng-show="validation.fieldErrors['DueDate']" class="help-block alert-error">
-								{{ validation.fieldErrors['DueDate'] | joinBy }}
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td>{{ i18n.tasks.fields.status }}</td>
-						<td>
-							<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" on-cancel="resetValidation()"
-							               input-lookup="tasks/dictionary/lookupTaskStatuses" input-class="span6" required></inline-lookup>
-							<span ng-show="validation.fieldErrors['Status']" class="help-block alert-error">
-								{{ validation.fieldErrors['Status'] | joinBy }}
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td>{{ i18n.tasks.fields.customStatus }}</td>
-						<td>
-							<inline-lookup model="model.CustomStatus" on-update="onUpdateProp(model, 'CustomStatus', val)" on-cancel="resetValidation()"
-							               input-lookup="tasks/dictionary/lookupCustomStatuses" input-class="span6"></inline-lookup>
-							<span ng-show="validation.fieldErrors['CustomStatus']" class="help-block alert-error">
-								{{ validation.fieldErrors['CustomStatus'] | joinBy }}
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td>{{ i18n.tasks.fields.priority }}</td>
-						<td>
-							<inline-lookup model="model.Priority" on-update="onUpdateProp(model, 'Priority', val)" on-cancel="resetValidation()"
-							               input-lookup="tasks/dictionary/lookupTaskPriorities" input-class="span6" required></inline-lookup>
-							<span ng-show="validation.fieldErrors['Priority']" class="help-block alert-error">
-								{{ validation.fieldErrors['Priority'] | joinBy }}
-							</span>
-						</td>
-					</tr>
-					<tr>
-						<td>{{ i18n.core.fields.creator }}</td>
-						<td>{{ model.Author }}</td>
-					</tr>
-					<tr>
-						<td>{{ i18n.core.fields.creationTime }}</td>
-						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
-					</tr>
-				</table>
-			</section>
-			<section id="agreements">
-				<h3>{{ i18n.tasks.view.agreements.title }}</h3>
-				<agreements model="model"></agreements>
-			</section>
-			<section id="statusHistory">
-				<h3>{{ i18n.tasks.view.statusHistory.title }}</h3>
-				<status-history model="model.StatusHistory" change="changeStatus"></status-history>
-			</section>
-			<section id="customStatusHistory">
-				<h3>{{ i18n.tasks.view.customStatusHistory.title }}</h3>
-				<status-history model="model.CustomStatusHistory" change="changeCustomStatus"></status-history>
-			</section>
-			<section id="params">
-				<h3>{{ i18n.tasks.view.params.title }}</h3>
-				<custom-properties model="model.Parameters"></custom-properties>
-			</section>
-		</div>
-	</div>
-</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<ago-error-msg></ago-error-msg>
+
+					
+
+					<div class="box ">
+						<div class="box-header purple-background">
+							<div class="title">
+								<i class="icon-table"></i>
+								{{ i18n.tasks.view.general.title }}
+							</div>
+							<div class="actions">
+								<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+							</div>
+						</div>
+
+						<div class="box-content">
+							<form class="form form-horizontal" novalidate>
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ i18n.tasks.fields.seqNumber }}</label>
+									<div class="col-md-10"><p class="form-control-static">{{ model.SeqNumber }}</p></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ i18n.tasks.fields.type }}</label>
+									<div class="col-md-10">
+										<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskTypes" required></inline-lookup>
+										<span ng-show="validation.fieldErrors['TaskType']" class="help-block has-error">
+											{{ validation.fieldErrors['TaskType'] | joinBy }}
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ i18n.tasks.fields.executors }}</label>
+									<div class="col-md-10">
+										<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()" input-lookup="home/projects/lookupParticipant" multiple required>
+											<executors model="model.Executors"></executors>
+										</inline-lookup>
+										<span ng-show="validation.fieldErrors['Executors']" class="help-block has-error">
+											{{ validation.fieldErrors['Executors'] | joinBy }}
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ i18n.tasks.fields.content }}</label>
+									<div class="col-md-10">
+										<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" pre-class="col-xs-10" input-rows="3"></inline-text-area>
+										<span ng-show="validation.fieldErrors['Content']" class="help-block has-error">
+											{{ validation.fieldErrors['Content'] | joinBy }}
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ i18n.tasks.fields.dueDate }}</label>
+									<div class="col-md-10">
+										<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" on-cancel="resetValidation()" date-format="dd.MM.yyyy"></inline-date>
+										<span ng-show="validation.fieldErrors['DueDate']" class="help-block has-error">
+											{{ validation.fieldErrors['DueDate'] | joinBy }}
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ i18n.tasks.fields.status }}</label>
+									<div class="col-md-10">
+										<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskStatuses"  required></inline-lookup>
+										<span ng-show="validation.fieldErrors['Status']" class="help-block has-error">
+											{{ validation.fieldErrors['Status'] | joinBy }}
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ i18n.tasks.fields.customStatus }}</label>
+									<div class="col-md-10">
+										<inline-lookup model="model.CustomStatus" on-update="onUpdateProp(model, 'CustomStatus', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupCustomStatuses" input-class="span6"></inline-lookup>
+										<span ng-show="validation.fieldErrors['CustomStatus']" class="help-block has-error">
+											{{ validation.fieldErrors['CustomStatus'] | joinBy }}
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ i18n.tasks.fields.priority }}</label>
+									<div class="col-md-10">
+										<inline-lookup model="model.Priority" on-update="onUpdateProp(model, 'Priority', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskPriorities" required></inline-lookup>
+										<span ng-show="validation.fieldErrors['Priority']" class="help-block has-error">
+											{{ validation.fieldErrors['Priority'] | joinBy }}
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ i18n.core.fields.creator }}</label>
+									<div class="col-md-10"><p class="form-control-static">{{ model.Author }}</p></div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">{{ i18n.core.fields.creationTime }}</label>
+									<div class="col-md-10"><p class="form-control-static">{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</p></div>
+								</div>
+							</form>
+						</div><!-- box-content -->
+					</div><!-- box general -->
+
+					<div class="box ">
+						<div class="box-header purple-background">
+							<div class="title">
+								<i class="icon-table"></i>
+								{{ i18n.tasks.view.agreements.title }}
+							</div>
+							<div class="actions">
+								<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+							</div>
+						</div>
+
+						<div class="box-content">
+							<agreements model="model"></agreements>
+						</div>
+					</div>
+
+					<div class="box ">
+						<div class="box-header purple-background">
+							<div class="title">
+								<i class="icon-table"></i>
+								{{ i18n.tasks.view.statusHistory.title }}
+							</div>
+							<div class="actions">
+								<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+							</div>
+						</div>
+						<div class="box-content">
+							<status-history model="model.StatusHistory" change="changeStatus"></status-history>
+						</div>
+					</div>
+
+					<div class="box ">
+						<div class="box-header purple-background">
+							<div class="title">
+								<i class="icon-table"></i>
+								{{ i18n.tasks.view.customStatusHistory.title }}
+							</div>
+							<div class="actions">
+							<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+						</div>
+						</div>
+
+						<div class="box-content">
+							<status-history model="model.CustomStatusHistory" change="changeCustomStatus"></status-history>
+						</div>
+					</div>
+
+					<div class="box ">
+						<div class="box-header purple-background">
+							<div class="title">
+								<i class="icon-table"></i>
+								{{ i18n.tasks.view.params.title }}
+							</div>
+							<div class="actions">
+								<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+							</div>
+						</div>
+
+						<div class="box-content">
+							<custom-properties model="model.Parameters"></custom-properties>
+						</div>
+					</div>
+
+				</div><!-- col-xs-12 -->
+			</div><!-- row -->
+
+		</div><!-- col-xs-12 -->
+	</div><!-- row content-wrapper -->
+</div><!-- container -->

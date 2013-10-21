@@ -1,5 +1,7 @@
 angular.module('tasks')
-.directive('agreements', ['apinetService', 'sysConfig', '$window', 'i18n', function(apinetService, sysConfig, $window, i18n){
+.directive('agreements', ['apinetService', 'sysConfig', '$window', 'i18n', '$rootScope', 
+	function(apinetService, sysConfig, $window, i18n, $rootScope){
+
 	return {
 		restrict: 'E',
 		templateUrl: sysConfig.src('tasks/task/agreementsView.tpl.html'),
@@ -7,6 +9,7 @@ angular.module('tasks')
 			model: '='
 		},
 		link: function($scope) {
+			$scope.i18n = $rootScope.i18n;
 			$scope.editables = { 
 				newAgreemer: null,
 				dueDate: null,

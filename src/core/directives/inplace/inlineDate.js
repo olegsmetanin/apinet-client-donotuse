@@ -10,12 +10,15 @@ angular.module('core')
 		attr.model + 
 		(attr.dateFormat ? '|date:\'' + attr.dateFormat + '\'' : '') +
 		') || \'---\' }}</span>' +
-'	<form name="editForm" class="input-append" ng-show="editMode" style="width: 100%" novalidate>' +
-'		<input type="text" ' + 
+'	<form name="editForm" class="form-inline" ng-show="editMode" style="width: 100%" novalidate>' +
+'		<div class="input-group">' +
+'			<input type="text" ' + 
 	(attr.inputClass ? 'class="' + attr.inputClass + '"' : '') + 
 	(attr.hasOwnProperty('required') ? ' required="required"' : '') +
 	' ng-model="emodel.value" ui-date="{dateFormat:\'dd.mm.yy\', changeMonth: true, changeYear: true}" ui-date-format="" ng-readonly="waiting"></input>' +
-'		<inline-buttons></inline-buttons>' +
+
+'			<inline-buttons class="input-group-btn"></inline-buttons>' +
+'		</div>' +
 '	</form>' +
 '</div>'; return tmpl;
 		},

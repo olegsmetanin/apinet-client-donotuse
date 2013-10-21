@@ -1,5 +1,5 @@
 angular.module('tasks')
-.directive('taskTabs', function() {
+.directive('tasTabs', ['$rootScope', function($rootScope) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -7,6 +7,10 @@ angular.module('tasks')
 		scope: {
 			tab: '@currentTab',
 			num: '=taskNum'
+		},
+		link: function(scope, elm) {
+			scope.i18n = $rootScope.i18n;
+			$('.nav-responsive.nav-tabs', elm).tabdrop();
 		}
 	}
-});
+}]);

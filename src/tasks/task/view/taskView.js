@@ -18,6 +18,7 @@ angular.module('tasks')
 			onEnter: ['pageConfig', '$stateParams', 'i18n', function(pageConfig, $stateParams, i18n) {
 				pageConfig.setConfig({
 					breadcrumbs: [
+						{ name: sysConfig.project, url: '#!/' },
 						{ name: i18n.msg('tasks.list.title'), url: '#!/' },
 						{ name: $stateParams.num, url: '#!/tasks/' + $stateParams.num }]
 				});
