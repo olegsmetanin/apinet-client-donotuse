@@ -1,4 +1,6 @@
-angular.module('core').run(['i18n', function(i18n) {
+angular.module('core').run(['i18n', '$strapConfig', function(i18n, $strapConfig) {
+	$strapConfig.format = 'mm/dd/yyyy';
+
 	i18n.addMessages('core', {
 		'roles': {
 			'title': 'Roles ({{role}})',

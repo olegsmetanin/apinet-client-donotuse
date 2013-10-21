@@ -58,6 +58,9 @@ angular.module('core')
         'login.error.invalidCredentials': "Login failed.  Please check your credentials and try again.",
         'login.error.serverError': "There was a problem with authenticating: {{exception}}."
     })
+	.value('$strapConfig', {
+		language: 'en'
+	})
     .controller('HeaderCtrl', ['$scope', 'security', 'moduleMenuUrl', 'sysConfig', 'pageConfig',
         function($scope, security, moduleMenuUrl, sysConfig, pageConfig) {
             $scope.isAuthenticated = security.isAuthenticated;
@@ -96,8 +99,10 @@ angular.module('core')
             return result.substring(0, max - 1) + '…';
         };
     })
-    .run(['security', 
-        function(security) {
+    .run(['security', '$strapConfig', 'sysConfig',
+        function(security, $strapConfig, sysConfig) {
+            $strapConfig.language = sysConfig.lang;
+
             // Get the current user when the application starts
             // (in case they are still logged in from a previous session or on project change)
             security.requestCurrentUser();

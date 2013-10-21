@@ -35,7 +35,11 @@
 					<div class="col-sm-4" style="padding-left: 0px; padding-right: 0px">
 						<input type="text" name="agreemer" lookup="home/projects/lookupParticipant" ng-model="editables.newAgreemer" placeholder="{{ i18n.tasks.view.agreements.placeholders.agreemer }}" class="form-control" />
 					</div>
-					<div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
+					<div class="input-group col-sm-2" style="padding-left: 0px; padding-right: 0px">
+						<!-- <input type="text" class="form-control" ng-model="editables.dueDate" placeholder="{{ i18n.tasks.view.agreements.placeholders.dueDate }}" ago-datepicker />
+						<span class="input-group-addon">
+							<span data-date-icon="icon-calendar" data-time-icon="icon-time" class="icon-calendar"></span>
+						</span> -->
 						<input type="text" ui-date="{dateFormat:'dd.mm.yy', changeMonth: true, changeYear: true}" ng-model="editables.dueDate"  class="form-control" placeholder="{{ i18n.tasks.view.agreements.placeholders.dueDate }}" />
 					</div>
 					<div class="col-sm-2" style="padding-left: 0px">

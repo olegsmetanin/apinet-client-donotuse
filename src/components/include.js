@@ -4,6 +4,7 @@ sysConfig.modules['components'] = {
 		//"components/bootstrap-2.3.2/css/bootstrap-responsive.min.css",
 		
 		"components/select2-3.4.1/select2.css",
+		"src/components/assets/stylesheets/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.min.css",
 		"src/components/assets/stylesheets/bootstrap/bootstrap.css",
 		"src/components/assets/stylesheets/light-theme.css",
 		"src/components/assets/stylesheets/theme-colors.css",
@@ -12,8 +13,6 @@ sysConfig.modules['components'] = {
 
 		
 		"components/jquery-ui-1.10.3/themes/smoothness/jquery-ui.css",
-
-		"components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css",
 
 		"components/components-font-awesome-3.1.0/css/font-awesome.min.css"
 	],
@@ -32,6 +31,7 @@ sysConfig.modules['components'] = {
 		"src/components/assets/javascripts/plugins/retina/retina.js",
 		"src/components/assets/javascripts/theme.js",
 		"src/components/assets/javascripts/plugins/tabdrop/bootstrap-tabdrop.js",
+		"src/components/assets/javascripts/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.js",
 
 		"components/angular-unstable/angular.js",
 		"src/components/angular-cookies.js",
