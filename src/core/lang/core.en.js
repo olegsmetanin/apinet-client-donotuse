@@ -153,7 +153,7 @@ angular.module('core').run(['i18n', '$strapConfig', function(i18n, $strapConfig)
 
 		'application': {
 			'creator': 'AGO Systems',
-			'landing': 'Projects'
+			'landing': 'Company'
 		},
 
 		'profile': {

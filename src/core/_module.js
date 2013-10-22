@@ -61,20 +61,19 @@ angular.module('core')
 	.value('$strapConfig', {
 		language: 'en'
 	})
-    .controller('HeaderCtrl', ['$scope', 'security', 'moduleMenuUrl', 'sysConfig', 'pageConfig',
-        function($scope, security, moduleMenuUrl, sysConfig, pageConfig) {
-            $scope.isAuthenticated = security.isAuthenticated;
-            $scope.moduleMenuUrl = moduleMenuUrl;
-            $scope.project = sysConfig.project;
+	.controller('HeaderCtrl', ['$scope', 'security', 'moduleMenuUrl', 'sysConfig', 'pageConfig',
+		function($scope, security, moduleMenuUrl, sysConfig, pageConfig) {
+			$scope.isAuthenticated = security.isAuthenticated;
+			$scope.moduleMenuUrl = moduleMenuUrl;
 
-            $scope.isActiveMenu = function(item) {
-                return angular.isDefined(pageConfig) &&
-                    angular.isDefined(pageConfig.current) &&
-                    angular.isDefined(pageConfig.current.menu) &&
-                    pageConfig.current.menu === item;
-            };
-        }
-    ])
+			$scope.isActiveMenu = function(item) {
+				return angular.isDefined(pageConfig) &&
+					angular.isDefined(pageConfig.current) &&
+					angular.isDefined(pageConfig.current.menu) &&
+					pageConfig.current.menu === item;
+			};
+		}
+	])
 	.filter('yesNo', function() {
 		return function(value){
 			return !!value ? 'Да' : 'Нет';
