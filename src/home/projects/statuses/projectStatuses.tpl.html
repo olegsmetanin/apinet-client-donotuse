@@ -2,45 +2,20 @@
 		ng-controller="projectStatusesCtrl"
 		filtered-list="{ method: 'home/dictionary/getProjectStatuses'}"
 		initial-sorters="{ Name: 'asc' }">
+
 	<div class="row" id="content-wrapper">
 		<div class="col-lg-12">
-			<div class="box box-nomargin box-collapsed">
-				<div class="box-header purple-background">
-					<div class="title">{{ i18n.core.filters.title }}</div>
-					<div class="actions">
-						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+			<filter meta="home/dictionary/projectTagMetadata" group="ProjectTags">
+				<form class="form form-horizontal">
+					<div class="form-group">
+						<label for="names" class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
+						<div class="col-md-9">
+							<input id="names" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="form-control" multiple />
+						</div>
 					</div>
-				</div>
-				<div class="box-content">
-					<div class="box-toolbox box-toolbox-top">
-						<div filtered-list-actions></div>
-					</div>
-
-					<tabset>
-						<tab heading="{{ i18n.core.filters.simple }}">
-							<form class="form form-horizontal">
-								<div class="form-group">
-									<label for="names" class="col-md-2 control-label">{{ i18n.core.fields.name }}</label>
-									<div class="col-md-5">
-										<input id="names" type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}"  class="form-control" />
-									</div>
-								</div>
-							</form>
-						</tab>
-						<tab heading="{{ i18n.core.filters.complex }}">
-							<div structured-filter
-							     filter-ng-model="filter.complex"
-							     meta="'home/dictionary/projectStatusMetadata'">
-							</div>
-						</tab>
-						<tab heading="{{ i18n.core.filters.favorites }}">
-							<div filter-persister group="'ProjectStatuses'" filter="filter"></div>
-						</tab>
-					</tabset>
-				</div><!-- box-content -->
-			</div><!-- box box-nomargin -->
-		</div><!-- col-lg-12 -->
-
+				</form>
+			</filter>
+		</div>
 
 		<div class="col-lg-12">
 			<div class="box box-nomargin">
@@ -51,7 +26,7 @@
 					</div>
 				</div>
 				<div class="box-content">
-					<div class="box-toolbox box-toolbox-top">
+					<div class="box-toolbox box-toolbox-top" ng-show="currentUser.admin">
 						<button style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">
 							<i class="icon-plus icon-white"></i>
 							<span>{{ i18n.projects.statuses.buttons.add }}</span>
@@ -61,7 +36,7 @@
 							{{ validation.generalErrors | joinBy }}
 						</div>
 
-						<form style="margin-top: 10px;" name="newItemForm" class="form form-horizontal" novalidate ng-show="editFormVisible">
+						<form style="margin-top: 10px;" name="editForm" class="form form-horizontal" novalidate ng-show="editFormVisible">
 							<div ng-class="{ 'form-group': true, 'has-error': !!validation.fieldErrors['Name'] }">
 								<label for="name" class="control-label col-md-2">{{ i18n.core.fields.name }}</label>
 								<div class="col-md-5">
@@ -72,9 +47,9 @@
 								</div>
 							</div>
 							<div ng-class="{ 'form-group': true, 'has-error': !!validation.fieldErrors['Description'] }">
-								<label for="desc" class="control-label col-md-2">{{ i18n.core.fields.description }}</label>
+								<label for="description" class="control-label col-md-2">{{ i18n.core.fields.description }}</label>
 								<div class="col-md-5">
-									<textarea class="form-control" name="Description" ng-model="editingItem.Description"></textarea>
+									<textarea id="description" class="form-control" name="Description" ng-model="editingItem.Description"></textarea>
 									<span ng-show="validation.fieldErrors['Description']" class="help-block">
 										{{ validation.fieldErrors['Description'] | joinBy }}
 									</span>
@@ -84,7 +59,7 @@
 							<div class="form-group">
 								<div class="col-md-offset-2 col-md-5">
 									<button class="btn btn-primary login" ng-click="saveItem();"
-									ng-disabled='newItemForm.$invalid'>{{ i18n.core.buttons.save }}</button>
+									ng-disabled='editForm.$invalid'>{{ i18n.core.buttons.save }}</button>
 									<button class="btn btn-warning" ng-click="cancelEdit();">{{ i18n.core.buttons.cancel }}</button>
 								</div>
 							</div>
@@ -125,16 +100,14 @@
 									</tr>
 								</tbody>
 							</table>
-
 							<div ng-show="indication.loading" us-spinner="{top:100}"></div>
-							
-			    		</div><!-- scrollable-area -->
-					</div><!-- responsive-table -->
-
+			    		</div>
+					</div>
 					<div class="box-toolbox box-toolbox-bottom">
 						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1" ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
 					</div>
-		</div><!-- col-lg-12 -->
-
-	</div><!-- row -->
-</div><!-- container -->
+		</div>
+			</div>
+		</div>
+	</div>
+</div>

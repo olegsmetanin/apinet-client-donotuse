@@ -180,7 +180,6 @@ angular.module('tasks')
 			model.validation = {};
 		};
 
-		$scope.requestParams = { project: sysConfig.project };
 		$scope.editModel = {id: null, name: '', viewOrder: null, focused: false};
 		$scope.deleteModel = { replacementStatus: null };
 		$timeout(function(){ $scope.createStatusForm.$setPristine(); }, 100);

@@ -231,7 +231,6 @@ angular.module('tasks')
 			$scope.validation.generalErrors = [error];
 		};
 
-		$scope.requestParams = { project: sysConfig.project };
 		$scope.customFilter = {
 			ALL: 'all',
 			OVERDUE: 'overdue',

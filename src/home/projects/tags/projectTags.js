@@ -34,7 +34,6 @@ angular.module('home')
 	.controller('projectTagsCtrl', ['$scope', 'apinetService', '$window', 'i18n',
 		function($scope, apinetService, $window, i18n) {
 			angular.extend($scope, {
-				requestParams: { mode: 'Personal' },
 				editFormVisible: false,
 				editingItem: {},
 
@@ -100,5 +99,14 @@ angular.module('home')
 
 			$scope.$watch('requestParams', function() {
 				$scope.cancelEdit();
+			}, true);
+
+			$scope.$on('resetFilter', function() {
+				$scope.filter.simple = { Ownership: 'Personal' };
+				$scope.requestParams.mode = 'Personal';
+			});
+
+			$scope.$watch('filter.simple.Ownership', function(value) {
+				$scope.requestParams.mode = value || 'Personal';
 			}, true);
 		}]);

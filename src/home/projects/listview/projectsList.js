@@ -31,7 +31,12 @@
 		}
 	])
 	.controller('projectsListCtrl', ['$scope', function($scope) {
-		angular.extend($scope, {
-			requestParams: { mode: 'All' }
+		$scope.$on('resetFilter', function() {
+			$scope.filter.simple = { Participation: 'All' };
+			$scope.requestParams.mode = 'All';
 		});
+
+		$scope.$watch('filter.simple.Participation', function(value) {
+			$scope.requestParams.mode = value || 'All';
+		}, true);
 	}]);
