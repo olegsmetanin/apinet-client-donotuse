@@ -82,7 +82,7 @@ angular.module('tasks').run(['i18n', function(i18n) {
 				'title': 'Custom status history'
 			},
 			'params': {
-				'title': 'Custom parameters'
+				'title': 'User properties'
 			}
 		},
 

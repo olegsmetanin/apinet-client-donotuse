@@ -110,6 +110,22 @@
 						<div class="box-header purple-background">
 							<div class="title">
 								<i class="icon-table"></i>
+								{{ i18n.tasks.view.params.title }}
+							</div>
+							<div class="actions">
+								<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+							</div>
+						</div>
+
+						<div class="box-content">
+							<custom-properties model="model.Parameters"></custom-properties>
+						</div>
+					</div>
+
+					<div class="box ">
+						<div class="box-header purple-background">
+							<div class="title">
+								<i class="icon-table"></i>
 								{{ i18n.tasks.view.agreements.title }}
 							</div>
 							<div class="actions">
@@ -150,22 +166,6 @@
 
 						<div class="box-content">
 							<status-history model="model.CustomStatusHistory" change="changeCustomStatus"></status-history>
-						</div>
-					</div>
-
-					<div class="box ">
-						<div class="box-header purple-background">
-							<div class="title">
-								<i class="icon-table"></i>
-								{{ i18n.tasks.view.params.title }}
-							</div>
-							<div class="actions">
-								<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
-							</div>
-						</div>
-
-						<div class="box-content">
-							<custom-properties model="model.Parameters"></custom-properties>
 						</div>
 					</div>
 
