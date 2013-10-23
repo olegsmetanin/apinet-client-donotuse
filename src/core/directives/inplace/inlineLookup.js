@@ -56,16 +56,24 @@ editTmpl +
 						if (!attr.hasOwnProperty('multiple')) {
 							scope.onBlur();
 						} else {
+							// $timeout(function() {
+							// 	console.log('close select2Change: %s', scope.select2Change);
+							// 	if (!angular.isDefined(scope.select2Change) || scope.select2Change === false) {
+							// 		//scope.onBlur();
+							// 	}
+							// }, 10);
 							//console.log('lookup focused: %s', $input.is(':focus'));
 						}
 					});
+					return false;
 				});
 				$input.on('select2-focus', function(e) { 
 					$(this).select2('open');
 				});
-				$input.on('select2-removing', function(e) {
-					console.log('removing: %s', e);
-				});
+				// $input.on('change', function(e) {
+				// 	scope.select2Change = true;
+				// 	console.log('change select2Change: %s', scope.select2Change);
+				// });
 				//enter and esc handling does not work, because of killEvent in select2 code
 			}, 50);
 		}
