@@ -383,6 +383,9 @@ angular.module('core')
 				return '<div class="box ' + attr.boxCol + '">' +
 				'	<div class="box-header">' +
 				'		<div class="title">' + i18n.msg(attr.boxTitle) + '</div>'+
+				'		<div class="actions">' +
+				'			<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>' +
+				'		</div>' +
 				'	</div>' +
 				'	<div class="box-content" ng-transclude></div>' +
 				'</div>';
