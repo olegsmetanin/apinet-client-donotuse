@@ -10,7 +10,8 @@ angular.module('core')
 				' ng-model="emodel.value" ng-readonly="waiting"></input>';
 			var tmpl =
 '<div inline-edit="' + attr.model + '">' +
-'	<span class="editable" ng-hide="editMode" ng-click="edit()">{{ ' + attr.model + ' }}</span>' +
+'	<span class="editable" ng-hide="!' + attr.model + ' || editMode" ng-click="edit()">{{ ' + attr.model + ' }}</span>' +
+'	<span class="editable" ng-hide="' + attr.model + ' || editMode" ng-click="edit()">&emsp;</span>' +
 '	<form name="editForm" class="form-inline" ng-show="editMode" ng-class="{\'has-error\': editForm.$invalid}" style="width: 100%" novalidate>' +
 '		<div class="input-group ' + (attr.inputCol ? attr.inputCol : '') + '" style="padding-left: 0px">' +
 			inpt +

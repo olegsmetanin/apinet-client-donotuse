@@ -21,6 +21,10 @@ angular.module('core').run(['i18n', '$strapConfig', function(i18n, $strapConfig)
 			'presentTime': 'present time'
 		},
 
+		'placeholders': {
+			'replacementItem': 'Substitute existing references with: (optional)'
+		},
+
 		'buttons': {
 			'cancel': 'Cancel',
 			'clear': 'Clear',
@@ -29,6 +33,7 @@ angular.module('core').run(['i18n', '$strapConfig', function(i18n, $strapConfig)
 			'add': 'Add',
 			'load': 'Load',
 			'delete': 'Delete',
+			'deleteSelected': 'Delete selected',
 			'edit': 'Edit',
 			'more': 'More'
 		},

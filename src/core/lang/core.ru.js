@@ -21,6 +21,10 @@ angular.module('core').run(['i18n', '$strapConfig', function(i18n, $strapConfig)
 			'presentTime': 'настоящее время'
 		},
 
+		'placeholders': {
+			'replacementItem': 'Заменить имеющиеся ссылки на: (опционально)'
+		},
+
 		'buttons': {
 			'cancel': 'Отмена',
 			'clear': 'Очистить',
@@ -29,6 +33,7 @@ angular.module('core').run(['i18n', '$strapConfig', function(i18n, $strapConfig)
 			'add': 'Добавить',
 			'load': 'Загрузить',
 			'delete': 'Удалить',
+			'deleteSelected': 'Удалить выбранные',
 			'edit': 'Редактировать',
 			'more': 'Еще'
 		},

@@ -31,70 +31,154 @@ angular.module('home')
 			});
 		}
 	])
-	.controller('projectStatusesCtrl', ['$scope', 'apinetService', '$window', 'i18n',
-		function($scope, apinetService, $window, i18n) {
+	.controller('projectStatusesCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n',
+		function($scope, sysConfig, apinetService, $window, i18n) {
 			angular.extend($scope, {
-				requestParams: { },
-				editFormVisible: false,
-				editingItem: {},
+				createItemForm: { },
+				editModel: { },
+				deleteModel: { },
+				validation: { },
 
-				newItem: function() {
+				handleException: function(error) {
 					$scope.resetValidation();
-					$scope.editingItem = {};
-					$scope.editFormVisible = true;
+					$scope.validation.generalErrors = [error];
 				},
 
-				editItem: function(item) {
+				handleValidationErrors: function(validation) {
 					$scope.resetValidation();
-					$scope.editingItem = angular.extend({}, item);
-					$scope.editFormVisible = true;
+					angular.extend($scope.validation, validation);
 				},
 
-				deleteItem: function(item) {
-					if (!$window.confirm(i18n.msg('core.confirm.delete.records'))) {
+				removeModels: function(modelsToRemove) {
+					for(var i = 0; i < modelsToRemove.length; i++) {
+						var index = $scope.models.indexOf(modelsToRemove[i]);
+						if (index === -1) {
+							continue;
+						}
+						$scope.models.splice(index, 1);
+					}
+				},
+
+				createItem: function() {
+					$scope.resetValidation();
+					delete $scope.editModel.id;
+	
+					apinetService.action({
+						method: 'home/dictionary/editProjectStatus',
+						project: sysConfig.project,
+						model: $scope.editModel
+					}).then(function(result) {
+						if(typeof result.success === 'undefined' || result.success) {
+							$scope.dropChanges();
+							$scope.models.unshift(result);
+						}
+						else {
+							$scope.handleValidationErrors(result);
+						}
+					}, $scope.handleException);
+				},
+
+				dropChanges: function() {
+					$scope.resetValidation();
+					$scope.editModel = { };
+					$scope.createItemForm.$setPristine();
+					$scope.createItemForm.$setValidity('integer', true);
+				},
+
+				createEnabled: function() {
+					return $scope.createItemForm.$valid &&
+						(typeof $scope.validation.success === 'undefined' || $scope.validation.success);
+				},
+
+				hasSelected: function() {
+					for(var i = 0; i < $scope.models.length; i++) {
+						if ($scope.models[i].selected && $scope.models[i].selected === true) {
+							return true;
+						}
+					}
+
+					return false;
+				},
+
+				deleteItem: function(model) {
+					if (!model) {
+						return;
+					}
+					if (!$window.confirm(i18n.msg('core.confirm.delete.record'))) {
 						return;
 					}
 
 					$scope.resetValidation();
 
 					apinetService.action({
-						method: 'home/dictionary/deleteProjectStatus',
-						id: item.Id
-					})
-					.then(function() {
-						$scope.cancelEdit();
-						var index = $scope.models.indexOf(item);
-						if(index === -1) {
-							return;
-						}
-						$scope.models.splice(index, 1);
-					}, function(error) {
-						$scope.validation.generalErrors = [ error ];
-					});
+						method: 'home/dictionary/deleteProjectStatuses',
+						project: sysConfig.project,
+						ids: [ model.Id ],
+						replaceId: $scope.deleteModel.replacementItem ? $scope.deleteModel.replacementItem.id : null
+					}).then(function() {
+						$scope.removeModels([model]);
+					}, $scope.handleException);
 				},
 
-				saveItem: function() {
+				deleteSelected: function() {
+					if (!$window.confirm(i18n.msg('core.confirm.delete.records'))) {
+						return;
+					}
+
+					var ids = [];
+					var modelsToRemove = [];
+					for(var i = 0; i < $scope.models.length; i++) {
+						if ($scope.models[i].selected && $scope.models[i].selected === true) {
+							ids.push($scope.models[i].Id);
+							modelsToRemove.push($scope.models[i]);
+						}
+					}
+					if (ids.length <= 0) {
+						return;
+					}
+
 					$scope.resetValidation();
 
 					apinetService.action({
-						method: 'home/dictionary/editProjectStatus',
-						model: $scope.editingItem
-					})
-					.then(function(result) {
-						if(result.success) {
-							$scope.refreshList();
-							$scope.cancelEdit();
-						}
-						else {
-							angular.extend($scope.validation, result);
-						}
-					}, function(error) {
-						$scope.validation.generalErrors = [ error ];
-					});
+						method: 'home/dictionary/deleteProjectStatuses',
+						project: sysConfig.project,
+						ids: ids,
+						replaceId: $scope.deleteModel.replacementItem ? $scope.deleteModel.replacementItem.id : null
+					}).then(function() {
+						$scope.removeModels(modelsToRemove);
+					}, $scope.handleException);
 				},
 
-				cancelEdit: function() {
-					$scope.editFormVisible = false;
+				onUpdateProp: function(model, prop, val) {
+					$scope.resetValidation();
+
+					var data = {
+						Id: model.Id,
+						Name: model.Name,
+						Description: model.Description,
+						ModelVersion: model.ModelVersion
+					};
+					data[prop] = val;
+
+					return apinetService.action({
+						method: 'home/dictionary/editProjectStatus',
+						project: sysConfig.project,
+						model: data
+					}).then(function(result) {
+						var success = typeof result.success === 'undefined' || result.success;
+						if(success) {
+							angular.extend(model, result);
+							model.validation = {};
+						}
+						else {
+							model.validation = result;
+						}
+						return success;
+					}, $scope.handleException);
+				},
+
+				onCancel: function(model) {
+					model.validation = {};
 				}
 			});
 		}]);

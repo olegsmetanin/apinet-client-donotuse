@@ -130,8 +130,7 @@ angular.module('core')
 					},
 
 					resetValidation: function() {
-						$scope.validation.generalErrors = [];
-						$scope.validation.fieldErrors = {};
+						$scope.validation = { };
 					},
 
 					refreshList: function(append) {

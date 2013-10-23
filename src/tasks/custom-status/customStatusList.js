@@ -35,7 +35,7 @@ angular.module('tasks')
 			$scope.validation.generalErrors = [error];
 		};
 
-		var handleError = function(validation) {
+		var handleValidationErrors = function(validation) {
 			$scope.resetValidation();
 			angular.extend($scope.validation, validation);
 		};
@@ -63,7 +63,7 @@ angular.module('tasks')
 					$scope.dropChanges();
 					$scope.models.unshift(result.model);
 				} else {
-					handleError(result.validation);
+					handleValidationErrors(result.validation);
 				}
 			}, handleException);
 		};

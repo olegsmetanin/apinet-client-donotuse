@@ -4,20 +4,18 @@
 		initial-sorters="{ Name: 'asc' }">
 
 	<div class="row" id="content-wrapper">
-		<div class="col-lg-12">
-			<filter meta="home/dictionary/projectTagMetadata" group="ProjectTags">
-				<form class="form form-horizontal">
+		<div class="col-xs-12">
+			<filter meta="home/dictionary/projectStatusMetadata" group="ProjectStatuses">
+				<form class="form">
 					<div class="form-group">
-						<label for="names" class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
-						<div class="col-md-9">
-							<input id="names" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="form-control" multiple />
-						</div>
+						<label>{{ i18n.core.fields.name }}</label>
+						<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}"  class="form-control" />
 					</div>
 				</form>
 			</filter>
 		</div>
 
-		<div class="col-lg-12">
+		<div class="col-xs-12">
 			<div class="box box-nomargin">
 				<div class="box-header purple-background">
 					<div class="title">{{ i18n.projects.statuses.title }}</div>
@@ -27,40 +25,48 @@
 				</div>
 				<div class="box-content">
 					<div class="box-toolbox box-toolbox-top" ng-show="currentUser.admin">
-						<button style="margin-bottom: 20px;" class="btn btn-primary" ng-click="newItem();">
-							<i class="icon-plus icon-white"></i>
-							<span>{{ i18n.projects.statuses.buttons.add }}</span>
-						</button>
+						<ago-error-msg></ago-error-msg>
 
-						<div class="alert alert-error" ng-show="validation.generalErrors">
-							{{ validation.generalErrors | joinBy }}
-						</div>
+						<form name="createItemForm" class="form-inline" novalidate>
+							<div class="col-sm-6" ng-class="{'has-error': (createItemForm.$invalid || validation.fieldErrors['Name'] || validation.fieldErrors['Description'])}">
+								<div class="row">
+									<div class="col-md-3" style="padding-left: 0;">
+										<input type="text" name="Name" ng-model="editModel.Name" class="form-control"
+										       placeholder="{{ i18n.core.fields.name }}"
+										       ng-required="editModel.focused" ng-focus="editModel.focused=true" ng-blur="editModel.focused=false" />
+									</div>
+									<div class="col-md-5" style="padding-left: 0;">
+										<input type="text" name="Description" ng-model="editModel.Description" class="form-control"
+										       placeholder="{{ i18n.core.fields.description }}"
+										       ng-focus="editModel.focused=true" ng-blur="editModel.focused=false" />
+									</div>
+									<div class="col-md-3 btn-group" style="padding-left: 0;">
+										<button type="button" class="btn" ng-click="createItem()" ng-disabled="!createEnabled()">{{ i18n.core.buttons.add }}</button>
+										<button type="button" class="btn" ng-click="dropChanges()" title="{{ i18n.core.buttons.clear }}">&times;</button>
+									</div>
+								</div>
 
-						<form style="margin-top: 10px;" name="editForm" class="form form-horizontal" novalidate ng-show="editFormVisible">
-							<div ng-class="{ 'form-group': true, 'has-error': !!validation.fieldErrors['Name'] }">
-								<label for="name" class="control-label col-md-2">{{ i18n.core.fields.name }}</label>
-								<div class="col-md-5">
-									<input id="name" class="form-control" name="Name" type="text" ng-model="editingItem.Name" required />
-									<span ng-show="validation.fieldErrors['Name']" class="help-block">
-										{{ validation.fieldErrors['Name'] | joinBy }}
-									</span>
+								<div class="row">
+									<div class="col-md-12">
+										<span ng-show="validation.fieldErrors['Name']" class="help-block has-error">
+											{{ validation.fieldErrors['Name'] | joinBy }}
+										</span>
+										<span ng-show="validation.fieldErrors['Description']" class="help-block has-error">
+											{{ validation.fieldErrors['Description'] | joinBy }}
+										</span>
+									</div>
 								</div>
 							</div>
-							<div ng-class="{ 'form-group': true, 'has-error': !!validation.fieldErrors['Description'] }">
-								<label for="description" class="control-label col-md-2">{{ i18n.core.fields.description }}</label>
-								<div class="col-md-5">
-									<textarea id="description" class="form-control" name="Description" ng-model="editingItem.Description"></textarea>
-									<span ng-show="validation.fieldErrors['Description']" class="help-block">
-										{{ validation.fieldErrors['Description'] | joinBy }}
-									</span>
-								</div>
-							</div>
 
-							<div class="form-group">
-								<div class="col-md-offset-2 col-md-5">
-									<button class="btn btn-primary login" ng-click="saveItem();"
-									ng-disabled='editForm.$invalid'>{{ i18n.core.buttons.save }}</button>
-									<button class="btn btn-warning" ng-click="cancelEdit();">{{ i18n.core.buttons.cancel }}</button>
+							<div class="col-sm-6">
+								<div class="row">
+									<div class="col-md-3">
+										<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()">{{ i18n.core.buttons.deleteSelected }}</button>
+									</div>
+									<div class="col-md-9" style="padding-left: 0;">
+										<input type="text" lookup="home/dictionary/lookupProjectStatuses" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementItem"
+										       placeholder="{{ i18n.core.placeholders.replacementItem }}" class="form-control" />
+									</div>
 								</div>
 							</div>
 						</form>
@@ -74,28 +80,41 @@
 							       infinite-scroll-distance="1">
 								<thead>
 									<tr>
+										<th style="width: 1%" ng-show="currentUser.admin">
+											<input type="checkbox" checker="items: 'models'">
+										</th>
 										<th><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
-										<th><span sortable-heading="sorters.Description" caption="{{ i18n.core.fields.description }}"></span></th>
-										<th><span sortable-heading="sorters.CreationTime" caption="{{ i18n.core.fields.creationTime }}"></span></th>
-										<th style="width: 200px;" ng-show="currentUser.admin"></th>
+										<th style="width: 30%"><span sortable-heading="sorters.Description" caption="{{ i18n.core.fields.description }}"></span></th>
+										<th style="width: 15%"><span sortable-heading="sorters.Creator_FIO" caption="{{ i18n.core.fields.creator }}"></span></th>
+										<th style="width: 15%"><span sortable-heading="sorters.CreationTime" caption="{{ i18n.core.fields.creationTime }}"></span></th>
+										<th style="width: 1%" ng-show="currentUser.admin">&nbsp;</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr ng-repeat="model in models">
-										<td>
-											<span>{{ model.Name }}</span>
+										<td ng-show="currentUser.admin">
+											<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 										</td>
-										<td>{{ model.Description }}</td>
+										<td>
+											<inline-text model="model.Name" on-update="onUpdateProp(model, 'Name', val)" 
+											             on-cancel="onCancel(model)" input-col="col-xs-12" required></inline-text>
+											<span ng-show="model.validation.fieldErrors['Name']"
+											      class="help-block has-error">
+												{{ model.validation.fieldErrors['Name'] | joinBy }}
+											</span>
+										</td>
+										<td>
+											<inline-text model="model.Description" on-update="onUpdateProp(model, 'Description', val)"
+											             on-cancel="onCancel(model)" input-col="col-xs-12"></inline-text>
+											<span ng-show="model.validation.fieldErrors['Description']"
+											      class="help-block has-error">
+												{{ model.validation.fieldErrors['Description'] | joinBy }}
+											</span>
+										</td>
+										<td>{{ model.Author }}</td>
 										<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
 										<td ng-show="currentUser.admin">
-											<button class="btn-mini btn-info" ng-click="editItem(model);">
-												<i class="icon-edit icon-white"></i>
-												<span>{{ i18n.core.buttons.edit }}</span>
-											</button>
-											<button class="btn-mini btn-danger" ng-click="deleteItem(model);">
-												<i class="icon-edit icon-white"></i>
-												<span>{{ i18n.core.buttons.delete }}</span>
-											</button>
+											<button type="button" class="close" title="{{ i18n.core.buttons.delete }}" ng-click="deleteItem(model)">&times;</button>
 										</td>
 									</tr>
 								</tbody>
@@ -106,7 +125,7 @@
 					<div class="box-toolbox box-toolbox-bottom">
 						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1" ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
 					</div>
-		</div>
+				</div>
 			</div>
 		</div>
 	</div>
