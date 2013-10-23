@@ -22,7 +22,8 @@ angular.module('core').run(['i18n', '$strapConfig', '$locale', function(i18n, $s
 			'yes': 'Yes',
 			'no': 'No',
 			'loading': 'Loading',
-			'presentTime': 'present time'
+			'presentTime': 'present time',
+			'none': 'none'
 		},
 
 		'placeholders': {

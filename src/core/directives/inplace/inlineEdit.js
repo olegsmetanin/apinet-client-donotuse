@@ -1,4 +1,11 @@
 angular.module('core')
+.directive('inlineNone', function(){
+	return {
+		restrict: 'E',
+		replace: true,
+		template: '<small ng-show="isEmpty() && !editMode" class="text-muted"><em>{{ i18n.core.labels.none }}</em></small>'
+	};
+})
 .directive('inlineEdit', ['$timeout', '$parse', '$q', function($timeout, $parse, $q) {
 	return {
 		restrict: 'A',
@@ -68,6 +75,15 @@ angular.module('core')
 			scope.updateEnabled = function() {
 				return scope.isChanged && !scope.waiting &&
 					!(scope.editForm && scope.editForm.$invalid);
+			};
+
+			scope.isEmpty = function() {
+				var value = scope.$eval(attr.inlineEdit);
+				return angular.isUndefined(value) || 
+					(angular.isArray(value) && value.length === 0) || 
+					value === '' || 
+					value === null || 
+					value !== value;
 			};
 
 			scope.onBlur = function(e) {

@@ -6,9 +6,9 @@ angular.module('core')
 		template: function(elm, attr) {
 			var tmpl =
 '<div inline-edit="' + attr.model + '">' +
-'	<pre ng-hide="editMode" ng-click="edit()" class="editable' + 
+'	<pre ng-hide="editMode || isEmpty()" ng-click="edit()" class="editable' + 
 	(attr.preClass ? ' ' + attr.preClass + '"' : '"') + 
-	'>{{ ' + attr.model + ' }}</pre>' +
+	'>{{ ' + attr.model + ' }}</pre><inline-none ng-click="edit()" class="editable"></inline-none>' +
 '	<form name="editForm" class="form-inline" ng-show="editMode" style="width: 100%" novalidate>' +
 '		<div class="input-group ' + (attr.inputCol ? attr.inputCol : '') + '" style="padding-left: 0px">' +
 '			<textarea' + 

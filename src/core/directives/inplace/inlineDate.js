@@ -4,10 +4,10 @@ angular.module('core')
 		restrict: 'E',
 		replace: true,
 		template: function(elm, attr) {
-			var viewTmpl = '<span ng-hide="editMode" ng-click="edit()" class="editable">{{ (' +
+			var viewTmpl = '<span ng-hide="editMode" ng-click="edit()" class="editable">{{ ' +
 				attr.model + 
 				 ' | date:\'' + (attr.dateFormat || 'ago_date') + '\'' + 
-				') || \'---\' }}</span>';
+				' }}<inline-none></inline-none></span>';
 			var editTmpl = '<input type="text"' + 
 				' class="form-control ' + (attr.inputClass ? attr.inputClass + '"' : '"') + 
 				(attr.hasOwnProperty('required') ? ' required="required"' : '') +

@@ -7,7 +7,7 @@ angular.module('core')
 		template: function(elm, attr) {
 			var viewTmpl = attr.hasOwnProperty('multiple')
 				? '<div style="display: inline-block" ng-transclude></div>'
-				: '{{ ' + attr.model + '.text || \'---\' }}';
+				: '{{ ' + attr.model + '.text }}';
 
 			var editTmpl = '<input type="text" ng-model="emodel.value" ng-readonly="waiting"' + 
 				' lookup="' + attr.inputLookup + '"' +
@@ -23,7 +23,7 @@ angular.module('core')
 			//can't fix another
 			var tmpl =
 '<div inline-edit="' + attr.model + '">' +
-'	<span ng-hide="editMode" ng-click="edit()" class="editable">' + viewTmpl + '</span>' +
+'	<span ng-hide="editMode" ng-click="edit()" class="editable">' + viewTmpl + '<inline-none></inline-none></span>' +
 '	<form name="editForm" ng-show="editMode" ng-class="{\'has-error\': editForm.$invalid}" style="width: 100%; margin-bottom: 0px" novalidate>' +
 '		<div class="input-group ' + (attr.inputCol ? ' ' + attr.inputCol : '') + '" style="padding-left: 0px">' +
 editTmpl +

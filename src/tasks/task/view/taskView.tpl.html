@@ -42,7 +42,7 @@
 									<label class="col-md-2 control-label">{{ i18n.tasks.fields.executors }}</label>
 									<div class="col-md-10">
 										<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()" input-lookup="home/projects/lookupParticipant" input-col="col-md-10" multiple required>
-											<p class="form-control-static"><executors model="model.Executors"></executors></p>
+											<executors model="model.Executors"></executors>
 										</inline-lookup>
 										<span ng-show="validation.fieldErrors['Executors']" class="help-block has-error">
 											{{ validation.fieldErrors['Executors'] | joinBy }}
@@ -52,7 +52,7 @@
 								<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Content']}">
 									<label class="col-md-2 control-label">{{ i18n.tasks.fields.content }}</label>
 									<div class="col-md-10">
-										<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" pre-class="col-xs-12" input-col="col-md-10" input-rows="3"></inline-text-area>
+										<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" pre-class="col-md-10 form-control-static" input-col="col-md-10" input-rows="3"></inline-text-area>
 										<span ng-show="validation.fieldErrors['Content']" class="help-block has-error">
 											{{ validation.fieldErrors['Content'] | joinBy }}
 										</span>

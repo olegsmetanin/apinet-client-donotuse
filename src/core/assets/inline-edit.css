@@ -5,3 +5,12 @@
 .waiting {
 	content: url('ajax-loader.gif');
 }
+
+
+form *[inline-edit] span.editable,
+form *[inline-edit] small.editable {
+	/* from form-control-static */
+	margin-bottom: 0;
+	padding-top: 7px;
+	display: block;
+}

@@ -104,8 +104,7 @@
 											</span>
 										</td>
 										<td>
-											<inline-text model="model.Description" on-update="onUpdateProp(model, 'Description', val)"
-											             on-cancel="onCancel(model)" input-col="col-xs-12"></inline-text>
+											<inline-text model="model.Description" on-update="onUpdateProp(model, 'Description', val)" on-cancel="onCancel(model)" input-col="col-xs-12"></inline-text>
 											<span ng-show="model.validation.fieldErrors['Description']"
 											      class="help-block has-error">
 												{{ model.validation.fieldErrors['Description'] | joinBy }}
