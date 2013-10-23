@@ -1,4 +1,4 @@
-angular.module('tasks', ['core', 'ui.state', 'ui.date', 'tasks.templates'])
+angular.module('tasks', ['core', 'ui.state', 'tasks.templates'])
 	.config(['$urlRouterProvider', function($urlRouterProvider) {
 		$urlRouterProvider.otherwise('/');
 	}])

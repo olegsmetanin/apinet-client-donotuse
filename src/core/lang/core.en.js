@@ -1,4 +1,8 @@
-angular.module('core').run(['i18n', '$strapConfig', function(i18n, $strapConfig) {
+angular.module('core').run(['i18n', '$strapConfig', '$locale', function(i18n, $strapConfig, $locale) {
+
+	$locale.DATETIME_FORMATS.ago_date = "MM/dd/yyyy";
+	$locale.DATETIME_FORMATS.ago_datetime = "MM/dd/yyyy HH:mm";
+
 	$strapConfig.format = 'mm/dd/yyyy';
 
 	i18n.addMessages('core', {

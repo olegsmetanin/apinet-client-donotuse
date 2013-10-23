@@ -22,11 +22,11 @@
 				</td>
 				<td>{{ h.Author }}</td>
 				<td>
-					с {{ h.Start | date:'dd.MM.yyyy hh:mm' }} 
-					по {{ (h.Finish | date:'dd.MM.yyyy hh:mm') || (i18n.core.labels.presentTime) }}
+					с {{ h.Start | date:'ago_datetime' }} 
+					по {{ (h.Finish | date:'ago_datetime') || (i18n.core.labels.presentTime) }}
 				</td>
 				<td>
-					{{ duration(h) | date:'dd.MM.yyyy hh:mm' }}
+					{{ duration(h) | date:'ago_datetime' }}
 				</td>
 			</tr>
 		</tbody>

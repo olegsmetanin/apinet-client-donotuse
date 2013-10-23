@@ -61,7 +61,7 @@
 								<div class="form-group" ng-class="{'has-error': validation.fieldErrors['DueDate']}">
 									<label class="col-md-2 control-label">{{ i18n.tasks.fields.dueDate }}</label>
 									<div class="col-md-10">
-										<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" on-cancel="resetValidation()" input-col="col-xs-3" date-format="dd.MM.yyyy"></inline-date>
+										<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" on-cancel="resetValidation()" input-col="col-xs-5"></inline-date>
 										<span ng-show="validation.fieldErrors['DueDate']" class="help-block has-error">
 											{{ validation.fieldErrors['DueDate'] | joinBy }}
 										</span>
@@ -100,7 +100,7 @@
 								</div>
 								<div class="form-group">
 									<label class="col-md-2 control-label">{{ i18n.core.fields.creationTime }}</label>
-									<div class="col-md-10"><p class="form-control-static">{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</p></div>
+									<div class="col-md-10"><p class="form-control-static">{{ model.CreationTime | date:'ago_datetime' }}</p></div>
 								</div>
 							</form>
 						</div><!-- box-content -->
