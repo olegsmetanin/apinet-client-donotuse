@@ -25,7 +25,7 @@ angular.module('core')
 '<div inline-edit="' + attr.model + '">' +
 '	<span ng-hide="editMode" ng-click="edit()" class="editable">' + viewTmpl + '</span>' +
 '	<form name="editForm" ng-show="editMode" ng-class="{\'has-error\': editForm.$invalid}" style="width: 100%; margin-bottom: 0px" novalidate>' +
-'		<div class="input-group ' + (attr.inputCol ? ' ' + attr.inputCol : '') + '">' +
+'		<div class="input-group ' + (attr.inputCol ? ' ' + attr.inputCol : '') + '" style="padding-left: 0px">' +
 editTmpl +
 '		<inline-buttons class="input-group-btn"></inline-buttons>' +
 '		</div>' +
