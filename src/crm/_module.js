@@ -1,4 +1,4 @@
-﻿angular.module('crm', ['ui.state', 'ui.select2', 'ui.date', 'core.security', 'crm.templates'])
+﻿angular.module('crm', ['ui.state', 'ui.select2', 'core.security', 'crm.templates'])
     .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'securityAuthorizationProvider', 'sysConfig',
         function($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, securityAuthorizationProvider, sysConfig) {
 

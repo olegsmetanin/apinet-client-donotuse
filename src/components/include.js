@@ -4,13 +4,13 @@ sysConfig.modules['components'] = {
 		//"components/bootstrap-2.3.2/css/bootstrap-responsive.min.css",
 		
 		"components/select2-3.4.1/select2.css",
-		"src/components/assets/stylesheets/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.min.css",
+		//"src/components/assets/stylesheets/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.min.css",
+		"components/eternicode-bootstrap-datepicker/bootstrap-datepicker/css/datepicker.css",
 		"src/components/assets/stylesheets/bootstrap/bootstrap.css",
 		"src/components/assets/stylesheets/light-theme.css",
 		"src/components/assets/stylesheets/theme-colors.css",
 		"src/components/assets/stylesheets/breadcrumbs.css",
 		"src/components/assets/stylesheets/plugins/tabdrop/tabdrop.css",
-
 		
 		"components/jquery-ui-1.10.3/themes/smoothness/jquery-ui.css",
 
@@ -31,7 +31,8 @@ sysConfig.modules['components'] = {
 		"src/components/assets/javascripts/plugins/retina/retina.js",
 		"src/components/assets/javascripts/theme.js",
 		"src/components/assets/javascripts/plugins/tabdrop/bootstrap-tabdrop.js",
-		"src/components/assets/javascripts/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.js",
+		//"src/components/assets/javascripts/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.js",
+		"components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js",
 
 		"components/angular-unstable/angular.js",
 		"src/components/angular-cookies.js",
@@ -47,7 +48,7 @@ sysConfig.modules['components'] = {
 		"components/angular-mocks/angular-mocks.js",
 		"components/angular-promise-tracker-1.3.3/promise-tracker.js",
 		"components/angular-ui-router-0.0.1/release/angular-ui-router.js",
-		"components/angular-ui-date-0.0.3/src/date.js",
+		//"components/angular-ui-date-0.0.3/src/date.js", conflict with bootstrap-datepicker plugin
 		"components/angular-ui-select2-0.0.2/src/select2.js",
 		//"components/angular-ui-bootstrap-0.5.0/ui-bootstrap-tpls-0.5.0.js",
 

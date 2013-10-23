@@ -12,11 +12,11 @@
 	<tbody>
 		<tr ng-repeat="a in model.Agreements">
 			<td>{{ a.Agreemer }}</td>
-			<td>{{ a.DueDate | date:'dd.MM.yyyy' }}</td>
+			<td>{{ a.DueDate | date:'ago_date' }}</td>
 			<td>
 				<i ng-class="{'icon-check': a.Done, 'icon-check-empty': !a.Done}"></i>
 			</td>
-			<td>{{ a.AgreedAt | date:'dd.MM.yyyy hh:mm' }}</td>
+			<td>{{ a.AgreedAt | date:'ago_datetime' }}</td>
 			<td>{{ a.Comment }}</td>
 			<td>
 				<button type="button" class="close" title="Удалить согласущего" ng-click="removeAgreement(a)" ng-show="isAgreementsEditable()">&times;</button>
@@ -35,12 +35,8 @@
 					<div class="col-sm-4" style="padding-left: 0px; padding-right: 0px">
 						<input type="text" name="agreemer" lookup="home/projects/lookupParticipant" ng-model="editables.newAgreemer" placeholder="{{ i18n.tasks.view.agreements.placeholders.agreemer }}" class="form-control" />
 					</div>
-					<div class="input-group col-sm-2" style="padding-left: 0px; padding-right: 0px">
-						<!-- <input type="text" class="form-control" ng-model="editables.dueDate" placeholder="{{ i18n.tasks.view.agreements.placeholders.dueDate }}" ago-datepicker />
-						<span class="input-group-addon">
-							<span data-date-icon="icon-calendar" data-time-icon="icon-time" class="icon-calendar"></span>
-						</span> -->
-						<input type="text" ui-date="{dateFormat:'dd.mm.yy', changeMonth: true, changeYear: true}" ng-model="editables.dueDate"  class="form-control" placeholder="{{ i18n.tasks.view.agreements.placeholders.dueDate }}" />
+					<div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
+						<input type="text" class="form-control" ng-model="editables.dueDate" placeholder="{{ i18n.tasks.view.agreements.placeholders.dueDate }}" ago-datepicker/>
 					</div>
 					<div class="col-sm-2" style="padding-left: 0px">
 						<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="!addAgreementAvailable()">{{ i18n.core.buttons.add }}</button>

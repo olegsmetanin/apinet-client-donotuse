@@ -59,7 +59,12 @@ angular.module('core')
         'login.error.serverError': "There was a problem with authenticating: {{exception}}."
     })
 	.value('$strapConfig', {
-		language: 'en'
+		language: 'en',
+        pickDate: true,
+        pickTime: false,
+        type: 'iso',
+        todayBtn: 'linked',
+        todayHighlight: 'true'
 	})
 	.controller('HeaderCtrl', ['$scope', 'security', 'moduleMenuUrl', 'sysConfig', 'pageConfig',
 		function($scope, security, moduleMenuUrl, sysConfig, pageConfig) {
