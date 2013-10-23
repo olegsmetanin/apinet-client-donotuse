@@ -39,18 +39,32 @@ editTmpl +
 				scope.elInput = attr.hasOwnProperty('multiple')
 					? $('input.select2-input', elm)
 					: $('.select2-focusser', elm);
-				//select2 has self specific blur
-				$('input', elm).off('blur', scope.onBlur);
 
-				$('input', elm).on('select2-blur', scope.onBlur);
-				$('input', elm).on('select2-opening', function(e) { 
-					$('input', elm).off('select2-blur', scope.onBlur);
+				var $input = $('input', elm);
+				//select2 has self specific blur
+				$input.off('blur', scope.onBlur);
+
+				$input.on('select2-blur', scope.onBlur);
+				$input.on('select2-opening', function(e) { 
+					$input.off('select2-blur', scope.onBlur);
 				});
-				$('input', elm).on('select2-close', function(e) {
+				$input.on('select2-close', function(e) {
 					//if attach without timeout, blur handled right after close
 					$timeout(function() {
-						$('input', elm).on('select2-blur', scope.onBlur);	
+						$input.on('select2-blur', scope.onBlur);
+						//console.log('lookup focused: %s', $input.is(':focus'));
+						if (!attr.hasOwnProperty('multiple')) {
+							scope.onBlur();
+						} else {
+							//console.log('lookup focused: %s', $input.is(':focus'));
+						}
 					});
+				});
+				$input.on('select2-focus', function(e) { 
+					$(this).select2('open');
+				});
+				$input.on('select2-removing', function(e) {
+					console.log('removing: %s', e);
 				});
 				//enter and esc handling does not work, because of killEvent in select2 code
 			}, 50);
