@@ -42,7 +42,7 @@
 									<label class="col-md-2 control-label">{{ i18n.tasks.fields.executors }}</label>
 									<div class="col-md-10">
 										<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()" input-lookup="home/projects/lookupParticipant" input-col="col-md-10" multiple required>
-											<executors model="model.Executors"></executors>
+											<p class="form-control-static"><executors model="model.Executors"></executors></p>
 										</inline-lookup>
 										<span ng-show="validation.fieldErrors['Executors']" class="help-block has-error">
 											{{ validation.fieldErrors['Executors'] | joinBy }}
@@ -153,7 +153,8 @@
 						</div>
 					</div>
 
-					<div class="box ">
+					<!-- Disabled via #1461 -->
+					<!-- <div class="box ">
 						<div class="box-header purple-background">
 							<div class="title">
 								<i class="icon-table"></i>
@@ -167,7 +168,7 @@
 						<div class="box-content">
 							<status-history model="model.CustomStatusHistory" change="changeCustomStatus"></status-history>
 						</div>
-					</div>
+					</div> -->
 
 				</div><!-- col-xs-12 -->
 			</div><!-- row -->
