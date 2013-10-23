@@ -61,7 +61,7 @@
 							<div class="col-sm-6">
 								<div class="row">
 									<div class="col-md-3">
-										<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()">{{ i18n.core.buttons.deleteSelected }}</button>
+										<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()">{{ i18n.core.buttons.deleteSelected }}</button>
 									</div>
 									<div class="col-md-9" style="padding-left: 0;">
 										<input type="text" lookup="home/dictionary/lookupProjectStatuses" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementItem"
@@ -112,9 +112,9 @@
 											</span>
 										</td>
 										<td>{{ model.Author }}</td>
-										<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+										<td>{{ model.CreationTime | date:'ago_datetime' }}</td>
 										<td ng-show="currentUser.admin">
-											<button type="button" class="close" title="{{ i18n.core.buttons.delete }}" ng-click="deleteItem(model)">&times;</button>
+											<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="deleteItem(model)"></ago-btn-delete>
 										</td>
 									</tr>
 								</tbody>

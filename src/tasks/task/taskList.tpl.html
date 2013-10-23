@@ -79,7 +79,7 @@
 								<i class="icon-plus icon-white"></i>
 								<span>{{ i18n.tasks.list.buttons.add }}</span>
 							</a>
-							<button type="button" class="btn pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
+							<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
 								{{ i18n.core.buttons.delete }}
 							</button>
 						</div>
@@ -130,7 +130,7 @@
 										<td>{{ model.Status }}</td>
 										<td>{{ model.CustomStatus }}</td>
 										<td>
-											<button type="button" class="close" title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)">&times;</button>
+											<ago-btn-delete title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)"></ago-btn-delete>
 										</td>
 									</tr>
 									<tr ng-show="model.details.expanded" ng-init="model.details.loaded = false">

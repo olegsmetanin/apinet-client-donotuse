@@ -48,7 +48,7 @@
 					</div>
 					
 					<div class="span6 pull-right">
-						<button type="button" class="btn" ng-click="deleteSelected()" ng-disabled="!hasSelected()">{{ i18n.core.buttons.delete }}</button>
+						<button type="button" class="btn btn-danger" ng-click="deleteSelected()" ng-disabled="!hasSelected()">{{ i18n.core.buttons.delete }}</button>
 						<input type="text" lookup="tasks/dictionary/lookupTaskTypes" lookup-options="{allowClear: true}"
 						       ng-model="deleteModel.replacementType" placeholder="{{ i18n.tasks.types.placeholders.replacementType }}" style="width: 80%"/>
 					</div>
@@ -84,7 +84,7 @@
 						<td>{{ model.Author }}</td>
 						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
 						<td>
-							<button type="button" class="close" title="{{ i18n.tasks.types.buttons.delete }}" ng-click="delete(model)">&times;</button>
+							<ago-btn-delete title="{{ i18n.tasks.types.buttons.delete }}" ng-click="delete(model)"></ago-btn-delete>
 						</td>
 					</tr>
 				</tbody>

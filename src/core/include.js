@@ -21,6 +21,7 @@ sysConfig.modules['core'] = {
 		'src/core/directives/ngBlur.js',
 		'src/core/directives/ngFocus.js',
 		'src/core/directives/ago.datepicker.js',
+		'src/core/directives/buttons.js',
 
 		'src/core/directives/inplace/inlineEdit.js',
 		'src/core/directives/inplace/inlineText.js',
