@@ -6,11 +6,20 @@
 	content: url('ajax-loader.gif');
 }
 
-
 form *[inline-edit] span.editable,
 form *[inline-edit] small.editable {
 	/* from form-control-static */
 	margin-bottom: 0;
 	padding-top: 7px;
 	display: block;
+	/* from form-control */
+	height: 34px;
+}
+
+.table tbody > tr > td span.editable,
+.table tbody > tr > td small.editable {
+	/* from form-control-static */
+	display: block;
+	/* from form-control */
+	height: 34px;
 }
