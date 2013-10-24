@@ -1,0 +1,20 @@
+div.projectBox {
+  margin: 0 15px 15px 0;
+}
+div.projectBox div.projectIcon {
+  background-image: url(images/project-icon.png);
+  width: 62px;
+  height: 62px;
+  margin: 0 10px 10px 0;
+  float: left;
+}
+div.projectBox div.projectInfo {
+  margin-left: 72px;
+  min-height: 72px;
+}
+div.projectBox div.projectInfo a {
+  display: block;
+}
+div.projectBox div.projectInfo a h3 {
+  margin-top: 5px;
+}

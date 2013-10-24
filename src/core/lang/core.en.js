@@ -115,6 +115,8 @@ angular.module('core').run(['i18n', '$strapConfig', '$locale', function(i18n, $s
 			'complex': 'Complex',
 			'user': 'Props',
 			'favorites': 'Favorites',
+			'displayedRecords': 'Currently showing: {{ count }} records',
+			'applyRequired': 'Apply filter changes for records display',
 
 			'ops': {
 				'exists': 'EXISTS',
