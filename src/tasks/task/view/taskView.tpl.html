@@ -138,20 +138,7 @@
 						</div>
 					</div>
 
-					<div class="box ">
-						<div class="box-header purple-background">
-							<div class="title">
-								<i class="icon-table"></i>
-								{{ i18n.tasks.view.statusHistory.title }}
-							</div>
-							<div class="actions">
-								<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
-							</div>
-						</div>
-						<div class="box-content">
-							<status-history model="model.StatusHistory" change="changeStatus"></status-history>
-						</div>
-					</div>
+					<status-history model="model.StatusHistory" change="changeStatus"></status-history>
 
 					<!-- Disabled via #1461 -->
 					<!-- <div class="box ">

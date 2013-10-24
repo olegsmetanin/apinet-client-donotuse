@@ -1,20 +1,13 @@
 sysConfig.modules['components'] = {
 	css: [
-		//"components/bootstrap-2.3.2/css/bootstrap.min.css",
-		//"components/bootstrap-2.3.2/css/bootstrap-responsive.min.css",
-		
 		"components/select2-3.4.1/select2.css",
-		//"src/components/assets/stylesheets/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.min.css",
 		"components/eternicode-bootstrap-datepicker/bootstrap-datepicker/css/datepicker.css",
 		"src/components/assets/stylesheets/bootstrap/bootstrap.css",
 		"src/components/assets/stylesheets/light-theme.css",
 		"src/components/assets/stylesheets/theme-colors.css",
 		"src/components/assets/stylesheets/breadcrumbs.css",
 		"src/components/assets/stylesheets/plugins/tabdrop/tabdrop.css",
-		
-		"components/jquery-ui-1.10.3/themes/smoothness/jquery-ui.css",
-
-		"components/components-font-awesome-3.1.0/css/font-awesome.min.css"
+		"components/jquery-ui-1.10.3/themes/smoothness/jquery-ui.css"
 	],
 	js: [
 		//"src/components/assets/javascripts/ie/html5shiv.js",

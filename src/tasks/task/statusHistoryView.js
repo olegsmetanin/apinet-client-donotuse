@@ -1,5 +1,5 @@
 angular.module('tasks')
-.directive('statusHistory', ['sysConfig', '$rootScope', function(sysConfig, $rootScope) {
+.directive('statusHistory', ['sysConfig', '$rootScope', 'taskStatuses', function(sysConfig, $rootScope, taskStatuses) {
 	return {
 		restrict: 'E',
 		replace: true,
@@ -41,6 +41,40 @@ angular.module('tasks')
 				if (angular.isFunction(scope.onChange)) {
 					scope.onChange(hrecord);
 				}
+			};
+
+			scope.statusIcon = function(status) {
+				switch(status) {
+					case taskStatuses.NotStarted:
+						return 'icon-time';
+					case taskStatuses.InWork:
+						return 'icon-cogs';
+					case taskStatuses.Completed:
+						return 'icon-ok';
+					case taskStatuses.Closed:
+						return 'icon-beer';
+					case taskStatuses.Suspended:
+						return 'icon-pause';
+					default:
+						return '';
+				}
+			};
+
+			scope.statusColor = function(status) {
+				switch(status) {
+					case taskStatuses.NotStarted:
+						return 'btn-danger';
+					case taskStatuses.InWork:
+						return 'btn-primary';
+					case taskStatuses.Completed:
+						return 'btn-warning';
+					case taskStatuses.Closed:
+						return 'btn-success';
+					case taskStatuses.Suspended:
+						return 'btn-inverse';
+					default:
+						return '';
+				}	
 			};
 		}
 	}
