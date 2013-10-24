@@ -27,7 +27,7 @@ angular.module('core')
 '	<form name="editForm" ng-show="editMode" ng-class="{\'has-error\': editForm.$invalid}" style="width: 100%; margin-bottom: 0px" novalidate>' +
 '		<div class="input-group ' + (attr.inputCol ? ' ' + attr.inputCol : '') + '" style="padding-left: 0px">' +
 editTmpl +
-'		<inline-buttons class="input-group-btn"></inline-buttons>' +
+'		<inline-buttons class="input-group-btn" style="vertical-align: top"></inline-buttons>' +
 '		</div>' +
 '	</form>' +
 '</div>'; return tmpl;

@@ -35,7 +35,7 @@
 										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['TaskType']}">
 											<label class="col-md-4 control-label">{{ i18n.tasks.fields.type }}</label>
 											<div class="col-md-8">
-												<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskTypes" input-col="col-md-6" required></inline-lookup>
+												<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskTypes" input-col="col-xs-12" required></inline-lookup>
 												<span ng-show="validation.fieldErrors['TaskType']" class="help-block has-error">
 													{{ validation.fieldErrors['TaskType'] | joinBy }}
 												</span>
@@ -44,7 +44,7 @@
 										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Executors']}">
 											<label class="col-md-4 control-label">{{ i18n.tasks.fields.executors }}</label>
 											<div class="col-md-8">
-												<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()" input-lookup="home/projects/lookupParticipant" input-col="col-md-10" multiple required>
+												<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()" input-lookup="home/projects/lookupParticipant" input-col="col-xs-12" multiple required>
 													<executors model="model.Executors"></executors>
 												</inline-lookup>
 												<span ng-show="validation.fieldErrors['Executors']" class="help-block has-error">
@@ -55,7 +55,7 @@
 										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Content']}">
 											<label class="col-md-4 control-label">{{ i18n.tasks.fields.content }}</label>
 											<div class="col-md-8">
-												<inline-text model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" input-col="col-md-10"></inline-text>
+												<inline-text model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" input-col="col-xs-12"></inline-text>
 												<span ng-show="validation.fieldErrors['Content']" class="help-block has-error">
 													{{ validation.fieldErrors['Content'] | joinBy }}
 												</span>
@@ -64,7 +64,7 @@
 										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['DueDate']}">
 											<label class="col-md-4 control-label">{{ i18n.tasks.fields.dueDate }}</label>
 											<div class="col-md-8">
-												<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" on-cancel="resetValidation()" input-col="col-xs-5"></inline-date>
+												<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" on-cancel="resetValidation()" input-col="col-xs-12"></inline-date>
 												<span ng-show="validation.fieldErrors['DueDate']" class="help-block has-error">
 													{{ validation.fieldErrors['DueDate'] | joinBy }}
 												</span>
@@ -73,7 +73,7 @@
 										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Status']}">
 											<label class="col-md-4 control-label">{{ i18n.tasks.fields.status }}</label>
 											<div class="col-md-8">
-												<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskStatuses" input-col="col-md-6" required></inline-lookup>
+												<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskStatuses" input-col="col-xs-12" required></inline-lookup>
 												<span ng-show="validation.fieldErrors['Status']" class="help-block has-error">
 													{{ validation.fieldErrors['Status'] | joinBy }}
 												</span>
@@ -82,7 +82,7 @@
 										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['CustomStatus']}">
 											<label class="col-md-4 control-label">{{ i18n.tasks.fields.customStatus }}</label>
 											<div class="col-md-8">
-												<inline-lookup model="model.CustomStatus" on-update="onUpdateProp(model, 'CustomStatus', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupCustomStatuses" input-col="col-md-6"></inline-lookup>
+												<inline-lookup model="model.CustomStatus" on-update="onUpdateProp(model, 'CustomStatus', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupCustomStatuses" input-col="col-xs-12"></inline-lookup>
 												<span ng-show="validation.fieldErrors['CustomStatus']" class="help-block has-error">
 													{{ validation.fieldErrors['CustomStatus'] | joinBy }}
 												</span>
@@ -91,7 +91,7 @@
 										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Priority']}">
 											<label class="col-md-4 control-label">{{ i18n.tasks.fields.priority }}</label>
 											<div class="col-md-8">
-												<inline-lookup model="model.Priority" on-update="onUpdateProp(model, 'Priority', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskPriorities" input-col="col-md-6" required></inline-lookup>
+												<inline-lookup model="model.Priority" on-update="onUpdateProp(model, 'Priority', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskPriorities" input-col="col-xs-12" required></inline-lookup>
 												<span ng-show="validation.fieldErrors['Priority']" class="help-block has-error">
 													{{ validation.fieldErrors['Priority'] | joinBy }}
 												</span>
