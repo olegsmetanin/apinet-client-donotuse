@@ -1,0 +1,24 @@
+<div class="box-toolbox box-toolbox-top">
+	<accordion accordion-closed="!applyEnabled">
+		<accordion-group>
+			<accordion-heading>
+				<div>{{ i18n.core.filters.simple }}</div>
+			</accordion-heading>
+			<div ng-transclude></div>
+		</accordion-group>
+
+		<accordion-group>
+			<accordion-heading>
+				<div>{{ i18n.core.filters.complex }}</div>
+			</accordion-heading>
+			<div structured-filter filter-ng-model="filter.complex" meta="meta"></div>
+		</accordion-group>
+
+		<accordion-group>
+			<accordion-heading>
+				<div>{{ i18n.core.filters.favorites }}</div>
+			</accordion-heading>
+			<div filter-persister group="group" filter="filter"></div>
+		</accordion-group>
+	</accordion>
+</div>

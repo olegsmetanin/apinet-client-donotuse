@@ -3,97 +3,137 @@
 		filtered-list="{method: 'home/projects/getProjects'}"
 		initial-sorters="{ CreationTime: 'desc' }">
 	<div class="row" id="content-wrapper">
-
 		<div class="col-lg-12">
-			<filter meta="home/projects/projectMetadata" group="Projects">
-				<form class="form form-horizontal">
-					<div class="form-group">
-						<label for="names" class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
-						<div class="col-md-9">
-							<input id="names" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="form-control" multiple />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="statuses" class="col-md-3 control-label">{{ i18n.projects.fields.status }}</label>
-						<div class="col-md-9">
-							<input id="statuses" lookup="home/dictionary/lookupProjectStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op:'='}" class="form-control" multiple />	
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="participation" class="col-md-3 control-label">{{ i18n.projects.list.filters.participation.label }}</label>
-						<div class="col-md-9">
-							<select id="participation" ng-model="filter.simple.Participation" class="form-control">
-								<option value="All">{{ i18n.projects.list.filters.participation.all }}</option>
-								<option value="Participated">{{ i18n.projects.list.filters.participation.me }}</option>
-							</select>	
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="tags" class="col-md-3 control-label">{{ i18n.projects.fields.tags }}</label>
-						<div class="col-md-9">
-							<input id="tags" lookup="home/dictionary/lookupProjectTags" ng-model="filter.simple.Tags" filter-node="{path: 'Tags.Tag', op:'='}" class="form-control" multiple />	
-						</div>
-					</div>
-				</form>
-			</filter>
-		</div>
-
-		<div class="col-lg-12">
-			<div class="box box-nomargin">
-				<div class="box-header purple-background">
-					<div class="title">{{ i18n.projects.list.title }}</div>
-					<div class="actions">
-						<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="page-header">
+						<h1 class="pull-left">
+							<i class="icon-table"></i>
+							<span>{{ i18n.projects.list.title }}</span>
+						</h1>
 					</div>
 				</div>
-				<div class="box-content">
-					<div class="box-toolbox box-toolbox-top">
-						<a ng-show="currentUser.admin" class="btn btn-primary" href="#!/projects/create">
-							<i class="icon-plus icon-white"></i>
-							<span>{{ i18n.projects.list.buttons.add }}</span>
-						</a>
-					</div>
+			</div>
 
-					<div class="responsive-table">
-						<div class="scrollable-area">
-							<table class="table table-bordered"
-							       infinite-scroll="paging.page = paging.page + 1"
-							       infinite-scroll-disabled="applyEnabled"
-							       infinite-scroll-distance="1">
-								<thead>
-									<tr>
-										<th><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
-										<th><span sortable-heading="sorters.Type_Name" caption="{{ i18n.core.fields.type }}"></span></th>
-										<th class="hidden-xs"><span sortable-heading="sorters.Description" caption="{{ i18n.core.fields.description }}"></span></th>
-										<th><span sortable-heading="sorters.Status_Name" caption="{{ i18n.projects.fields.status }}"></span></th>
-										<th class="hidden-xs"><span sortable-heading="sorters.CreationTime" caption="{{ i18n.core.fields.creationTime }}"></span></th>
-										<th class="hidden-xs"><span sortable-heading="sorters.IsArchive" caption="{{ i18n.projects.fields.isArchive }}"></span></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="model in models">
-										<td>
-											<a href="/projects/{{model.ProjectCode}}" target="_blank">
-												{{ model.Name }}
-											</a>
-										</td>
-										<td>{{ model.Type.Name }}</td>
-										<td class="hidden-xs">{{ model.Description }}</td>
-										<td>{{ model.Status.Name }}</td>
-										<td class="hidden-xs">{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
-										<td class="hidden-xs">{{ model.IsArchive | yesNo }}</td>
-									</tr>
-								</tbody>
-							</table>
-							<div ng-show="indication.loading" us-spinner="{top:100}"></div>
+			<div class="row box">
+				<div class="col-lg-12">
+
+					<div class="box-header">
+						<div class="title">{{ i18n.core.filters.title }}</div>
+						<div class="actions">
+							<div filtered-list-actions></div>
 						</div>
 					</div>
-					
-					<div class="box-toolbox box-toolbox-bottom">
-						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-						ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
+
+					<div class="box-content box-double-padding">
+						<div filter-accordion="filter" meta="home/projects/projectMetadata" group="Projects" apply-enabled="applyEnabled">
+							<form class="form form-horizontal">
+								<div class="form-group">
+									<label for="names" class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
+									<div class="col-md-9">
+										<input id="names" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="form-control" multiple />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="statuses" class="col-md-3 control-label">{{ i18n.projects.fields.status }}</label>
+									<div class="col-md-9">
+										<input id="statuses" lookup="home/dictionary/lookupProjectStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op:'='}" class="form-control" multiple />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="participation" class="col-md-3 control-label">{{ i18n.projects.list.filters.participation.label }}</label>
+									<div class="col-md-9">
+										<select id="participation" ng-model="filter.simple.Participation" class="form-control">
+											<option value="All">{{ i18n.projects.list.filters.participation.all }}</option>
+											<option value="Participated">{{ i18n.projects.list.filters.participation.me }}</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="tags" class="col-md-3 control-label">{{ i18n.projects.fields.tags }}</label>
+									<div class="col-md-9">
+										<input id="tags" lookup="home/dictionary/lookupProjectTags" ng-model="filter.simple.Tags" filter-node="{path: 'Tags.Tag', op:'='}" class="form-control" multiple />
+									</div>
+								</div>
+							</form>
+						</div>
+
+						<div class="row box">
+							<div collapse="applyEnabled">
+								<div ng-repeat="model in models" class="col-lg-4">
+									<div class="projectBox box-content clearfix">
+										<a href="/projects/{{model.ProjectCode}}" target="_blank">
+											<div class="projectIcon">&nbsp;</div>
+											<div class="projectInfo">
+
+													<h3 class="title">{{ model.Name }}</h3>
+													<small>{{ model.Description }}</small>
+											</div>
+										</a>
+										<div class="clearfix"></div>
+										<div class="pull-left">
+											<span class="label label-warning">{{ model.Status.Name }}</span>
+										</div>
+										<div class="pull-right">
+											<!--<span class="badge badge-important">3</span>
+											<i class="icon-user" style="font-size:14px;"></i> 120
+											<i class="icon-time" style="font-size:14px;"></i>
+											<span class="timeago fade has-tooltip in" data-placement="top" title="" data-original-title="April 13, 2013 - 07:30">6 months ago</span>-->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="box-toolbox box-toolbox-bottom">
+							<div class="pull-left">
+								<label ng-show="!applyEnabled">{{ 'core.filters.displayedRecords' | i18n:{ count: (models || []).length } }}</label>
+								<label ng-show="applyEnabled">{{ i18n.core.filters.applyRequired }}</label>
+							</div>
+							<div class="pull-right">
+								<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
+								        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
+							</div>
+						</div>
 					</div>
 				</div>
+			</div>
+
+			<div class="row box">
+				<!--<div class="responsive-table">
+					<div class="scrollable-area">
+						<table class="table table-bordered"
+						       infinite-scroll="paging.page = paging.page + 1"
+						       infinite-scroll-disabled="applyEnabled"
+						       infinite-scroll-distance="1">
+							<thead>
+							<tr>
+								<th><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
+								<th><span sortable-heading="sorters.Type_Name" caption="{{ i18n.core.fields.type }}"></span></th>
+								<th class="hidden-xs"><span sortable-heading="sorters.Description" caption="{{ i18n.core.fields.description }}"></span></th>
+								<th><span sortable-heading="sorters.Status_Name" caption="{{ i18n.projects.fields.status }}"></span></th>
+								<th class="hidden-xs"><span sortable-heading="sorters.CreationTime" caption="{{ i18n.core.fields.creationTime }}"></span></th>
+								<th class="hidden-xs"><span sortable-heading="sorters.IsArchive" caption="{{ i18n.projects.fields.isArchive }}"></span></th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="model in models">
+								<td>
+									<a href="/projects/{{model.ProjectCode}}" target="_blank">
+										{{ model.Name }}
+									</a>
+								</td>
+								<td>{{ model.Type.Name }}</td>
+								<td class="hidden-xs">{{ model.Description }}</td>
+								<td>{{ model.Status.Name }}</td>
+								<td class="hidden-xs">{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+								<td class="hidden-xs">{{ model.IsArchive | yesNo }}</td>
+							</tr>
+							</tbody>
+						</table>
+						<div ng-show="indication.loading" us-spinner="{top:100}"></div>
+					</div>
+				</div>-->
 			</div>
 		</div>
 	</div>

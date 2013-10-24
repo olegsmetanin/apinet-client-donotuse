@@ -92,8 +92,6 @@ angular.module('core')
 		return {
 			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				angular.extend($scope, {
-					filter: { },
-
 					sorters: { },
 					sortersArray: [ ],
 
@@ -108,8 +106,6 @@ angular.module('core')
 					validation: { },
 					indication: { loading: false },
 
-					requestParams: { project: sysConfig.project },
-
 					applyFilter: function() {
 						if(!$scope.applyEnabled) {
 							return;
@@ -122,6 +118,8 @@ angular.module('core')
 						$scope.requestParams = { project: sysConfig.project };
 
 						$scope.$emit('resetFilter');
+
+						$scope.applyEnabled = false;
 
 						if(!$rootScope.$$phase) {
 							$scope.$apply();
@@ -288,11 +286,7 @@ angular.module('core')
 
 				}, true);
 
-				$scope.$on('resetFilter', function() {
-					$scope.applyEnabled = false;
-				});
-
-				$scope.$emit('resetFilter');
+				$scope.resetFilter();
 			}],
 
 			link: function($scope, element, attrs) {
@@ -366,7 +360,6 @@ angular.module('core')
 		return {
 			restrict: 'A',
 			replace: true,
-
 			templateUrl: sysConfig.src('core/directives/filters/filteredListActions.tpl.html')
 		};
 	}])
@@ -399,19 +392,19 @@ angular.module('core')
 			transclude: true,
 			template: function() {
 				return '<div class="box box-nomargin box-collapsed">' +
-				'	<div class="box-header purple-background">' +
-				'		<div class="title">' + i18n.msg('core.filters.title') + '</div>' +
-				'		<div class="actions">' +
-				'			<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>' +
-				'		</div>' +
-				'	</div>' +
-				'	<div class="box-content">' +
-				'		<div class="box-toolbox box-toolbox-top">' +
-				'			<div filtered-list-actions></div>' +
-				'		</div>' +
-				'		<div class="row" ng-transclude></div>' +
-				'	</div>' +
-				'</div>';
+					'	<div class="box-header purple-background">' +
+					'		<div class="title">' + i18n.msg('core.filters.title') + '</div>' +
+					'		<div class="actions">' +
+					'			<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>' +
+					'		</div>' +
+					'	</div>' +
+					'	<div class="box-content">' +
+					'		<div class="box-toolbox box-toolbox-top">' +
+					'			<div filtered-list-actions></div>' +
+					'		</div>' +
+					'		<div class="row" ng-transclude></div>' +
+					'	</div>' +
+					'</div>';
 			}
 		};
 	}])
@@ -426,7 +419,7 @@ angular.module('core')
 			},
 			template: function(elm, attr) {
 				//div wrap needed, because error "Multiple directives [directive#1, directive#2] asking for isolated scope on"
-				return '<div><filter-template>' +
+				return '<div><' + (attr.wrapperDirective || 'filter-template') +'>' +
 				'	<filter-part box-title="core.filters.simple" box-col="col-lg-4">' +
 				'		<div ng-transclude></div>' +
 				'	</filter-part>' +
@@ -436,7 +429,24 @@ angular.module('core')
 				'	<filter-part box-title="core.filters.favorites" box-col="col-lg-4">' +
 				'		<div filter-persister group="\'' + attr.group + '\'" filter="filter"></div>' +
 				'	</filter-part>' +
-				'</filter-template></div>';
+				'</' + (attr.wrapperDirective || 'filter-template') +'></div>';
 			}
+		};
+	}])
+	.directive('filterAccordion', ['sysConfig', function(sysConfig) {
+		return {
+			restrict: 'EA',
+			replace: true,
+			transclude: true,
+			templateUrl: sysConfig.src('core/directives/filters/filterAccordion.tpl.html'),
+			scope: {
+				meta: '@',
+				group: '@',
+				filter: '=filterAccordion',
+				applyEnabled: '='
+			},
+			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
+				$scope.i18n = $rootScope.i18n;
+			}]
 		};
 	}]);

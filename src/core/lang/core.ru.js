@@ -115,6 +115,8 @@ angular.module('core').run(['i18n', '$strapConfig', '$locale', function(i18n, $s
 			'complex': 'Сложный',
 			'user': 'По параметрам',
 			'favorites': 'Избранные',
+			'displayedRecords': 'Всего показано записей: {{ count }}',
+			'applyRequired': 'Примените изменения фильтра, для отображения записей',
 
 			'ops': {
 				'exists': 'СУЩЕСТВУЕТ',
