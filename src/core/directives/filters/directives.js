@@ -285,8 +285,6 @@ angular.module('core')
 					}
 
 				}, true);
-
-				$scope.resetFilter();
 			}],
 
 			link: function($scope, element, attrs) {
@@ -313,6 +311,8 @@ angular.module('core')
 
 				var inputParams = $scope.$eval(attrs.filteredList);
 				angular.extend($scope, inputParams);
+
+				$scope.resetFilter();
 			}
 		};
 	}])
