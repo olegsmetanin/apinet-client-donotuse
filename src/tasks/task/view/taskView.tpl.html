@@ -52,7 +52,7 @@
 								<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Content']}">
 									<label class="col-md-2 control-label">{{ i18n.tasks.fields.content }}</label>
 									<div class="col-md-10">
-										<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" pre-class="col-md-10 form-control-static" input-col="col-md-10" input-rows="3"></inline-text-area>
+										<inline-text model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" input-col="col-md-10"></inline-text>
 										<span ng-show="validation.fieldErrors['Content']" class="help-block has-error">
 											{{ validation.fieldErrors['Content'] | joinBy }}
 										</span>
