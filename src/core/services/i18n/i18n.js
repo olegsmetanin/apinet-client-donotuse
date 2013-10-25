@@ -1,7 +1,7 @@
 angular.module('core')
-	.service('i18n', ['$interpolate', '$locale', '$rootScope', function ($interpolate, $locale, $rootScope) {
+	.service('i18n', ['$interpolate', '$rootScope', function ($interpolate, $rootScope) {
 
-		$rootScope.i18n = angular.extend({
+		$rootScope.i18n = {
 			addMessages: function () {
 				var prefix = arguments[0];
 				var messages = arguments[1];
@@ -51,7 +51,7 @@ angular.module('core')
 			handleNotFound: function(key) {
 				return '?' + key + '?';
 			}
-		}, $locale);
+		};
 
 
 		angular.extend(this, {

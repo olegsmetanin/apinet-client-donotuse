@@ -1,0 +1,11 @@
+.filtered-list .filters-box .title label {
+  margin: 0;
+  line-height: 33px;
+}
+.filtered-list .filters-box .ago-box {
+  margin-bottom: 5px;
+}
+.filtered-list .box-toolbox label.pull-left {
+  margin: 0;
+  line-height: 33px;
+}

@@ -1,0 +1,45 @@
+<div class="row">
+	<div class="col-lg-12">
+		<ago-box class="filters-box" color="purple" title-click-collapse>
+			<ago-box-title>
+				<label>{{ i18n.core.filters.title }}</label>
+			</ago-box-title>
+
+			<ago-box-actions>
+				<div class="btn-group">
+					<button type="button" class="btn btn-danger"
+					        ng-click="resetFilterClick($event);"
+					        title="{{ i18n.core.buttons.clear }}">
+						<i class="icon-remove"></i>
+					</button>
+					<button type="button" class="btn btn-success"
+					        ng-click="applyFilterClick($event);"
+					        ng-disabled="!applyEnabled"
+					        title="{{ i18n.core.buttons.apply }}">
+						<i class="icon-ok"></i>
+					</button>
+				</div>
+			</ago-box-actions>
+
+			<div class="row">
+				<div class="col-lg-6">
+					<ago-box color="blue" border="blue" caption="{{ i18n.core.filters.simple }}" title-click-collapse>
+						<div ng-transclude></div>
+					</ago-box>
+				</div>
+
+				<div class="col-lg-6">
+					<ago-box color="green" border="green" caption="{{ i18n.core.filters.complex }}" title-click-collapse collapsed="true">
+						<div structured-filter filter-ng-model="filter.complex" meta="meta"></div>
+					</ago-box>
+
+					<ago-box color="orange" border="orange" caption="{{ i18n.core.filters.favorites }}" title-click-collapse collapsed="true">
+						<div filter-persister group="group" filter="filter"></div>
+					</ago-box>
+
+					<div filters-box-more-filters-transclude></div>
+				</div>
+			</div>
+		</ago-box>
+	</div>
+</div>

@@ -36,6 +36,7 @@ angular.module('core').run(['i18n', '$strapConfig', '$locale', function(i18n, $s
 			'apply': 'Применить',
 			'save': 'Сохранить',
 			'add': 'Добавить',
+			'new': 'Создать',
 			'load': 'Загрузить',
 			'delete': 'Удалить',
 			'deleteSelected': 'Удалить выбранные',

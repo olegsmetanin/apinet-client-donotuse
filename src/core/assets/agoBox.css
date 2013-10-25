@@ -1,0 +1,4 @@
+div.ago-box div.box-header-clickable {
+  cursor: pointer;
+  *cursor: hand;
+}

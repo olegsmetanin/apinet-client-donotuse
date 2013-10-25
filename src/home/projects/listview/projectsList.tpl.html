@@ -1,4 +1,4 @@
-<div class="container" 
+<div class="container"
 		ng-controller="projectsListCtrl"
 		filtered-list="{method: 'home/projects/getProjects'}"
 		initial-sorters="{ CreationTime: 'desc' }">
@@ -15,7 +15,8 @@
 				</div>
 			</div>
 
-			<div filter-accordion="filter" meta="home/projects/projectMetadata" group="Projects" apply-enabled="applyEnabled">
+			<div filters-box="filter" meta="home/projects/projectMetadata" group="Projects"
+			        apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter">
 				<form class="form form-horizontal">
 					<div class="form-group">
 						<label for="names" class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
@@ -45,6 +46,12 @@
 						</div>
 					</div>
 				</form>
+
+				<filters-box-more-filters>
+					<ago-box color="muted" border="muted" caption="Some other filter" title-click-collapse collapsed="true">
+						Other filter content
+					</ago-box>
+				</filters-box-more-filters>
 			</div>
 
 			<div class="row box">
@@ -52,11 +59,11 @@
 					<div class="box-content box-padding">
 						<div class="box-toolbox box-toolbox-top">
 							<div class="pull-left">
-								<button type="button" class="btn btn-primary">{{ i18n.core.buttons.add }}</button>
+								<button type="button" class="btn btn-primary">{{ i18n.core.buttons.new }}</button>
 							</div>
 						</div>
 
-						<div class="row box">
+						<div class="row">
 							<div collapse="applyEnabled">
 								<div ng-repeat="model in models" class="col-lg-4">
 									<div class="projectBox box-content clearfix">

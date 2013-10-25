@@ -1,7 +1,8 @@
 sysConfig.modules['core'] = {
 	css: [
 		'src/core/assets/filtering-component.css',
-		'src/core/assets/filtered-list.css',
+		'src/core/assets/filteredList.css',
+		'src/core/assets/agoBox.css',
 		'src/core/assets/spinner.css',
 		'src/core/assets/inline-edit.css',
 		'src/core/assets/inputs.css'
@@ -22,7 +23,7 @@ sysConfig.modules['core'] = {
 		'src/core/directives/ngFocus.js',
 		'src/core/directives/ago.datepicker.js',
 		'src/core/directives/buttons.js',
-		'src/core/directives/bootstrap-extensions.js',
+		'src/core/directives/agoBox.js',
 
 		'src/core/directives/inplace/inlineEdit.js',
 		'src/core/directives/inplace/inlineText.js',
@@ -31,9 +32,14 @@ sysConfig.modules['core'] = {
 		'src/core/directives/inplace/inlineDate.js',
 		'src/core/directives/inplace/inlineButtons.js',
 
-		'src/core/directives/filters/filters.js',
-		'src/core/directives/filters/services.js',
-		'src/core/directives/filters/directives.js',
+		'src/core/directives/filters/filterPersister.js',
+		'src/core/directives/filters/filteredList.js',
+		'src/core/directives/filters/filterNode.js',
+		'src/core/directives/filters/filteredListActions.js',
+		'src/core/directives/filters/filterPart.js',
+		'src/core/directives/filters/filterTemplate.js',
+		'src/core/directives/filters/filter.js',
+		'src/core/directives/filters/filtersBox.js',
 		'src/core/directives/filters/userFilter.js',
 		'src/core/directives/filters/structuredFilter.js',
 		
@@ -72,6 +78,8 @@ sysConfig.modules['core'] = {
 
 		'src/core/services/apinet/apinetService.js',
 		'src/core/services/apinet/metadataService.js',
-		'src/core/services/apinet/dictionaryService.js'
+		'src/core/services/apinet/dictionaryService.js',
+
+		'src/core/services/filters/filteringService.js'
 	]
 };
