@@ -76,6 +76,23 @@ angular.module('tasks').run(['i18n', function(i18n) {
 					'author': 'Set by',
 					'effectivePeriod': 'Effective period',
 					'duration': 'Duration'
+				},
+
+				'period': 'from {{start}} to {{finish}}',
+				'duration': {
+					'days': {
+						'one': 'day',
+						'few': 'days',
+						'many': 'days',
+						'other': 'days'
+					},
+					'hours': {
+						'one': 'hour',
+						'few': 'hours',
+						'many': 'hours',
+						'other': 'hours'
+					},
+					'minutes': 'min'
 				}
 			},
 			'customStatusHistory': {

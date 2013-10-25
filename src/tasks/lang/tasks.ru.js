@@ -76,6 +76,23 @@ angular.module('tasks').run(['i18n', function(i18n) {
 					'author': 'Установил',
 					'effectivePeriod': 'Период действия',
 					'duration': 'Продолжительность'
+				},
+
+				'period': 'с {{start}} по {{finish}}',
+				'duration': {
+					'days': {
+						'one': 'день',
+						'few': 'дня',
+						'many': 'дней',
+						'other': 'дней'
+					},
+					'hours': {
+						'one': 'час',
+						'few': 'часа',
+						'many': 'часов',
+						'other': 'часов'
+					},
+					'minutes': 'м'
 				}
 			},
 			'customStatusHistory': {

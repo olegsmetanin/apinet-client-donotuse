@@ -35,8 +35,12 @@
 					</td>
 					<td>{{ h.Author }}</td>
 					<td>
-						с {{ h.Start | date:'ago_datetime' }} 
-						по {{ (h.Finish | date:'ago_datetime') || (i18n.core.labels.presentTime) }}
+						{{ 
+							i18n.msg('tasks.view.statusHistory.period', {
+									start: (h.Start | date:'ago_datetime'), 
+									finish: ((h.Finish | date:'ago_datetime') || i18n.core.labels.presentTime) 
+								}) 
+						}}
 					</td>
 					<td>
 						{{ duration(h) | date:'ago_datetime' }}

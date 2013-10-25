@@ -1,5 +1,7 @@
 angular.module('tasks')
-.directive('statusHistory', ['sysConfig', '$rootScope', 'taskStatuses', function(sysConfig, $rootScope, taskStatuses) {
+.directive('statusHistory', ['sysConfig', '$rootScope', 'taskStatuses', '$locale', 
+	function(sysConfig, $rootScope, taskStatuses, $locale) {
+
 	return {
 		restrict: 'E',
 		replace: true,
@@ -10,6 +12,24 @@ angular.module('tasks')
 		},
 		link: function(scope, elm, attr) {
 			scope.i18n = $rootScope.i18n;
+
+			var pluralDurationPart = function(cnt, type, omitZero) {
+				if (omitZero && cnt <= 0) return '';
+
+				switch($locale.pluralCat(cnt)) {
+					case 'one':
+					case 'few':
+					case 'many':
+					case 'other':
+						var pcat = $locale.pluralCat(cnt);
+						return cnt + ' ' + scope.i18n.msg('tasks.view.statusHistory.duration.' + type + '.' + pcat);
+					case 'zero':
+					case 'two':
+					default:
+						return '';
+				}
+			};
+
 			scope.isClosedRecord = function(hrecord) {
 				return hrecord.hasOwnProperty('Finish');
 			};
@@ -33,8 +53,12 @@ angular.module('tasks')
 				var hoursDiff = Math.floor((ms - (daysDiff * MS_PER_DAY))/MS_PER_HOUR);
 				var minutesDiff = Math.floor((ms - (daysDiff * MS_PER_DAY + hoursDiff * MS_PER_HOUR))/MS_PER_MINUTE);
 
-				//TODO: localization
-				return '' + daysDiff + ' дней ' + hoursDiff + 'ч ' + minutesDiff + 'м';
+				var days = pluralDurationPart(daysDiff, 'days', true);
+				return	days + ' ' + 
+						pluralDurationPart(hoursDiff, 'hours', days === '') + 
+						(minutesDiff > 0 
+							? ' ' + minutesDiff + ' ' + scope.i18n.msg('tasks.view.statusHistory.duration.minutes')
+							: '');
 			};
 
 			scope.changeStatus = function(hrecord) {
