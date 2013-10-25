@@ -1,34 +1,18 @@
-table.sortable span.arrow {
-	border-style: solid;
-	border-width: 5px;
-	display: block;
-	position: absolute;
-	top: 50%;
-	right: 5px;
-	font-size: 0;
-	border-color: #ccc transparent transparent transparent;
-	line-height: 0;
-	height: 0;
-	width: 0;
-	margin-top: -2px;
+.filtered-list .box-toolbox label {
+  margin: 0;
 }
-
-table.sortable span.arrow.up {
-	border-color: transparent transparent #ccc transparent;
-	margin-top: -7px;
+.filtered-list .box-toolbox label.pull-left {
+  line-height: 33px;
 }
-
-table.sortable thead th {
-	cursor: pointer;
-	position: relative;
-	top: 0;
-	left: 0;
+.filtered-list .panel-heading label {
+  display: block;
+  line-height: 33px;
+  margin: 0;
 }
-
-table.sortable thead th:hover:not([data-defaultsort=disabled]) {
-	background: #efefef;
+.filtered-list .panel-heading a label {
+  cursor: pointer;
+  *cursor: hand;
 }
-
-table.sortable thead th div.mozilla {
-	position: relative;
+.filtered-list .panel-heading a:hover {
+  text-decoration: none;
 }

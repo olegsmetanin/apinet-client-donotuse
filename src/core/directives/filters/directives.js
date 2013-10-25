@@ -288,6 +288,8 @@ angular.module('core')
 			}],
 
 			link: function($scope, element, attrs) {
+				element.addClass('filtered-list');
+
 				var initialSorters = $scope.$eval(attrs.initialSorters) || { };
 
 				var i = 1;
