@@ -164,7 +164,7 @@ angular.module('core').run(['i18n', '$strapConfig', '$locale', function(i18n, $s
 		},
 
 		'application': {
-			'creator': 'AGO Systems',
+			'creator': 'Компания',
 			'landing': 'Компания'
 		},
 
