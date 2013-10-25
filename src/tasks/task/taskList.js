@@ -42,6 +42,10 @@ angular.module('tasks')
 .controller('taskListCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n',
 	function($scope, sysConfig, apinetService, $window, i18n) {
 
+		$scope.$on('resetFilter', function() {
+			$scope.customFilter.selected = $scope.customFilter.predefined[0];
+		});
+
 		$scope.deleteSelected = function() {
 			if (!$window.confirm(i18n.msg('tasks.confirm.delete.tasks'))) {
 				return;
@@ -103,7 +107,7 @@ angular.module('tasks')
 		};
 
 		$scope.constructCombinedFilter = function() {
-			$scope.filter.simple = $scope.filter.simple ? $scope.filter.simple : { };
+			$scope.filter.simple = $scope.filter.simple || { };
 
 			var today = new Date();
 			today.setHours(0, 0, 0, 0); //clear time part
@@ -180,7 +184,7 @@ angular.module('tasks')
 		};
 
 		$scope.constructDueDateFilter = function() {
-			$scope.filter.simple = $scope.filter.simple ? $scope.filter.simple : { };
+			$scope.filter.simple = $scope.filter.simple || { };
 
 			if ($scope.customFilter.lDate) {
 				$scope.filter.simple.DueDateLeft = {

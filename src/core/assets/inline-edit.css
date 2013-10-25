@@ -22,4 +22,5 @@ form *[inline-edit] small.editable {
 	display: block;
 	/* from form-control */
 	min-height: 34px;
+	line-height: 34px;
 }
