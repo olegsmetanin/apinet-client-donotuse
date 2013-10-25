@@ -64,35 +64,32 @@
 						</div>
 
 						<div class="row">
-							<div collapse="applyEnabled">
-								<div ng-repeat="model in models" class="col-lg-4">
-									<div class="projectBox box-content clearfix">
-										<a href="/projects/{{model.ProjectCode}}" target="_blank">
-											<div class="projectIcon">&nbsp;</div>
-											<div class="projectInfo">
+							<div ng-repeat="model in models" class="col-lg-4">
+								<div class="projectBox box-content clearfix">
+									<a href="/projects/{{model.ProjectCode}}" target="_blank">
+										<div class="projectIcon">&nbsp;</div>
+										<div class="projectInfo">
 
-													<h3 class="title">{{ model.Name }}</h3>
-													<small>{{ model.Description }}</small>
-											</div>
-										</a>
-										<div class="clearfix"></div>
-										<div class="pull-left">
-											<span class="label label-warning">{{ model.Status.Name }}</span>
+												<h3 class="title">{{ model.Name }}</h3>
+												<small>{{ model.Description }}</small>
 										</div>
-										<div class="pull-right">
-											<!--<span class="badge badge-important">3</span>
-											<i class="icon-user" style="font-size:14px;"></i> 120
-											<i class="icon-time" style="font-size:14px;"></i>
-											<span class="timeago fade has-tooltip in" data-placement="top" title="" data-original-title="April 13, 2013 - 07:30">6 months ago</span>-->
-										</div>
+									</a>
+									<div class="clearfix"></div>
+									<div class="pull-left">
+										<span class="label label-warning">{{ model.Status.Name }}</span>
+									</div>
+									<div class="pull-right">
+										<!--<span class="badge badge-important">3</span>
+										<i class="icon-user" style="font-size:14px;"></i> 120
+										<i class="icon-time" style="font-size:14px;"></i>
+										<span class="timeago fade has-tooltip in" data-placement="top" title="" data-original-title="April 13, 2013 - 07:30">6 months ago</span>-->
 									</div>
 								</div>
 							</div>
 						</div>
 
 						<div class="box-toolbox box-toolbox-bottom">
-							<label class="pull-left" ng-show="!applyEnabled">{{ 'core.filters.displayedRecords' | i18n:{ count: (models || []).length } }}</label>
-							<label class="pull-left" ng-show="applyEnabled">{{ i18n.core.filters.applyRequired }}</label>
+							<label class="pull-left">{{ 'core.filters.displayedRecords' | i18n:{ count: (models || []).length } }}</label>
 							<div class="pull-right">
 								<button type="button" class="btn btn-success" ng-click="paging.page = paging.page + 1"
 								        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
