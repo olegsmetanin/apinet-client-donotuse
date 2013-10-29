@@ -6,7 +6,7 @@ angular.module('security.login.form', ['core'])
 		// The model for this form
 		//$scope.user = {};
 		//Debug purposes
-		$scope.user = {email: 'admin@agosystems.com', password: '1'};
+		$scope.user = {email: 'admin@apinet-test.com', password: '1'};
 
 		// Any error message from failing to login
 		$scope.authError = null;
@@ -27,14 +27,13 @@ angular.module('security.login.form', ['core'])
 			$scope.authError = null;
 
 			// Try to login
-			security.login($scope.user.email, $scope.user.password).then(function (loggedIn) {
-				if (!loggedIn) {
-					// If we get here then the login failed due to bad credentials
+			security.login($scope.user.email, $scope.user.password).then(function (result) {
+				if (typeof result.success !== 'undefined' && !result.success) {
+					$scope.validation = result;
 					$scope.authError = i18n.msg('core.auth.errors.invalidCredentials');
 				}
-			}, function (x) {
-				// If we get here then there was a problem with the login request to the server
-				$scope.authError = i18n.msg('core.auth.errors.serverError', { exception: x });
+			}, function(error) {
+				$scope.authError = i18n.msg('core.auth.errors.serverError', { exception: error });
 			});
 		};
 

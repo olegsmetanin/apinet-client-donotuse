@@ -16,6 +16,9 @@ angular.module('core')
 			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				angular.extend($scope, {
 					i18n: $rootScope.i18n,
+					collapsed: true,
+					structuredCollapsed: true,
+					favoritesCollapsed: true,
 
 					applyFilterClick: function(e) {
 						if(e) {
@@ -37,6 +40,13 @@ angular.module('core')
 				});
 
 				this.$scope = $scope;
+
+				$scope.$watch('applyEnabled', function(value) {
+					if(value) {
+						return;
+					}
+					$scope.collapsed = true;
+				}, true);
 			}]
 		};
 	}])

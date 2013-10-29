@@ -6,7 +6,7 @@ angular.module('security.service', [
 ])
 
 .factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$modal', 'userGroups', 'sysConfig', 'coreConfig', 'moduleConfig',
-	function($http, $q, $location, queue, $modal, userGroups, sysConfig, coreConfig, moduleConfig) {
+			'apinetService', function($http, $q, $location, queue, $modal, userGroups, sysConfig, coreConfig, moduleConfig, apinetService) {
 
 		// Redirect to the given url (defaults to '/')
 		function redirect(url) {
@@ -45,7 +45,7 @@ angular.module('security.service', [
 		}
 
 		// Register a handler for when an item is added to the retry queue
-		queue.onItemAddedCallbacks.push(function(retryItem) {
+		queue.onItemAddedCallbacks.push(function() {
 			if (queue.hasMore()) {
 				service.showLogin();
 			}
@@ -66,17 +66,30 @@ angular.module('security.service', [
 
 			// Attempt to authenticate a user by the given email and password
 			login: function(email, password) {
-				var request = $http.post('/api/core/auth/login', {
+				service.currentUser = null;
+				service.currentUserGroups = null;
+
+				var deferred = $q.defer();
+
+				apinetService.action({
+					method: 'core/auth/login',
 					email: email,
 					password: password
-				});
-				return request.then(function(response) {
-					service.currentUser = response.data;
-					if (service.isAuthenticated()) {
-						closeLoginDialog(true);
+				})
+				.then(function(result) {
+					if(typeof result.success === 'undefined' || result.success) {
+						service.currentUser = result;
+						if (service.isAuthenticated()) {
+							closeLoginDialog(true);
+						}
 					}
-					service.currentUserGroups = null;
+
+					deferred.resolve(result);
+				}, function(error) {
+					deferred.resolve(error);
 				});
+
+				return deferred.promise;
 			},
 
 			// Give up trying to login and clear the retry queue
