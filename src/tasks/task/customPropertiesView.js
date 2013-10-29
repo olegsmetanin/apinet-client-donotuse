@@ -1,5 +1,7 @@
 angular.module('tasks')
-.directive('customProperties', ['sysConfig', '$rootScope', 'apinetService', function(sysConfig, $rootScope, apinetService) {
+.directive('customProperties', ['sysConfig', '$rootScope', 'apinetService', '$window', '$filter',
+	function(sysConfig, $rootScope, apinetService, $window, $filter) {
+
 	return {
 		restrict: 'E',
 		replace: true,
@@ -13,7 +15,8 @@ angular.module('tasks')
 		controller: ['$scope', function($scope) {
 			$scope.editables = { 
 				type: null,
-				value: null
+				value: null,
+				focused: false
 			};
 
 			var isValueTypeMatch = function(needed) {
@@ -37,9 +40,24 @@ angular.module('tasks')
 			};
 
 			$scope.hasAddError = function() {
-				return ($scope.isStr() && $scope.form.str.$invalid) || 
+				return $scope.editables.type === null || $scope.editables.value === null ||
+					($scope.isStr() && $scope.form.str.$invalid) || 
 					($scope.isNum() && $scope.form.num.$invalid) || 
 					($scope.isDate() && $scope.form.dt.$invalid);
+			};
+
+			$scope.valueToString = function(param) {
+				switch(param.Type.ValueType) {
+					case 'String':
+						return param.Value;
+					case 'Number':
+						return param.Value;
+					case 'Date':
+						return $filter('date')(param.Value, 'ago_date');
+					default:
+						console.log('Error when extract param value: %s - %s', param.Type.ValueType, param.Value);
+						return '';
+				}
 			};
 
 			$scope.resetValidation = function() {
@@ -66,11 +84,28 @@ angular.module('tasks')
 					}
 				}).then(function(result) {
 					if(result.validation.success) {
-						$scope.editables.type = $scope.editables.validation = null;
+						//$scope.editables.type = null;
+						$scope.editables.value = null;
 						$scope.resetValidation();
 						$scope.model.Parameters.unshift(result.model);
 					} else {
 						handleValidationErrors(result.validation);
+					}
+				}, handleException);
+			};
+
+			$scope.delete = function(param) {
+				if (!$window.confirm($scope.i18n.msg('core.confirm.delete.record'))) {
+					return;
+				}
+
+				apinetService.action({
+					method: 'tasks/tasks/DeleteParam',
+					paramId: param.Id })
+				.then(function() {
+					var modelIndex = $scope.model.Parameters.indexOf(param);
+					if (modelIndex >= 0) {
+						$scope.model.Parameters.splice(modelIndex, 1);
 					}
 				}, handleException);
 			};

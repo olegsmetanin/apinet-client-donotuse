@@ -13,17 +13,19 @@
 		<div class="box-toolbox box-toolbox-top">
 			<ago-error-msg></ago-error-msg>
 			<form name="form" class="form-inline" novalidate>
-				<div class="row">
-					<div class="col-sm-5" style="padding-right: 0px" ng-class="{'has-error': form.ptype.$error.required}">
-						<input name="ptype" type="text" lookup="tasks/tasks/lookupParamTypes" ng-model="editables.type" class="form-control" required="true" />
+				<div class="row" ng-class="{'has-error': editables.focused && hasAddError()}">
+					<!-- ng-class="{'has-error': form.ptype.$error.required}" -->
+					<div class="col-sm-5" style="padding-right: 0px" >
+						<input name="ptype" type="text" lookup="tasks/tasks/lookupParamTypes" ng-model="editables.type" class="form-control" ng-required="editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false" />
 					</div>
-					<div class="col-sm-7 input-group" style="padding-left: 0px" ng-class="{'has-error': hasAddError()}">
+					<!-- ng-class="{'has-error': hasAddError()}" -->
+					<div class="col-sm-7 input-group" style="padding-left: 0px" >
 						<!-- string -->
-						<input name="str" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.string}}" ng-show="isStr()" ng-model="editables.value" required="true"/>
+						<input name="str" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.string}}" ng-show="isStr()" ng-model="editables.value" ng-required="isStr() && editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
 						<!-- number -->
-						<input name="num" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.number}}" ng-show="isNum()" ng-model="editables.value" required="true" ng-pattern="/^\d+(\.\d+)?$/"/>
+						<input name="num" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.number}}" ng-show="isNum()" ng-model="editables.value" ng-required="isNum() && editables.focused" ng-pattern="/^\d+(\.\d+)?$/" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
 						<!-- date -->
-						<input name="dt" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.date}}" ng-show="isDate()" ng-model="editables.value" ago-datepicker required="true"/>
+						<input name="dt" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.date}}" ng-show="isDate()" ng-model="editables.value" ago-datepicker ng-required="isDate() && editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
 						<!-- empty type -->
 						<input type="text" class="form-control disabled" placeholder="{{ i18n.tasks.view.params.placeholders.selectType }}" ng-hide="editables.type" disabled="true"/>
 
@@ -55,7 +57,7 @@
 			<tbody>
 				<tr ng-repeat="p in model.Parameters">
 					<td>{{ p.Type.text }}</td>
-					<td>{{ p.Value }}</td>
+					<td>{{ valueToString(p) }}</td>
 					<td>
 						<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(p)"></ago-btn-delete>
 					</td>
