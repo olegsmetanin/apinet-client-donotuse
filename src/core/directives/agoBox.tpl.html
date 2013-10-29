@@ -1,0 +1,13 @@
+<div ng-class="boxClass">
+	<div ng-class="boxHeaderClass" ng-click="onHeaderClick($event);">
+		<div class="title" ago-box-title-transclude>{{ caption }}</div>
+		<div class="actions" ago-box-actions-transclude>
+			<a ng-show="collapsibleDefined" href="#" class="btn btn-xs btn-link" ng-click="collapsed = !collapsed;">
+				<i class="fa" ng-class="{ 'icon-chevron-up': !collapsed, 'icon-chevron-down': collapsed }"></i>
+			</a>
+		</div>
+	</div>
+	<div class="collapsing" collapse="collapsed">
+		<div class="box-content" ng-transclude></div>
+	</div>
+</div>

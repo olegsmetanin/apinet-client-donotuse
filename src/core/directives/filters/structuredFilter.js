@@ -1,6 +1,6 @@
 angular.module('core')
-	.directive('structuredFilter', ['sysConfig', 'helpers', 'filterHelpers', 'metadataService',
-		function(sysConfig, $helpers, $filterHelpers, $metadataService) {
+	.directive('structuredFilter', ['sysConfig', 'helpers', 'filteringService', 'metadataService',
+		function(sysConfig, $helpers, $filteringService, $metadataService) {
 			return {
 				replace: true,
 				templateUrl: sysConfig.src('core/directives/filters/structuredFilter.tpl.html'),
@@ -114,8 +114,8 @@ angular.module('core')
 			};
 		}
 	])
-	.directive('structuredFilterNode', ['sysConfig', 'helpers', 'filterHelpers', 'metadataService', '$compile',
-		function(sysConfig, $helpers, $filterHelpers, $metadataService, $compile) {
+	.directive('structuredFilterNode', ['sysConfig', 'helpers', 'filteringService', 'metadataService', '$compile',
+		function(sysConfig, $helpers, $filteringService, $metadataService, $compile) {
 			return {
 				replace: true,
 				scope: {
@@ -140,7 +140,7 @@ angular.module('core')
 							if(forceRefresh || !$scope.metadata) {
 								$scope.getParentMetadata({
 									callback: function(parentMeta) {
-										$filterHelpers.getNodeMetadata($scope.meta, $scope.node, parentMeta, function(metadata) {
+										$filteringService.getNodeMetadata($scope.meta, $scope.node, parentMeta, function(metadata) {
 											$scope.metadata = metadata;
 											callback($scope.metadata);
 										});
@@ -154,7 +154,7 @@ angular.module('core')
 						selectNode: function(node, metadata) {
 							function selectNodeCallback(meta) {
 								$scope.shared.selectedNode = node;
-								$scope.shared.isCompositeSelected = $filterHelpers.isCompositeNode(node, meta);
+								$scope.shared.isCompositeSelected = $filteringService.isCompositeNode(node, meta);
 							}
 
 							if(metadata) {
@@ -174,7 +174,7 @@ angular.module('core')
 							}
 							else if($scope.editMode === 'new') {
 								$scope.getMetadata(function(metadata) {
-									$filterHelpers.getNodeMetadata($scope.meta, changedNode, metadata, function(changedNodeMeta) {
+									$filteringService.getNodeMetadata($scope.meta, changedNode, metadata, function(changedNodeMeta) {
 										$scope.node.items.push(changedNode);
 										$scope.selectNode(changedNode, changedNodeMeta);
 									});
@@ -203,7 +203,7 @@ angular.module('core')
 							return;
 						}
 						$scope.getMetadata(function(metadata) {
-							$scope.pathDisplayName = $filterHelpers.pathDisplayName(value, null, metadata);
+							$scope.pathDisplayName = $filteringService.pathDisplayName(value, null, metadata);
 						});
 					}, true);
 
@@ -211,14 +211,14 @@ angular.module('core')
 						if($scope.node === $scope.rootNode) {
 							return;
 						}
-						$scope.opDisplayName = $filterHelpers.opDisplayName(value, $scope.node.not, $scope.node.path);
+						$scope.opDisplayName = $filteringService.opDisplayName(value, $scope.node.not, $scope.node.path);
 					}, true);
 
 					$scope.$watch('node.not', function(value) {
 						if($scope.node === $scope.rootNode) {
 							return;
 						}
-						$scope.opDisplayName = $filterHelpers.opDisplayName($scope.node.op, value, $scope.node.path);
+						$scope.opDisplayName = $filteringService.opDisplayName($scope.node.op, value, $scope.node.path);
 					}, true);
 
 					$scope.$watch('node.value', function(value) {
@@ -226,7 +226,7 @@ angular.module('core')
 							return;
 						}
 						$scope.getMetadata(function(metadata) {
-							$scope.valueDisplayName = $filterHelpers.valueDisplayName(value, metadata);
+							$scope.valueDisplayName = $filteringService.valueDisplayName(value, metadata);
 						});
 					}, true);
 
@@ -354,8 +354,8 @@ angular.module('core')
 				}
 			};
 		}])
-	.directive('structuredFilterNodeEditor', ['sysConfig', 'filterHelpers', '$filter',
-		function(sysConfig, $filterHelpers, $filter) {
+	.directive('structuredFilterNodeEditor', ['sysConfig', 'filteringService', '$filter',
+		function(sysConfig, $filteringService, $filter) {
 			return {
 				replace: true,
 				templateUrl: sysConfig.src('core/directives/filters/structuredFilterNodeEditor.tpl.html'),
@@ -383,7 +383,7 @@ angular.module('core')
 							if(forceRefresh || !$scope.metadata) {
 								$scope.getParentMetadata({
 									callback: function(parentMeta) {
-										$filterHelpers.getNodeMetadata($scope.meta, $scope.node, parentMeta, function(metadata) {
+										$filteringService.getNodeMetadata($scope.meta, $scope.node, parentMeta, function(metadata) {
 											$scope.metadata = metadata;
 											$scope.valueMetadata = metadata;
 
@@ -412,18 +412,18 @@ angular.module('core')
 								$scope.node.value = '';
 							}
 
-							$scope.ops = $filter('applicableOps')($filterHelpers.allOps(), metadata);
+							$scope.ops = $filter('applicableOps')($filteringService.allOps(), metadata);
 							if(!$scope.node.op && $scope.ops.length) {
 								$scope.node.op = $scope.ops[0];
 							}
 							for (i = 0; i < $scope.ops.length; i++) {
 								$scope.ops[i] = {
 									value: $scope.ops[i],
-									label: $filterHelpers.opDisplayName($scope.ops[i])
+									label: $filteringService.opDisplayName($scope.ops[i])
 								};
 							}
 
-							$scope.opSelectVisible = !$filterHelpers.isCompositeNode(
+							$scope.opSelectVisible = !$filteringService.isCompositeNode(
 								$scope.node, metadata);
 						}, true);
 					}, true);
@@ -432,7 +432,7 @@ angular.module('core')
 						$scope.getMetadata(function(metadata) {
 							$scope.valueEditorUrl = null;
 
-							if(!value || !metadata.PropertyType || $filterHelpers.isUnaryNode($scope.node)) {
+							if(!value || !metadata.PropertyType || $filteringService.isUnaryNode($scope.node)) {
 								return;
 							}
 
@@ -461,19 +461,19 @@ angular.module('core')
 						$scope.node.value = value;
 					}, true);
 
-					$filterHelpers.beforeNodeEdit($scope.node);
+					$filteringService.beforeNodeEdit($scope.node);
 					$scope.resetValidationErrors();
 
 					$scope.getParentMetadata({
 						callback: function(parentMeta) {
-							$scope.paths = $filterHelpers.applicablePaths(parentMeta);
+							$scope.paths = $filteringService.applicablePaths(parentMeta);
 							if(!$scope.node.path && $scope.paths.length) {
 								$scope.node.path = $scope.paths[0];
 							}
 							for(var i = 0; i < $scope.paths.length; i++) {
 								$scope.paths[i] = {
 									value: $scope.paths[i],
-									label: $filterHelpers.pathDisplayName($scope.paths[i], parentMeta)
+									label: $filteringService.pathDisplayName($scope.paths[i], parentMeta)
 								};
 							}
 						}
@@ -485,9 +485,9 @@ angular.module('core')
 							$scope.getMetadata(function(metadata) {
 								var node = angular.extend({ }, $scope.node);
 
-								$filterHelpers.afterNodeEdit(node, metadata);
+								$filteringService.afterNodeEdit(node, metadata);
 								$scope.resetValidationErrors();
-								if (!$filterHelpers.validateNode(node, metadata, $scope.validationErrors)) {
+								if (!$filteringService.validateNode(node, metadata, $scope.validationErrors)) {
 									return;
 								}
 
