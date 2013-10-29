@@ -19,9 +19,9 @@ angular.module('core')
 			scope.isChanged = false;
 			scope.waiting = false;
 			scope.elInput = scope.elInput || //<-- can be provided from aggregate directives
-				element.find('input')[0] || 
-                element.find('textarea')[0] ||
-                element.find('select')[0];
+				element.find('input') || 
+                element.find('textarea') ||
+                element.find('select');
 
             var callback = function(cb) {
                 if (cb) {

@@ -99,7 +99,15 @@ angular.module('tasks').run(['i18n', function(i18n) {
 				'title': 'Custom status history'
 			},
 			'params': {
-				'title': 'User properties'
+				'title': 'User properties',
+				'empty': 'No user properties',
+				'placeholders': {
+					'selectType': 'select type',
+					'string': 'string',
+					'number': 'number',
+					'date': 'date'
+				},
+				'numFormat': 'Expected format 0##[.0##]'
 			}
 		},
 

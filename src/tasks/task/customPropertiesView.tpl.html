@@ -1,14 +1,92 @@
-<table class="table">
-	<thead>
-		<tr>
-			<th style="width: 35%">{{ i18n.core.fields.customProperties.type }}</th>
-			<th>{{ i18n.core.fields.customProperties.value }}</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="p in model">
-			<td>{{ p.TypeName }}</td>
-			<td>{{ p.Value }}</td>
-		</tr>
-	</tbody>
-</table>
+<div class="box ">
+	<div class="box-header orange-background">
+		<div class="title">
+			<i class="icon-table"></i>
+			{{ i18n.tasks.view.params.title }}
+		</div>
+		<div class="actions">
+			<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
+		</div>
+	</div>
+
+	<div class="box-content">
+		<div class="box-toolbox box-toolbox-top">
+			<ago-error-msg></ago-error-msg>
+			<form name="form" class="form-inline" novalidate>
+				<div class="row" ng-class="{'has-error': editables.focused && hasAddError()}">
+					<!-- ng-class="{'has-error': form.ptype.$error.required}" -->
+					<div class="col-sm-5" style="padding-right: 0px" >
+						<input name="ptype" type="text" lookup="tasks/tasks/lookupParamTypes" ng-model="editables.type" class="form-control" ng-required="editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false" />
+					</div>
+					<!-- ng-class="{'has-error': hasAddError()}" -->
+					<div class="col-sm-7 input-group" style="padding-left: 0px" >
+						<!-- string -->
+						<input name="str" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.string}}" ng-show="isStr()" ng-model="editables.value" ng-required="isStr() && editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
+						<!-- number -->
+						<input name="num" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.number}}" ng-show="isNum()" ng-model="editables.value" ng-required="isNum() && editables.focused" ng-pattern="/^\d+(\.\d+)?$/" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
+						<!-- date -->
+						<input name="dt" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.date}}" ng-show="isDate()" ng-model="editables.value" ago-datepicker ng-required="isDate() && editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
+						<!-- empty type -->
+						<input type="text" class="form-control disabled" placeholder="{{ i18n.tasks.view.params.placeholders.selectType }}" ng-hide="editables.type" disabled="true"/>
+
+						<div class="input-group-btn">
+							<button class="btn btn-success" ng-disabled="hasAddError()" ng-click="add()">{{ i18n.core.buttons.add }}</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<span class="has-error" ng-show="isNum() && form.num.$error.pattern">
+							{{ i18n.tasks.view.params.numFormat }}
+						</span>
+					</div>
+				</div>
+			</form>
+		</div>
+		<p ng-hide="model.Parameters">
+			<span class="text-muted">{{ i18n.tasks.view.params.empty }}</span>
+		</p>
+		<table class="table" ng-show="model.Parameters">
+			<thead>
+				<tr>
+					<th class="col-xs-4">{{ i18n.core.fields.customProperties.type }}</th>
+					<th>{{ i18n.core.fields.customProperties.value }}</th>
+					<th class="onepct">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="p in model.Parameters">
+					<td>{{ p.Type.text }}</td>
+					<td inline-edit="p.Value" on-update="updateParam(p, val)">
+						<span class="editable" ng-hide="editMode" ng-click="edit()">
+							{{ valueToString(p) }}
+						</span>
+						<form name="editForm" class="form-inline" ng-show="editMode" ng-class="{'has-error': hasEditError(p, editForm)}" style="width: 100%" novalidate>
+							<div class="input-group" style="padding-left: 0px">
+								<!-- string -->
+								<input name="str" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.string}}" ng-show="isStr(p.Type)" ng-model="emodel.value" ng-required="isStr(p.Type)"/>
+								<!-- number -->
+								<input name="num" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.number}}" ng-show="isNum(p.Type)" ng-model="emodel.value" ng-required="isNum(p.Type)" />
+								<!-- date -->
+								<input name="dt" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.date}}" ng-show="isDate(p.Type)" ng-model="emodel.value" ago-datepicker ng-required="isDate(p.Type)" />
+
+								<div class="input-group-btn">
+									<button type="button" class="btn" ng-show="isChanged" ng-click="cancel()" ng-disabled="!cancelEnabled()" title="{{ i18n.core.buttons.cancel }}">
+										<i class="icon-reply"></i>
+									</button>
+									<button type="button" class="btn" ng-show="isChanged" ng-click="update()" ng-disabled="!cancelEnabled() || hasEditError(p, editForm)" title="{{ i18n.core.buttons.save }}">
+										<i class="icon-ok"></i>
+									</button>
+									<img ng-show="waiting" class="waiting"></img>
+								</div>
+							</div>
+						</form>
+					</td>
+					<td>
+						<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(p)"></ago-btn-delete>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
