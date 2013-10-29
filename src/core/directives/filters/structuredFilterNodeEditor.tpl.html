@@ -1,5 +1,5 @@
 <div class="nodeData nodeEditor">
-	<select class="pathSelect"
+	<select class="pathSelect form-control"
 	        ng-model="node.path"
 	        ng-options="path.value as path.label for path in paths">
 	</select>
@@ -8,7 +8,7 @@
 	</ul>
 
 	<div ng-show="opSelectVisible">
-		<select class="opSelect"
+		<select class="opSelect form-control"
 		        ng-model="node.op"
 		        ng-options="op.value as op.label for op in ops">
 		</select>

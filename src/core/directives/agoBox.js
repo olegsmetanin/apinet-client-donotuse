@@ -10,7 +10,7 @@ angular.module('core')
 				caption: '@',
 				large: '@',
 				collapsible: '@',
-				collapsed: '@',
+				collapsed: '=?',
 				titleClickCollapse: '@'
 			},
 			templateUrl: sysConfig.src('core/directives/agoBox.tpl.html'),

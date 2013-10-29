@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-lg-12">
-		<ago-box class="filters-box" color="purple" title-click-collapse collapsed="true">
+		<ago-box class="filters-box" color="purple" title-click-collapse collapsed="collapsed">
 			<ago-box-title>
 				<label>
 					<i class="fa icon-filter"></i>
@@ -32,11 +32,11 @@
 				</div>
 
 				<div class="col-lg-6">
-					<ago-box color="green" border="green" caption="{{ i18n.core.filters.complex }}" title-click-collapse collapsed="true">
+					<ago-box color="green" border="green" caption="{{ i18n.core.filters.complex }}" title-click-collapse collapsed="structuredCollapsed">
 						<div structured-filter filter-ng-model="filter.complex" meta="meta"></div>
 					</ago-box>
 
-					<ago-box color="orange" border="orange" caption="{{ i18n.core.filters.favorites }}" title-click-collapse collapsed="true">
+					<ago-box color="orange" border="orange" caption="{{ i18n.core.filters.favorites }}" title-click-collapse collapsed="favoritesCollapsed">
 						<div filter-persister group="group" filter="filter"></div>
 					</ago-box>
 
