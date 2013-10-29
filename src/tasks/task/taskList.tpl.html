@@ -5,61 +5,77 @@
 	<div class="row" id="content-wrapper">
 		<!-- Filter -->
 		<div class="col-xs-12">
-			<filter-template>
-				<filter-part box-title="core.filters.simple" box-col="col-xs-12 col-md-6">
-					<form class="form">
-						<div class="form-group">
-							<label>{{ i18n.tasks.list.filters.custom }}</label>
-							<select ng-model="customFilter.selected" ng-options="f.text for f in customFilter.predefined" ng-change="constructCombinedFilter()" class="form-control"></select>
+			<div filters-box="filter" meta="tasks/tasks/taskMetadata" group="Tasks.Task"
+				apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter">
+				<form class="form form-horizontal">
+					<div class="form-group">
+						<label class="col-md-3 control-label">{{ i18n.tasks.list.filters.custom }}</label>
+						<div class="col-md-9">
+							<select ng-model="filter.simple.Combined" class="form-control">
+								<option value="all">{{ i18n.tasks.list.filters.predefined.all }}</option>
+								<option value="overdue">{{ i18n.tasks.list.filters.predefined.overdue }}</option>
+								<option value="dayLeft">{{ i18n.tasks.list.filters.predefined.dayLeft }}</option>
+								<option value="weekLeft">{{ i18n.tasks.list.filters.predefined.weekLeft }}</option>
+								<option value="noLimit">{{ i18n.tasks.list.filters.predefined.noLimit }}</option>
+								<option value="closedToday">{{ i18n.tasks.list.filters.predefined.closedToday }}</option>
+								<option value="closedYesterday">{{ i18n.tasks.list.filters.predefined.closedYesterday }}</option>
+							</select>
 						</div>
-						<div class="form-group">
-							<label>{{ i18n.tasks.fields.status }}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">{{ i18n.tasks.fields.status }}</label>
+						<div class="col-md-9">
 							<input lookup="tasks/dictionary/lookupTaskStatuses" ng-model="filter.simple.Status" filter-node="{path: 'Status', op: '='}" class="form-control" multiple />
 						</div>
-						<div class="form-group">
-							<label>{{ i18n.tasks.fields.customStatus }}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">{{ i18n.tasks.fields.customStatus }}</label>
+						<div class="col-md-9">
 							<input lookup="tasks/dictionary/lookupCustomStatuses" ng-model="filter.simple.CustomStatus" filter-node="{path: 'CustomStatus', op: '='}" class="form-control" multiple />
 						</div>
-						<div class="form-group">
-							<label>{{ i18n.tasks.fields.seqNumber }}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">{{ i18n.tasks.fields.seqNumber }}</label>
+						<div class="col-md-9">
 							<input lookup="tasks/tasks/lookupTasks" ng-model="filter.simple.SeqNumber" filter-node="{path: 'Id', op: '='}" class="form-control" multiple />
 						</div>
-						<div class="form-group">
-							<label>{{ i18n.tasks.fields.type }}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">{{ i18n.tasks.fields.type }}</label>
+						<div class="col-md-9">
 							<input lookup="tasks/dictionary/lookupTaskTypes" ng-model="filter.simple.TaskType" filter-node="{path: 'TaskType', op: '='}" class="form-control" multiple />
 						</div>
-						<div class="form-group">
-							<label>{{ i18n.tasks.fields.dueDate }}</label>
-							<div class="form-control">
-								<input type="text" ng-model="customFilter.lDate" ago-datepicker ng-change="constructDueDateFilter()" class="col-xs-5" />
-								<span class="col-xs-1"> - </span>
-								<input type="text" ng-model="customFilter.rDate" ago-datepicker ng-change="constructDueDateFilter()" class="col-xs-5" />
-							</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">{{ i18n.tasks.fields.dueDate }}</label>
+						<div class="col-md-9">
+							<input type="text" ng-model="customFilter.lDate" ago-datepicker ng-change="constructDueDateFilter()" class="col-xs-5" />
+							<span class="col-xs-1"> - </span>
+							<input type="text" ng-model="customFilter.rDate" ago-datepicker ng-change="constructDueDateFilter()" class="col-xs-5" />
 						</div>
-						<div class="form-group">
-							<label>{{ i18n.tasks.fields.executors }}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">{{ i18n.tasks.fields.executors }}</label>
+						<div class="col-md-9">
 							<input lookup="home/projects/lookupParticipant" ng-model="filter.simple.Executors" filter-node="{path: 'Executors.Id', op: '='}" class="form-control" multiple />
 						</div>
-						<div class="form-group">
-							<label>{{ i18n.tasks.fields.content }}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">{{ i18n.tasks.fields.content }}</label>
+						<div class="col-md-9">
 							<input type="text" ng-model="filter.simple.Content" filter-node="{path: 'Content', op:'like'}" class="form-control"  />
 						</div>
-					</form>
-				</filter-part>
+					</div>
+				</form>
 
-				<filter-part box-title="core.filters.user" box-col="col-xs-12 col-md-6 box-collapsed">
-					<div user-filter filter-ng-model="filter.user"></div>
-				</filter-part>
-
-				<filter-part box-title="core.filters.complex" box-col="col-xs-12 col-md-6 box-collapsed">
-					<div structured-filter filter-ng-model="filter.complex" meta="'tasks/tasks/taskMetadata'"></div>
-				</filter-part>
-
-				<filter-part box-title="core.filters.favorites" box-col="col-xs-12 col-md-6">
-					<div filter-persister group="'Tasks.Task'" filter="filter"></div>
-				</filter-part>
-			</filter-template>
-		</div>
+				<filters-box-more-filters>
+					<ago-box color="muted" border="muted" caption="{{ i18n.core.filters.user }}" title-click-collapse collapsed="true">
+						<div user-filter filter-ng-model="filter.user"></div>
+					</ago-box>
+				</filters-box-more-filters>
+				
+			</div><!-- div filter-box -->
+		</div><!-- col-xs-12 -->
 
 		<!-- Content -->
 		<div class="col-xs-12">

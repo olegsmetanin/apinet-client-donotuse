@@ -116,7 +116,7 @@ angular.module('tasks').run(['i18n', function(i18n) {
 
 			'filters': {
 				'custom': 'Комбинированный',
-				'custom.predefined': {
+				'predefined': {
 					'all': 'Все задачи',
 					'overdue': 'Просроченные',
 					'dayLeft': 'Срок 1 день',
