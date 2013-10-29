@@ -57,7 +57,31 @@
 			<tbody>
 				<tr ng-repeat="p in model.Parameters">
 					<td>{{ p.Type.text }}</td>
-					<td>{{ valueToString(p) }}</td>
+					<td inline-edit="p.Value" on-update="updateParam(p, val)">
+						<span class="editable" ng-hide="editMode" ng-click="edit()">
+							{{ valueToString(p) }}
+						</span>
+						<form name="editForm" class="form-inline" ng-show="editMode" ng-class="{'has-error': hasEditError(p, editForm)}" style="width: 100%" novalidate>
+							<div class="input-group" style="padding-left: 0px">
+								<!-- string -->
+								<input name="str" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.string}}" ng-show="isStr(p.Type)" ng-model="emodel.value" ng-required="isStr(p.Type)"/>
+								<!-- number -->
+								<input name="num" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.number}}" ng-show="isNum(p.Type)" ng-model="emodel.value" ng-required="isNum(p.Type)" />
+								<!-- date -->
+								<input name="dt" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.date}}" ng-show="isDate(p.Type)" ng-model="emodel.value" ago-datepicker ng-required="isDate(p.Type)" />
+
+								<div class="input-group-btn">
+									<button type="button" class="btn" ng-show="isChanged" ng-click="cancel()" ng-disabled="!cancelEnabled()" title="{{ i18n.core.buttons.cancel }}">
+										<i class="icon-reply"></i>
+									</button>
+									<button type="button" class="btn" ng-show="isChanged" ng-click="update()" ng-disabled="!cancelEnabled() || hasEditError(p, editForm)" title="{{ i18n.core.buttons.save }}">
+										<i class="icon-ok"></i>
+									</button>
+									<img ng-show="waiting" class="waiting"></img>
+								</div>
+							</div>
+						</form>
+					</td>
 					<td>
 						<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(p)"></ago-btn-delete>
 					</td>

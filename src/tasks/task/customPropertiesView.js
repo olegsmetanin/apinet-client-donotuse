@@ -19,24 +19,25 @@ angular.module('tasks')
 				focused: false
 			};
 
-			var isValueTypeMatch = function(needed) {
-				return $scope.editables.type && $scope.editables.type.ValueType === needed;
+			var isValueTypeMatch = function(needed, type) {
+				type = type || $scope.editables.type;
+				return type && type.ValueType === needed;
 			};
 
 			$scope.$watch('editables.type', function(){
 				$scope.editables.value = null;
 			}, true);
 
-			$scope.isNum = function() {
-				return isValueTypeMatch('Number');
+			$scope.isNum = function(type) {
+				return isValueTypeMatch('Number', type);
 			};
 
-			$scope.isStr = function() {
-				return isValueTypeMatch('String');
+			$scope.isStr = function(type) {
+				return isValueTypeMatch('String', type);
 			};
 
-			$scope.isDate = function() {
-				return isValueTypeMatch('Date');
+			$scope.isDate = function(type) {
+				return isValueTypeMatch('Date', type);
 			};
 
 			$scope.hasAddError = function() {
@@ -44,6 +45,12 @@ angular.module('tasks')
 					($scope.isStr() && $scope.form.str.$invalid) || 
 					($scope.isNum() && $scope.form.num.$invalid) || 
 					($scope.isDate() && $scope.form.dt.$invalid);
+			};
+
+			$scope.hasEditError = function(param, form) {
+				return ($scope.isStr(param.Type) && form.str.$invalid) || 
+					($scope.isNum(param.Type) && (form.num.$invalid || !/^\d+(\.\d+)?$/.test(form.num.$viewValue))) || 
+					($scope.isDate(param.Type) && form.dt.$invalid);
 			};
 
 			$scope.valueToString = function(param) {
@@ -106,6 +113,26 @@ angular.module('tasks')
 					var modelIndex = $scope.model.Parameters.indexOf(param);
 					if (modelIndex >= 0) {
 						$scope.model.Parameters.splice(modelIndex, 1);
+					}
+				}, handleException);
+			};
+
+			$scope.updateParam = function(param, val) {
+				if (!param || !val) {
+					return;
+				}
+
+				$scope.resetValidation();
+
+				return apinetService.action({
+					method: 'tasks/tasks/EditParam',
+					taskId: $scope.model.Id,
+					model: { id: param.Id, value: val } })
+				.then(function(result) {
+					if(result.validation.success) {
+						angular.extend(param, result.model);
+					} else {
+						handleValidationErrors(result.validation);
 					}
 				}, handleException);
 			};
