@@ -24,19 +24,18 @@ angular.module('core')
 				'</div>'; return tmpl;
 		},
 		link: function(scope, elm, attr) {
-
-			var $input = $('input', elm);
+			scope.elInput = $('input', elm);
 
 			var onShow = function(e) {
-				$input.off('blur', scope.onBlur);
+				scope.elInput.off('blur', scope.onBlur);
 			};
 
 			var onHide = function(e) {
-				$input.on('blur', scope.onBlur);
+				scope.elInput.on('blur', scope.onBlur);
 			};
 
-			$input.on('show', onShow);
-			$input.on('hide', onHide);
+			scope.elInput.on('show', onShow);
+			scope.elInput.on('hide', onHide);
 		}
 	};
 }]);

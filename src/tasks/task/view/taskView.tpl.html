@@ -55,7 +55,7 @@
 										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Content']}">
 											<label class="col-md-4 control-label">{{ i18n.tasks.fields.content }}</label>
 											<div class="col-md-8">
-												<inline-text model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" input-col="col-xs-12"></inline-text>
+												<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" input-col="col-xs-12" input-rows="5"></inline-text-area>
 												<span ng-show="validation.fieldErrors['Content']" class="help-block has-error">
 													{{ validation.fieldErrors['Content'] | joinBy }}
 												</span>
@@ -94,6 +94,15 @@
 												<inline-lookup model="model.Priority" on-update="onUpdateProp(model, 'Priority', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskPriorities" input-col="col-xs-12" required></inline-lookup>
 												<span ng-show="validation.fieldErrors['Priority']" class="help-block has-error">
 													{{ validation.fieldErrors['Priority'] | joinBy }}
+												</span>
+											</div>
+										</div>
+										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Note']}">
+											<label class="col-md-4 control-label">{{ i18n.tasks.fields.note }}</label>
+											<div class="col-md-8">
+												<inline-text-area model="model.Note" on-update="onUpdateProp(model, 'Note', val)" on-cancel="resetValidation()" input-col="col-xs-12" input-rows="5"></inline-text-area>
+												<span ng-show="validation.fieldErrors['Note']" class="help-block has-error">
+													{{ validation.fieldErrors['Note'] | joinBy }}
 												</span>
 											</div>
 										</div>
