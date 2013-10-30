@@ -1,6 +1,5 @@
 sysConfig.modules['core'] = {
 	css: [
-		'src/core/assets/filtering-component.css',
 		'src/core/assets/filteredList.css',
 		'src/core/assets/agoBox.css',
 		'src/core/assets/spinner.css',

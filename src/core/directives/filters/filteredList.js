@@ -6,13 +6,15 @@ angular.module('core')
 					sorters: { },
 					sortersArray: [ ],
 
+					filter: { },
+					requestParams: { },
+
 					paging: {
 						page: 0,
 						loadedPages: []
 					},
 
 					applyEnabled: false,
-					firstEvent: true,
 					models: [ ],
 					validation: { },
 					indication: { loading: false },
@@ -29,12 +31,12 @@ angular.module('core')
 						$scope.requestParams = { project: sysConfig.project };
 
 						$scope.$emit('resetFilter');
-
 						$scope.applyEnabled = false;
 
 						if(!$rootScope.$$phase) {
 							$scope.$apply();
 						}
+
 						$scope.refreshList();
 					},
 
@@ -103,99 +105,95 @@ angular.module('core')
 								$scope.indication.loading = false;
 								$scope.validation.generalErrors = [ error ];
 							});
-					}
-				});
-
-				$scope.$watch('filter', function() {
-					$scope.applyEnabled = true;
-				}, true);
-
-				$scope.$watch('requestParams', function() {
-					$scope.applyEnabled = true;
-				}, true);
-
-				$scope.$watch('sorters', function(value) {
-					var tempArray = [ ];
-					var sorter;
-					var key;
-
-					var maxPriority = 0;
-					for(key in value) {
-						if(!$scope.sorters.hasOwnProperty(key)) {
-							continue;
+					},
+					sortersWatcher: function(value, oldValue) {
+						if(value === oldValue) {
+							return;
 						}
 
-						sorter = $scope.sorters[key];
-						if(!sorter.direction || !sorter.priority ||
-							(sorter.direction !== 'asc' && sorter.direction !== 'desc') || !sorter.priority) {
-							continue;
+						var tempArray = [ ];
+						var sorter;
+						var key;
+
+						var maxPriority = 0;
+						for(key in value || { }) {
+							if(!$scope.sorters.hasOwnProperty(key)) {
+								continue;
+							}
+
+							sorter = $scope.sorters[key];
+							if(!sorter.direction || !sorter.priority ||
+								(sorter.direction !== 'asc' && sorter.direction !== 'desc') || !sorter.priority) {
+								continue;
+							}
+
+							maxPriority = sorter.priority > maxPriority ? sorter.priority : maxPriority;
+
+							sorter.property = key.replace('_', '.');
+							tempArray.push(sorter);
 						}
 
-						maxPriority = sorter.priority > maxPriority ? sorter.priority : maxPriority;
+						for(key in value) {
+							if(!$scope.sorters.hasOwnProperty(key)) {
+								continue;
+							}
 
-						sorter.property = key.replace('_', '.');
-						tempArray.push(sorter);
-					}
+							sorter = $scope.sorters[key];
+							if(!sorter.direction || sorter.priority ||
+								(sorter.direction !== 'asc' && sorter.direction !== 'desc')) {
+								continue;
+							}
 
-					for(key in value) {
-						if(!$scope.sorters.hasOwnProperty(key)) {
-							continue;
+							maxPriority = maxPriority + 1;
+							sorter.priority = maxPriority;
+
+							sorter.property = key.replace('_', '.');
+							tempArray.push(sorter);
 						}
 
-						sorter = $scope.sorters[key];
-						if(!sorter.direction || sorter.priority ||
-							(sorter.direction !== 'asc' && sorter.direction !== 'desc')) {
-							continue;
-						}
-
-						maxPriority = maxPriority + 1;
-						sorter.priority = maxPriority;
-
-						sorter.property = key.replace('_', '.');
-						tempArray.push(sorter);
-					}
-
-					tempArray.sort(function(s1, s2) {
-						if (s1.priority > s2.priority) {
-							return 1;
-						}
-						return s1.priority < s2.priority ? -1 : 0;
-					});
-
-					$scope.sortersArray = [ ];
-					for(var i = 0; i < tempArray.length; i++) {
-						sorter = tempArray[i];
-
-						$scope.sortersArray.push({
-							property: sorter.property,
-							descending: sorter.direction === 'desc'
+						tempArray.sort(function(s1, s2) {
+							if (s1.priority > s2.priority) {
+								return 1;
+							}
+							return s1.priority < s2.priority ? -1 : 0;
 						});
 
-						sorter.priority = i + 1;
-						delete sorter.property;
-					}
-				}, true);
+						$scope.sortersArray = [ ];
+						for(var i = 0; i < tempArray.length; i++) {
+							sorter = tempArray[i];
 
-				$scope.$watch('sortersArray', function() {
-					$scope.refreshList();
-				}, true);
+							$scope.sortersArray.push({
+								property: sorter.property,
+								descending: sorter.direction === 'desc'
+							});
 
-				$scope.$watch('paging.page', function(value, oldValue) {
-					if($scope.firstEvent) {
-						$scope.firstEvent = false;
-						return;
-					}
-
-					if(value === oldValue + 1) {
-						if($scope.timeout) {
+							sorter.priority = i + 1;
+							delete sorter.property;
+						}
+					},
+					pageWatcher: function(value, oldValue) {
+						if(value <= oldValue) {
+							return;
+						}
+						if(value !== oldValue + 1) {
 							$scope.paging.page = oldValue;
+							return;
 						}
-						else {
-							$scope.refreshList(true);
+						$scope.refreshList(true);
+					},
+					applyEnablingWatcher: function(value, oldValue) {
+						if(value === oldValue) {
+							return;
 						}
+						$scope.applyEnabled = true;
+					},
+					refreshingWatcher: function(value, oldValue) {
+						if(value === oldValue) {
+							return;
+						}
+						$scope.refreshList();
 					}
-
-				}, true);
+				});
 			}],
 
 			link: function($scope, element, attrs) {
@@ -221,11 +219,20 @@ angular.module('core')
 
 					i = i + 1;
 				}
+				$scope.sortersWatcher($scope.sorters);
 
 				var inputParams = $scope.$eval(attrs.filteredList);
 				angular.extend($scope, inputParams);
 
 				$scope.resetFilter();
+
+				$timeout(function() {
+					$scope.$watch('sorters', $scope.sortersWatcher, true);
+					$scope.$watch('paging.page', $scope.pageWatcher, true);
+					$scope.$watch('filter', $scope.applyEnablingWatcher, true);
+					$scope.$watch('requestParams', $scope.applyEnablingWatcher, true);
+					$scope.$watch('sortersArray', $scope.refreshingWatcher, true);
+				}, 500);
 			}
 		};
 	}]);

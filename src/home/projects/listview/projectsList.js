@@ -21,7 +21,6 @@
 				views: {
 					'content': {
 						templateUrl: sysConfig.src('home/projects/listview/projectsList.tpl.html'),
-
 						controller: function($scope, currentUser) {
 							$scope.currentUser = currentUser;
 						}

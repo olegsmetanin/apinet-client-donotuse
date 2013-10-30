@@ -2,8 +2,8 @@
 //https://github.com/mgcrea/angular-strap/blob/master/src/directives/datepicker.js
 // https://github.com/eternicode/bootstrap-datepicker
 angular.module('core')
-.directive('agoDatepicker', function($timeout, $strapConfig) {
-
+.directive('agoDatepicker', function($timeout, $strapConfig, $window) {
+  var $ = $window.jQuery;
   var isAppleTouch = /(iP(a|o)d|iPhone)/g.test(navigator.userAgent);
 
   var regexpMap = function regexpMapFn(language) {

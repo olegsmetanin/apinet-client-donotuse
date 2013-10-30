@@ -9,6 +9,7 @@ angular.module('core')
 				border: '@',
 				caption: '@',
 				large: '@',
+				padding: '@',
 				collapsible: '@',
 				collapsed: '=?',
 				titleClickCollapse: '@'
@@ -22,6 +23,9 @@ angular.module('core')
 					},
 					boxHeaderClass: {
 						'box-header': true
+					},
+					boxContentClass: {
+						'box-content': true
 					},
 					onHeaderClick: function() {
 						if($scope.titleClickCollapseDefined) {
@@ -56,6 +60,9 @@ angular.module('core')
 					largeWatcher: function(value) {
 						$scope.boxHeaderClass['box-header-small'] = !angular.isDefined(value);
 					},
+					paddingWatcher: function(value) {
+						$scope.boxContentClass['box-padding'] = angular.isDefined(value);
+					},
 					collapsibleWatcher: function(value) {
 						$scope.collapsibleDefined = angular.isDefined(value);
 					},
@@ -67,13 +74,15 @@ angular.module('core')
 
 				$scope.$watch('color', this.colorWatcher);
 				$scope.$watch('border', this.borderWatcher);
-				$scope.$watch('large', this.largeWatcher );
+				$scope.$watch('large', this.largeWatcher);
+				$scope.$watch('padding', this.paddingWatcher);
 				$scope.$watch('collapsible', this.collapsibleWatcher);
 				$scope.$watch('titleClickCollapse', this.titleClickCollapseWatcher);
 
 				this.colorWatcher($scope.color);
 				this.borderWatcher($scope.border);
 				this.largeWatcher($scope.large);
+				this.paddingWatcher($scope.padding);
 				this.collapsibleWatcher($scope.collapsible);
 				this.titleClickCollapseWatcher($scope.titleClickCollapse);
 			}]
