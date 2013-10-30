@@ -32,6 +32,8 @@
 				</div>
 
 				<div class="col-lg-6">
+					<div filters-box-more-filters-transclude></div>
+
 					<ago-box color="green" border="green" caption="{{ i18n.core.filters.complex }}" title-click-collapse collapsed="structuredCollapsed">
 						<div structured-filter filter-ng-model="filter.complex" meta="meta"></div>
 					</ago-box>
@@ -39,8 +41,6 @@
 					<ago-box color="orange" border="orange" caption="{{ i18n.core.filters.favorites }}" title-click-collapse collapsed="favoritesCollapsed">
 						<div filter-persister group="group" filter="filter"></div>
 					</ago-box>
-
-					<div filters-box-more-filters-transclude></div>
 				</div>
 			</div>
 		</ago-box>

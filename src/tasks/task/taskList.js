@@ -42,6 +42,8 @@ angular.module('tasks')
 .controller('taskListCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n',
 	function($scope, sysConfig, apinetService, $window, i18n) {
 
+	$scope.propsFilterCollapsed = true;
+
 	$scope.$on('resetFilter', function() {
 		$scope.filter.simple = {
 			Combined: 'all'
