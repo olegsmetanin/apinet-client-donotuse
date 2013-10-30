@@ -5,12 +5,13 @@
 
 	<div class="row" id="content-wrapper">
 		<div class="col-lg-12">
-			<filter meta="home/dictionary/projectTagMetadata" group="ProjectTags">
+			<div filters-box="filter" meta="home/dictionary/projectTagMetadata" group="ProjectTags"
+				apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter">
 				<form class="form form-horizontal">
 					<div class="form-group">
 						<label for="ownership" class="col-md-3 control-label">{{ i18n.projects.tags.filters.ownership.label }}</label>
 						<div class="col-md-9">
-							<select id="ownership" ng-model="filter.simple.Ownership" class="form-control">
+							<select ng-model="filter.simple.Ownership" class="form-control">
 								<option value="Personal">{{ i18n.projects.tags.filters.ownership.personal }}</option>
 								<option value="Common">{{ i18n.projects.tags.filters.ownership.common }}</option>
 							</select>
@@ -23,7 +24,7 @@
 						</div>
 					</div>
 				</form>
-			</filter>
+			</div>
 		</div>
 
 		<div class="col-lg-12">
