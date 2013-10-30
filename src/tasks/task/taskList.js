@@ -20,7 +20,7 @@ angular.module('tasks')
 					menu: 'tasks.list',
 					breadcrumbs: [{
 						name: i18n.msg('tasks.list.title'),
-						url: '/#!/'
+						url: '#!/'
 					}]
 				});
 			}
