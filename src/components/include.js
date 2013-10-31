@@ -28,7 +28,6 @@ sysConfig.modules['components'] = {
 		"components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js",
 
 		"components/angular-unstable/angular.js",
-		"src/components/angular-cookies.js",
 		//"components/angular-unstable/angular.min.js",
 		//"components/angular-1.0.7/angular.min.js",
 

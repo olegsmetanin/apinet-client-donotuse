@@ -1,25 +1,30 @@
-<div class="filteringComponent userFilter">
-	<div class="buttons btn-group">
-		<button class="btn" disabled="disabled" title="{{ i18n.core.filters.buttons.newNode }}" ng-click="newNode()" ng-disabled="!newNodeEnabled">
-			<i class="icon-plus"></i>
-		</button>
-		<button class="btn" disabled="disabled" title="{{ i18n.core.filters.buttons.editNode }}" ng-click="editNode()" ng-disabled="!editNodeEnabled">
-			<i class="icon-pencil"></i>
-		</button>
-		<button class="btn" disabled="disabled" title="{{ i18n.core.filters.buttons.deleteNode }}" ng-click="deleteNode()" ng-disabled="!deleteNodeEnabled">
-			<i class="icon-minus"></i>
-		</button>
-	</div>
-	<div class="nodesContainer">
-		<div user-filter-node
-		     node="rootNode"
-		     root-node="rootNode"
-		     shared="shared">
+<div class="filteringComponent">
+	<div class="box-toolbox box-toolbox-top">
+		<div class="pull-left btn-group">
+			<button class="btn btn-success" disabled="disabled" title="{{ i18n.core.filters.buttons.newNode }}" ng-click="newNode()" ng-disabled="!newNodeEnabled">
+				<i class="icon-plus"></i>
+			</button>
+			<button class="btn btn-primary" disabled="disabled" title="{{ i18n.core.filters.buttons.editNode }}" ng-click="editNode()" ng-disabled="!editNodeEnabled">
+				<i class="icon-pencil"></i>
+			</button>
+			<button class="btn btn-danger" disabled="disabled" title="{{ i18n.core.filters.buttons.deleteNode }}" ng-click="deleteNode()" ng-disabled="!deleteNodeEnabled">
+				<i class="icon-minus"></i>
+			</button>
+		</div>
+		<div class="pull-right">
+			<button class="btn btn-warning" title="{{ i18n.core.buttons.clear }}" ng-click="clear()" ng-disabled="!clearEnabled">
+				<i class="icon-remove-circle icon-white"></i> {{ i18n.core.buttons.clear }}
+			</button>
 		</div>
 	</div>
-	<div class="buttons btn-group">
-		<button class="btn btn-warning" title="{{ i18n.core.buttons.clear }}" ng-click="clear()" ng-disabled="!clearEnabled">
-			<i class="icon-remove-circle icon-white"></i> {{ i18n.core.buttons.clear }}
-		</button>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div user-filter-node
+			     node="rootNode"
+			     root-node="rootNode"
+			     shared="shared">
+			</div>
+		</div>
 	</div>
 </div>

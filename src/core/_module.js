@@ -3,7 +3,7 @@ angular.module('core', ['ui.state', 'ui.bootstrap', 'core.security', 'core.templ
     'ui.bootstrap.datepicker', 
     //'ui.bootstrap.datetimepicker', 
     'ui.select2',
-	'infinite-scroll', 'ngCookies']);
+	'infinite-scroll']);
 
 angular.module('core')
     .config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
