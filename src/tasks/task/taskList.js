@@ -43,6 +43,7 @@ angular.module('tasks')
 	function($scope, sysConfig, apinetService, $window, i18n) {
 
 	$scope.propsFilterCollapsed = true;
+	$scope.tasksCollapsed = false;
 
 	$scope.$on('resetFilter', function() {
 		$scope.filter.simple = {

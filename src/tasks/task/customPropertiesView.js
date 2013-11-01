@@ -48,9 +48,9 @@ angular.module('tasks')
 			};
 
 			$scope.hasEditError = function(param, form) {
-				return ($scope.isStr(param.Type) && form.str.$invalid) || 
-					($scope.isNum(param.Type) && (form.num.$invalid || !/^\d+(\.\d+)?$/.test(form.num.$viewValue))) || 
-					($scope.isDate(param.Type) && form.dt.$invalid);
+				return ($scope.isStr(param.Type) && form.str && form.str.$invalid) || 
+					($scope.isNum(param.Type) && form.num && (form.num.$invalid || !/^\d+(\.\d+)?$/.test(form.num.$viewValue))) || 
+					($scope.isDate(param.Type) && form.dt && form.dt.$invalid);
 			};
 
 			$scope.valueToString = function(param) {

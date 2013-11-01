@@ -115,7 +115,7 @@ angular.module('tasks').run(['i18n', function(i18n) {
 			'title': 'Tasks',
 
 			'filters': {
-				'custom': 'Predefinded templates',
+				'custom': 'Predefinded',
 				'predefined': {
 					'all': 'All tasks',
 					'overdue': 'Overdued tasks',

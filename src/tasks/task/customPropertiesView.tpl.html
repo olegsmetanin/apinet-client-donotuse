@@ -14,11 +14,9 @@
 			<ago-error-msg></ago-error-msg>
 			<form name="form" class="form-inline" novalidate>
 				<div class="row" ng-class="{'has-error': editables.focused && hasAddError()}">
-					<!-- ng-class="{'has-error': form.ptype.$error.required}" -->
 					<div class="col-sm-5" style="padding-right: 0px" >
 						<input name="ptype" type="text" lookup="tasks/tasks/lookupParamTypes" ng-model="editables.type" class="form-control" ng-required="editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false" />
 					</div>
-					<!-- ng-class="{'has-error': hasAddError()}" -->
 					<div class="col-sm-7 input-group" style="padding-left: 0px" >
 						<!-- string -->
 						<input name="str" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.string}}" ng-show="isStr()" ng-model="editables.value" ng-required="isStr() && editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
@@ -43,10 +41,10 @@
 				</div>
 			</form>
 		</div>
-		<p ng-hide="model.Parameters">
+		<p ng-hide="model.Parameters.length">
 			<span class="text-muted">{{ i18n.tasks.view.params.empty }}</span>
 		</p>
-		<table class="table" ng-show="model.Parameters">
+		<table class="table" ng-show="model.Parameters.length">
 			<thead>
 				<tr>
 					<th class="col-xs-4">{{ i18n.core.fields.customProperties.type }}</th>
