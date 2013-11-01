@@ -1,52 +1,53 @@
-<div class="box ">
-	<div class="box-header green-background">
-		<div class="title">
-			<i class="icon-table"></i>
-			{{ i18n.tasks.view.statusHistory.title }}
-		</div>
-		<div class="actions">
-			<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
-		</div>
+<div>
+<ago-box color="green" title-click-collapse collapsible="true" large="true" collapsed="historyCollapsed">
+	<ago-box-title>
+		<i class="icon-table"></i>
+		{{ i18n.tasks.view.statusHistory.title }}
+	</ago-box-title>
+	<ago-box-actions>
+		<a class="btn btn-xs btn-link">
+			<i class="fa" ng-class="{ 'icon-chevron-up': !historyCollapsed, 'icon-chevron-down': historyCollapsed }"></i>
+		</a>
+	</ago-box-actions>
+	
+	<div class="box-toolbox box-toolbox-top">
+		<button type="button" class="btn" ng-class="statusColor(n.id)" ng-repeat="n in model.Next" ng-click="changeStatus(n)" style="margin-right: 5px">
+			<i ng-class="statusIcon(n.id)"></i>
+			{{ n.text }}
+		</button>
 	</div>
-	<div class="box-content">
-		<div class="box-toolbox box-toolbox-top">
-			<button type="button" class="btn" ng-class="statusColor(n.id)" ng-repeat="n in model.Next" ng-click="changeStatus(n)" style="margin-right: 5px">
-				<i ng-class="statusIcon(n.id)"></i>
-				{{ n.text }}
-			</button>
-		</div>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>{{ i18n.tasks.view.statusHistory.fields.status }}</th>
-					<th>{{ i18n.tasks.view.statusHistory.fields.author }}</th>
-					<th>{{ i18n.tasks.view.statusHistory.fields.effectivePeriod }}</th>
-					<th>{{ i18n.tasks.view.statusHistory.fields.duration }}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="h in model.History">
-					<td>
-						<button type="button" class="btn disabled" ng-class="statusColor(h.Status.id)">
-							<i ng-class="statusIcon(h.Status.id)"></i>
-							{{ h.Status.text }}
-						</button>
-					</td>
-					<td>{{ h.Author }}</td>
-					<td>
-						{{ 
-							i18n.msg('tasks.view.statusHistory.period', {
-									start: (h.Start | date:'ago_datetime'), 
-									finish: ((h.Finish | date:'ago_datetime') || i18n.core.labels.presentTime) 
-								}) 
-						}}
-					</td>
-					<td>
-						{{ duration(h) | date:'ago_datetime' }}
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>{{ i18n.tasks.view.statusHistory.fields.status }}</th>
+				<th>{{ i18n.tasks.view.statusHistory.fields.author }}</th>
+				<th>{{ i18n.tasks.view.statusHistory.fields.effectivePeriod }}</th>
+				<th>{{ i18n.tasks.view.statusHistory.fields.duration }}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="h in model.History">
+				<td>
+					<button type="button" class="btn disabled" ng-class="statusColor(h.Status.id)">
+						<i ng-class="statusIcon(h.Status.id)"></i>
+						{{ h.Status.text }}
+					</button>
+				</td>
+				<td>{{ h.Author }}</td>
+				<td>
+					{{ 
+						i18n.msg('tasks.view.statusHistory.period', {
+								start: (h.Start | date:'ago_datetime'), 
+								finish: ((h.Finish | date:'ago_datetime') || i18n.core.labels.presentTime) 
+							}) 
+					}}
+				</td>
+				<td>
+					{{ duration(h) | date:'ago_datetime' }}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</ago-box>
 </div>

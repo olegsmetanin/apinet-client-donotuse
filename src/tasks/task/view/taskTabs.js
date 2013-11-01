@@ -1,5 +1,5 @@
 angular.module('tasks')
-.directive('tasTabs', ['$rootScope', function($rootScope) {
+.directive('taskTabs', ['$rootScope', function($rootScope) {
 	return {
 		restrict: 'E',
 		replace: true,

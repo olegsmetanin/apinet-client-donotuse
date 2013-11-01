@@ -18,6 +18,7 @@ angular.module('tasks')
 				value: null,
 				focused: false
 			};
+			$scope.paramsCollapsed = false;
 
 			var isValueTypeMatch = function(needed, type) {
 				type = type || $scope.editables.type;

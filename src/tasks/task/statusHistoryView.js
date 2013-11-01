@@ -3,7 +3,7 @@ angular.module('tasks')
 	function(sysConfig, $rootScope, taskStatuses, $locale) {
 
 	return {
-		restrict: 'E',
+		restrict: 'EA',
 		replace: true,
 		templateUrl: sysConfig.src('tasks/task/statusHistoryView.tpl.html'),
 		scope: {
@@ -12,6 +12,7 @@ angular.module('tasks')
 		},
 		link: function(scope, elm, attr) {
 			scope.i18n = $rootScope.i18n;
+			scope.historyCollapsed = false;
 
 			var pluralDurationPart = function(cnt, type, omitZero) {
 				if (omitZero && cnt <= 0) return '';

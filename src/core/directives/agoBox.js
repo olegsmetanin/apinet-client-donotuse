@@ -79,6 +79,7 @@ angular.module('core')
 				$scope.$watch('collapsible', this.collapsibleWatcher);
 				$scope.$watch('titleClickCollapse', this.titleClickCollapseWatcher);
 
+				//TODO realy needs this call?
 				this.colorWatcher($scope.color);
 				this.borderWatcher($scope.border);
 				this.largeWatcher($scope.large);
@@ -134,6 +135,33 @@ angular.module('core')
 			require: '^agoBox',
 			link: function($scope, element, attrs, agoBoxCtrl) {
 				$scope.$watch(function() { return agoBoxCtrl.actionsContent; }, function(value) {
+					if (!value) {
+						return;
+					}
+					element.html(angular.element(value));
+				});
+			}
+		};
+	})
+	.directive('agoBoxContent', function() {
+		return {
+			restrict: 'EA',
+			replace: true,
+			transclude: true,
+			template: '',
+			require: '^agoBox',
+			compile: function(tElement, tAttr, transcludeFn) {
+				return function($scope, element, attrs, agoBoxCtrl) {
+					agoBoxCtrl.contentContent = transcludeFn(agoBoxCtrl.$scope.$parent, function() {});
+				};
+			}
+		};
+	})
+	.directive('agoBoxContentTransclude', function() {
+		return {
+			require: '^agoBox',
+			link: function($scope, element, attrs, agoBoxCtrl) {
+				$scope.$watch(function() { return agoBoxCtrl.contentContent; }, function(value) {
 					if (!value) {
 						return;
 					}
