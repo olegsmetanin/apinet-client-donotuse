@@ -38,6 +38,6 @@ define([
 	'./directives/header/tabBar',
 	'./directives/header/topTabBar',
 
-	'css!./directives/assets/spinner',
-	'css!./directives/assets/inline-edit'
+	'css!./directives/assets/spinner.css',
+	'css!./directives/assets/inline-edit.css'
 ]);

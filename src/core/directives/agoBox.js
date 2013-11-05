@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef', 'text!./agoBox.tpl.html', 'css!./agoBox'], function (angular, module, tpl) {
+define(['angular', '../moduleDef', 'text!./agoBox.tpl.html', 'css!./agoBox.css'], function (angular, module, tpl) {
 	module.directive('agoBox', ['sysConfig', function(sysConfig) {
 		return {
 			restrict: 'EA',

@@ -7,10 +7,10 @@ define([
 		$stateProvider.state('page', {
 			url: '',
 			abstract: true,
-			template: tpl
-			/*resolve: {
+			template: tpl,
+			resolve: {
 				authUser: securityAuthorizationProvider.requireAuthenticatedUser()
-			}*/
+			}
 		});
 	}])
 	.controller('HeaderCtrl', ['$scope', 'security', /*'moduleMenuUrl'*/, 'sysConfig', 'pageConfig',
