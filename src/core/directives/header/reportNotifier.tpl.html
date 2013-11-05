@@ -1,0 +1,74 @@
+<li class="dropdown light only-icon">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		<i class="icon-print"></i>
+		<div ng-show="badge !== ''" class="label">{{badge}}</div>
+	</a>
+	<ul class="dropdown-menu">
+		<li>
+			<a href="#">
+				<div class='widget-body'>
+					<div class='pull-left icon'>
+						<a onclick="event.stopPropagation();" ng-click="updateUnreadUserReports()"><i ng-class="{'icon-spin':updating}" class="icon-refresh"></i></a>
+					</div>
+					<div class='pull-left text'>
+						<a href="#!/userReports">View all reports</a>
+					</div>
+				</div>
+			</a>
+		</li>
+		<li ng-show="showGenerating" class="divider"></li>
+		<li ng-show="showGenerating" class="text-center">Last 5 generating reports</li>
+		<li ng-show="showGenerating" ng-repeat="report in generating">
+			<a href="#">
+				<div class='widget-body'>
+					<div class='pull-left icon'>
+						<i class="icon-cog icon-spin"></i>
+					</div>
+					<div class='pull-left text'>
+						{{report.Percent}}%
+						<button ng-click="cancelReportGeneration($index)" onclick="event.stopPropagation();" class="btn btn-mini btn-danger" type="button">Cancel</button>
+						{{report.Name}}
+					</div>
+				</div>
+			</a>
+<!--             <div style="padding: 3px 20px;">
+                <i class="icon-cog icon-spin"></i>&nbsp; {{report.Percent}}%
+                <button ng-click="cancelReportGeneration($index)" onclick="event.stopPropagation();" class="btn btn-mini btn-danger" type="button">Cancel</button>
+                {{report.Name}}
+            </div>
+ -->
+        </li>
+
+
+       <!--  <li>
+            <span style="padding: 3px 20px;">
+                <a onclick="event.stopPropagation();" class="dropdown-menu-sub-header" ng-click="updateUnreadUserReports()"><i ng-class="{'icon-spin':updating}" class="icon-refresh"></i></a>
+                <a href="#!/userReports" class="dropdown-menu-sub-footer">View all reports</a>
+            </span>
+        </li> -->
+
+        <!-- <li ng-show="showGenerating" class="nav-header">Last 5 generating reports</li> -->
+       <!--  <li ng-show="showGenerating" ng-repeat="report in generating">
+
+            <div style="padding: 3px 20px;">
+                <i class="icon-cog icon-spin"></i>&nbsp; {{report.Percent}}%
+                <button ng-click="cancelReportGeneration($index)" onclick="event.stopPropagation();" class="btn btn-mini btn-danger" type="button">Cancel</button>
+                {{report.Name}}
+            </div>
+
+
+        </li> -->
+		<li ng-show="showDone" class="divider"></li>
+		<li ng-show="showDone" class="text-center">Last 5 unread reports</li>
+        <li ng-show="showDone" ng-repeat="report in done">
+        	<div class='widget-body'>
+				<div class='pull-left icon'>
+					<i class='icon-user text-success'></i>
+				</div>
+				<div class='pull-left text'>
+					{{report.Name}}
+				</div>
+			</div>
+        </li>
+    </ul>
+</li>
