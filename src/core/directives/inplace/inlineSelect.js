@@ -8,6 +8,7 @@ define(['angular', '../../moduleDef'], function (angular, module) {
 					(attr.inputClass ? ' ' + attr.inputClass + '"' : '"') +
 					(attr.hasOwnProperty('required') ? ' required="true"' : '') +
 					(attr.options ? ' ng-options="' + attr.options + '"' : '') +
+					' ng-change="update();"'+
 					' ng-model="emodel.value" ng-readonly="waiting"></select>';
 
 				var viewTmpl = '<span class="editable" ng-hide="editMode" ng-click="edit()">{{ ' +

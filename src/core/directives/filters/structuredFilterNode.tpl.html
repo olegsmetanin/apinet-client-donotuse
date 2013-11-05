@@ -1,5 +1,5 @@
 <div class="nodePanel">
-	<form ng-show="!root" class="form-inline nodeData" novalidate
+	<form ng-show="!root" class="form-inline nodeData" novalidate ng-class="{ 'hasError': !context.validation.valid }"
 	      ng-mouseenter="context.hover = true;" ng-mouseleave="context.hover = false;">
 		<div ng-show="context.path.visible && !context.op.dirty && !context.value.dirty"
 		     ng-class="{'form-group': true, 'has-error': context.validation.path.length }">
@@ -8,7 +8,7 @@
 				    on-begin-edit="context.editing = true;"
 					on-changed="context.path.dirty = true;"
 					on-cancel="context.path.dirty = false; context.editing = false;"
-					on-update="editingNode.path = val; nodeUpdated();">
+					on-update="nodeUpdated('path', val);">
 				</inline-select>
 			</strong>
 		</div>
@@ -18,7 +18,7 @@
 				on-begin-edit="context.editing = true;"
 				on-changed="context.op.dirty = true;"
 				on-cancel="context.op.dirty = false; context.editing = false;"
-				on-update="editingNode.op = val; nodeUpdated();">
+				on-update="nodeUpdated('op', val);">
 			</inline-select>
 		</div>
 		<div ng-show="context.value.visible && !context.path.dirty && !context.op.dirty"
@@ -27,7 +27,7 @@
 				on-begin-edit="context.editing = true;"
 				on-changed="context.value.dirty = true;"
 				on-cancel="context.value.dirty = false; context.editing = false;"
-				on-update="editingNode.value = val; nodeUpdated();">
+				on-update="nodeUpdated('value', val);">
 			</inline-text>
 		</div>
 		<button class="btn btn-sm btn-success" title="{{ i18n.core.filters.buttons.newNode }}"

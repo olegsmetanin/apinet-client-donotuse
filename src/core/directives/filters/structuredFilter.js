@@ -126,7 +126,12 @@ define([
 						i18n: $rootScope.i18n,
 						editingNode: angular.extend({ }, $scope.node),
 
-						nodeUpdated: function() {
+						nodeUpdated: function(property, value) {
+							if(property && $scope.context.hasOwnProperty(property)) {
+								$scope.context[property].dirty = true;
+								$scope.editingNode[property] = value;
+							}
+
 							if($scope.context.metadata) {
 								$filteringService.afterNodeEdit($scope.editingNode, $scope.context.metadata);
 							}
@@ -141,7 +146,7 @@ define([
 								ctx = $scope.context;
 								ctx.metadata = metadata;
 
-								if(!ctx.op.options) {
+								if(!ctx.op.options || !ctx.op.options.length) {
 									ctx.op.options = $filter('applicableOps')($filteringService.allOps(), metadata);
 									if(!$scope.editingNode.op && ctx.op.options.length) {
 										$scope.editingNode.op = ctx.op.options[0];
@@ -154,7 +159,7 @@ define([
 									}
 								}
 								
-								if(!ctx.path.options) {
+								if(!ctx.path.options || !ctx.path.options.length) {
 									$scope.getParentMetadata({
 										callback: function(parentMeta) {
 											ctx.path.options = $filteringService.applicablePaths(parentMeta);
@@ -179,7 +184,8 @@ define([
 									ctx.path.editable = true;
 									ctx.op.editable = ctx.op.visible = !!$scope.editingNode.path;
 
-									ctx.value.editable = ctx.value.visible = !!$scope.editingNode.path && !!$scope.editingNode.op;
+									ctx.value.editable = ctx.value.visible = !!$scope.editingNode.path &&
+										!!$scope.editingNode.op && !$filteringService.isUnaryNode($scope.editingNode);
 									if(ctx.value.editable) {
 										ctx.value.editorType = 'text';
 									}

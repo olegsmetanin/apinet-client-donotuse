@@ -90,7 +90,7 @@ define(['angular', '../../moduleDef', 'css!./inlineEdit.css'], function (angular
 							value !== value;
 					};
 
-					scope.onBlur = function (e) {
+					scope.onBlur = function () {
 						if (!scope.isChanged) {
 							scope.$apply(scope.cancel);
 						}
@@ -98,9 +98,7 @@ define(['angular', '../../moduleDef', 'css!./inlineEdit.css'], function (angular
 
 					angular.element(scope.elInput).on('keydown', function (e) {
 						var isTextArea = $(scope.elInput).is('textarea');
-						var isSubmit = isTextArea
-							? (e.ctrlKey || e.metaKey) && e.keyCode === 13
-							: e.keyCode === 13;
+						var isSubmit = isTextArea ? (e.ctrlKey || e.metaKey) && e.keyCode === 13 : e.keyCode === 13;
 						var isEsc = e.keyCode === 27;
 
 						if (isSubmit) {
@@ -112,6 +110,11 @@ define(['angular', '../../moduleDef', 'css!./inlineEdit.css'], function (angular
 					});
 
 					angular.element(scope.elInput).on('blur', scope.onBlur);
+
+					scope.$on('update', function() {
+						console.log('updating by event');
+						scope.update();
+					});
 				}
 			};
 		}]);
