@@ -125,12 +125,12 @@
 									<th class="onepct">
 										<input type="checkbox" checker="items: 'models'">
 									</th>
-									<th class="col-xs-2"><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
+									<th class="col-xs-1"><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
 									<th class="col-xs-3"><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
 									<th class="col-xs-3">{{ i18n.tasks.fields.executors }}</th>
 									<th class="col-xs-2"><span sortable-heading="sorters.DueDate" caption="{{ i18n.tasks.fields.dueDate }}"></span></th>
-									<th><span sortable-heading="sorters.Status" caption="{{ i18n.tasks.fields.status }}"></span></th>
-									<th><span sortable-heading="sorters.CustomStatus_Name" caption="{{ i18n.tasks.fields.customStatus }}"></span></th>
+									<th class="col-xs-2"><span sortable-heading="sorters.Status" caption="{{ i18n.tasks.fields.status }}"></span></th>
+									<th class="col-xs-2"><span sortable-heading="sorters.CustomStatus_Name" caption="{{ i18n.tasks.fields.customStatus }}"></span></th>
 									<th class="onepct">&nbsp;</th>
 								</tr>
 							</thead>
@@ -204,9 +204,7 @@
 								</tr>
 							</tbody>
 						</table>
-
-						<div ng-show="indication.loading" us-spinner="{top:100}"></div>
-					</div><!-- scrollable-area -->
+					</div><!-- scrollable-area-->
 				</div><!-- responsive-table -->
 
 				<div class="box-toolbox box-toolbox-bottom">

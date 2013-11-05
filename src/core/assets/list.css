@@ -1,0 +1,18 @@
+.onepct {
+	width: 1%;
+}
+
+.clip-content {
+	text-overflow: ellipsis; 
+	overflow: hidden; 
+	white-space: nowrap;
+	color: #656b6b;
+}
+
+.responsive-table .scrollable-area {
+	overflow-x: auto;
+}
+
+.responsive-table .scrollable-area table.table {
+	margin-bottom: 0px;
+}

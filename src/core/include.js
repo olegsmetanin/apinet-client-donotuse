@@ -4,7 +4,9 @@ sysConfig.modules['core'] = {
 		'src/core/assets/agoBox.css',
 		'src/core/assets/spinner.css',
 		'src/core/assets/inline-edit.css',
-		'src/core/assets/inputs.css'
+		'src/core/assets/inputs.css',
+		'src/core/assets/form.css',
+		'src/core/assets/list.css'
 	],
 	js: [
 		'src/core/_module.js',

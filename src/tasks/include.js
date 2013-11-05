@@ -1,8 +1,5 @@
 sysConfig.modules['tasks'] = {
-	css: [
-		'src/tasks/assets/lists.css',
-		'src/tasks/assets/form.css'
-	],
+	css: [ ],
 	js: [
 		'src/tasks/_module.js',
 		'src/tasks/task/taskList.js',
