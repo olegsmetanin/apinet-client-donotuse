@@ -53,7 +53,7 @@
 
 			<div class="row box">
 				<div class="col-lg-12">
-					<div class="box-content box-padding">
+					<div class="box-content">
 						<div class="box-toolbox box-toolbox-top" ng-show="currentUser.admin">
 							<ago-error-msg></ago-error-msg>
 
@@ -135,11 +135,7 @@
 						</div>
 
 						<div class="box-toolbox box-toolbox-bottom">
-							<label class="pull-left">{{ 'core.filters.displayedRecords' | i18n:{ count: (models || []).length } }}</label>
-							<div class="pull-right">
-								<button type="button" class="btn btn-success" ng-click="paging.page = paging.page + 1"
-								        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
-							</div>
+							<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
 						</div>
 					</div>
 				</div>

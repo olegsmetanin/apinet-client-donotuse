@@ -79,10 +79,7 @@
 
 				<div class="responsive-table">
 					<div class="scrollable-area">
-						<table class="table table-bordered"
-						       infinite-scroll="paging.page = paging.page + 1"
-						       infinite-scroll-disabled="applyEnabled"
-						       infinite-scroll-distance="1">
+						<table class="table table-bordered">
 							<thead>
 								<tr>
 									<th><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
@@ -114,8 +111,7 @@
 				</div>
 
 				<div class="box-toolbox box-toolbox-bottom">
-					<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-					        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
+					<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
 				</div>
 				
 			</ago-box>
