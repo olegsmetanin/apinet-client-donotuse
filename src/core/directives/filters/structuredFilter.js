@@ -57,7 +57,7 @@ define([
 						}
 					});
 
-					var rootNodeWatch = function(value) {
+					$scope.$watch('rootNode', function(value) {
 						if(value) {
 							value.op = '&&';
 							delete value.path;
@@ -69,10 +69,9 @@ define([
 						}
 						else {
 							$scope.rootNode = { op: '&&', items: [ ] };
+							$scope.clear();
 						}
-					};
-					rootNodeWatch($scope.rootNode);
-					$scope.$watch('rootNode', rootNodeWatch);
+					}, true);
 				}]
 			};
 		}
@@ -273,6 +272,7 @@ define([
 					$scope.renderSubNodes = function() {
 						childrenContainer.html('');
 
+						$scope.node = $scope.node || { };
 						$scope.node.items = $scope.node.items || [];
 						for(var i = 0; i < $scope.node.items.length; i++) {
 							$scope.appendSubNode(i);

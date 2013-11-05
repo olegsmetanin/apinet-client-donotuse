@@ -1,8 +1,7 @@
 <div class="nodePanel">
 	<form ng-show="!root" class="form-inline nodeData" novalidate ng-class="{ 'hasError': !context.validation.valid }"
 	      ng-mouseenter="context.hover = true;" ng-mouseleave="context.hover = false;">
-		<div ng-show="context.path.visible && !context.op.dirty && !context.value.dirty"
-		     ng-class="{'form-group': true, 'has-error': context.validation.path.length }">
+		<div ng-show="context.path.visible" ng-class="{'form-group': true, 'has-error': context.validation.path.length }">
 			<strong>
 				<inline-select model="editingNode.path" options="path.value as path.label for path in context.path.options"
 				    on-begin-edit="context.editing = true;"
@@ -12,8 +11,7 @@
 				</inline-select>
 			</strong>
 		</div>
-		<div ng-show="context.op.visible && !context.path.dirty && !context.value.dirty"
-		     ng-class="{'form-group': true, 'has-error': context.validation.op.length }">
+		<div ng-show="context.op.visible" ng-class="{'form-group': true, 'has-error': context.validation.op.length }">
 			<inline-select model="editingNode.op" options="op.value as op.label for op in context.op.options"
 				on-begin-edit="context.editing = true;"
 				on-changed="context.op.dirty = true;"
@@ -21,8 +19,7 @@
 				on-update="nodeUpdated('op', val);">
 			</inline-select>
 		</div>
-		<div ng-show="context.value.visible && !context.path.dirty && !context.op.dirty"
-		     ng-class="{'form-group': true, 'has-error': context.validation.value.length }">
+		<div ng-show="context.value.visible" ng-class="{'form-group': true, 'has-error': context.validation.value.length }">
 			<inline-text model="editingNode.value"
 				on-begin-edit="context.editing = true;"
 				on-changed="context.value.dirty = true;"
