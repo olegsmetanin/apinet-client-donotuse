@@ -142,8 +142,8 @@
 										<a href="#!/tasks/{{model.SeqNumber}}" style="white-space: nowrap">
 											{{ model.SeqNumber }}
 										</a>
-										<a href="" class="btn btn-primary btn-xs" data-toggle="button" ng-click="toggleDetails(model)">
-											<i class="fa icon-info"></i>
+										<a href="" class="btn btn-primary btn-sm" data-toggle="button" ng-click="toggleDetails(model)">
+											<i class="fa" ng-class="{ 'icon-chevron-up': model.details.expanded, 'icon-chevron-down': !model.details.expanded }"></i>
 										</a>
 									</td>
 									<td>
