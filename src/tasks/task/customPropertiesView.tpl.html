@@ -14,10 +14,10 @@
 			<ago-error-msg></ago-error-msg>
 			<form name="form" class="form-inline" novalidate>
 				<div class="row" ng-class="{'has-error': editables.focused && hasAddError()}">
-					<div class="col-sm-5" style="padding-right: 0px" >
+					<div class="col-sm-5">
 						<input name="ptype" type="text" lookup="tasks/tasks/lookupParamTypes" ng-model="editables.type" class="form-control" ng-required="editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false" />
 					</div>
-					<div class="col-sm-7 input-group" style="padding-left: 0px" >
+					<div class="col-sm-7 input-group">
 						<!-- string -->
 						<input name="str" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.string}}" ng-show="isStr()" ng-model="editables.value" ng-required="isStr() && editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
 						<!-- number -->
