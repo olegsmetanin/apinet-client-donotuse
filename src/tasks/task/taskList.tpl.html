@@ -125,10 +125,10 @@
 									<th class="onepct">
 										<input type="checkbox" checker="items: 'models'">
 									</th>
-									<th><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
-									<th><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
-									<th style="width: 20%">{{ i18n.tasks.fields.executors }}</th>
-									<th><span sortable-heading="sorters.DueDate" caption="{{ i18n.tasks.fields.dueDate }}"></span></th>
+									<th class="col-xs-2"><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
+									<th class="col-xs-3"><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
+									<th class="col-xs-3">{{ i18n.tasks.fields.executors }}</th>
+									<th class="col-xs-2"><span sortable-heading="sorters.DueDate" caption="{{ i18n.tasks.fields.dueDate }}"></span></th>
 									<th><span sortable-heading="sorters.Status" caption="{{ i18n.tasks.fields.status }}"></span></th>
 									<th><span sortable-heading="sorters.CustomStatus_Name" caption="{{ i18n.tasks.fields.customStatus }}"></span></th>
 									<th class="onepct">&nbsp;</th>
@@ -137,13 +137,16 @@
 							<!-- TODO waiting for new angular version
 							http://stackoverflow.com/questions/16900050/angular-js-ng-repeat-across-multiple-elements -->
 							<tbody ng-repeat="model in models">
-								<tr ng-click="toggleDetails(model)">
+								<tr>
 									<td>
 										<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 									</td>
 									<td>
 										<a href="#!/tasks/{{model.SeqNumber}}" style="white-space: nowrap">
 											{{ model.SeqNumber }}
+										</a>
+										<a href="" class="btn btn-primary btn-xs" data-toggle="button" ng-click="toggleDetails(model)">
+											<i class="fa icon-info"></i>
 										</a>
 									</td>
 									<td>
