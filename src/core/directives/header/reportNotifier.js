@@ -1,8 +1,8 @@
-define(['angular', '../../moduleDef', 'text!./eventNotifier.tpl.html'], function (angular, module, tpl) {
-	module.directive('reportNotifier', ['security', 'sysConfig', 'reportService', '$timeout',
-		function(security, sysConfig, reportService, $timeout) {
+define(['angular', '../../moduleDef', 'text!./reportNotifier.tpl.html'], function (angular, module, tpl) {
+	module.directive('reportNotifier', ['security', 'reportService', '$timeout',
+		function(security, reportService, $timeout) {
 			var directive = {
-				templateUrl: sysConfig.src('core/parts/header/reportNotifier/reportNotifier.tpl.html'),
+				template: tpl,
 				restrict: 'EA',
 				replace: true,
 				scope: true,
@@ -67,3 +67,4 @@ define(['angular', '../../moduleDef', 'text!./eventNotifier.tpl.html'], function
 			return directive;
 		}
 	]);
+});

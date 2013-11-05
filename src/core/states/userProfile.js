@@ -1,7 +1,8 @@
 define([
 	'angular',
 	'../moduleDef',
-	'text!./userProfile.tpl.html'
+	'text!./userProfile.tpl.html',
+	'./page'
 ], function (angular, module, tpl) {
 	module.config(['$stateProvider', 'securityAuthorizationProvider', 'sysConfig',
 		function($stateProvider, securityAuthorizationProvider, sysConfig) {

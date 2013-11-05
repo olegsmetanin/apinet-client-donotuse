@@ -9,24 +9,22 @@ define([
 	'i18n!nls/angular',
 	'i18n!ago/nls/core'
 ], function(module, requireModule) {
-	return module.constant('sysConfig', requireModule.config().sysConfig)
-	.value('strapConfig', {
-		language: 'en',
-		pickDate: true,
-		pickTime: false,
-		type: 'iso',
-		todayBtn: 'linked',
-		todayHighlight: 'true'
-	})
-	.config(['$locationProvider', function ($locationProvider) {
-		$locationProvider.hashPrefix('!');
-	}])
-	.run(['$rootScope', '$state', '$stateParams', 'security', 'strapConfig', 'sysConfig',
-		function ($rootScope, $state, $stateParams, security, strapConfig, sysConfig) {
+	var sysConfig = requireModule.config().sysConfig || { };
+
+	return module.constant('sysConfig', sysConfig)
+		.value('strapConfig', {
+			language: sysConfig.lang,
+			pickDate: true,
+			pickTime: false,
+			type: 'iso',
+			todayBtn: 'linked',
+			todayHighlight: 'true'
+		})
+		.config(['$locationProvider', function ($locationProvider) {
+			$locationProvider.hashPrefix('!');
+		}])
+		.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
 			$rootScope.$state = $state;
 			$rootScope.$stateParams = $stateParams;
-
-			strapConfig.language = sysConfig.lang;
-		}
-	]);
+		}]);
 });

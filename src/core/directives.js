@@ -34,6 +34,7 @@ define([
 
 	'./directives/header/breadCrumbs',
 	'./directives/header/eventNotifier',
+	'./directives/header/reportNotifier',
 	'./directives/header/moduleMenu',
 	'./directives/header/tabBar',
 	'./directives/header/topTabBar',

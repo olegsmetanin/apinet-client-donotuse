@@ -7,5 +7,6 @@ define([
 	'./services/i18n',
 	'./services/metadataService',
 	'./services/moduleConfig',
-	'./services/pageConfig'
+	'./services/pageConfig',
+	'./services/reportService'
 ]);

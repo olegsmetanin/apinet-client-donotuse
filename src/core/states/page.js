@@ -9,8 +9,15 @@ define([
 			abstract: true,
 			template: tpl,
 			resolve: {
-				authUser: securityAuthorizationProvider.requireAuthenticatedUser()
-			}
+				i18n: 'i18n',
+				pageConfig: 'pageConfig',
+				promiseTracker: 'promiseTracker',
+				apinetService: 'apinetService',
+				currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
+			},
+			controller: ['$rootScope', 'currentUser', function($rootScope, currentUser) {
+				$rootScope.currentUser = currentUser;
+			}]
 		});
 	}])
 	.controller('HeaderCtrl', ['$scope', 'security', /*'moduleMenuUrl'*/, 'sysConfig', 'pageConfig',
