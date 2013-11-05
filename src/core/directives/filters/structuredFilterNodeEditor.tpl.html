@@ -20,9 +20,8 @@
 			</span>
 		</div>
 
-		<div ng-show="valueEditorUrl && valueEditorUrl.length" ng-class="{'form-group': true, 'has-error': validationErrors.value.length }">
-			<ng-include src="valueEditorUrl"></ng-include>
-
+		<div ng-show="editorType" ng-class="{'form-group': true, 'has-error': validationErrors.value.length }">
+			<div value-editor="{{editorType}}"></div>
 			<span class="help-block" ng-repeat="error in validationErrors.value">
 				{{ error }}
 			</span>

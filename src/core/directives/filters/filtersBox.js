@@ -1,5 +1,5 @@
 define(['angular', '../../moduleDef', 'text!./filtersBox.tpl.html'], function (angular, module, tpl) {
-	module.directive('filtersBox', ['sysConfig', function(sysConfig) {
+	module.directive('filtersBox', [function() {
 		return {
 			restrict: 'EA',
 			replace: true,
@@ -16,8 +16,8 @@ define(['angular', '../../moduleDef', 'text!./filtersBox.tpl.html'], function (a
 			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				angular.extend($scope, {
 					i18n: $rootScope.i18n,
-					collapsed: true,
-					structuredCollapsed: true,
+					collapsed: false,
+					structuredCollapsed: false,
 					favoritesCollapsed: true,
 
 					applyFilterClick: function(e) {
@@ -45,7 +45,7 @@ define(['angular', '../../moduleDef', 'text!./filtersBox.tpl.html'], function (a
 					if(value) {
 						return;
 					}
-					$scope.collapsed = true;
+					//$scope.collapsed = true;
 				}, true);
 			}]
 		};

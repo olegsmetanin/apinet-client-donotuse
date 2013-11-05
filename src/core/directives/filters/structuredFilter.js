@@ -3,10 +3,26 @@ define([
 	'../../moduleDef',
 	'text!./structuredFilter.tpl.html',
 	'text!./structuredFilterNode.tpl.html',
-	'text!./structuredFilterNodeEditor.tpl.html'
-], function (angular, module, tpl, nodeTpl, nodeEditorTpl) {
-	module.directive('structuredFilter', ['sysConfig', 'helpers', 'filteringService', 'metadataService',
-		function(sysConfig, $helpers, $filteringService, $metadataService) {
+	'text!./structuredFilterNodeEditor.tpl.html',
+	'text!./booleanValueEditor.tpl.html',
+	'text!./datetimeValueEditor.tpl.html',
+	'text!./dateValueEditor.tpl.html',
+	'text!./enumValueEditor.tpl.html',
+	'text!./textValueEditor.tpl.html'
+], function (angular, module, tpl, nodeTpl, nodeEditorTpl,
+             booleanEditorTpl, datetimeEditorTpl, dateEditorTpl, enumEditorTpl, textEditorTpl) {
+
+	var editorTpls = { };
+	module.directive('structuredFilter', ['$compile', 'helpers', 'filteringService', 'metadataService',
+		function($compile, $helpers, $filteringService, $metadataService) {
+			angular.extend(editorTpls, {
+				boolean: $compile(booleanEditorTpl),
+				datetime: $compile(datetimeEditorTpl),
+				date: $compile(dateEditorTpl),
+				enum: $compile(enumEditorTpl),
+				text: $compile(textEditorTpl)
+			});
+
 			return {
 				replace: true,
 				template: tpl,
@@ -120,8 +136,8 @@ define([
 			};
 		}
 	])
-	.directive('structuredFilterNode', ['sysConfig', 'helpers', 'filteringService', 'metadataService', '$compile',
-		function(sysConfig, $helpers, $filteringService, $metadataService, $compile) {
+	.directive('structuredFilterNode', ['helpers', 'filteringService', 'metadataService', '$compile',
+		function($helpers, $filteringService, $metadataService, $compile) {
 			return {
 				replace: true,
 				scope: {
@@ -360,8 +376,8 @@ define([
 				}
 			};
 		}])
-	.directive('structuredFilterNodeEditor', ['sysConfig', 'filteringService', '$filter',
-		function(sysConfig, $filteringService, $filter) {
+	.directive('structuredFilterNodeEditor', ['filteringService', '$filter',
+		function($filteringService, $filter) {
 			return {
 				replace: true,
 				template: nodeEditorTpl,
@@ -380,7 +396,7 @@ define([
 						paths: [],
 						ops: [],
 						opSelectVisible: false,
-						valueEditorUrl: null,
+						editorType: null,
 						tempNode: {
 							value: $scope.node.value
 						},
@@ -436,20 +452,17 @@ define([
 
 					$scope.$watch('node.op', function (value) {
 						$scope.getMetadata(function(metadata) {
-							$scope.valueEditorUrl = null;
+							$scope.editorType = null;
 
 							if(!value || !metadata.PropertyType || $filteringService.isUnaryNode($scope.node)) {
 								return;
 							}
 
-							var editorType = 'text';
+							$scope.editorType = 'text';
 							if (metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
 								metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
-								editorType = metadata.PropertyType;
+								$scope.editorType = metadata.PropertyType;
 							}
-
-							$scope.valueEditorUrl = sysConfig.src('core/directives/filters/') +
-								editorType + 'ValueEditor.tpl.html';
 						});
 					}, true);
 
@@ -508,5 +521,21 @@ define([
 				}
 			};
 		}
-	]);
+	])
+	.directive('valueEditor', [function() {
+		return {
+			replace: true,
+			link: function($scope, element, attrs) {
+				attrs.$observe('valueEditor', function(editorType) {
+					var linkFn = editorTpls[editorType];
+					if(!linkFn) {
+						return;
+					}
+					linkFn($scope, function(cloned) {
+						element.replaceWith(cloned);
+					});
+				});
+			}
+		};
+	}]);
 });

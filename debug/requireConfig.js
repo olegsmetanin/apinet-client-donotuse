@@ -33,8 +33,8 @@
 			'bootstrap': {
 				deps: ['jquery']
 			},
-			'bootstrap/plugins/tabdrop': {
-				deps: ['jquery']
+			'bootstrap/datepicker': {
+				deps: ['jquery', 'css!bootstrap/datepicker/theme']
 			},
 
 			'angular': {
@@ -86,7 +86,8 @@
 
 			'bootstrap': 'components/bootstrap/dist/js/bootstrap',
 			'bootstrap/theme': 'components/bootstrap/dist/css/bootstrap',
-			'bootstrap/plugins/tabdrop': 'src/components/flatty/javascripts/plugins/tabdrop/bootstrap-tabdrop',
+			'bootstrap/datepicker':	'components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker',
+			'bootstrap/datepicker/theme': 'components/eternicode-bootstrap-datepicker/bootstrap-datepicker/css/datepicker',
 
 			'angular': 'components/angular/angular',
 			'nls/en/angular': 'components/angular-i18n/angular-locale_en',

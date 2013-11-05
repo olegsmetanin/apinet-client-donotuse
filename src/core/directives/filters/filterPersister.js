@@ -1,5 +1,5 @@
 define(['angular', '../../moduleDef', 'text!./filterPersister.tpl.html'], function (angular, module, tpl) {
-	module.directive('filterPersister', ['sysConfig', 'apinetService', function(sysConfig, apinetService) {
+	module.directive('filterPersister', ['apinetService', function(apinetService) {
 		return {
 			replace: true,
 			template: tpl,
