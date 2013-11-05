@@ -2,3 +2,7 @@ div.ago-box div.box-header-clickable {
   cursor: pointer;
   *cursor: hand;
 }
+
+div.ago-box .box-toolbox {
+	overflow: initial !important; /*fixes button dropdown menu*/
+}
