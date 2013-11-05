@@ -73,7 +73,6 @@ angular.module('tasks')
 			$scope.editModel.name = '';
 			$scope.editModel.viewOrder = null;
 			$scope.editModel.focused = false;
-			//$scope.createStatusForm.$setValidity('integer', true);
 			$scope.createStatusForm.$setPristine();
 			$scope.createStatusForm.$setValidity('integer', true);
 		};
@@ -182,5 +181,4 @@ angular.module('tasks')
 
 		$scope.editModel = {id: null, name: '', viewOrder: null, focused: false};
 		$scope.deleteModel = { replacementStatus: null };
-		$timeout(function(){ $scope.createStatusForm.$setPristine(); }, 100);
 }]);

@@ -4,6 +4,17 @@
         initial-sorters="{ InternalSeqNumber: 'desc' }">
 	<div class="row" id="content-wrapper">
 		<div class="col-xs-12">
+			<!-- Title -->
+			<div class="row hidden-sm hidden-md hidden-lg">
+				<div class="col-xs-12">
+					<div class="page-header">
+						<h1 class="pull-left">
+							<i class="icon-tasks"></i>
+							<span>{{ i18n.tasks.list.title }}</span>
+						</h1>
+					</div>
+				</div>
+			</div>
 
 			<!-- Filter -->	
 			<div filters-box="filter" meta="tasks/tasks/taskMetadata" group="Tasks.Task" 

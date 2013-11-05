@@ -16,8 +16,8 @@ angular.module('tasks')
 				authUser: securityAuthorizationProvider.requireAuthenticatedUser()
 			},
 			onEnter: function(pageConfig, i18n) {
-				menu: 'tasks.dictionary.types',
 				pageConfig.setConfig({
+					menu: 'tasks.dictionary.types',
 					breadcrumbs: [
 						{ name: i18n.msg('tasks.list.title'), url: '#!/' },
 						{ name: i18n.msg('tasks.types.title'), url: '#!/dictionary/types' }]
@@ -36,7 +36,7 @@ angular.module('tasks')
 		};
 		var handleError = function(validation) {
 			$scope.resetValidation();
-			angular.extend($scope, validation);
+			angular.extend($scope.validation, validation);
 		};
 
 		$scope.removeFromModels = function(modelsToRemove) {
@@ -59,13 +59,23 @@ angular.module('tasks')
 				model: $scope.editModel})
 			.then(function(result) {
 				if(result.validation.success) {
-					$scope.editModel.name = '';
-					$scope.createTaskTypeForm.$setPristine();
+					$scope.dropChanges();
 					$scope.models.unshift(result.model);
 				} else {
-					handleError(result);
+					handleError(result.validation);
 				}
 			}, handleException);
+		};
+
+		$scope.dropChanges = function() {
+			$scope.resetValidation();
+			$scope.editModel.name = '';
+			$scope.editModel.focused = false;
+			$scope.createTaskTypeForm.$setPristine();
+		};
+
+		$scope.createEnabled = function() {
+			return $scope.editModel.name;
 		};
 
 		$scope.hasSelected = function() {
@@ -151,7 +161,6 @@ angular.module('tasks')
 			model.validation = {};
 		};
 
-		$scope.requestParams = { project: sysConfig.project };
 		$scope.editModel = {id: null, name: ''};
 		$scope.deleteModel = { replacementType: null };
 }]);

@@ -86,7 +86,7 @@ angular.module('home')
 				},
 
 				createEnabled: function() {
-					return $scope.createItemForm.$valid &&
+					return $scope.editModel && $scope.editModel.Name && $scope.createItemForm.$valid &&
 						(typeof $scope.validation.success === 'undefined' || $scope.validation.success);
 				},
 
