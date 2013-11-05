@@ -3,7 +3,7 @@
 }
 
 .waiting {
-	content: url('ajax-loader.gif');
+	content: url('../assets/ajax-loader.gif');
 }
 
 form *[inline-edit] span.editable,
