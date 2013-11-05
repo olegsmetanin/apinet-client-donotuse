@@ -21,7 +21,7 @@
 		</div>
 
 		<div ng-show="editorType" ng-class="{'form-group': true, 'has-error': validationErrors.value.length }">
-			<div value-editor="{{editorType}}"></div>
+			<div filter-value-editor="{{editorType}}"></div>
 			<span class="help-block" ng-repeat="error in validationErrors.value">
 				{{ error }}
 			</span>

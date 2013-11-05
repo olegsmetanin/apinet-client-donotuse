@@ -37,28 +37,6 @@ define([
 					angular.extend($scope, {
 						i18n: $rootScope.i18n,
 
-						/*shared: {
-							selectedNode: null,
-							isCompositeSelected: false,
-							editMode: null
-						},
-
-						newRootNodeEnabled: false,
-						newNodeEnabled: false,
-						editNodeEnabled: false,
-						deleteNodeEnabled: false,
-						clearEnabled: false,
-
-						refreshActionsState: function()
-						{
-							$scope.newRootNodeEnabled = !$scope.shared.editMode;
-							$scope.newNodeEnabled = !$scope.shared.editMode && $scope.shared.selectedNode &&
-								$scope.shared.isCompositeSelected;
-							$scope.editNodeEnabled = !$scope.shared.editMode && $scope.shared.selectedNode;
-							$scope.deleteNodeEnabled = !$scope.shared.editMode && $scope.shared.selectedNode;
-							$scope.clearEnabled = !$scope.shared.editMode;
-						},*/
-
 						getMetadata: function(callback, forceRefresh) {
 							if(forceRefresh || !$scope.metadata) {
 								$metadataService.modelMetadata($scope.meta, null, function(metadata) {
@@ -90,16 +68,7 @@ define([
 							}
 						}
 						else {
-							$scope.rootNode = { op: '&&', items: [
-								{ op: '=', path: 'ProjectCode', value: 'Test' },
-								{ op: '>', path: 'CreationTime', value: '2012-01-01' },
-								{
-									path: 'Creator',
-									items: [
-										{ op: '=', path: 'FIO', value: 'Test 2' }
-									]
-								}
-							] };
+							$scope.rootNode = { op: '&&', items: [ ] };
 						}
 					};
 					rootNodeWatch($scope.rootNode);
@@ -128,6 +97,12 @@ define([
 							delete: !$scope.root,
 							hover: false,
 							editing: false,
+							validation: {
+								path: [],
+								op: [],
+								value: [],
+								valid: true
+							},
 							path: {
 								editable: false,
 								visible: true,
@@ -149,18 +124,15 @@ define([
 
 					angular.extend($scope, {
 						i18n: $rootScope.i18n,
-						editingNode: $scope.node,
+						editingNode: angular.extend({ }, $scope.node),
 
 						nodeUpdated: function() {
 							if($scope.context.metadata) {
 								$filteringService.afterNodeEdit($scope.editingNode, $scope.context.metadata);
-								angular.extend($scope.node, $scope.editingNode);
 							}
 
 							$scope.getMetadata(function(metadata) {
 								var ctx = $scope.context;
-								var node = $scope.node;
-
 								if(ctx.path.dirty) {
 									delete ctx.op.options;
 								}
@@ -171,8 +143,8 @@ define([
 
 								if(!ctx.op.options) {
 									ctx.op.options = $filter('applicableOps')($filteringService.allOps(), metadata);
-									if(!node.op && ctx.op.options.length) {
-										node.op = ctx.op.options[0];
+									if(!$scope.editingNode.op && ctx.op.options.length) {
+										$scope.editingNode.op = ctx.op.options[0];
 									}
 									for (var i = 0; i < ctx.op.options.length; i++) {
 										ctx.op.options[i] = {
@@ -186,9 +158,6 @@ define([
 									$scope.getParentMetadata({
 										callback: function(parentMeta) {
 											ctx.path.options = $filteringService.applicablePaths(parentMeta);
-											if(!$scope.node.path && ctx.path.options.length) {
-												$scope.node.path = ctx.path.options[0];
-											}
 											for(var i = 0; i < ctx.path.options.length; i++) {
 												ctx.path.options[i] = {
 													value: ctx.path.options[i],
@@ -199,27 +168,28 @@ define([
 									});
 								}
 
-								angular.extend($scope.editingNode, node);
-								$filteringService.beforeNodeEdit($scope.editingNode);
-
 								var composite = $filteringService.isCompositeNode($scope.editingNode, metadata);
 								var special = $filteringService.isSpecialNode($scope.editingNode);
 
 								if(composite || special) {
 									ctx.add = true;
-									ctx.path.editable = !node.items || !node.items.length;
+									ctx.path.editable = !$scope.editingNode.items || !$scope.editingNode.items.length;
 								}
 								else {
 									ctx.path.editable = true;
-									ctx.op.editable = ctx.op.visible = !!node.path;
+									ctx.op.editable = ctx.op.visible = !!$scope.editingNode.path;
 
-									ctx.value.editable = ctx.value.visible = !!node.path && !!node.op;
+									ctx.value.editable = ctx.value.visible = !!$scope.editingNode.path && !!$scope.editingNode.op;
 									if(ctx.value.editable) {
 										ctx.value.editorType = 'text';
 									}
 								}
 
-								console.log('prepared node', $scope.editingNode, ctx);
+								if ($filteringService.validateNode($scope.editingNode, ctx.metadata, ctx.validation)) {
+									$scope.node = angular.extend({ }, $scope.editingNode);
+								}
+								$filteringService.beforeNodeEdit($scope.editingNode);
+
 							}, $scope.context.path.dirty);
 						},
 
@@ -227,7 +197,7 @@ define([
 							if(forceRefresh || !$scope.context.metadata) {
 								$scope.getParentMetadata({
 									callback: function(parentMeta) {
-										$filteringService.getNodeMetadata($scope.meta, $scope.node, parentMeta, function(metadata) {
+										$filteringService.getNodeMetadata($scope.meta, $scope.editingNode, parentMeta, function(metadata) {
 											$scope.context.metadata = metadata;
 											callback($scope.context.metadata);
 										});
@@ -264,57 +234,7 @@ define([
 
 							parentNode.items.splice(index, 1);
 							$scope.$parent.renderSubNodes();
-						}/*,
-
-						selectNode: function(node, metadata) {
-							function selectNodeCallback(meta) {
-								$scope.shared.selectedNode = node;
-								$scope.shared.isCompositeSelected = $filteringService.isCompositeNode(node, meta);
-							}
-
-							if(metadata) {
-								selectNodeCallback(metadata);
-							}
-							else {
-								$scope.getMetadata(selectNodeCallback);
-							}
-						},
-
-						/commitEdit: function(changedNode) {
-							if($scope.editMode === 'edit') {
-								$scope.getMetadata(function(metadata) {
-									angular.extend($scope.node, changedNode);
-									$scope.selectNode($scope.node, metadata);
-								}, true);
-							}
-							else if($scope.editMode === 'new') {
-								$scope.getMetadata(function(metadata) {
-									$filteringService.getNodeMetadata($scope.meta, changedNode, metadata, function(changedNodeMeta) {
-										$scope.node.items.push(changedNode);
-										$scope.selectNode(changedNode, changedNodeMeta);
-									});
-								});
-							}
-
-							$scope.editMode = null;
-						},
-
-						cancelEdit: function() {
-							$scope.editMode = null;
-						},
-
-						createNewNode: function() {
-							return {
-								path: '',
-								op: '',
-								value: '',
-								items: [ ]
-							};
-						},
-
-						onBeginEdit: function(property) {
-							console.log('onBeginEdit', property);
-						}*/
+						}
 					});
 
 					if($scope.root) {
@@ -328,106 +248,6 @@ define([
 
 					resetContext();
 					$scope.nodeUpdated();
-
-					/*$scope.$watch('node.path', function(value) {
-						if($scope.node === $scope.rootNode) {
-							return;
-						}
-						$scope.getMetadata(function(metadata) {
-							$scope.pathDisplayName = $filteringService.pathDisplayName(value, null, metadata);
-						});
-					}, true);
-
-					$scope.$watch('node.op', function(value) {
-						if($scope.node === $scope.rootNode) {
-							return;
-						}
-						$scope.opDisplayName = $filteringService.opDisplayName(value, $scope.node.not, $scope.node.path);
-					}, true);
-
-					$scope.$watch('node.path', function (value, oldValue) {
-						$scope.getMetadata(function(metadata) {
-							if (oldValue && oldValue !== value) {
-								$scope.node.op = '';
-								$scope.node.value = '';
-							}
-
-							$scope.ops = $filter('applicableOps')($filteringService.allOps(), metadata);
-							if(!$scope.node.op && $scope.ops.length) {
-								$scope.node.op = $scope.ops[0];
-							}
-							for (i = 0; i < $scope.ops.length; i++) {
-								$scope.ops[i] = {
-									value: $scope.ops[i],
-									label: $filteringService.opDisplayName($scope.ops[i])
-								};
-							}
-
-							$scope.opSelectVisible = !$filteringService.isCompositeNode(
-								$scope.node, metadata);
-						}, true);
-					}, true);
-
-					$scope.$watch('node.op', function (value) {
-						$scope.getMetadata(function(metadata) {
-							$scope.editorType = null;
-
-							if(!value || !metadata.PropertyType || $filteringService.isUnaryNode($scope.node)) {
-								return;
-							}
-
-							$scope.editorType = 'text';
-							if (metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
-								metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
-								$scope.editorType = metadata.PropertyType;
-							}
-						});
-					}, true);
-
-					$scope.$watch('node.not', function(value) {
-						if($scope.node === $scope.rootNode) {
-							return;
-						}
-						$scope.opDisplayName = $filteringService.opDisplayName($scope.node.op, value, $scope.node.path);
-					}, true);
-
-					$scope.$watch('node.value', function(value) {
-						if($scope.node === $scope.rootNode) {
-							return;
-						}
-						$scope.getMetadata(function(metadata) {
-							$scope.valueDisplayName = $filteringService.valueDisplayName(value, metadata);
-						});
-					}, true);
-
-
-
-					$scope.$on('newNode', function() {
-						if($scope.node === $scope.shared.selectedNode) {
-							$scope.editMode = 'new';
-							$scope.editingNode = $scope.createNewNode();
-						}
-					});
-
-					$scope.$on('editNode', function() {
-						if($scope.node === $scope.shared.selectedNode) {
-							$scope.editMode = 'edit';
-							$scope.editingNode = angular.extend({ }, $scope.node);
-							$scope.editingNode.items = [];
-						}
-					});
-
-					$scope.$on('deleteNode', function() {
-						if($scope.node === $scope.shared.selectedNode) {
-							var index = $scope.$parent.node.items.indexOf($scope.node);
-							if(index === -1) {
-								return;
-							}
-
-							$scope.$parent.node.items.splice(index, 1);
-							$scope.shared.selectedNode = null;
-						}
-					});*/
 				}],
 				link: function($scope, element) {
 					var childrenContainer = $('<div />');
@@ -462,11 +282,11 @@ define([
 				}
 			};
 		}])
-	.directive('valueEditor', [function() {
+	.directive('filterValueEditor', [function() {
 		return {
 			replace: true,
 			link: function($scope, element, attrs) {
-				attrs.$observe('valueEditor', function(editorType) {
+				attrs.$observe('filterValueEditor', function(editorType) {
 					var linkFn = editorTpls[editorType];
 					if(!linkFn) {
 						return;
