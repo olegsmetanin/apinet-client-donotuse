@@ -1,16 +1,43 @@
 <div class="nodePanel">
-	<div ng-show="node != rootNode && editMode != 'edit'">
-		<div ng-class="nodeDataClass" ng-click="onNodeClick($event)" ng-dbl-click="onNodeDblClick($event)">
-			<label class="pathLabel" ng-show="pathDisplayName">{{ pathDisplayName }}</label>
-			<label class="opLabel" ng-show="opDisplayName">{{ opDisplayName }}</label>
-			<label class="valueLabel" ng-show="valueDisplayName">{{ valueDisplayName }}</label>
+	<form ng-show="!root" class="form-inline nodeData" novalidate
+	      ng-mouseenter="context.hover = true;" ng-mouseleave="context.hover = false;">
+		<div class="form-group" ng-show="context.path.visible && !context.op.dirty && !context.value.dirty">
+			<strong>
+				<inline-select model="editingNode.path" options="path.value as path.label for path in context.path.options"
+				    on-begin-edit="context.editing = true;"
+					on-changed="context.path.dirty = true;"
+					on-cancel="context.path.dirty = false; context.editing = false;"
+					on-update="editingNode.path = val; nodeUpdated();">
+				</inline-select>
+			</strong>
 		</div>
-	</div>
+		<div class="form-group" ng-show="context.op.visible && !context.path.dirty && !context.value.dirty">
+			<inline-select model="editingNode.op" options="op.value as op.label for op in context.op.options"
+				on-begin-edit="context.editing = true;"
+				on-changed="context.op.dirty = true;"
+				on-cancel="context.op.dirty = false; context.editing = false;"
+				on-update="editingNode.op = val; nodeUpdated();">
+			</inline-select>
+		</div>
+		<div class="form-group" ng-show="context.value.visible && !context.path.dirty && !context.op.dirty">
+			<inline-text model="editingNode.value"
+				on-begin-edit="context.editing = true;"
+				on-changed="context.value.dirty = true;"
+				on-cancel="context.value.dirty = false; context.editing = false;"
+				on-update="editingNode.value = val; nodeUpdated();">
+			</inline-text>
+		</div>
+		<button class="btn btn-sm btn-success" title="{{ i18n.core.filters.buttons.newNode }}"
+		        ng-click="addNode()" ng-disabled="!context.add" ng-show="context.add && !context.editing">
+			<i class="icon-plus"></i>
+		</button>
+		<button class="btn btn-sm btn-danger pull-right" title="{{ i18n.core.filters.buttons.deleteNode }}"
+		        ng-click="deleteNode()" ng-disabled="!context.delete" ng-show="context.delete && context.hover && !context.editing">
+			<i class="icon-minus"></i>
+		</button>
+	</form>
 
-	<div class="nodeEditorContainer"></div>
-
-	<div ng-class="nodeChildrenClass">
+	<div ng-class="{ nodeChildren: !root }">
         <div class="nodeChildrenContainer"></div>
-		<div class="newNodeEditorContainer"></div>
 	</div>
 </div>

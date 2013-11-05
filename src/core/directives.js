@@ -31,6 +31,7 @@ define([
 	'./directives/inplace/inlineLookup',
 	'./directives/inplace/inlineText',
 	'./directives/inplace/inlineTextArea',
+	'./directives/inplace/inlineSelect',
 
 	'./directives/header/breadCrumbs',
 	'./directives/header/eventNotifier',
