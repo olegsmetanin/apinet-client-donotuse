@@ -5,7 +5,7 @@ define([
 	'./directives',
 	'./states',
 
-	'ago/components/flatty/javascripts/theme',
+	'ago/components/flatty/theme',
 	'i18n!nls/angular',
 	'i18n!ago/nls/core'
 ], function(module, requireModule) {
@@ -27,7 +27,6 @@ define([
 			$rootScope.$stateParams = $stateParams;
 
 			strapConfig.language = sysConfig.lang;
-			//security.requestCurrentUser();
 		}
 	]);
 });

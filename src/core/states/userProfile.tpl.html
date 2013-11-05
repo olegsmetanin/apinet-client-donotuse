@@ -1,0 +1,74 @@
+<div class="container">
+	<div class="row" id="content-wrapper">
+		<div class="col-xs-12">
+
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="page-header">
+						<h1 class="pull-left">
+							<i class="icon-user"></i>
+							<span>{{ i18n.core.profile.title }}</span>
+						</h1>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-3 col-lg-2">
+					<div class="box">
+						<div class="box-content">
+							<img class="img-responsive" src="http://placehold.it/230x230&text=Photo">
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-9 col-lg-10">
+					<div class="box">
+						<div class="box-content box-double-padding">
+							<form name="userForm" class="form" novalidate>
+								<fieldset>
+									<div class="col-sm-4">
+										<div class="lead">
+											<i class="icon-user text-contrast"></i>{{ i18n.core.profile.personalInfo }}
+										</div>
+										<small class="text-muted">{{ i18n.core.profile.personalInfoDesc }}</small>
+									</div>
+									<div class="col-sm-7 col-sm-offset-1">
+										<div class="form-group">
+											<label>{{ i18n.core.profile.fields.firstName }}</label>
+											<input class="form-control" id="firstname" placeholder="{{ i18n.core.profile.fields.firstName }}" type="text" />
+										</div>
+									</div>
+								</fieldset>
+								<hr class="hr-normal" />
+								<fieldset>
+									<div class="col-sm-4">
+										<div class="lead">
+											<i class="icon-coq text-contrast"></i>{{ i18n.core.profile.settings }}
+										</div>
+										<small class="text-muted">{{ i18n.core.profile.settingsDesc }}</small>
+									</div>
+									<div class="col-sm-7 col-sm-offset-1">
+										<div class="form-group">
+											<label>{{ i18n.core.locale.label }}</label>
+											<div class="col-xs-12">
+												<a href="" class="dropdown-toggle" data-toggle="dropdown">
+													{{ i18n.core.locale[currentLocale] }}
+													<b class="caret"></b>
+												</a>
+												<ul class="dropdown-menu">
+													<li ng-class="{active: locale === currentLocale}" ng-disabled="locale === currentLocale" ng-repeat="locale in locales">
+														<a ng-click="setLocale(locale)" href="">{{ i18n.core.locale[locale] }}</a>
+													</li>
+												</ul>
+    										</div>
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

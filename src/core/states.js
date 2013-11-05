@@ -1,3 +1,4 @@
 define([
-	'./states/page'
+	'./states/page',
+	'./states/userProfile'
 ]);
