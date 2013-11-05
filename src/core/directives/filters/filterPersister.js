@@ -1,8 +1,8 @@
-angular.module('core')
-	.directive('filterPersister', ['sysConfig', 'apinetService', function(sysConfig, apinetService) {
+define(['angular', '../../moduleDef', 'text!./filterPersister.tpl.html'], function (angular, module, tpl) {
+	module.directive('filterPersister', ['sysConfig', 'apinetService', function(sysConfig, apinetService) {
 		return {
 			replace: true,
-			templateUrl: sysConfig.src('core/directives/filters/filterPersister.tpl.html'),
+			template: tpl,
 			scope: {
 				group: '=',
 				filter: '='
@@ -88,3 +88,4 @@ angular.module('core')
 			}]
 		};
 	}]);
+});

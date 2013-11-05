@@ -22,8 +22,8 @@ sysConfig.modules['components'] = {
 		"src/components/assets/javascripts/bootstrap/bootstrap.js",
 		"src/components/assets/javascripts/plugins/modernizr/modernizr.min.js",
 		"src/components/assets/javascripts/plugins/retina/retina.js",
-		"src/components/assets/javascripts/theme.js",
 		"src/components/assets/javascripts/plugins/tabdrop/bootstrap-tabdrop.js",
+		"src/components/assets/javascripts/theme.js",
 		//"src/components/assets/javascripts/plugins/bootstrap_datetimepicker/bootstrap-datetimepicker.js",
 		"components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js",
 

@@ -16,7 +16,7 @@ shared.files = [
   'test/mocha.conf.js',
 
   //3rd Party Code
-  'components/angularjs/index.js',
+  'angularjs/index.js',
   'app/scripts/lib/router.js',
 
   //App-specific Code

@@ -5,7 +5,7 @@ module.exports = function(config) {
 
   config.files = shared.files.concat([
     //extra testing code
-    'components/angular-mocks/index.js',
+    'angular-mocks/index.js',
 
     //test files
     './test/unit/**/*.js'

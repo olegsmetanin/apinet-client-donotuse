@@ -1,5 +1,5 @@
-angular.module('core')
-	.directive('filterPart', ['i18n', function(i18n) {
+define(['angular', '../../moduleDef'], function (angular, module) {
+	module.directive('filterPart', ['i18n', function(i18n) {
 		return {
 			restrict: 'E',
 			replace: true,
@@ -21,3 +21,4 @@ angular.module('core')
 			}
 		};
 	}]);
+});

@@ -1,9 +1,15 @@
-angular.module('core')
-	.directive('structuredFilter', ['sysConfig', 'helpers', 'filteringService', 'metadataService',
+define([
+	'angular',
+	'../../moduleDef',
+	'text!./structuredFilter.tpl.html',
+	'text!./structuredFilterNode.tpl.html',
+	'text!./structuredFilterNodeEditor.tpl.html'
+], function (angular, module, tpl, nodeTpl, nodeEditorTpl) {
+	module.directive('structuredFilter', ['sysConfig', 'helpers', 'filteringService', 'metadataService',
 		function(sysConfig, $helpers, $filteringService, $metadataService) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/directives/filters/structuredFilter.tpl.html'),
+				template: tpl,
 				scope: {
 					rootNode: '=filterNgModel',
 					meta: '='
@@ -125,7 +131,7 @@ angular.module('core')
 					meta: '=',
 					getParentMetadata: '&'
 				},
-				templateUrl: sysConfig.src('core/directives/filters/structuredFilterNode.tpl.html'),
+				template: nodeTpl,
 				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 					angular.extend($scope, {
 						i18n: $rootScope.i18n,
@@ -358,7 +364,7 @@ angular.module('core')
 		function(sysConfig, $filteringService, $filter) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/directives/filters/structuredFilterNodeEditor.tpl.html'),
+				template: nodeEditorTpl,
 				scope: {
 					node: '=',
 					shared: '=',
@@ -503,3 +509,4 @@ angular.module('core')
 			};
 		}
 	]);
+});

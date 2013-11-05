@@ -1,5 +1,5 @@
-angular.module('core')
-    .directive('ngRelinclude', ['$http', '$templateCache', '$anchorScroll', '$compile', 'sysConfig',
+define(['angular', '../moduleDef'], function (angular, module) {
+	module.directive('ngRelinclude', ['$http', '$templateCache', '$anchorScroll', '$compile', 'sysConfig',
         function($http, $templateCache, $anchorScroll, $compile, sysConfig) {
             return {
                 restrict: 'ECA',
@@ -66,3 +66,4 @@ angular.module('core')
             };
         }
     ]);
+});

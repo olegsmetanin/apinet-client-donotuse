@@ -1,37 +1,38 @@
-angular.module('core')
-.directive('agoInteger', function() {
-	var INTEGER_REGEXP = /^\-?\d*$/;
-	return {
-		require: 'ngModel',
-		link: function(scope, elm, attrs, ctrl) {
-			var min = attrs.agoMin ? parseInt(attrs.agoMin) : null;
-			var max = attrs.agoMax ? parseInt(attrs.agoMax) : null;
+define(['angular', '../moduleDef'], function (angular, module) {
+	module.directive('agoInteger', function() {
+		var INTEGER_REGEXP = /^\-?\d*$/;
+		return {
+			require: 'ngModel',
+			link: function(scope, elm, attrs, ctrl) {
+				var min = attrs.agoMin ? parseInt(attrs.agoMin) : null;
+				var max = attrs.agoMax ? parseInt(attrs.agoMax) : null;
 
-			var validator = function(viewValue) {
-				if (!viewValue) {
-					ctrl.$setValidity('integer', true);
-					return viewValue;
-				}
+				var validator = function(viewValue) {
+					if (!viewValue) {
+						ctrl.$setValidity('integer', true);
+						return viewValue;
+					}
 
-				if (INTEGER_REGEXP.test(viewValue)) {
-					// it is valid
-					var ival = parseInt(viewValue);
-					if ((min !== null && ival < min) || (max !== null && ival > max)) {
+					if (INTEGER_REGEXP.test(viewValue)) {
+						// it is valid
+						var ival = parseInt(viewValue);
+						if ((min !== null && ival < min) || (max !== null && ival > max)) {
+							// it is invalid, return undefined (no model update)
+							ctrl.$setValidity('integer', false);
+							return undefined;
+						}
+						ctrl.$setValidity('integer', true);
+						return viewValue;
+					} else {
 						// it is invalid, return undefined (no model update)
 						ctrl.$setValidity('integer', false);
-						return undefined;    
+						return undefined;
 					}
-					ctrl.$setValidity('integer', true);
-					return viewValue;
-				} else {
-					// it is invalid, return undefined (no model update)
-					ctrl.$setValidity('integer', false);
-					return undefined;
-				}
-			};
+				};
 
-			ctrl.$formatters.push(validator);
-			ctrl.$parsers.unshift(validator);
-		}
-	};
+				ctrl.$formatters.push(validator);
+				ctrl.$parsers.unshift(validator);
+			}
+		};
+	});
 });

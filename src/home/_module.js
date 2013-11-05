@@ -1,6 +1,6 @@
 angular.module('home', ['core', 'ui.state', 'home.templates']);
 
-angular.module('home')
+module
 	.config(['$routeProvider', '$locationProvider', '$stateProvider', '$urlRouterProvider', 'sysConfig',
 		'securityAuthorizationProvider',
 		function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider, sysConfig, securityAuthorizationProvider) {

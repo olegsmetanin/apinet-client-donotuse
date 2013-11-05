@@ -1,5 +1,5 @@
-angular.module('core')
-	.service("pageConfig", ['$rootScope',
+define(['angular', '../moduleDef'], function (angular, module) {
+	module.service('pageConfig', ['$rootScope',
 		function($rootScope) {
 			angular.extend(this, {
 				current: {},
@@ -10,3 +10,4 @@ angular.module('core')
 			});
 		}
 	]);
+});

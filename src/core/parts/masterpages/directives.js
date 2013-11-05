@@ -1,4 +1,4 @@
-angular.module('core')
+module
 	.directive('twocolumnSide', function() {
 		return {
 			restrict: 'EA',

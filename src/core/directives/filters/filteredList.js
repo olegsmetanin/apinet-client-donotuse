@@ -1,5 +1,5 @@
-angular.module('core')
-	.directive('filteredList', ['apinetService', '$timeout', 'sysConfig', function($apinetService, $timeout, sysConfig) {
+define(['angular', '../../moduleDef', 'css!./filteredList'], function (angular, module) {
+	module.directive('filteredList', ['apinetService', '$timeout', 'sysConfig', function($apinetService, $timeout, sysConfig) {
 		return {
 			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				angular.extend($scope, {
@@ -236,3 +236,4 @@ angular.module('core')
 			}
 		};
 	}]);
+});

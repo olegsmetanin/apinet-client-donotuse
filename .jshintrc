@@ -9,7 +9,9 @@
         "boss": true,
         "eqnull": true,
         "globals": {
+	        "require": true,
+	        "define": true/*,
 	        "angular": true,
-	        "sysConfig": true
+	        "sysConfig": true*/
         }
 }

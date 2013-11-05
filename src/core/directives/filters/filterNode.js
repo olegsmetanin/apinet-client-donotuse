@@ -1,5 +1,5 @@
-angular.module('core')
-	.directive('filterNode', ['$parse', function($parse) {
+define(['angular', '../../moduleDef'], function (angular, module) {
+	module.directive('filterNode', ['$parse', function($parse) {
 		return {
 			restrict: 'A',
 			require: 'ngModel',
@@ -39,3 +39,4 @@ angular.module('core')
 			}
 		};
 	}]);
+});

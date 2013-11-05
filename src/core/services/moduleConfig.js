@@ -1,5 +1,5 @@
-angular.module('core')
-	.service("moduleConfig", ['$q', '$http', 'sysConfig',
+define(['angular', '../moduleDef'], function (angular, module) {
+	module.service('moduleConfig', ['$q', '$http', 'sysConfig',
 		function ($q, $http, sysConfig) {
 			var service = {
 				config: null,
@@ -34,3 +34,4 @@ angular.module('core')
 			return service;
 		}
 	]);
+});

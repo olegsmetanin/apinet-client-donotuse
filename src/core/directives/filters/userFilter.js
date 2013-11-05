@@ -1,9 +1,15 @@
-angular.module('core')
-	.directive('userFilter', ['sysConfig', 'metadataService',
+define([
+	'angular',
+	'../../moduleDef',
+	'text!./userFilter.tpl.html',
+	'text!./userFilterNode.tpl.html',
+	'text!./userFilterNodeEditor.tpl.html'
+], function (angular, module, tpl, nodeTpl, nodeEditorTpl) {
+	module.directive('userFilter', ['sysConfig', 'metadataService',
 		function(sysConfig, $metadataService) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/directives/filters/userFilter.tpl.html'),
+				template: tpl,
 				scope: {
 					rootNode: '=filterNgModel'
 				},
@@ -98,7 +104,7 @@ angular.module('core')
 					rootNode: '=',
 					shared: '='
 				},
-				templateUrl: sysConfig.src('core/directives/filters/userFilterNode.tpl.html'),
+				template: nodeTpl,
 				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 					$scope.i18n = $rootScope.i18n;
 
@@ -351,7 +357,7 @@ angular.module('core')
 		function(sysConfig, $filteringService, $filter, $dictionaryService, $metadataService) {
 			return {
 				replace: true,
-				templateUrl: sysConfig.src('core/directives/filters/userFilterNodeEditor.tpl.html'),
+				template: nodeEditorTpl,
 				scope: {
 					node: '=',
 					shared: '=',
@@ -549,3 +555,4 @@ angular.module('core')
 			};
 		}
 	]);
+});

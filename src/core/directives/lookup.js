@@ -1,5 +1,5 @@
-angular.module('core')
-	.directive('lookup', ['$compile', '$timeout', '$exceptionHandler', '$parse', 'apinetService', 'sysConfig',
+define(['angular', '../moduleDef'], function (angular, module) {
+	module.directive('lookup', ['$compile', '$timeout', '$exceptionHandler', '$parse', 'apinetService', 'sysConfig',
 		function($compile, $timeout, $exceptionHandler, $parse, apinetService, sysConfig) {
 			return {
 				restrict: 'A',
@@ -65,3 +65,4 @@ angular.module('core')
 			};
 		}
 	]);
+});

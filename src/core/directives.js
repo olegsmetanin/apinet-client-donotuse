@@ -1,0 +1,43 @@
+define([
+	'./directives/ago.datepicker',
+	'./directives/ago.errorMsg',
+	'./directives/ago.select2',
+	'./directives/agoBox',
+	'./directives/buttons',
+	'./directives/buttonToggle',
+	'./directives/checker',
+	'./directives/sortableHeading',
+	'./directives/integer',
+	'./directives/lookup',
+	'./directives/ngBlur',
+	'./directives/ngFocus',
+	'./directives/relinclude',
+	'./directives/requiredMultiple',
+
+	'./directives/filters/filter',
+	'./directives/filters/filteredList',
+	'./directives/filters/filteredListActions',
+	'./directives/filters/filterNode',
+	'./directives/filters/filterPart',
+	'./directives/filters/filterPersister',
+	'./directives/filters/filtersBox',
+	'./directives/filters/filterTemplate',
+	'./directives/filters/structuredFilter',
+	'./directives/filters/userFilter',
+
+	'./directives/inplace/inlineButtons',
+	'./directives/inplace/inlineDate',
+	'./directives/inplace/inlineEdit',
+	'./directives/inplace/inlineLookup',
+	'./directives/inplace/inlineText',
+	'./directives/inplace/inlineTextArea',
+
+	'./directives/header/breadCrumbs',
+	'./directives/header/eventNotifier',
+	'./directives/header/moduleMenu',
+	'./directives/header/tabBar',
+	'./directives/header/topTabBar',
+
+	'css!./directives/assets/spinner',
+	'css!./directives/assets/inline-edit'
+]);

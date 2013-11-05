@@ -1,7 +1,7 @@
 {
     "name": "apinet-client",
     "description": "AngularJS apinet-client",
-    "version": "0.0.1",
+    "version": "0.1",
     "homepage": "http://olegsmith.github.com/",
     "author": {
         "name": "Oleg Smetanin & Artem Naumov & Alexey Rumyantsev"

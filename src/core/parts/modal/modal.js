@@ -1,7 +1,7 @@
 //from angular-app
 //excluded, because conflict with angular-ui.bootstrap.dialog (hide modal dialog from bootstrap with incorrect settings display: none)
 /*
-angular.module('core').directive('modal', ['$parse',function($parse) {
+module.directive('modal', ['$parse',function($parse) {
   var backdropEl;
   var body = angular.element(document.getElementsByTagName('body')[0]);
   var defaultOpts = {

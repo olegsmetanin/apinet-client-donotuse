@@ -1,5 +1,5 @@
-angular.module('core')
-	.directive('buttonToggle', function () {
+define(['angular', '../moduleDef'], function (angular, module) {
+	module.directive('buttonToggle', function () {
 		return {
 			restrict: 'A',
 			require: 'ngModel',
@@ -23,3 +23,4 @@ angular.module('core')
 			}
 		};
 	});
+});

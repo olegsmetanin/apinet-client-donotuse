@@ -1,10 +1,10 @@
-angular.module('core')
-	.directive('filtersBox', ['sysConfig', function(sysConfig) {
+define(['angular', '../../moduleDef', 'text!./filtersBox.tpl.html'], function (angular, module, tpl) {
+	module.directive('filtersBox', ['sysConfig', function(sysConfig) {
 		return {
 			restrict: 'EA',
 			replace: true,
 			transclude: true,
-			templateUrl: sysConfig.src('core/directives/filters/filtersBox.tpl.html'),
+			template: tpl,
 			scope: {
 				meta: '@',
 				group: '@',
@@ -77,3 +77,4 @@ angular.module('core')
 			}
 		};
 	});
+});

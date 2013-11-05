@@ -1,11 +1,31 @@
 {
 	"name": "apinet-client",
-	"version": "0.0.1",
+	"version": "0.1",
 	"ignore": [
 		"**/.*",
 		"node_modules",
 		"public/components"
 	],
+	"dependencies" : {
+		"requirejs": "requirejs#>=2.1.9",
+		"require-css": "require-css#>=0.0.8",
+		"requirejs-domready": "requirejs-domready#>=2.0.1",
+		"requirejs-i18n": "requirejs-i18n#>=2.0.4",
+		"requirejs-text": "requirejs-text#>=2.0.10",
+
+		"jquery": "jquery#>=2.0.3",
+		"jquery-ui": "jquery-ui#>=1.10.3",
+
+		"bootstrap": "bootstrap#3.0.0",
+
+		"tinymce-release": "tinymce-release#>=4.0.2",
+
+		"angular": "angular#>=1.0.8",
+		"angular-i18n": "angular-i18n#>=1.0.8",
+
+		"angular-ui-bootstrap3": "angular-ui-bootstrap3#>=0.6.0",
+		"angular-ui-router": "angular-ui-router#>=0.2.0"
+	},
 	"devDependencies": {
 		"jquery-1.10.2": "jquery#1.10.2",
 		"jquery-2.0.3": "jquery#2.0.3",

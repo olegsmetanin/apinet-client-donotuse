@@ -1,5 +1,5 @@
-angular.module('core')
-	.directive('agoBox', ['sysConfig', function(sysConfig) {
+define(['angular', '../moduleDef', 'text!./agoBox.tpl.html', 'css!./agoBox'], function (angular, module, tpl) {
+	module.directive('agoBox', ['sysConfig', function(sysConfig) {
 		return {
 			restrict: 'EA',
 			replace: true,
@@ -14,7 +14,7 @@ angular.module('core')
 				collapsed: '=?',
 				titleClickCollapse: '@'
 			},
-			templateUrl: sysConfig.src('core/directives/agoBox.tpl.html'),
+			template: tpl,
 			controller: ['$scope', function($scope) {
 				angular.extend($scope, {
 					boxClass: {
@@ -142,3 +142,4 @@ angular.module('core')
 			}
 		};
 	});
+});

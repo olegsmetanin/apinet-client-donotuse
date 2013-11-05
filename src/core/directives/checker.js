@@ -1,3 +1,4 @@
+define(['angular', '../moduleDef'], function (angular, module) {
 /**
  * Simple helper for select table rows with chekbox in the header.
  * Parametes set in object notation without braces.
@@ -6,8 +7,7 @@
  * 
  * @example <th><input type="checkbox" checker="items: 'myModels', prop: 'selected'" /></th>...<tr ng-repeat="myModel in myModels"><td><input type="checkbox" ng-model="myModel.selected"
  */
-angular.module('core')
-	.directive('checker', function() {
+	module.directive('checker', function() {
 		return {
 			restrict: 'A',
 			link: function(scope, element, attrs) {
@@ -16,9 +16,7 @@ angular.module('core')
 				params.prop = params.prop || 'selected';
 
 				angular.element(element).on('click', function(e) {
-					var items = scope[params.items]
-					    , len = items.length
-						, checked = $(this).is(':checked');
+					var items = scope[params.items], len = items.length, checked = $(this).is(':checked');
 					scope.$apply(function() {
 						for(var i = 0; i < len; i++) {
 							items[i][params.prop] = checked;
@@ -28,3 +26,4 @@ angular.module('core')
 			}
 		};
 	});
+});

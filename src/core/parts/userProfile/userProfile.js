@@ -1,4 +1,4 @@
-angular.module('core')
+module
 .config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
 	function($stateProvider, sysConfig, securityAuthorizationProvider) {
 		$stateProvider.state({
