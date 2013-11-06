@@ -12,7 +12,7 @@ define(['angular', '../../moduleDef'], function (angular, module) {
 					' ng-model="emodel.value" ng-readonly="waiting"></select>';
 
 				var viewTmpl = '<span class="editable" ng-hide="editMode" ng-click="edit()">{{ ' +
-					attr.displayValue || attr.model + ' }}<inline-none></inline-none></span>';
+					(attr.displayValue || attr.model) + ' }}<inline-none></inline-none></span>';
 
 				var tmpl = '<div inline-edit="' + attr.model + '">' +
 					viewTmpl +

@@ -89,41 +89,10 @@ define([
 					getParentMetadata: '&'
 				},
 				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
-					var resetContext = function() {
-						$scope.context = {
-							metadata: null,
-							add: $scope.root,
-							delete: !$scope.root,
-							hover: false,
-							editing: false,
-							validation: {
-								path: [],
-								op: [],
-								value: [],
-								valid: true
-							},
-							path: {
-								editable: false,
-								visible: true,
-								dirty: false
-							},
-							op: {
-								editable: false,
-								visible: false,
-								dirty: false
-							},
-							value: {
-								editable: false,
-								visible: false,
-								dirty: false,
-								editorType: null
-							}
-						};
-					};
-
 					angular.extend($scope, {
 						i18n: $rootScope.i18n,
 						editingNode: angular.extend({ }, $scope.node),
+						context: { },
 
 						nodeUpdated: function(property, value) {
 							if(property && $scope.context.hasOwnProperty(property)) {
@@ -136,21 +105,48 @@ define([
 							}
 
 							$scope.getMetadata(function(metadata) {
-								var ctx = $scope.context;
-								if(ctx.path.dirty) {
-									delete ctx.op.options;
+								if($scope.context.path && $scope.context.path.dirty) {
+									delete $scope.context.op.options;
 								}
 
-								resetContext();
-								ctx = $scope.context;
-								ctx.metadata = metadata;
+								var ctx = $scope.context = {
+									metadata: $scope.context.metadata,
+									parentMeta: $scope.context.parentMeta,
+									add: $scope.root,
+									delete: !$scope.root,
+									hover: false,
+									editing: false,
+									validation: {
+										path: [],
+										op: [],
+										value: [],
+										valid: true
+									},
+									path: {
+										editable: false,
+										visible: true,
+										dirty: false
+									},
+									op: {
+										editable: false,
+										visible: false,
+										dirty: false
+									},
+									value: {
+										editable: false,
+										visible: false,
+										dirty: false,
+										editorType: null
+									}
+								};
 
+								var i;
 								if(!ctx.op.options || !ctx.op.options.length) {
 									ctx.op.options = $filter('applicableOps')($filteringService.allOps(), metadata);
 									if(!$scope.editingNode.op && ctx.op.options.length) {
 										$scope.editingNode.op = ctx.op.options[0];
 									}
-									for (var i = 0; i < ctx.op.options.length; i++) {
+									for (i = 0; i < ctx.op.options.length; i++) {
 										ctx.op.options[i] = {
 											value: ctx.op.options[i],
 											label: $filteringService.opDisplayName(ctx.op.options[i])
@@ -159,17 +155,13 @@ define([
 								}
 								
 								if(!ctx.path.options || !ctx.path.options.length) {
-									$scope.getParentMetadata({
-										callback: function(parentMeta) {
-											ctx.path.options = $filteringService.applicablePaths(parentMeta);
-											for(var i = 0; i < ctx.path.options.length; i++) {
-												ctx.path.options[i] = {
-													value: ctx.path.options[i],
-													label: $filteringService.pathDisplayName(ctx.path.options[i], parentMeta)
-												};
-											}
-										}
-									});
+									ctx.path.options = $filteringService.applicablePaths(ctx.parentMeta);
+									for(i = 0; i < ctx.path.options.length; i++) {
+										ctx.path.options[i] = {
+											value: ctx.path.options[i],
+											label: $filteringService.pathDisplayName(ctx.path.options[i], ctx.parentMeta)
+										};
+									}
 								}
 
 								var composite = $filteringService.isCompositeNode($scope.editingNode, metadata);
@@ -195,7 +187,14 @@ define([
 								}
 								$filteringService.beforeNodeEdit($scope.editingNode);
 
-							}, $scope.context.path.dirty);
+								ctx.path.displayValue = $filteringService.pathDisplayName(
+									$scope.editingNode.path, ctx.parentMeta, ctx.metadata);
+								ctx.op.displayValue = $filteringService.opDisplayName(
+									$scope.editingNode.op, $scope.editingNode.not, $scope.node.path);
+								ctx.value.displayValue = $filteringService.valueDisplayName(
+									$scope.editingNode.value, metadata);
+
+							}, $scope.context.path && $scope.context.path.dirty);
 						},
 
 						getMetadata: function(callback, forceRefresh) {
@@ -204,6 +203,7 @@ define([
 									callback: function(parentMeta) {
 										$filteringService.getNodeMetadata($scope.meta, $scope.editingNode, parentMeta, function(metadata) {
 											$scope.context.metadata = metadata;
+											$scope.context.parentMeta = parentMeta;
 											callback($scope.context.metadata);
 										});
 									}
@@ -251,7 +251,6 @@ define([
 						});
 					}
 
-					resetContext();
 					$scope.nodeUpdated();
 				}],
 				link: function($scope, element) {
@@ -288,152 +287,6 @@ define([
 				}
 			};
 		}])
-		.directive('structuredFilterNodeEditor', ['filteringService', '$filter',
-			function($filteringService, $filter) {
-				return {
-					replace: true,
-					template: nodeEditorTpl,
-					scope: {
-						node: '=',
-						shared: '=',
-						meta: '=',
-						getParentMetadata: '&',
-						commitEdit: '&',
-						cancelEdit: '&'
-					},
-					controller: ['$scope', '$rootScope', function($scope, $rootScope) {
-						angular.extend($scope, {
-							i18n: $rootScope.i18n,
-
-							paths: [],
-							ops: [],
-							opSelectVisible: false,
-							editorType: null,
-							tempNode: {
-								value: $scope.node.value
-							},
-
-							getMetadata: function(callback, forceRefresh) {
-								if(forceRefresh || !$scope.metadata) {
-									$scope.getParentMetadata({
-										callback: function(parentMeta) {
-											$filteringService.getNodeMetadata($scope.meta, $scope.node, parentMeta, function(metadata) {
-												$scope.metadata = metadata;
-												$scope.valueMetadata = metadata;
-
-												callback($scope.metadata);
-											});
-										}
-									});
-									return;
-								}
-								callback($scope.metadata);
-							},
-
-							resetValidationErrors: function() {
-								$scope.validationErrors = {
-									path: [],
-									op: [],
-									value: []
-								};
-							}
-						});
-
-						$scope.$watch('node.path', function (value, oldValue) {
-							$scope.getMetadata(function(metadata) {
-								if (oldValue && oldValue !== value) {
-									$scope.node.op = '';
-									$scope.node.value = '';
-								}
-
-								$scope.ops = $filter('applicableOps')($filteringService.allOps(), metadata);
-								if(!$scope.node.op && $scope.ops.length) {
-									$scope.node.op = $scope.ops[0];
-								}
-								for (i = 0; i < $scope.ops.length; i++) {
-									$scope.ops[i] = {
-										value: $scope.ops[i],
-										label: $filteringService.opDisplayName($scope.ops[i])
-									};
-								}
-
-								$scope.opSelectVisible = !$filteringService.isCompositeNode(
-									$scope.node, metadata);
-							}, true);
-						}, true);
-
-						$scope.$watch('node.op', function (value) {
-							$scope.getMetadata(function(metadata) {
-								$scope.editorType = null;
-
-								if(!value || !metadata.PropertyType || $filteringService.isUnaryNode($scope.node)) {
-									return;
-								}
-
-								$scope.editorType = 'text';
-								if (metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
-									metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
-									$scope.editorType = metadata.PropertyType;
-								}
-							});
-						}, true);
-
-						$scope.$watch('node.value', function (value, oldValue) {
-							if(value === oldValue) {
-								return;
-							}
-							$scope.tempNode.value = value;
-						}, true);
-
-						$scope.$watch('tempNode.value', function (value, oldValue) {
-							if(value === oldValue) {
-								return;
-							}
-							$scope.node.value = value;
-						}, true);
-
-						$filteringService.beforeNodeEdit($scope.node);
-						$scope.resetValidationErrors();
-
-						$scope.getParentMetadata({
-							callback: function(parentMeta) {
-								$scope.paths = $filteringService.applicablePaths(parentMeta);
-								if(!$scope.node.path && $scope.paths.length) {
-									$scope.node.path = $scope.paths[0];
-								}
-								for(var i = 0; i < $scope.paths.length; i++) {
-									$scope.paths[i] = {
-										value: $scope.paths[i],
-										label: $filteringService.pathDisplayName($scope.paths[i], parentMeta)
-									};
-								}
-							}
-						});
-					}],
-					link: function($scope) {
-						angular.extend($scope, {
-							onSaveEditor: function () {
-								$scope.getMetadata(function(metadata) {
-									var node = angular.extend({ }, $scope.node);
-
-									$filteringService.afterNodeEdit(node, metadata);
-									$scope.resetValidationErrors();
-									if (!$filteringService.validateNode(node, metadata, $scope.validationErrors)) {
-										return;
-									}
-
-									$scope.commitEdit({ changedNode: node });
-								});
-							},
-
-							onCancelEditor: function () {
-								$scope.cancelEdit();
-							}
-						});
-					}
-				};
-			}
-		])
 	.directive('filterValueEditor', [function() {
 		return {
 			replace: true,

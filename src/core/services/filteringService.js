@@ -187,7 +187,7 @@ define(['angular', '../moduleDef'], function (angular, module) {
 				}
 				else if (metadata && metadata.PropertyType === 'enum') {
 					localized = metadata.PossibleValues ? metadata.PossibleValues[value] : '';
-					value = localized.length ? localized : value;
+					value = localized ? localized : value;
 				}
 
 				return value;
@@ -341,13 +341,12 @@ define(['angular', '../moduleDef'], function (angular, module) {
 					node.not = true;
 				}
 
-				if (this.isSpecialNode(node)) {
-					node.path = '';
+				if (this.isCompositeNode(node, metadata)) {
 					node.value = '';
-				}
-				else if (this.isCompositeNode(node, metadata)) {
-					node.op = '&&';
-					node.value = '';
+
+					if (this.isSpecialNode(node)) {
+						node.path = '';
+					}
 				}
 				else {
 					node.items = [];
