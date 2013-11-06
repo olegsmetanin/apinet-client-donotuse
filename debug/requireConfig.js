@@ -115,9 +115,6 @@
 					delay: 0,
 					supportedLocales: ['ru', 'en']
 				}
-			},
-			'ago/core/services/apinetService': {
-				apiRoot: 'http://localhost:36651/api/'
 			}
 		}
 	});
