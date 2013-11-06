@@ -25,7 +25,8 @@ sysConfig.modules['core'] = {
 		'src/core/directives/ago.datepicker.js',
 		'src/core/directives/buttons.js',
 		'src/core/directives/agoBox.js',
-
+		'src/core/directives/counter.js',
+		
 		'src/core/directives/inplace/inlineEdit.js',
 		'src/core/directives/inplace/inlineText.js',
 		'src/core/directives/inplace/inlineTextArea.js',
@@ -43,7 +44,7 @@ sysConfig.modules['core'] = {
 		'src/core/directives/filters/filtersBox.js',
 		'src/core/directives/filters/userFilter.js',
 		'src/core/directives/filters/structuredFilter.js',
-		
+
 		'src/core/parts/header/breadCrumbs/breadCrumbsCtrl.js',
 		'src/core/parts/header/tabBar/tabBar.js',
 		'src/core/parts/header/tabBar/topTabBar.js',

@@ -18,7 +18,7 @@
 			</div>
 
 			<!-- Filter -->
-			<div filters-box="filters" meta="tasks/dictionary/customStatusMetadata" group="Tasks.CustomStatus"
+			<div filters-box="filter" meta="tasks/dictionary/customStatusMetadata" group="Tasks.CustomStatus"
 				apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter"
 				style="padding-top: 5px">
 				<form class="form form-horizontal">
@@ -137,6 +137,8 @@
 
 					<div class="box-toolbox box-toolbox-bottom">
 						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
+
+						<counter action="tasks/dictionary/getCustomStatusesCount"></counter>
 			    	</div><!-- toolbox bottom -->
 		    	</ago-box-content>
 				

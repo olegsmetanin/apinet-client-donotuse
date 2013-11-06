@@ -29,9 +29,10 @@ angular.module('core')
 					resetFilter: function() {
 						$scope.filter = { };
 						$scope.requestParams = { project: sysConfig.project };
-
+						
 						$scope.$emit('resetFilter');
 						$scope.applyEnabled = false;
+						$scope.$emit('filterChanged');
 
 						if(!$rootScope.$$phase) {
 							$scope.$apply();
@@ -186,6 +187,7 @@ angular.module('core')
 							return;
 						}
 						$scope.applyEnabled = true;
+						$scope.$emit('filterChanged');
 					},
 					refreshingWatcher: function(value, oldValue) {
 						if(value === oldValue) {
