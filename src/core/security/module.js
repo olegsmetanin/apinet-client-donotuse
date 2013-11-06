@@ -5,5 +5,6 @@ define([
 	'./retryQueue',
 	'./service',
 	'./LoginFormController',
-	'./userMenu'
+	'./userMenu',
+	'./userRoleCtrl'
 ], function(module) { return module; });

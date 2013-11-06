@@ -76,12 +76,17 @@
 	<script type="text/javascript">
 		(function(require) {
 			percent.setAttribute('style', 'width: 100%');
-			require(['angular', 'ago/home/module'], function(angular, $module) {
+			require([
+				'angular',
+				'ago/core/module',
+				'ago/home/module',
+				'ago/tasks/module'
+			], function(angular, core, home, tasks) {
 				var percent = document.getElementById('percent');
 
 				require(['domReady!'], function(document) {
 					percent.parentNode.parentNode.removeChild(percent.parentNode);
-					angular.bootstrap(document, ['ago.core', $module.name]);
+					angular.bootstrap(document, [core.name, home.name, tasks.name]);
 				});
 			});
 		})(requirejs);
