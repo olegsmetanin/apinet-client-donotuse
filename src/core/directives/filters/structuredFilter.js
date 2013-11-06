@@ -288,6 +288,152 @@ define([
 				}
 			};
 		}])
+		.directive('structuredFilterNodeEditor', ['filteringService', '$filter',
+			function($filteringService, $filter) {
+				return {
+					replace: true,
+					template: nodeEditorTpl,
+					scope: {
+						node: '=',
+						shared: '=',
+						meta: '=',
+						getParentMetadata: '&',
+						commitEdit: '&',
+						cancelEdit: '&'
+					},
+					controller: ['$scope', '$rootScope', function($scope, $rootScope) {
+						angular.extend($scope, {
+							i18n: $rootScope.i18n,
+
+							paths: [],
+							ops: [],
+							opSelectVisible: false,
+							editorType: null,
+							tempNode: {
+								value: $scope.node.value
+							},
+
+							getMetadata: function(callback, forceRefresh) {
+								if(forceRefresh || !$scope.metadata) {
+									$scope.getParentMetadata({
+										callback: function(parentMeta) {
+											$filteringService.getNodeMetadata($scope.meta, $scope.node, parentMeta, function(metadata) {
+												$scope.metadata = metadata;
+												$scope.valueMetadata = metadata;
+
+												callback($scope.metadata);
+											});
+										}
+									});
+									return;
+								}
+								callback($scope.metadata);
+							},
+
+							resetValidationErrors: function() {
+								$scope.validationErrors = {
+									path: [],
+									op: [],
+									value: []
+								};
+							}
+						});
+
+						$scope.$watch('node.path', function (value, oldValue) {
+							$scope.getMetadata(function(metadata) {
+								if (oldValue && oldValue !== value) {
+									$scope.node.op = '';
+									$scope.node.value = '';
+								}
+
+								$scope.ops = $filter('applicableOps')($filteringService.allOps(), metadata);
+								if(!$scope.node.op && $scope.ops.length) {
+									$scope.node.op = $scope.ops[0];
+								}
+								for (i = 0; i < $scope.ops.length; i++) {
+									$scope.ops[i] = {
+										value: $scope.ops[i],
+										label: $filteringService.opDisplayName($scope.ops[i])
+									};
+								}
+
+								$scope.opSelectVisible = !$filteringService.isCompositeNode(
+									$scope.node, metadata);
+							}, true);
+						}, true);
+
+						$scope.$watch('node.op', function (value) {
+							$scope.getMetadata(function(metadata) {
+								$scope.editorType = null;
+
+								if(!value || !metadata.PropertyType || $filteringService.isUnaryNode($scope.node)) {
+									return;
+								}
+
+								$scope.editorType = 'text';
+								if (metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
+									metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
+									$scope.editorType = metadata.PropertyType;
+								}
+							});
+						}, true);
+
+						$scope.$watch('node.value', function (value, oldValue) {
+							if(value === oldValue) {
+								return;
+							}
+							$scope.tempNode.value = value;
+						}, true);
+
+						$scope.$watch('tempNode.value', function (value, oldValue) {
+							if(value === oldValue) {
+								return;
+							}
+							$scope.node.value = value;
+						}, true);
+
+						$filteringService.beforeNodeEdit($scope.node);
+						$scope.resetValidationErrors();
+
+						$scope.getParentMetadata({
+							callback: function(parentMeta) {
+								$scope.paths = $filteringService.applicablePaths(parentMeta);
+								if(!$scope.node.path && $scope.paths.length) {
+									$scope.node.path = $scope.paths[0];
+								}
+								for(var i = 0; i < $scope.paths.length; i++) {
+									$scope.paths[i] = {
+										value: $scope.paths[i],
+										label: $filteringService.pathDisplayName($scope.paths[i], parentMeta)
+									};
+								}
+							}
+						});
+					}],
+					link: function($scope) {
+						angular.extend($scope, {
+							onSaveEditor: function () {
+								$scope.getMetadata(function(metadata) {
+									var node = angular.extend({ }, $scope.node);
+
+									$filteringService.afterNodeEdit(node, metadata);
+									$scope.resetValidationErrors();
+									if (!$filteringService.validateNode(node, metadata, $scope.validationErrors)) {
+										return;
+									}
+
+									$scope.commitEdit({ changedNode: node });
+								});
+							},
+
+							onCancelEditor: function () {
+								$scope.cancelEdit();
+							}
+						});
+					}
+				};
+			}
+		])
 	.directive('filterValueEditor', [function() {
 		return {
 			replace: true,

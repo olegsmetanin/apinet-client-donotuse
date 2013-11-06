@@ -3,7 +3,8 @@
 	      ng-mouseenter="context.hover = true;" ng-mouseleave="context.hover = false;">
 		<div ng-show="context.path.visible" ng-class="{'form-group': true, 'has-error': context.validation.path.length }">
 			<strong>
-				<inline-select model="editingNode.path" options="path.value as path.label for path in context.path.options"
+				<inline-select model="editingNode.path" display-value="context.path.displayValue"
+				    options="path.value as path.label for path in context.path.options"
 				    on-begin-edit="context.editing = true;"
 					on-changed="context.path.dirty = true;"
 					on-cancel="context.path.dirty = false; context.editing = false;"
@@ -12,7 +13,8 @@
 			</strong>
 		</div>
 		<div ng-show="context.op.visible" ng-class="{'form-group': true, 'has-error': context.validation.op.length }">
-			<inline-select model="editingNode.op" options="op.value as op.label for op in context.op.options"
+			<inline-select model="editingNode.op" display-value="context.op.displayValue"
+			    options="op.value as op.label for op in context.op.options"
 				on-begin-edit="context.editing = true;"
 				on-changed="context.op.dirty = true;"
 				on-cancel="context.op.dirty = false; context.editing = false;"
@@ -20,7 +22,7 @@
 			</inline-select>
 		</div>
 		<div ng-show="context.value.visible" ng-class="{'form-group': true, 'has-error': context.validation.value.length }">
-			<inline-text model="editingNode.value"
+			<inline-text model="editingNode.value" display-value="context.value.displayValue"
 				on-begin-edit="context.editing = true;"
 				on-changed="context.value.dirty = true;"
 				on-cancel="context.value.dirty = false; context.editing = false;"
