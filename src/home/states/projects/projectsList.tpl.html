@@ -3,9 +3,9 @@
      filtered-list="{method: 'home/projects/getProjects'}"
      initial-sorters="{ CreationTime: 'desc' }">
 	<div class="row" id="content-wrapper">
-		<div class="col-lg-12">
-			<div class="row">
-				<div class="col-lg-12">
+		<div class="col-xs-12">
+			<div class="row hidden-sm hidden-md hidden-lg">
+				<div class="col-xs-12">
 					<div class="page-header">
 						<h1 class="pull-left">
 							<i class="icon-table"></i>
@@ -16,7 +16,8 @@
 			</div>
 
 			<div filters-box="filter" meta="home/projects/projectMetadata" group="Projects"
-			     apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter">
+			        apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter"
+			        style="padding-top: 5px">
 				<form class="form form-horizontal">
 					<div class="form-group">
 						<label class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
@@ -52,7 +53,7 @@
 
 			<div class="row box">
 				<div class="col-lg-12">
-					<div class="box-content box-padding">
+					<div class="box-content">
 						<div class="box-toolbox box-toolbox-top" ng-show="currentUser.admin">
 							<ago-error-msg></ago-error-msg>
 
@@ -134,11 +135,7 @@
 						</div>
 
 						<div class="box-toolbox box-toolbox-bottom">
-							<label class="pull-left">{{ 'core.filters.displayedRecords' | i18n:{ count: (models || []).length } }}</label>
-							<div class="pull-right">
-								<button type="button" class="btn btn-success" ng-click="paging.page = paging.page + 1"
-								        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
-							</div>
+							<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
 						</div>
 					</div>
 				</div>

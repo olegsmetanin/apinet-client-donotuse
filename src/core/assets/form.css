@@ -25,3 +25,9 @@
 	padding: 3px;
 	cursor: pointer;
 }
+
+@media (min-width: 992px) {
+	.form-horizontal label.control-label.col-md-12 {
+		text-align: left;
+	}
+}

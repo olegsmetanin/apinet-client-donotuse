@@ -1,100 +1,125 @@
-<!-- <container> -->
-<div class="container-fluid" ng-controller="taskTypeCtrl"
-        filtered-list="{method: 'tasks/dictionary/getTaskTypes'}"
-        initial-sorters="{ Name: 'asc' }">
-	<div class="row-fluid">
-		<!-- <twocolumn-side> -->
-		<div class="span3">
-			<div filtered-list-actions></div>
-
-			<tabset>
-				<tab heading="{{ i18n.core.filters.simple }}">
-					<form>
-						<fieldset>
-							<label>{{ i18n.core.fields.name }}</label>
-							<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="span12" />
-						</fieldset>
-					</form>
-				</tab>
-
-				<tab heading="{{ i18n.core.filters.complex }}">
-					<div structured-filter filter-ng-model="filter.complex" meta="'tasks/dictionary/taskTypeMetadata'">
+<div class="container" 
+	ng-controller="taskTypeCtrl"
+	filtered-list="{method: 'tasks/dictionary/getTaskTypes'}"
+	initial-sorters="{ Name: 'asc' }">
+	<div class="row" id="content-wrapper">
+		<div class="col-xs-12">
+			<!-- Title -->
+			<div class="row hidden-sm hidden-md hidden-lg">
+				<div class="col-xs-12">
+					<div class="page-header">
+						<h1 class="pull-left">
+							<i class="icon-cog"></i>
+							<span>{{ i18n.tasks.types.title }}</span>
+						</h1>
 					</div>
-				</tab>
-
-				<tab heading="{{ i18n.core.filters.favorites }}">
-					<div filter-persister group="'Tasks.TaskType'" filter="filter"></div>
-				</tab>
-			</tabset>
-		</div>
-		<!-- </twocolumn-side> -->
-
-		<!-- <twocolumn-content> -->
-		<div class="span9">
-			<div class="alert alert-error span12" ng-show="validation.generalErrors">
-				{{ validation.generalErrors | joinBy }}
+				</div>
 			</div>
-			<form name="createTaskTypeForm" novalidate>
-				<fieldset>
-					<div style="display: inline-block">
-						<div class="input-append">
-							<input type="text" ng-model="editModel.name" placeholder="{{ i18n.tasks.types.placeholders.name }}" required />
-							<button type="button" class="btn" ng-click="createTaskType()"
-							        ng-disabled="createTaskTypeForm.$invalid">{{ i18n.core.buttons.add }}</button>
+
+			<!-- Filter -->
+			<div filters-box="filter" meta="tasks/dictionary/taskTypeMetadata" group="Tasks.TaskType"
+				apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter"
+				style="padding-top: 5px">
+					<form class="form form-horizontal">
+						<div class="form-group">
+							<label class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
+							<div class="col-md-9">
+								<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="form-control" />
+							</div>
 						</div>
-						<span ng-show="validation.fieldErrors['Name']" class="help-block alert-error">
-							{{ validation.fieldErrors['Name'] | joinBy }}
-						</span>
-					</div>
-					
-					<div class="span6 pull-right">
-						<button type="button" class="btn btn-danger" ng-click="deleteSelected()" ng-disabled="!hasSelected()">{{ i18n.core.buttons.delete }}</button>
-						<input type="text" lookup="tasks/dictionary/lookupTaskTypes" lookup-options="{allowClear: true}"
-						       ng-model="deleteModel.replacementType" placeholder="{{ i18n.tasks.types.placeholders.replacementType }}" style="width: 80%"/>
-					</div>
-				</fieldset>
-			</form>
+					</form>
+			</div>
 
-			<table class="table table-bordered"
-					infinite-scroll="paging.page = paging.page + 1"
-					infinite-scroll-disabled="applyEnabled"
-					infinite-scroll-distance="1">
-				<thead>
-					<tr>
-						<th class="onepct">
-							<input type="checkbox" checker="items: 'models'">
-						</th>
-						<th><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
-						<th style="width: 15%"><span sortable-heading="sorters.Creator_FIO" caption="{{ i18n.core.fields.creator }}"></span></th>
-						<th style="width: 20%"><span sortable-heading="sorters.CreationTime" caption="{{ i18n.core.fields.creationTime }}"></span></th>
-						<th class="onepct">&nbsp;</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="model in models">
-						<td>
-							<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
-						</td>
-						<td>
-							<inline-text model="model.Name" on-update="onUpdate(model, val)" on-cancel="onCancel(model, val)" input-class="span10" required></inline-text>
-							<span ng-show="model.validation.fieldErrors['Name']" class="help-block alert-error">
-								{{ model.validation.fieldErrors['Name'] | joinBy }}
-							</span>
-						</td>
-						<td>{{ model.Author }}</td>
-						<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
-						<td>
-							<ago-btn-delete title="{{ i18n.tasks.types.buttons.delete }}" ng-click="delete(model)"></ago-btn-delete>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<!-- Content -->
+			<ago-box color="purple" title-click-collapse large="true" collapsed="typesCollapsed">
+				<ago-box-title>
+					<i class="icon-cog"></i>
+					{{ i18n.tasks.types.title }}
+				</ago-box-title>
+				<ago-box-content>
+					<div class="box-toolbox box-toolbox-top">
+						<ago-error-msg></ago-error-msg>
 
-			<div ng-show="indication.loading" us-spinner="{top:100}"></div>
-			<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1"
-			        ng-disabled="applyEnabled">{{ i18n.core.buttons.more }}</button>
-		</div>
-		<!-- </twocolumn-content> -->
-	</div>
+						<form name="createTaskTypeForm" class="form-inline" novalidate>
+							<div class="row">
+								<div class="col-sm-6" ng-class="{'has-error': (createTaskTypeForm.$invalid || validation.fieldErrors['Name'])}">
+									<div class="row">
+										<div class="input-group col-xs-12">
+											<input type="text" ng-model="editModel.name" placeholder="{{ i18n.tasks.types.placeholders.name }}" class="form-control" ng-required="editModel.focused" ng-focus="editModel.focused=true" ng-blur="editModel.focused=false"/>
+											<div class="input-group-btn">
+												<button type="button" class="btn" ng-click="createTaskType()" ng-disabled="!createEnabled()">{{ i18n.core.buttons.add }}</button>
+												<button type="button" class="btn" ng-click="dropChanges()" title="{{ i18n.core.buttons.clear }}">&times;</button>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-12">
+											<span ng-show="validation.fieldErrors['Name']" class="help-block has-error">
+												{{ validation.fieldErrors['Name'] | joinBy }}
+											</span>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-6">
+									<div class="row">
+										<div class="col-md-3">
+											<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{i18n.core.buttons.deleteSelected}}">{{ i18n.core.buttons.delete }}</button>
+											<div class="clearfix"></div>
+										</div>
+										<div class="col-md-9">
+											<input type="text" lookup="tasks/dictionary/lookupTaskTypes" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementType" placeholder="{{ i18n.tasks.types.placeholders.replacementType }}" class="form-control" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div><!-- toolbox -->
+
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="onepct">
+											<input type="checkbox" checker="items: 'models'">
+										</th>
+										<th><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
+										<th style="width: 15%"><span sortable-heading="sorters.Creator_FIO" caption="{{ i18n.core.fields.creator }}"></span></th>
+										<th style="width: 20%"><span sortable-heading="sorters.CreationTime" caption="{{ i18n.core.fields.creationTime }}"></span></th>
+										<th class="onepct">&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="model in models">
+										<td>
+											<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
+										</td>
+										<td>
+											<inline-text model="model.Name" on-update="onUpdate(model, val)" on-cancel="onCancel(model, val)" input-class="span10" required></inline-text>
+											<span ng-show="model.validation.fieldErrors['Name']" class="help-block alert-error">
+												{{ model.validation.fieldErrors['Name'] | joinBy }}
+											</span>
+										</td>
+										<td>{{ model.Author }}</td>
+										<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+										<td>
+											<ago-btn-delete title="{{ i18n.tasks.types.buttons.delete }}" ng-click="delete(model)"></ago-btn-delete>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="box-toolbox box-toolbox-bottom">
+						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
+
+						<counter action="tasks/dictionary/getTaskTypesCount"></counter>
+					</div>
+				</ago-box-content>
+			</ago-box>
+		
+		</div><!-- col-xs-12 -->
+	</div><!-- row content-wrapper -->
 </div>
-<!-- </container> -->

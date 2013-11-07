@@ -4,7 +4,7 @@
 
 			<div class="row">
 				<div class="col-xs-12">
-					<tas-tabs current-tab="overview" task-num="model.SeqNumber"></tas-tabs>
+					<task-tabs current-tab="overview" task-num="model.SeqNumber" style="padding-top: 5px"></task-tabs>
 				</div>
 			</div>
 
@@ -13,37 +13,39 @@
 					<ago-error-msg></ago-error-msg>
 
 					<div class="row">
+						<div class="col-xs-12">
 
-						<div class="col-xs-12 col-sm-6">
-							<div class="box ">
-								<div class="box-header purple-background">
-									<div class="title">
-										<i class="icon-table"></i>
-										{{ i18n.tasks.view.general.title }}
-									</div>
-									<div class="actions">
-										<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
-									</div>
-								</div>
-
-								<div class="box-content">
-									<form class="form form-horizontal" novalidate>
-										<div class="form-group">
-											<label class="col-md-4 control-label">{{ i18n.tasks.fields.seqNumber }}</label>
-											<div class="col-md-8"><p class="form-control-static">{{ model.SeqNumber }}</p></div>
+							<ago-box color="purple" title-click-collapse collapsible="true" large="true" collapsed="generalCollapsed">
+								<ago-box-title>
+									<i class="icon-table"></i>
+									{{ i18n.tasks.view.general.title }}
+								</ago-box-title>
+								<ago-box-actions>
+									<a class="btn btn-xs btn-link">
+										<i class="fa" ng-class="{ 'icon-chevron-up': !generalCollapsed, 'icon-chevron-down': generalCollapsed }"></i>
+									</a>
+								</ago-box-actions>
+								<form class="form form-horizontal" novalidate>
+									<div class="row">
+										<div class="form-group col-xs-12 col-md-6">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.seqNumber }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.SeqNumber }}</p></div>
 										</div>
-										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['TaskType']}">
-											<label class="col-md-4 control-label">{{ i18n.tasks.fields.type }}</label>
-											<div class="col-md-8">
+										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['TaskType']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.type }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
 												<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskTypes" input-col="col-xs-12" required></inline-lookup>
 												<span ng-show="validation.fieldErrors['TaskType']" class="help-block has-error">
 													{{ validation.fieldErrors['TaskType'] | joinBy }}
 												</span>
 											</div>
 										</div>
-										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Executors']}">
-											<label class="col-md-4 control-label">{{ i18n.tasks.fields.executors }}</label>
-											<div class="col-md-8">
+									</div>
+
+									<div class="row">
+										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['Executors']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.executors }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
 												<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()" input-lookup="home/projects/lookupParticipant" input-col="col-xs-12" multiple required>
 													<executors model="model.Executors"></executors>
 												</inline-lookup>
@@ -52,96 +54,99 @@
 												</span>
 											</div>
 										</div>
-										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Content']}">
-											<label class="col-md-4 control-label">{{ i18n.tasks.fields.content }}</label>
-											<div class="col-md-8">
-												<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" input-col="col-xs-12" input-rows="5"></inline-text-area>
-												<span ng-show="validation.fieldErrors['Content']" class="help-block has-error">
-													{{ validation.fieldErrors['Content'] | joinBy }}
-												</span>
-											</div>
-										</div>
-										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['DueDate']}">
-											<label class="col-md-4 control-label">{{ i18n.tasks.fields.dueDate }}</label>
-											<div class="col-md-8">
+										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['DueDate']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.dueDate }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
 												<inline-date model="model.DueDate" on-update="onUpdateProp(model, 'DueDate', val)" on-cancel="resetValidation()" input-col="col-xs-12"></inline-date>
 												<span ng-show="validation.fieldErrors['DueDate']" class="help-block has-error">
 													{{ validation.fieldErrors['DueDate'] | joinBy }}
 												</span>
 											</div>
 										</div>
-										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Status']}">
-											<label class="col-md-4 control-label">{{ i18n.tasks.fields.status }}</label>
-											<div class="col-md-8">
+									</div>
+
+									<div class="row">
+										<div class="form-group col-xs-12" ng-class="{'has-error': validation.fieldErrors['Content']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.content }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
+												<inline-text-area model="model.Content" on-update="onUpdateProp(model, 'Content', val)" on-cancel="resetValidation()" input-col="col-xs-12" input-rows="5"></inline-text-area>
+												<span ng-show="validation.fieldErrors['Content']" class="help-block has-error">
+													{{ validation.fieldErrors['Content'] | joinBy }}
+												</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['Status']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.status }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
 												<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskStatuses" input-col="col-xs-12" required></inline-lookup>
 												<span ng-show="validation.fieldErrors['Status']" class="help-block has-error">
 													{{ validation.fieldErrors['Status'] | joinBy }}
 												</span>
 											</div>
 										</div>
-										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['CustomStatus']}">
-											<label class="col-md-4 control-label">{{ i18n.tasks.fields.customStatus }}</label>
-											<div class="col-md-8">
+										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['CustomStatus']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.customStatus }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
 												<inline-lookup model="model.CustomStatus" on-update="onUpdateProp(model, 'CustomStatus', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupCustomStatuses" input-col="col-xs-12"></inline-lookup>
 												<span ng-show="validation.fieldErrors['CustomStatus']" class="help-block has-error">
 													{{ validation.fieldErrors['CustomStatus'] | joinBy }}
 												</span>
 											</div>
 										</div>
-										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Priority']}">
-											<label class="col-md-4 control-label">{{ i18n.tasks.fields.priority }}</label>
-											<div class="col-md-8">
+									</div>
+
+									<div class="row">
+										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['Priority']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.priority }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
 												<inline-lookup model="model.Priority" on-update="onUpdateProp(model, 'Priority', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskPriorities" input-col="col-xs-12" required></inline-lookup>
 												<span ng-show="validation.fieldErrors['Priority']" class="help-block has-error">
 													{{ validation.fieldErrors['Priority'] | joinBy }}
 												</span>
 											</div>
 										</div>
-										<div class="form-group" ng-class="{'has-error': validation.fieldErrors['Note']}">
-											<label class="col-md-4 control-label">{{ i18n.tasks.fields.note }}</label>
-											<div class="col-md-8">
+										<div class="form-group col-xs-12 col-md-6">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.creator }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.Author }}</p></div>
+										</div>	
+									</div>
+									
+									<div class="row">
+										<div class="form-group col-xs-12 col-md-6">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.creationTime }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.CreationTime | date:'ago_datetime' }}</p></div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="form-group col-xs-12" ng-class="{'has-error': validation.fieldErrors['Note']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.note }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
 												<inline-text-area model="model.Note" on-update="onUpdateProp(model, 'Note', val)" on-cancel="resetValidation()" input-col="col-xs-12" input-rows="5"></inline-text-area>
 												<span ng-show="validation.fieldErrors['Note']" class="help-block has-error">
 													{{ validation.fieldErrors['Note'] | joinBy }}
 												</span>
 											</div>
 										</div>
-										<div class="form-group">
-											<label class="col-md-4 control-label">{{ i18n.core.fields.creator }}</label>
-											<div class="col-md-8"><p class="form-control-static">{{ model.Author }}</p></div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-4 control-label">{{ i18n.core.fields.creationTime }}</label>
-											<div class="col-md-8"><p class="form-control-static">{{ model.CreationTime | date:'ago_datetime' }}</p></div>
-										</div>
-									</form>
-								</div><!-- box-content -->
-							</div><!-- box general -->
-						</div>
+									</div>
 
-						<div class="col-xs-12 col-sm-6">
-							<custom-properties model="model"></custom-properties>
+								</form>
+							</ago-box>
 						</div>
-
 					</div>
 
 					<div class="row">
 						<div class="col-xs-12">
-							<div class="box ">
-								<div class="box-header blue-background">
-									<div class="title">
-										<i class="icon-table"></i>
-										{{ i18n.tasks.view.agreements.title }}
-									</div>
-									<div class="actions">
-										<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
-									</div>
-								</div>
+							<custom-properties model="model"></custom-properties>
+						</div>
+					</div>
 
-								<div class="box-content">
-									<agreements model="model"></agreements>
-								</div>
-							</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<agreements model="model"></agreements>
 						</div>
 					</div>
 

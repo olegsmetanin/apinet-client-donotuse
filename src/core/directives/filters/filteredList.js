@@ -29,9 +29,10 @@ define(['angular', '../../moduleDef', 'css!./filteredList.css'], function (angul
 					resetFilter: function() {
 						$scope.filter = { };
 						$scope.requestParams = { project: sysConfig.project };
-
+						
 						$scope.$emit('resetFilter');
 						$scope.applyEnabled = false;
+						$scope.$emit('filterChanged');
 
 						if(!$rootScope.$$phase) {
 							$scope.$apply();
@@ -186,6 +187,7 @@ define(['angular', '../../moduleDef', 'css!./filteredList.css'], function (angul
 							return;
 						}
 						$scope.applyEnabled = true;
+						$scope.$emit('filterChanged');
 					},
 					refreshingWatcher: function(value, oldValue) {
 						if(value === oldValue) {
