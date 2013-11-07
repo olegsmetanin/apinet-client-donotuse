@@ -10,7 +10,7 @@
 }
 
 .responsive-table .scrollable-area {
-	overflow-x: auto;
+	overflow-x: auto !important;
 }
 
 .responsive-table .scrollable-area table.table {

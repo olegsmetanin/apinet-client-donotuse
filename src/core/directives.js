@@ -13,6 +13,7 @@ define([
 	'./directives/ngFocus',
 	'./directives/relinclude',
 	'./directives/requiredMultiple',
+	'./directives/counter',
 
 	'./directives/filters/filter',
 	'./directives/filters/filteredList',

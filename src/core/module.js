@@ -7,7 +7,10 @@ define([
 
 	'ago/components/flatty/theme',
 	'i18n!nls/angular',
-	'i18n!ago/nls/core'
+	'i18n!ago/nls/core',
+
+	'css!./assets/form.css',
+	'css!./assets/list.css'
 ], function(module, requireModule) {
 	var sysConfig = requireModule.config().sysConfig || { };
 

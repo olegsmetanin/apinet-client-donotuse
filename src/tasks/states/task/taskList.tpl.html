@@ -100,115 +100,117 @@
 					{{ i18n.tasks.list.title }}
 				</ago-box-title>
 
-				<div class="box-toolbox box-toolbox-top">
-					<ago-error-msg></ago-error-msg>
+				<ago-box-content>
+					<div class="box-toolbox box-toolbox-top">
+						<ago-error-msg></ago-error-msg>
 
-					<div>
-						<a href="#!/tasks/new" class="btn btn-primary" ng-click="newItem();">
-							<i class="icon-plus icon-white"></i>
-							<span>{{ i18n.tasks.list.buttons.add }}</span>
-						</a>
-						<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
-							{{ i18n.core.buttons.delete }}
-						</button>
+						<div>
+							<a href="#!/tasks/new" class="btn btn-primary" ng-click="newItem();">
+								<i class="icon-plus icon-white"></i>
+								<span>{{ i18n.tasks.list.buttons.add }}</span>
+							</a>
+							<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
+								{{ i18n.core.buttons.delete }}
+							</button>
+						</div>
 					</div>
-				</div>
 
-				<div class="responsive-table">
-					<div class="scrollable-area">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th class="onepct">
-										<input type="checkbox" checker="items: 'models'">
-									</th>
-									<th class="col-xs-1"><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
-									<th class="col-xs-3"><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
-									<th class="col-xs-3">{{ i18n.tasks.fields.executors }}</th>
-									<th class="col-xs-2"><span sortable-heading="sorters.DueDate" caption="{{ i18n.tasks.fields.dueDate }}"></span></th>
-									<th class="col-xs-2"><span sortable-heading="sorters.Status" caption="{{ i18n.tasks.fields.status }}"></span></th>
-									<th class="col-xs-2"><span sortable-heading="sorters.CustomStatus_Name" caption="{{ i18n.tasks.fields.customStatus }}"></span></th>
-									<th class="onepct">&nbsp;</th>
-								</tr>
-							</thead>
-							<!-- TODO waiting for new angular version
-							http://stackoverflow.com/questions/16900050/angular-js-ng-repeat-across-multiple-elements -->
-							<tbody ng-repeat="model in models">
-								<tr>
-									<td>
-										<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
-									</td>
-									<td>
-										<a href="#!/tasks/{{model.SeqNumber}}" style="white-space: nowrap">
-											{{ model.SeqNumber }}
-										</a>
-										<a href="" class="btn btn-primary btn-sm" data-toggle="button" ng-click="toggleDetails(model)">
-											<i class="fa" ng-class="{ 'icon-chevron-up': model.details.expanded, 'icon-chevron-down': !model.details.expanded }"></i>
-										</a>
-									</td>
-									<td>
-										{{ model.TaskType }}
-										<p ng-show="model.Content" title="{{ model.Content }}">
-											<small class="clip-content">{{ model.Content | textCut:50 }}</small>
-										</p>
-									</td>
-									<td>
-										<executors model="model.Executors" ></executors>
-									</td>
-									<td>{{ model.DueDate | date:'ago_date' }}</td>
-									<td>{{ model.Status }}</td>
-									<td>{{ model.CustomStatus }}</td>
-									<td>
-										<ago-btn-delete title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)"></ago-btn-delete>
-									</td>
-								</tr>
-								<tr ng-show="model.details.expanded" ng-init="model.details.loaded = false">
-									<td colspan="8">
-										<div ng-hide="model.details.loaded">{{ i18n.core.labels.loading }}...</div>
-										<div ng-show="model.details.loaded">
-											<table class="table table-bordered">
-												<tr>
-													<td>{{ i18n.tasks.fields.priority }}</td>
-													<td>{{ model.details.Priority }}</td>
-												</tr>
-												<tr>
-													<td>{{ i18n.tasks.fields.content }}</td>
-													<td><span style="white-space: normal">{{ model.details.Content }}</span></td>
-												</tr>
-												<tr>
-													<td>{{ i18n.tasks.fields.note }}</td>
-													<td><span style="white-space: normal">{{ model.details.Note }}</span></td>
-												</tr>
-												<tr>
-													<td>{{ i18n.tasks.fields.agreements }}</td>
-													<td>
-														<span ng-repeat="a in model.details.Agreements">
-															<i ng-class="{'icon-check': a.Done, 'icon-check-empty': !a.Done}"></i>{{ a.Agreemer }}
-														</span>&nbsp; &nbsp;
-													</td>
-												</tr>
-												<tr>
-													<td>{{ 'tasks.fields.topFiles' | i18n:{ count: 5 } }}</td>
-													<td>
-														<a href="/services/download/file/{{f}}" target="_blank" ng-repeat="f in model.details.Files">
-															<i class="icon-paper-clip"></i>{{ f }}
-														</a>
-													</td>
-												</tr>
-											</table>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div><!-- scrollable-area-->
-				</div><!-- responsive-table -->
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="onepct">
+											<input type="checkbox" checker="items: 'models'">
+										</th>
+										<th class="col-xs-1"><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
+										<th class="col-xs-3"><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
+										<th class="col-xs-3">{{ i18n.tasks.fields.executors }}</th>
+										<th class="col-xs-2"><span sortable-heading="sorters.DueDate" caption="{{ i18n.tasks.fields.dueDate }}"></span></th>
+										<th class="col-xs-2"><span sortable-heading="sorters.Status" caption="{{ i18n.tasks.fields.status }}"></span></th>
+										<th class="col-xs-2"><span sortable-heading="sorters.CustomStatus_Name" caption="{{ i18n.tasks.fields.customStatus }}"></span></th>
+										<th class="onepct">&nbsp;</th>
+									</tr>
+								</thead>
+								<!-- TODO waiting for new angular version
+								http://stackoverflow.com/questions/16900050/angular-js-ng-repeat-across-multiple-elements -->
+								<tbody ng-repeat="model in models">
+									<tr>
+										<td>
+											<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
+										</td>
+										<td>
+											<a href="#!/tasks/{{model.SeqNumber}}" style="white-space: nowrap">
+												{{ model.SeqNumber }}
+											</a>
+											<a href="" class="btn btn-primary btn-sm" data-toggle="button" ng-click="toggleDetails(model)">
+												<i class="fa" ng-class="{ 'icon-chevron-up': model.details.expanded, 'icon-chevron-down': !model.details.expanded }"></i>
+											</a>
+										</td>
+										<td>
+											{{ model.TaskType }}
+											<p ng-show="model.Content" title="{{ model.Content }}">
+												<small class="clip-content">{{ model.Content | textCut:50 }}</small>
+											</p>
+										</td>
+										<td>
+											<executors model="model.Executors" ></executors>
+										</td>
+										<td>{{ model.DueDate | date:'ago_date' }}</td>
+										<td>{{ model.Status }}</td>
+										<td>{{ model.CustomStatus }}</td>
+										<td>
+											<ago-btn-delete title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)"></ago-btn-delete>
+										</td>
+									</tr>
+									<tr ng-show="model.details.expanded" ng-init="model.details.loaded = false">
+										<td colspan="8">
+											<div ng-hide="model.details.loaded">{{ i18n.core.labels.loading }}...</div>
+											<div ng-show="model.details.loaded">
+												<table class="table table-bordered">
+													<tr>
+														<td>{{ i18n.tasks.fields.priority }}</td>
+														<td>{{ model.details.Priority }}</td>
+													</tr>
+													<tr>
+														<td>{{ i18n.tasks.fields.content }}</td>
+														<td><span style="white-space: normal">{{ model.details.Content }}</span></td>
+													</tr>
+													<tr>
+														<td>{{ i18n.tasks.fields.note }}</td>
+														<td><span style="white-space: normal">{{ model.details.Note }}</span></td>
+													</tr>
+													<tr>
+														<td>{{ i18n.tasks.fields.agreements }}</td>
+														<td>
+															<span ng-repeat="a in model.details.Agreements">
+																<i ng-class="{'icon-check': a.Done, 'icon-check-empty': !a.Done}"></i>{{ a.Agreemer }}
+															</span>&nbsp; &nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td>{{ 'tasks.fields.topFiles' | i18n:{ count: 5 } }}</td>
+														<td>
+															<a href="/services/download/file/{{f}}" target="_blank" ng-repeat="f in model.details.Files">
+																<i class="icon-paper-clip"></i>{{ f }}
+															</a>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div><!-- scrollable-area-->
+					</div><!-- responsive-table -->
 
-				<div class="box-toolbox box-toolbox-bottom">
-					<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
+					<div class="box-toolbox box-toolbox-bottom">
+						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
 
-					<counter action='tasks/tasks/getTasksCount'></counter>
-				</div>
+						<counter action='tasks/tasks/getTasksCount'></counter>
+					</div>
+				</ago-box-content>
 			</ago-box><!-- box -->
 
 		</div><!-- col-xs-12 -->
