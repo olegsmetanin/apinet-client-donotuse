@@ -1,15 +1,4 @@
 ﻿(function(require, define) {
-	var getCookie = function(cookie) {
-		var matches = cookie && cookie.length && document.cookie.match(new RegExp(
-			"(?:^|; )" + cookie.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-		));
-
-		return matches ? decodeURIComponent(matches[1]) : undefined;
-	};
-
-	var locale = getCookie('currentLocale') || window.navigator.userLanguage ||
-		window.navigator.language || 'en';
-
 	require.config({
 		baseUrl: '../',
 		shim: {
@@ -98,24 +87,6 @@
 			'angular-promise-tracker': 'components/angular-promise-tracker/promise-tracker',
 
 			'ago': 'src'
-		},
-
-		config: {
-			i18n: {
-				locale: locale
-			},
-			'ago/core/module': {
-				sysConfig: {
-					modules: {},
-					project: "prj1",
-					lang: locale,
-					// use fake backend
-					fakeBackend: true,
-					// make dalay in milliseconds before $http requests when use fake backend
-					delay: 0,
-					supportedLocales: ['ru', 'en']
-				}
-			}
 		}
 	});
 

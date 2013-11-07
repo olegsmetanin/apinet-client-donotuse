@@ -13,5 +13,7 @@ define([
 		Completed: 'Completed',
 		Closed: 'Closed',
 		Suspended: 'Suspended'
-	});
+	}).config(['$urlRouterProvider', function($urlRouterProvider) {
+		$urlRouterProvider.otherwise('/');
+	}]);
 });
