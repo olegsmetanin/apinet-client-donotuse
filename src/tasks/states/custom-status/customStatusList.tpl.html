@@ -77,11 +77,13 @@
 								<div class="col-sm-6">
 									<div class="row">
 										<div class="col-md-3">
-											<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="i18n.core.buttons.deleteSelected">{{ i18n.core.buttons.delete }}</button>
+											<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()"
+											        title="i18n.core.buttons.deleteSelected">{{ i18n.core.buttons.delete }}</button>
 											<div class="clearfix"></div>
 										</div>
-										<div class="col-md-9" style="padding-left: 0px">
-											<input type="text" lookup="tasks/dictionary/lookupCustomStatuses" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementStatus" placeholder="{{ i18n.tasks.customStatuses.placeholders.replacementStatus }}" class="form-control"></input>
+										<div class="col-md-9" style="padding-left: 0">
+											<input type="text" lookup="tasks/dictionary/lookupCustomStatuses" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementStatus"
+											       placeholder="{{ i18n.tasks.customStatuses.placeholders.replacementStatus }}" class="form-control" />
 										</div>
 									</div>
 								</div>

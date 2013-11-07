@@ -170,3 +170,4 @@ define(['angular', '../moduleDef', 'text!./agoBox.tpl.html', 'css!./agoBox.css']
 			}
 		};
 	});
+});

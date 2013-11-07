@@ -2,9 +2,6 @@ define([
 	'./moduleDef',
 	'./states',
 
-	'css!./assets/form.css',
-	'css!./assets/lists.css',
-
 	'i18n!ago/nls/tasks'
 ], function(module) {
 	return module.constant('taskStatuses', {
