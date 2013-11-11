@@ -4,14 +4,13 @@ define([
 	'jquery',
 	'text!./structuredFilter.tpl.html',
 	'text!./structuredFilterNode.tpl.html',
-	'text!./structuredFilterNodeEditor.tpl.html',
 	'text!./booleanValueEditor.tpl.html',
 	'text!./datetimeValueEditor.tpl.html',
 	'text!./dateValueEditor.tpl.html',
 	'text!./enumValueEditor.tpl.html',
 	'text!./textValueEditor.tpl.html'
-], function (angular, module, $, tpl, nodeTpl, nodeEditorTpl,
-             booleanEditorTpl, datetimeEditorTpl, dateEditorTpl, enumEditorTpl, textEditorTpl) {
+], function (angular, module, $, tpl, nodeTpl, booleanEditorTpl, datetimeEditorTpl,
+		dateEditorTpl, enumEditorTpl, textEditorTpl) {
 
 	var editorTpls = { };
 	module.directive('structuredFilter', ['$compile', 'helpers', 'filteringService', 'metadataService',
@@ -95,20 +94,19 @@ define([
 						context: { },
 
 						nodeUpdated: function(property, value) {
+							var forceMetadata = false;
 							if(property && $scope.context.hasOwnProperty(property)) {
 								$scope.context[property].dirty = true;
 								$scope.editingNode[property] = value;
-							}
 
-							if($scope.context.metadata) {
-								$filteringService.afterNodeEdit($scope.editingNode, $scope.context.metadata);
+								if(property === 'path') {
+									delete $scope.context.op.options;
+									$scope.editingNode.op = '';
+									forceMetadata = true;
+								}
 							}
 
 							$scope.getMetadata(function(metadata) {
-								if($scope.context.path && $scope.context.path.dirty) {
-									delete $scope.context.op.options;
-								}
-
 								var ctx = $scope.context = {
 									metadata: $scope.context.metadata,
 									parentMeta: $scope.context.parentMeta,
@@ -140,6 +138,8 @@ define([
 									}
 								};
 
+								$filteringService.afterNodeEdit($scope.editingNode, ctx.metadata);
+
 								var i;
 								if(!ctx.op.options || !ctx.op.options.length) {
 									ctx.op.options = $filter('applicableOps')($filteringService.allOps(), metadata);
@@ -156,12 +156,29 @@ define([
 								
 								if(!ctx.path.options || !ctx.path.options.length) {
 									ctx.path.options = $filteringService.applicablePaths(ctx.parentMeta);
+
 									for(i = 0; i < ctx.path.options.length; i++) {
 										ctx.path.options[i] = {
 											value: ctx.path.options[i],
 											label: $filteringService.pathDisplayName(ctx.path.options[i], ctx.parentMeta)
 										};
 									}
+
+									ctx.path.options.sort(function(a, b) {
+										if(a.value === '&&' || a.value === '||' || a.value === '&&!') {
+											return -1;
+										}
+										if(b.value === '&&' || b.value === '||' || b.value === '&&!') {
+											return 1;
+										}
+										if (a.label > b.label) {
+											return 1;
+										}
+										if (a.label < b.label) {
+											return -1;
+										}
+										return 0;
+									});
 								}
 
 								var composite = $filteringService.isCompositeNode($scope.editingNode, metadata);
@@ -179,6 +196,11 @@ define([
 										!!$scope.editingNode.op && !$filteringService.isUnaryNode($scope.editingNode);
 									if(ctx.value.editable) {
 										ctx.value.editorType = 'text';
+
+										if (metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
+												metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
+											ctx.value.editorType = metadata.PropertyType;
+										}
 									}
 								}
 
@@ -194,7 +216,11 @@ define([
 								ctx.value.displayValue = $filteringService.valueDisplayName(
 									$scope.editingNode.value, metadata);
 
-							}, $scope.context.path && $scope.context.path.dirty);
+							}, forceMetadata);
+
+							if(property) {
+								$scope.$parent.nodeUpdated();
+							}
 						},
 
 						getMetadata: function(callback, forceRefresh) {
@@ -220,6 +246,7 @@ define([
 
 							$scope.node.items.push({ op: '&&', items: [ ] });
 							$scope.appendSubNode($scope.node.items.length - 1);
+							$scope.nodeUpdated();
 						},
 
 						deleteNode: function() {
@@ -239,6 +266,7 @@ define([
 
 							parentNode.items.splice(index, 1);
 							$scope.$parent.renderSubNodes();
+							$scope.$parent.nodeUpdated();
 						}
 					});
 
@@ -289,7 +317,6 @@ define([
 		}])
 	.directive('filterValueEditor', [function() {
 		return {
-			replace: true,
 			link: function($scope, element, attrs) {
 				attrs.$observe('filterValueEditor', function(editorType) {
 					var linkFn = editorTpls[editorType];
@@ -297,7 +324,7 @@ define([
 						return;
 					}
 					linkFn($scope, function(cloned) {
-						element.replaceWith(cloned);
+						element.html(cloned);
 					});
 				});
 			}

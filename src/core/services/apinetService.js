@@ -2,6 +2,8 @@ define(['angular', '../moduleDef', 'module'], function (angular, module, require
 	var config = requireModule.config() || { };
 	config.apiRoot = config.apiRoot ? config.apiRoot : '/api/';
 
+	module.constant('defaultPageSize', 20);
+
 	module.service('apinetService', ['$q', '$http', '$cacheFactory', 'i18n', function ($q, $http, $cacheFactory, i18n) {
 		angular.extend(this, {
 			getModel: function (requestData, postProcessFn) {

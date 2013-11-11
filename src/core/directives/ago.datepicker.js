@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef', 'jquery', 'bootstrap/datepicker'], function (angular, module, $) {
+define(['angular', '../moduleDef', 'jquery', 'jquery-ui', 'bootstrap/datepicker'], function (angular, module, $) {
 	//extracted from angular-strap project
 	//https://github.com/mgcrea/angular-strap/blob/master/src/directives/datepicker.js
 	// https://github.com/eternicode/bootstrap-datepicker

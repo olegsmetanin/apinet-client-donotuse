@@ -111,10 +111,9 @@ define(['angular', '../../moduleDef', 'css!./inlineEdit.css'], function (angular
 
 				angular.element(scope.elInput).on('blur', scope.onBlur);
 
-				scope.$on('update', function() {
-					console.log('updating by event');
-					scope.update();
-				});
+				if(attr.initialEditMode) {
+					scope.edit();
+				}
 			}
 		};
 	}]);

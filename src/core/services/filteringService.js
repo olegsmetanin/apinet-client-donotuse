@@ -71,10 +71,6 @@ define(['angular', '../moduleDef'], function (angular, module) {
 					return result;
 				}
 
-				result.push('&&');
-				result.push('||');
-				result.push('&&!');
-
 				for (key in metadata.PrimitiveProperties) {
 					if (!metadata.PrimitiveProperties.hasOwnProperty(key)) {
 						continue;
@@ -88,6 +84,10 @@ define(['angular', '../moduleDef'], function (angular, module) {
 					}
 					result.push(key);
 				}
+
+				result.unshift('&&!');
+				result.unshift('||');
+				result.unshift('&&');
 
 				return result;
 			},

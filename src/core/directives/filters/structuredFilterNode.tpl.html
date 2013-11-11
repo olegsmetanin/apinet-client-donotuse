@@ -1,42 +1,45 @@
 <div class="nodePanel">
 	<form ng-show="!root" class="form-inline nodeData" novalidate ng-class="{ 'hasError': !context.validation.valid }"
 	      ng-mouseenter="context.hover = true;" ng-mouseleave="context.hover = false;">
-		<div ng-show="context.path.visible" ng-class="{'form-group': true, 'has-error': context.validation.path.length }">
-			<strong>
-				<inline-select model="editingNode.path" display-value="context.path.displayValue"
-				    options="path.value as path.label for path in context.path.options"
-				    on-begin-edit="context.editing = true;"
-					on-changed="context.path.dirty = true;"
-					on-cancel="context.path.dirty = false; context.editing = false;"
-					on-update="nodeUpdated('path', val);">
-				</inline-select>
-			</strong>
+
+		<div class="input-group">
+			<span ng-show="context.path.visible" class="input-group-btn btn-group dropdown">
+				<button ng-disabled="!context.path.editable" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					{{ context.path.displayValue }}
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li ng-repeat="path in context.path.options">
+						<a href="#!" ng-click="nodeUpdated('path', path.value);">{{ path.label }}</a>
+					</li>
+				</ul>
+			</span>
+			<span ng-show="context.add && !context.editing" class="input-group-btn">
+				<button class="btn btn-success" title="{{ i18n.core.filters.buttons.newNode }}"
+				        ng-click="addNode()" ng-disabled="!context.add">
+					<i class="icon-plus"></i>
+				</button>
+			</span>
+			<span ng-show="context.op.visible" class="input-group-btn btn-group dropdown">
+				<button ng-disabled="!context.op.editable" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+					{{ context.op.displayValue }}
+				</button>
+				<ul class="dropdown-menu">
+					<li ng-repeat="op in context.op.options">
+						<a href="#!" ng-click="nodeUpdated('op', op.value);">{{ op.label }}</a>
+					</li>
+				</ul>
+			</span>
+			<span ng-show="context.value.visible && context.value.editorType"
+			      filter-value-editor="{{ context.value.editorType }}"></span>
+			<span ng-show="!context.value.visible || !context.value.editorType">&nbsp;</span>
+			<span ng-show="context.delete && !context.editing" class="input-group-btn">
+				<button class="btn btn-danger pull-right" title="{{ i18n.core.filters.buttons.deleteNode }}"
+				        ng-click="deleteNode()" ng-disabled="!context.delete">
+					<i class="icon-minus"></i>
+				</button>
+			</span>
 		</div>
-		<div ng-show="context.op.visible" ng-class="{'form-group': true, 'has-error': context.validation.op.length }">
-			<inline-select model="editingNode.op" display-value="context.op.displayValue"
-			    options="op.value as op.label for op in context.op.options"
-				on-begin-edit="context.editing = true;"
-				on-changed="context.op.dirty = true;"
-				on-cancel="context.op.dirty = false; context.editing = false;"
-				on-update="nodeUpdated('op', val);">
-			</inline-select>
-		</div>
-		<div ng-show="context.value.visible" ng-class="{'form-group': true, 'has-error': context.validation.value.length }">
-			<inline-text model="editingNode.value" display-value="context.value.displayValue"
-				on-begin-edit="context.editing = true;"
-				on-changed="context.value.dirty = true;"
-				on-cancel="context.value.dirty = false; context.editing = false;"
-				on-update="nodeUpdated('value', val);">
-			</inline-text>
-		</div>
-		<button class="btn btn-sm btn-success" title="{{ i18n.core.filters.buttons.newNode }}"
-		        ng-click="addNode()" ng-disabled="!context.add" ng-show="context.add && !context.editing">
-			<i class="icon-plus"></i>
-		</button>
-		<button class="btn btn-sm btn-danger pull-right" title="{{ i18n.core.filters.buttons.deleteNode }}"
-		        ng-click="deleteNode()" ng-disabled="!context.delete" ng-show="context.delete && context.hover && !context.editing">
-			<i class="icon-minus"></i>
-		</button>
 	</form>
 
 	<div ng-class="{ nodeChildren: !root }">

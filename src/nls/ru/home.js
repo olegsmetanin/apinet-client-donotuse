@@ -16,10 +16,10 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 
 				'filters': {
 					'participation': {
-						'label': 'Участие',
+						'label': 'Проекты',
 
-						'all': 'Все',
-						'me': 'Я участник'
+						'all': 'Любые',
+						'me': 'Мои'
 					}
 				}
 			},

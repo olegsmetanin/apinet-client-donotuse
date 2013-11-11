@@ -16,9 +16,9 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 
 				'filters': {
 					'participation': {
-						'label': 'Participation',
-						'all': 'All',
-						'me': 'I\'am participant'
+						'label': 'Projects',
+						'all': 'Any',
+						'me': 'My'
 					}
 				}
 			},

@@ -1,1 +1,2 @@
-<input ago-datepicker ng-model="editingNode.value" class="form-control" />
+<input ng-disabled="!context.value.editable"  ago-datepicker class="form-control"
+       ng-model="tempValue" ng-change="nodeUpdated('value', tempValue);" />

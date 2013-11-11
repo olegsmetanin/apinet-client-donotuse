@@ -1,6 +1,6 @@
 define(['angular', '../moduleDef'], function (angular, module) {
-	module.directive('lookup', ['$compile', '$timeout', '$exceptionHandler', '$parse', 'apinetService', 'sysConfig',
-		function($compile, $timeout, $exceptionHandler, $parse, apinetService, sysConfig) {
+	module.directive('lookup', ['$compile', '$timeout', '$exceptionHandler', '$parse', 'apinetService', 'sysConfig', 'defaultPageSize',
+		function($compile, $timeout, $exceptionHandler, $parse, apinetService, sysConfig, defaultPageSize) {
 			return {
 				restrict: 'A',
 				scope: true,
@@ -8,7 +8,6 @@ define(['angular', '../moduleDef'], function (angular, module) {
 				terminal: true,
 
 				link: function($scope, $element, $attrs) {
-
 					var localLookupOptions = {
 						query: function(query) {
 							if($scope.timeout) {
@@ -27,7 +26,7 @@ define(['angular', '../moduleDef'], function (angular, module) {
 								}).then(function(result) {
 										query.callback({
 											results: result,
-											more: result.length > 0,
+											more: result.length >= defaultPageSize,
 											context: true
 										});
 									},

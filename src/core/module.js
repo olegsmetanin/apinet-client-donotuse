@@ -1,4 +1,5 @@
 define([
+	'jquery',
 	'./moduleDef',
 	'module',
 	'./services',
@@ -11,7 +12,7 @@ define([
 
 	'css!./assets/form.css',
 	'css!./assets/list.css'
-], function(module, requireModule) {
+], function($, module, requireModule) {
 	var sysConfig = requireModule.config().sysConfig || { };
 
 	return module.constant('sysConfig', sysConfig)

@@ -7,7 +7,7 @@
 			</a>
 		</div>
 	</div>
-	<div class="collapsing" collapse="collapsed">
+	<div class="collapsing" collapse="collapsed" ng-style="{ 'overflow': collapsed ? 'hidden' : 'visible' }">
 		<div ng-class="boxContentClass" ng-transclude ago-box-content-transclude></div>
 	</div>
 </div>

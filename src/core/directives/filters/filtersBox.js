@@ -17,7 +17,7 @@ define(['angular', '../../moduleDef', 'text!./filtersBox.tpl.html'], function (a
 				angular.extend($scope, {
 					i18n: $rootScope.i18n,
 					collapsed: false,
-					structuredCollapsed: true,
+					structuredCollapsed: false,
 					favoritesCollapsed: true,
 
 					applyFilterClick: function(e) {
@@ -45,7 +45,7 @@ define(['angular', '../../moduleDef', 'text!./filtersBox.tpl.html'], function (a
 					if(value) {
 						return;
 					}
-					$scope.collapsed = true;
+					//$scope.collapsed = true;
 				}, true);
 			}]
 		};
