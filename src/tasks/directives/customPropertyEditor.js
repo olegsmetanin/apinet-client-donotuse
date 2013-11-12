@@ -1,5 +1,5 @@
 define(['angular', '../moduleDef', 'text!./customPropertyEditor.tpl.html'], function (angular, module, tpl) {
-	module.directive('customPropertyEditor', ['sysConfig', function(sysConfig) {
+	module.directive('customPropertyEditor', [function() {
 		return {
 			restrict: 'E',
 			replace: true,

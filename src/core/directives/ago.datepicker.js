@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef', 'jquery', 'jquery-ui', 'bootstrap/datepicker'], function (angular, module, $) {
+define(['angular', '../moduleDef', 'jquery', 'jquery-ui', 'bootstrap/datepicker', 'i18n!nls/bootstrap_datepicker'], function (angular, module, $) {
 	//extracted from angular-strap project
 	//https://github.com/mgcrea/angular-strap/blob/master/src/directives/datepicker.js
 	// https://github.com/eternicode/bootstrap-datepicker
@@ -6,8 +6,20 @@ define(['angular', '../moduleDef', 'jquery', 'jquery-ui', 'bootstrap/datepicker'
 		var isAppleTouch = /(iP(a|o)d|iPhone)/g.test(navigator.userAgent);
 
 		var regexpMap = function regexpMapFn(language) {
-			if (!($.fn.datepicker.dates[language] && language)) {
+			if (!language) {
 				language = 'en';
+			}
+			if (!$.fn.datepicker.dates || !$.fn.datepicker.dates[language]) {
+				$.fn.datepicker.dates = { };
+				$.fn.datepicker.dates[language] = {
+					days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+					daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+					daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+					months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+					monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					today: "Today",
+					clear: "Clear"
+				};
 			}
 			return {
 				'/': '[\\/]',

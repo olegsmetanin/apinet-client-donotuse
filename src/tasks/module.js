@@ -1,6 +1,7 @@
 define([
 	'./moduleDef',
 	'./states',
+	'./directives',
 
 	'i18n!ago/nls/tasks'
 ], function(module) {

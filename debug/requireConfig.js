@@ -25,6 +25,9 @@
 			'bootstrap/datepicker': {
 				deps: ['jquery', 'css!bootstrap/datepicker/theme']
 			},
+			'nls/ru/bootstrap_datepicker': {
+				deps: ['jquery', 'bootstrap/datepicker']
+			},
 
 			'angular': {
 				exports: 'angular',
@@ -76,6 +79,7 @@
 			'bootstrap': 'components/bootstrap/dist/js/bootstrap',
 			'bootstrap/theme': 'components/bootstrap/dist/css/bootstrap',
 			'bootstrap/datepicker':	'components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker',
+			'nls/ru/bootstrap_datepicker':	'components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru',
 			'bootstrap/datepicker/theme': 'components/eternicode-bootstrap-datepicker/bootstrap-datepicker/css/datepicker',
 
 			'angular': 'components/angular/angular',
@@ -92,6 +96,10 @@
 
 	define('nls/angular', {
 		'en': true,
+		'ru': true
+	});
+
+	define('nls/bootstrap_datepicker', {
 		'ru': true
 	});
 })(requirejs, define);
