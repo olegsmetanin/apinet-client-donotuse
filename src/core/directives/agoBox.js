@@ -12,7 +12,8 @@ define(['angular', '../moduleDef', 'text!./agoBox.tpl.html', 'css!./agoBox.css']
 				padding: '@',
 				collapsible: '@',
 				collapsed: '=?',
-				titleClickCollapse: '@'
+				titleClickCollapse: '@',
+				headerClass: '@'
 			},
 			template: tpl,
 			controller: ['$scope', function($scope) {
@@ -46,6 +47,19 @@ define(['angular', '../moduleDef', 'text!./agoBox.tpl.html', 'css!./agoBox.css']
 							$scope.boxHeaderClass[value + '-background'] = true;
 						}
 					},
+					headerClassWatcher: function(value, oldValue) {
+						if (oldValue) {
+							for(var prop in oldValue) {
+								delete $scope.boxHeaderClass[prop];
+							}
+						}
+						if (value) {
+							var clsval = $scope.$eval(value);
+							for(var prop in clsval) {
+								$scope.boxHeaderClass[prop] = clsval[prop];
+							}
+						}
+					},
 					borderWatcher: function(value, oldValue) {
 						if(oldValue) {
 							delete $scope.boxClass[oldValue + '-border'];
@@ -73,6 +87,7 @@ define(['angular', '../moduleDef', 'text!./agoBox.tpl.html', 'css!./agoBox.css']
 				});
 
 				$scope.$watch('color', this.colorWatcher);
+				$scope.$watch('headerClass', this.headerClassWatcher);
 				$scope.$watch('border', this.borderWatcher);
 				$scope.$watch('large', this.largeWatcher);
 				$scope.$watch('padding', this.paddingWatcher);
@@ -81,6 +96,7 @@ define(['angular', '../moduleDef', 'text!./agoBox.tpl.html', 'css!./agoBox.css']
 
 				//TODO realy needs this call?
 				this.colorWatcher($scope.color);
+				this.headerClassWatcher($scope.headerClass);
 				this.borderWatcher($scope.border);
 				this.largeWatcher($scope.large);
 				this.paddingWatcher($scope.padding);
