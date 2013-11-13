@@ -6,11 +6,11 @@ define([
 	'i18n!ago/nls/tasks'
 ], function(module) {
 	return module.constant('taskStatuses', {
-		NotStarted: 'NotStarted',
-		InWork: 'InWork',
-		Completed: 'Completed',
-		Closed: 'Closed',
-		Suspended: 'Suspended'
+		New: 'New',
+		Doing: 'InWork',
+		Done: 'Completed',
+		Discarded: 'Suspended',
+		Closed: 'Closed'
 	}).config(['$urlRouterProvider', function($urlRouterProvider) {
 		$urlRouterProvider.otherwise('/');
 	}]);

@@ -69,16 +69,16 @@ define(['angular', '../moduleDef', 'text!./statusHistoryView.tpl.html'], functio
 
 				scope.statusIcon = function(status) {
 					switch(status) {
-						case taskStatuses.NotStarted:
+						case taskStatuses.New:
 							return 'icon-time';
-						case taskStatuses.InWork:
+						case taskStatuses.Doing:
 							return 'icon-cogs';
-						case taskStatuses.Completed:
+						case taskStatuses.Done:
 							return 'icon-ok';
+						case taskStatuses.Discarded:
+							return 'icon-pause';
 						case taskStatuses.Closed:
 							return 'icon-beer';
-						case taskStatuses.Suspended:
-							return 'icon-pause';
 						default:
 							return '';
 					}
@@ -86,16 +86,16 @@ define(['angular', '../moduleDef', 'text!./statusHistoryView.tpl.html'], functio
 
 				scope.statusColor = function(status) {
 					switch(status) {
-						case taskStatuses.NotStarted:
+						case taskStatuses.New:
 							return 'btn-danger';
-						case taskStatuses.InWork:
+						case taskStatuses.Doing:
 							return 'btn-primary';
-						case taskStatuses.Completed:
+						case taskStatuses.Done:
 							return 'btn-warning';
+						case taskStatuses.Discarded:
+							return 'btn-inverse';
 						case taskStatuses.Closed:
 							return 'btn-success';
-						case taskStatuses.Suspended:
-							return 'btn-inverse';
 						default:
 							return '';
 					}
