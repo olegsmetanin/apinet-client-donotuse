@@ -55,10 +55,10 @@ define(['angular', '../moduleDef', 'text!./statusHistoryView.tpl.html'], functio
 					var hoursDiff = Math.floor((ms - (daysDiff * MS_PER_DAY))/MS_PER_HOUR);
 					var minutesDiff = Math.floor((ms - (daysDiff * MS_PER_DAY + hoursDiff * MS_PER_HOUR))/MS_PER_MINUTE);
 
+					var minuteName = scope.i18n.msg('tasks.view.statusHistory.duration.minutes');
 					var days = pluralDurationPart(daysDiff, 'days', true);
 					return	days + ' ' + pluralDurationPart(hoursDiff, 'hours', days === '') +
-						(minutesDiff > 0 ? ' ' + minutesDiff + ' ' +
-							scope.i18n.msg('tasks.view.statusHistory.duration.minutes') : '');
+						(minutesDiff > 0 ? ' ' + minutesDiff + ' ' + minuteName : '< 1 ' + minuteName);
 				};
 
 				scope.changeStatus = function(hrecord) {
