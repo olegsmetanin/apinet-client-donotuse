@@ -17,7 +17,6 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 				'dueDate': 'Срок',
 				'content': 'Содержание',
 				'status': 'Статус',
-				'customStatus': 'Пользовательский статус',
 				'priority': 'Приоритет',
 				'note': 'Примечание',
 				'agreements': 'Согласования',
@@ -95,9 +94,6 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 						'minutes': 'м'
 					}
 				},
-				'customStatusHistory': {
-					'title': 'История пользовательского статуса'
-				},
 				'params': {
 					'title': 'Пользовательские свойства',
 					'empty': 'Нет пользовательских свойств',
@@ -143,7 +139,6 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 				'placeholders': {
 					'type': 'Выберите тип задачи',
 					'executors': 'Выберите исполнителей',
-					'customStatus': 'Выберите статус',
 					'priority': 'Выберите приоритет'
 				},
 
@@ -169,19 +164,6 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 
 				'buttons': {
 					'delete': 'Удалить тип задачи'
-				}
-			},
-
-			'customStatuses': {
-				'title': 'Cтатусы задач',
-
-				'placeholders': {
-					'name': 'Наименование статуса задачи',
-					'replacementStatus': 'Статус для замены удаляемых (опционально)'
-				},
-
-				'buttons': {
-					'delete': 'Удалить статус задачи'
 				}
 			}
 		});

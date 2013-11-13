@@ -17,7 +17,6 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 				'dueDate': 'Due date',
 				'content': 'Content',
 				'status': 'Status',
-				'customStatus': 'Custom status',
 				'priority': 'Priority',
 				'note': 'Note',
 				'agreements': 'Agreements',
@@ -95,9 +94,6 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 						'minutes': 'min'
 					}
 				},
-				'customStatusHistory': {
-					'title': 'Custom status history'
-				},
 				'params': {
 					'title': 'User properties',
 					'empty': 'No user properties',
@@ -143,7 +139,6 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 				'placeholders': {
 					'type': 'Select task type',
 					'executors': 'Select executors',
-					'customStatus': 'Select status',
 					'priority': 'Select priority'
 				},
 
@@ -169,19 +164,6 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 
 				'buttons': {
 					'delete': 'Delete task type'
-				}
-			},
-
-			'customStatuses': {
-				'title': 'Task statuses',
-
-				'placeholders': {
-					'name': 'Task status name',
-					'replacementStatus': 'Task status for deleted substitution (optional)'
-				},
-
-				'buttons': {
-					'delete': 'Delete task status'
 				}
 			}
 		});

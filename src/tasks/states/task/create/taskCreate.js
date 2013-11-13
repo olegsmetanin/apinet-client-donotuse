@@ -65,7 +65,6 @@ define(['angular', '../../../moduleDef', 'text!./taskCreate.tpl.html', 'text!../
 					executors: [],
 					dueDate: null,
 					content: null,
-					customStatus: null,
 					priority: null
 				};
 			};
@@ -84,7 +83,6 @@ define(['angular', '../../../moduleDef', 'text!./taskCreate.tpl.html', 'text!../
 					Executors: e,
 					DueDate: m.dueDate,
 					Content: m.content,
-					CustomStatus: m.customStatus ? m.customStatus.id : null,
 					Priority: m.priority ? m.priority.id : null
 				};
 			};

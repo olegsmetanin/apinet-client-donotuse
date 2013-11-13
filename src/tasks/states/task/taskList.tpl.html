@@ -42,12 +42,6 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-3 control-label">{{ i18n.tasks.fields.customStatus }}</label>
-						<div class="col-md-9">
-							<input lookup="tasks/dictionary/lookupCustomStatuses" ng-model="filter.simple.CustomStatus" filter-node="{path: 'CustomStatus', op: '='}" class="form-control" multiple />
-						</div>
-					</div>
-					<div class="form-group">
 						<label class="col-md-3 control-label">{{ i18n.tasks.fields.seqNumber }}</label>
 						<div class="col-md-9">
 							<input lookup="tasks/tasks/lookupTasks" ng-model="filter.simple.SeqNumber" filter-node="{path: 'Id', op: '='}" class="form-control" multiple />
@@ -124,11 +118,10 @@
 											<input type="checkbox" checker="items: 'models'">
 										</th>
 										<th class="col-xs-1"><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
-										<th class="col-xs-3"><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
-										<th class="col-xs-3">{{ i18n.tasks.fields.executors }}</th>
+										<th class="col-xs-4"><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
+										<th class="col-xs-4">{{ i18n.tasks.fields.executors }}</th>
 										<th class="col-xs-2"><span sortable-heading="sorters.DueDate" caption="{{ i18n.tasks.fields.dueDate }}"></span></th>
 										<th class="col-xs-2"><span sortable-heading="sorters.Status" caption="{{ i18n.tasks.fields.status }}"></span></th>
-										<th class="col-xs-2"><span sortable-heading="sorters.CustomStatus_Name" caption="{{ i18n.tasks.fields.customStatus }}"></span></th>
 										<th class="onepct">&nbsp;</th>
 									</tr>
 								</thead>
@@ -156,13 +149,12 @@
 										</td>
 										<td>{{ model.DueDate | date:'ago_date' }}</td>
 										<td>{{ model.Status }}</td>
-										<td>{{ model.CustomStatus }}</td>
 										<td>
 											<ago-btn-delete title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)"></ago-btn-delete>
 										</td>
 									</tr>
 									<tr ng-repeat-end ng-show="model.details.expanded" ng-init="model.details.loaded = false">
-										<td colspan="8">
+										<td colspan="7">
 											<div ng-hide="model.details.loaded">{{ i18n.core.labels.loading }}...</div>
 											<div ng-show="model.details.loaded">
 												<table class="table table-bordered">

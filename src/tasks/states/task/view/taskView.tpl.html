@@ -87,18 +87,6 @@
 												</span>
 											</div>
 										</div>
-										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['CustomStatus']}">
-											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.customStatus }}</label>
-											<div class="col-xs-12 col-sm-9 col-md-12">
-												<inline-lookup model="model.CustomStatus" on-update="onUpdateProp(model, 'CustomStatus', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupCustomStatuses" input-col="col-xs-12"></inline-lookup>
-												<span ng-show="validation.fieldErrors['CustomStatus']" class="help-block has-error">
-													{{ validation.fieldErrors['CustomStatus'] | joinBy }}
-												</span>
-											</div>
-										</div>
-									</div>
-
-									<div class="row">
 										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['Priority']}">
 											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.priority }}</label>
 											<div class="col-xs-12 col-sm-9 col-md-12">
@@ -108,19 +96,19 @@
 												</span>
 											</div>
 										</div>
+									</div>
+
+									<div class="row">
 										<div class="form-group col-xs-12 col-md-6">
 											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.creator }}</label>
 											<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.Author }}</p></div>
-										</div>	
-									</div>
-									
-									<div class="row">
+										</div>
 										<div class="form-group col-xs-12 col-md-6">
 											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.creationTime }}</label>
 											<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.CreationTime | date:'ago_datetime' }}</p></div>
 										</div>
 									</div>
-
+									
 									<div class="row">
 										<div class="form-group col-xs-12" ng-class="{'has-error': validation.fieldErrors['Note']}">
 											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.note }}</label>
@@ -155,23 +143,6 @@
 							<status-history model="model.StatusHistory" change="changeStatus"></status-history>
 						</div>
 					</div>
-
-					<!-- Disabled via #1461 -->
-					<!-- <div class="box ">
-						<div class="box-header purple-background">
-							<div class="title">
-								<i class="icon-table"></i>
-								{{ i18n.tasks.view.customStatusHistory.title }}
-							</div>
-							<div class="actions">
-							<a class="btn box-collapse btn-xs btn-link" href="#"><i></i></a>
-						</div>
-						</div>
-
-						<div class="box-content">
-							<status-history model="model.CustomStatusHistory" change="changeCustomStatus"></status-history>
-						</div>
-					</div> -->
 
 				</div><!-- col-xs-12 -->
 			</div><!-- row -->
