@@ -1,0 +1,21 @@
+ul.executors {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+ 
+ul.executors li {
+	float: left;
+	display: inline;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ 
+ul.executors li:after {
+	content: ",\00a0";
+}
+ 
+ul.executors li:last-child:after {
+	content: "";
+}

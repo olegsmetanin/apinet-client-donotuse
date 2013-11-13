@@ -132,10 +132,8 @@
 										<th class="onepct">&nbsp;</th>
 									</tr>
 								</thead>
-								<!-- TODO waiting for new angular version
-								http://stackoverflow.com/questions/16900050/angular-js-ng-repeat-across-multiple-elements -->
-								<tbody ng-repeat="model in models">
-									<tr>
+								<tbody >
+									<tr ng-repeat-start="model in models">
 										<td>
 											<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 										</td>
@@ -163,7 +161,7 @@
 											<ago-btn-delete title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)"></ago-btn-delete>
 										</td>
 									</tr>
-									<tr ng-show="model.details.expanded" ng-init="model.details.loaded = false">
+									<tr ng-repeat-end ng-show="model.details.expanded" ng-init="model.details.loaded = false">
 										<td colspan="8">
 											<div ng-hide="model.details.loaded">{{ i18n.core.labels.loading }}...</div>
 											<div ng-show="model.details.loaded">
