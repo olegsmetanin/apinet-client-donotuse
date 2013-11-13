@@ -7,9 +7,9 @@ define([
 ], function(module) {
 	return module.constant('taskStatuses', {
 		New: 'New',
-		Doing: 'InWork',
-		Done: 'Completed',
-		Discarded: 'Suspended',
+		Doing: 'Doing',
+		Done: 'Done',
+		Discarded: 'Discarded',
 		Closed: 'Closed'
 	}).config(['$urlRouterProvider', function($urlRouterProvider) {
 		$urlRouterProvider.otherwise('/');
