@@ -17,19 +17,19 @@
 	</ul>
 </li>
 
-<li ng-class="{'active': isActiveMenu('project.info')}">
+<li ng-class="{'active': $state.is('page.project.info')}">
 	<a href="#!/project/info">
 		<i class="icon-info"></i>
 		<span>{{ i18n.tasks.menu.projectInfo }}</span>
 	</a>
 </li>
-<li ng-class="{'active': isActiveMenu('tasks.list')}">
+<li ng-class="{'active': $state.is('page.root') || $state.is('page.tasks')}">
 	<a href="#!/">
 		<i class="icon-tasks"></i>
 		<span>{{ i18n.tasks.list.title }}</span>
 	</a>
 </li>
-<li ng-class="{'active': isActiveMenu('tasks.dictionary.types')}">
+<li ng-class="{'active': $state.is('page.types')}">
 	<a href="#!/dictionary/types">
 		<i class="icon-cog"></i>
 		<span>{{ i18n.tasks.types.title }}</span>
