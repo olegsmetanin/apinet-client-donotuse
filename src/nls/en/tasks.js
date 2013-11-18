@@ -130,6 +130,11 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 				'placeholders': {
 					'delete': 'Delete task',
 					'deleteSelected': 'Delete selected tasks'
+				},
+
+				'expiration': {
+					'already': 'Expired {{days}} {{daysText}}',
+					'will': 'Will be expired {{days}} {{daysText}}'
 				}
 			},
 
