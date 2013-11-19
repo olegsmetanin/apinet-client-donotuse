@@ -1,5 +1,5 @@
 define(['angular', '../../moduleDef', 'text!./taskList.tpl.html', 'text!../moduleMenu.tpl.html'], function (angular, module, tpl, moduleMenuTpl) {
-	module.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
+	module.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider', 
 		function ($stateProvider, sysConfig, securityAuthorizationProvider) {
 
 		var home = {
@@ -38,8 +38,8 @@ define(['angular', '../../moduleDef', 'text!./taskList.tpl.html', 'text!../modul
 			$stateProvider.state(tasks);
 		}
 	])
-	.controller('taskListCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n',
-		function($scope, sysConfig, apinetService, $window, i18n) {
+	.controller('taskListCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n', 'taskStatuses', '$locale',
+		function($scope, sysConfig, apinetService, $window, i18n, taskStatuses, $locale) {
 
 		$scope.propsFilterCollapsed = true;
 
@@ -131,6 +131,49 @@ define(['angular', '../../moduleDef', 'text!./taskList.tpl.html', 'text!../modul
 				angular.extend(task.details, response);
 				task.details.loaded = true;
 			}, handleException);
+		};
+
+		$scope.expiration = function(task) {
+			if (!task.DueDate) return null; //no due date set - can't calculate expiration
+			if (task.Status === taskStatuses.Closed) return null; //closed task can't be expired
+			if (!angular.isDefined(task.expiration)) {
+
+				var now = new Date();
+				var dd = new Date(task.DueDate);
+
+				var f = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(),
+							now.getHours(), now.getMinutes(), now.getSeconds());
+				var s = Date.UTC(dd.getFullYear(), dd.getMonth(), dd.getDate(),
+							dd.getHours(), dd.getMinutes(), dd.getSeconds());
+				var ms = f-s;
+				//TODO: to consts?
+				var MS_PER_DAY = 1000 * 60 * 60 * 24;
+				var daysDiff = Math.floor(ms/MS_PER_DAY);
+				var pcat = $locale.pluralCat(Math.abs(daysDiff));
+				var daysText = '';
+				switch(pcat) {
+					case 'one':
+					case 'few':
+					case 'many':
+					case 'other':
+						daysText = i18n.msg('tasks.view.statusHistory.duration.days.' + pcat);
+						break;
+					case 'zero':
+					case 'two':
+					default:
+						daysText = '';
+						break;
+				}
+
+				var msgKey = 'tasks.list.expiration.' + (daysDiff < 0 ? 'already' : 'will');
+				var msg = i18n.msg(msgKey, {days: Math.abs(daysDiff), daysText: daysText});
+				task.expiration = { 
+					days: Math.abs(daysDiff), 
+					expired: daysDiff < 0,
+					title: msg }
+			}
+
+			return task.expiration;
 		};
 
 		var handleException = function(error) {

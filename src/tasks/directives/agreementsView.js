@@ -1,6 +1,6 @@
 define(['angular', '../moduleDef', 'text!./agreementsView.tpl.html'], function (angular, module, tpl) {
-	module.directive('agreements', ['apinetService', 'sysConfig', '$window', 'i18n', '$rootScope',
-		function(apinetService, sysConfig, $window, i18n, $rootScope){
+	module.directive('agreements', ['apinetService', 'sysConfig', '$window', 'i18n', '$rootScope', 'taskStatuses',
+		function(apinetService, sysConfig, $window, i18n, $rootScope, taskStatuses){
 
 		return {
 			restrict: 'E',
@@ -103,7 +103,7 @@ define(['angular', '../moduleDef', 'text!./agreementsView.tpl.html'], function (
 				};
 
 				$scope.isAgreementsEditable = function() {
-					return $scope.model && $scope.model.Status.id !== 'Closed'; //TODO has rights
+					return $scope.model && $scope.model.Status.id !== taskStatuses.Closed; //TODO has rights
 				};
 
 				$scope.addAgreementAvailable = function() {

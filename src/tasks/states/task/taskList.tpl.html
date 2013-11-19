@@ -147,7 +147,11 @@
 										<td>
 											<executors model="model.Executors" ></executors>
 										</td>
-										<td>{{ model.DueDate | date:'ago_date' }}</td>
+										<td>
+											{{ model.DueDate | date:'ago_date' }}
+											<span ng-if="model.DueDate" title="{{ expiration(model).title }}" class="badge" ng-class="{'label-warning': !expiration(model).expired, 'label-important': expiration(model).expired }">{{ expiration(model).days }}
+											</span>
+										</td>
 										<td>{{ model.Status }}</td>
 										<td>
 											<ago-btn-delete title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)"></ago-btn-delete>

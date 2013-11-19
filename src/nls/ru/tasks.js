@@ -130,6 +130,11 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 				'placeholders': {
 					'delete': 'Удалить задачу',
 					'deleteSelected': 'Удалить отмеченные задачи'
+				},
+
+				'expiration': {
+					'already': 'Просрочена {{days}} {{daysText}}',
+					'will': 'Будет просрочена через {{days}} {{daysText}}'
 				}
 			},
 
