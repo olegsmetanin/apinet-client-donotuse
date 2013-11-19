@@ -34,26 +34,26 @@
 				deps: ['jquery']
 			},
 			'nls/en/angular': {
-				deps: ['angular']
+				deps: ['jquery', 'angular']
 			},
 			'nls/ru/angular': {
-				deps: ['angular']
+				deps: ['jquery', 'angular']
 			},
 
 			'angular-ui-router': {
-				deps: ['angular'],
+				deps: ['jquery', 'angular'],
 				init: function () { return this.angular.module('ui.router'); }
 			},
 			'angular-ui-bootstrap3': {
-				deps: ['angular'],
+				deps: ['jquery', 'angular'],
 				init: function () { return this.angular.module('ui.bootstrap'); }
 			},
 			'angular-ui-select2': {
-				deps: ['angular', 'jquery', 'jquery/select2'],
+				deps: ['jquery', 'angular', 'jquery/select2'],
 				init: function () { return this.angular.module('ui.select2'); }
 			},
 			'angular-promise-tracker': {
-				deps: ['angular'],
+				deps: ['jquery', 'angular'],
 				init: function () { return this.angular.module('ajoslin.promise-tracker'); }
 			}
 		},
