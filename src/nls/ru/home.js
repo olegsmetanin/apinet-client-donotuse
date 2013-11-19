@@ -4,8 +4,7 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 			'fields': {
 				'code': 'Код проекта',
 				'status': 'Статус',
-				'tags': 'Теги',
-				'isArchive': 'Архив'
+				'tags': 'Теги'
 			},
 
 			'list': {
@@ -25,7 +24,10 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 			},
 			'create': {
 				'title': 'Новый проект',
-				'legend': 'Создание нового проекта'
+				'legend': 'Создание нового проекта',
+				'placeholders': {
+					'type': 'Выберите тип проекта'
+				}
 			},
 			'statuses': {
 				'title': 'Справочник статусов',
