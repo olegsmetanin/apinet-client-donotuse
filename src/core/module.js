@@ -11,7 +11,8 @@ define([
 	'i18n!ago/nls/core',
 
 	'css!./assets/form.css',
-	'css!./assets/list.css'
+	'css!./assets/list.css',
+	'css!./assets/tags.css'
 ], function($, module, requireModule) {
 	var sysConfig = requireModule.config().sysConfig || { };
 
