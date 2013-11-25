@@ -1,6 +1,7 @@
 ﻿(function(require, define) {
 	require.config({
 		baseUrl: '../',
+		waitSeconds: 60,
 		shim: {
 			'modernizr': {
 				exports: 'Modernizr'
@@ -23,10 +24,10 @@
 				deps: ['jquery']
 			},
 			'bootstrap/datepicker': {
-				deps: ['jquery', 'css!bootstrap/datepicker/theme']
+				deps: ['jquery', 'jquery-ui', 'css!bootstrap/datepicker/theme']
 			},
 			'nls/ru/bootstrap_datepicker': {
-				deps: ['jquery', 'bootstrap/datepicker']
+				deps: ['jquery', 'jquery-ui', 'bootstrap/datepicker']
 			},
 
 			'angular': {

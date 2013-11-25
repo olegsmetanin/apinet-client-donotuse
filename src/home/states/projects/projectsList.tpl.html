@@ -62,62 +62,10 @@
 						</ago-box-title>
 						<ago-box-content>
 							<div class="box-toolbox box-toolbox-top" ng-show="currentUser.admin">
-								<ago-error-msg></ago-error-msg>
-
-								<form name="createItemForm" class="form-inline" novalidate>
-									<div class="col-sm-12" ng-class="{'has-error': (createItemForm.$invalid || validation.fieldErrors['Type'] ||
-											validation.fieldErrors['ProjectCode'] || validation.fieldErrors['Name'] || validation.fieldErrors['Description'])}">
-										<div class="row">
-											<div class="col-md-2" style="padding-left: 0;">
-												<input type="text" name="Type" ng-model="editModel.Type" lookup="home/dictionary/lookupProjectTypes"
-												       placeholder="{{ i18n.core.fields.type }}" class="form-control"
-												       ng-required="editModel.focused" ng-focus="editModel.focused=true" ng-blur="editModel.focused=false" />
-											</div>
-											<div class="col-md-2" style="padding-left: 0;">
-												<input type="text" name="ProjectCode" ng-model="editModel.ProjectCode" class="form-control"
-												       placeholder="{{ i18n.projects.fields.code }}"
-												       ng-required="editModel.focused" ng-focus="editModel.focused=true" ng-blur="editModel.focused=false" />
-											</div>
-											<div class="col-md-3" style="padding-left: 0;">
-												<input type="text" name="Name" ng-model="editModel.Name" class="form-control"
-												       placeholder="{{ i18n.core.fields.name }}"
-												       ng-required="editModel.focused" ng-focus="editModel.focused=true" ng-blur="editModel.focused=false" />
-											</div>
-											<div class="col-md-3" style="padding-left: 0;">
-												<input type="text" name="Description" ng-model="editModel.Description" class="form-control"
-												       placeholder="{{ i18n.core.fields.description }}"
-												       ng-focus="editModel.focused=true" ng-blur="editModel.focused=false" />
-											</div>
-											<div class="col-md-2 btn-group" style="padding-left: 0;">
-												<button type="button" class="btn" ng-click="createItem()" ng-disabled="!createEnabled()">{{ i18n.core.buttons.new }}</button>
-												<button type="button" class="btn" ng-click="dropChanges()" title="{{ i18n.core.buttons.clear }}">&times;</button>
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-2">
-												<span ng-show="validation.fieldErrors['Type']" class="help-block has-error">
-													{{ validation.fieldErrors['Type'] | joinBy }}
-												</span>
-											</div>
-											<div class="col-md-2">
-												<span ng-show="validation.fieldErrors['ProjectCode']" class="help-block has-error">
-													{{ validation.fieldErrors['ProjectCode'] | joinBy }}
-												</span>
-											</div>
-											<div class="col-md-3">
-												<span ng-show="validation.fieldErrors['Name']" class="help-block has-error">
-													{{ validation.fieldErrors['Name'] | joinBy }}
-												</span>
-											</div>
-											<div class="col-md-3">
-												<span ng-show="validation.fieldErrors['Description']" class="help-block has-error">
-													{{ validation.fieldErrors['Description'] | joinBy }}
-												</span>
-											</div>
-										</div>
-									</div>
-								</form>
+								<a href="#!/projects/new" class="btn btn-primary">
+									<i class="icon-plus icon-white"></i>
+									<span>{{ i18n.core.buttons.add }}</span>
+								</a>
 							</div>
 
 							<div class="row">
