@@ -143,7 +143,7 @@
 											<p ng-show="model.Content" title="{{ model.Content }}">
 												<small class="clip-content">{{ model.Content | textCut:50 }}</small>
 											</p>
-											<span ng-repeat="t in model.Tags" class="tag" ng-class="{'tag-personal': t.personal}">
+											<span ng-repeat="t in model.Tags" class="tag">
 												{{ t.text }}
 												<a href="" title="{{ i18n.core.buttons.delete }}">&times;</a>
 											</span>
