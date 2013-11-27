@@ -20,7 +20,8 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 				'priority': 'Приоритет',
 				'note': 'Примечание',
 				'agreements': 'Согласования',
-				'topFiles': 'Файлы (топ {{count}})'
+				'topFiles': 'Файлы (топ {{count}})',
+				'tags': 'Теги'
 			},
 
 			'confirm': {
