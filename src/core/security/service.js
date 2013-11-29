@@ -126,7 +126,24 @@ define(['angular', './moduleDef', 'text!./loginForm.tpl.html'], function (angula
 				},
 
 				// Information about the current user
-				currentUser: null,
+				currentUser: {
+					"Login": "admin@apinet-test.com",
+					"Active": true,
+					"Name": "John",
+					"LastName": "Connor",
+					"MiddleName": "",
+					"FullName": "John Connor",
+					"FIO": "Connor J.",
+					"WhomFIO": null,
+					"JobName": "Administrator",
+					"WhomJobName": null,
+					"SystemRole": "Administrator",
+					"LastChangeTime": null,
+					"ModelVersion": 1,
+					"CreationTime": "2013-11-18T05:57:12.937Z",
+					"Id": "e1cab629-d1a7-41af-a3b3-a27a00f66d89",
+					"Description": "UserModel: e1cab629-d1a7-41af-a3b3-a27a00f66d89"
+				},
 				currentUserGroups: [],
 
 				// Is the current user authenticated?

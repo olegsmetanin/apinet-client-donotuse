@@ -1,44 +1,45 @@
 ﻿require.config({
+	waitSeconds: 15,
 	paths: {
-		'css': 'Prius.Web/Build/requirejs-plugins',
-		'css-builder': 'Prius.Web/Build/requirejs-plugins',
-		'normalize': 'Prius.Web/Build/requirejs-plugins',
-		'noext': 'Prius.Web/Build/requirejs-plugins',
-		'i18n': 'Prius.Web/Build/requirejs-plugins',
-		'domReady': 'Prius.Web/Build/requirejs-plugins',
+		'jquery': 'release/jquery',
+		'jquery-migrate': 'release/jquery',
+		'jquery-ui': 'release/jquery',
+		'jquery-ui/themes/smoothness': 'release/jquery',
+		'jquery/select2': 'release/jquery',
+		'jquery/select2/theme': 'release/jquery',
 
-		'jquery': 'Prius.Web/Build/jquery',
-		'jquery-ui': 'Prius.Web/Build/jquery',
-		'jquery-ui/themes/smoothness': 'Prius.Web/Build/jquery',
+		'css': 'release/components',
+		'css-builder': 'release/components',
+		'normalize': 'release/components',
+		'i18n': 'release/components',
+		'domReady': 'release/components',
+		'text': 'release/components',
 
-		'bootstrap': 'Prius.Web/Build/bootstrap',
-		'bootstrap/theme': 'Prius.Web/Build/bootstrap',
+		'modernizr': 'release/components',
+		'retina': 'release/components',
 
-		'tinymce': 'Prius.Web/Build/tinymce',
-		'tinymce/themes/modern': 'Prius.Web/Build/tinymce',
-		'tinymce/skins/lightgray': 'Prius.Web/Build/tinymce',
+		'bootstrap': 'release/components',
+		'bootstrap/theme': 'release/components',
+		'bootstrap/datepicker':	'release/components',
+		'nls/bootstrap_datepicker': 'release/components',
+		'nls/ru/bootstrap_datepicker': 'release/components.ru',
+		'bootstrap/datepicker/theme': 'release/components',
 
-		'elfinder': 'Prius.Web/Build/elfinder',
-		'elfinder/theme': 'Prius.Web/Build/elfinder',
-		'nls/elfinder': 'Prius.Web/Build/elfinder',
-		'nls/ar/elfinder': 'Prius.Web/Build/elfinder',
-		'nls/de/elfinder': 'Prius.Web/Build/elfinder',
-		'nls/es/elfinder': 'Prius.Web/Build/elfinder',
-		'nls/fr/elfinder': 'Prius.Web/Build/elfinder',
-		'nls/ja/elfinder': 'Prius.Web/Build/elfinder',
-		'nls/pt/elfinder': 'Prius.Web/Build/elfinder',
-		'nls/ru/elfinder': 'Prius.Web/Build/elfinder',
-		'nls/zh/elfinder': 'Prius.Web/Build/elfinder',
-		'nls/it/elfinder': 'Prius.Web/Build/elfinder',
-		'nls/ko/elfinder': 'Prius.Web/Build/elfinder'
+		'angular': 'release/components',
+		'nls/angular': 'release/components',
+		'nls/en/angular': 'release/components.en',
+		'nls/ru/angular': 'release/components.ru',
+		'angular-ui-bootstrap3': 'release/components',
+		'angular-ui-router': 'release/components',
+		'angular-ui-select2': 'release/components',
+		'angular-promise-tracker': 'release/components',
+
+		'ago': 'release'
 	},
 
 	map: {
 		'*': {
-			'jquery-ui/theme': 'jquery-ui/themes/smoothness',
-
-			'tinymce/theme': 'tinymce/themes/modern',
-			'tinymce/skin': 'tinymce/skins/lightgray'
+			'ago/components/flatty/light-theme': 'ago/components/flatty/light-theme-embedded'
 		}
 	}
 });

@@ -1,17 +1,17 @@
 define([
 	'module',
-	'./moduleDef',
-	'./services',
-	'./directives',
-	'./states',
+	'ago/core/moduleDef',
+	'ago/core/services',
+	'ago/core/directives',
+	'ago/core/states',
 
 	'ago/components/flatty/theme',
 	'i18n!nls/angular',
 	'i18n!ago/nls/core',
 
-	'css!./assets/form.css',
-	'css!./assets/list.css',
-	'css!./assets/tags.css'
+	'css!ago/core/assets/form.css',
+	'css!ago/core/assets/list.css',
+	'css!ago/core/assets/tags.css'
 ], function(requireModule, module) {
 	var sysConfig = requireModule.config().sysConfig || { };
 

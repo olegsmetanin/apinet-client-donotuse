@@ -39,4 +39,5 @@ define([
 	'./directives/header/reportNotifier',
 	'./directives/header/tabBar',
 	'./directives/header/topTabBar'
-]);
+], function() {
+});

@@ -1,6 +1,6 @@
 define([
-	'./moduleDef',
-	'./states',
+	'ago/home/moduleDef',
+	'ago/home/states',
 
 	'i18n!ago/nls/home'
 ], function(module) {

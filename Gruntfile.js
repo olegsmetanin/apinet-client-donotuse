@@ -1,190 +1,153 @@
-module.exports = function(grunt) {
-    /*jshint evil:true */
+module.exports = function (grunt) {
+	grunt.loadNpmTasks('grunt-image-embed');
+	grunt.loadNpmTasks('grunt-recess');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 
-    var sysConfig = {
-        srcdir: "src",
-        componentsdir: "components",
-        builddir: "build",
-        distdir: "dist",
-        modules: {},
-        html2js: {},
-        concatjs: {},
-        concatcss: {},
-        uglify: {},
-        copylang: {},
-        copyassets: {},
-        componentslangs: {}
-    },
-        fs = require('fs'),
-        extend = require('extend');
+	grunt.registerTask('default', ['build']);
+	grunt.registerTask('build', [
+		//'recess',
+		//'imageEmbed',
+		'requirejs'
+	]);
 
-    eval(fs.readFileSync('src/components/include.js') + '');
+	var concatRequireConfigs = require('./gruntHelpers').init(grunt).concatRequireConfigs;
 
-    fs.readdirSync('src/components/lang').forEach(function(langName) {
+	var jqueryComponents = [
+		'jquery',
+		'jquery-migrate',
+		'jquery-ui',
+		'jquery/select2'
+	];
 
-        eval(fs.readFileSync('src/components/lang/' + langName) + '');
+	var componenentsList = [
+		'css',
+		'css-builder',
+		'normalize',
+		'i18n',
+		'domReady',
+		'text',
+		'modernizr',
+		'retina',
+		'bootstrap',
+		'bootstrap/datepicker',
+		'angular',
+		'angular-ui-router',
+		'angular-ui-bootstrap3',
+		'angular-ui-select2',
+		'angular-promise-tracker'
+	];
 
-        sysConfig.componentslangs[langName] = {
-            src: sysConfig.modules['components.lang'].js,
-            dest: sysConfig.distdir + '/components/' + langName.replace("include", "components")
-        };
+	grunt.initConfig({
+		pkg: grunt.file.readJSON('package.json'),
 
-    });
+		/*recess: [
+			{
+				options: {
+					compile: true,
+					compress: true
+				},
+				src: ['Src/Module.less'],
+				dest: 'Src/Module.css'
+			}
+		],*/
 
-    fs.readdirSync(sysConfig.srcdir).forEach(function(moduleName) {
+		imageEmbed: [
+			{
+				src: 'src/components/flatty/light-theme.css',
+				dest: 'src/components/flatty/light-theme-embedded.css',
+				options: {
+					deleteAfterEncoding: false,
+					maxImageSize: 32768 * 4
+				}
+			}
+		],
+		
+		requirejs: [
+			{
+				options: concatRequireConfigs([
+					'debug/requireConfig.js'
+				], {
+					baseUrl: './',
+					name: 'jquery',
+					out: 'release/jquery.js',
+					include: jqueryComponents
+				})
+			},
+			{
+				options: concatRequireConfigs([
+					'debug/requireConfig.js'
+				], {
+					baseUrl: './',
+					name: 'modernizr',
+					out: 'release/components.js',
+					include: componenentsList,
+					exclude: jqueryComponents
+				})
+			},
+			{
+				options: concatRequireConfigs([
+					'debug/requireConfig.js'
+				], {
+					baseUrl: './',
+					name: 'nls/en/angular',
+					out: 'release/components.en.js'
+				})
+			},
+			{
+				options: concatRequireConfigs([
+					'debug/requireConfig.js'
+				], {
+					baseUrl: './',
+					name: 'nls/ru/angular',
+					out: 'release/components.ru.js',
+					include: ['nls/ru/bootstrap_datepicker']
+				})
+			},
+			{
+				options: concatRequireConfigs([
+					'debug/requireConfig.js'
+				], {
+					baseUrl: './',
+					name: 'ago/core/module',
+					out: 'release/core/module.js',
+					exclude: componenentsList.concat(jqueryComponents),
+					map: {
+						'*': {
+							'ago/components/flatty/light-theme': 'ago/components/flatty/light-theme-embedded'
+						}
+					}
+				})
+			},
+			{
+				options: concatRequireConfigs([
+					'debug/requireConfig.js'
+				], {
+					baseUrl: './',
+					name: 'ago/home/module',
+					out: 'release/home/module.js',
+					exclude: componenentsList.concat(jqueryComponents).concat(['ago/core/module'])
+				})
+			},
+			{
+				options: concatRequireConfigs([
+					'debug/requireConfig.js'
+				], {
+					baseUrl: './',
+					name: 'ago/tasks/module',
+					out: 'release/tasks/module.js',
+					exclude: componenentsList.concat(jqueryComponents).concat(['ago/core/module'])
+				})
+			}
+		],
 
-        if (moduleName === 'backend' || moduleName === 'components' ||
-            fs.statSync(sysConfig.srcdir + '/' + moduleName).isFile()) {
-            return;
-        }
-
-        eval(fs.readFileSync(sysConfig.srcdir + '/' + moduleName + '/include.js') + '');
-
-        sysConfig.html2js[moduleName] = {
-            src: sysConfig.srcdir + '/' + moduleName + '/**/*.tpl.html',
-            dest: sysConfig.builddir + '/' + moduleName + '/templates.js',
-            module: moduleName + '.templates'
-        };
-
-        sysConfig.modules[moduleName].js.push(sysConfig.html2js[moduleName].dest);
-
-        sysConfig.concatjs[moduleName + "js"] = {
-            src: sysConfig.modules[moduleName].js,
-            dest: sysConfig.builddir + '/' + moduleName + '.js'
-        };
-
-        sysConfig.concatcss[moduleName + "css"] = {
-            src: sysConfig.modules[moduleName].css,
-            dest: sysConfig.distdir + '/' + moduleName + '/assets/styles.min.css'
-        };
-
-        sysConfig.uglify[moduleName] = {
-            src: sysConfig.concatjs[moduleName + "js"].dest,
-            dest: sysConfig.distdir + '/' + moduleName + '/' + moduleName + '.min.js'
-        };
-
-        sysConfig.copylang[moduleName + 'lang'] = {
-            files: [{
-                cwd: sysConfig.srcdir + '/' + moduleName + '/lang',
-                dest: sysConfig.distdir + '/' + moduleName,
-                src: ['**'],
-                expand: true
-            }]
-        };
-
-        sysConfig.copyassets[moduleName + 'assets'] = {
-            files: [{
-                cwd: sysConfig.srcdir + '/' + moduleName + '/assets',
-                dest: sysConfig.distdir + '/' + moduleName + '/assets',
-                src: ['*.png', '*.gif'],
-                expand: true
-            }]
-        };
-    });
-
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('grunt-html2js');
-    grunt.loadNpmTasks('grunt-bg-shell');
-    //https://github.com/vkadam/grunt-jsbeautifier
-    //grunt.loadNpmTasks('grunt-jsbeautifier');
-
-    grunt.registerTask('default', ['build']);
-    grunt.registerTask('build', ['clean', 'jshint', 'html2js', 'concat', 'uglify', 'copy']);
-
-
-    var gruntConfig = {
-        pkg: grunt.file.readJSON('package.json'),
-        banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' + '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' + ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;\n' + ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n */\n',
-        srcdir: sysConfig.srcdir,
-        componentsdir: sysConfig.componentsdir,
-        builddir: sysConfig.builddir,
-        distdir: sysConfig.distdir,
-
-        clean: ['<%= builddir %>', '<%= distdir %>'],
-        jshint: {
-            files: ['<%= srcdir %>/**/*.js', 'Gruntfile.js'],
-            options: {
-                curly: true,
-                eqeqeq: true,
-                immed: true,
-                latedef: true,
-                newcap: true,
-                noarg: true,
-                sub: true,
-                boss: true,
-                eqnull: true,
-                globals: {}//,
-                //indent:4
-            }
-        },
-        html2js: sysConfig.html2js,
-        concat: extend(true, {
-                components: {
-                    src: sysConfig.modules['components'].js,
-                    dest: '<%= distdir %>/components/components.min.js'
-                },
-                styles: {
-                    src: sysConfig.modules['components'].css,
-                    dest: "<%= distdir %>/components/assets/styles.min.css"
-                }
-            },
-            sysConfig.concatjs,
-            sysConfig.concatcss,
-            sysConfig.componentslangs
-        ),
-        uglify: extend(true, {
-                options: {
-                    banner: "<%= banner %>"
-                }
-            },
-            sysConfig.uglify
-        ),
-        copy: extend(true, {
-                bootstrap: {
-                    files: [{
-                        cwd: '<%= componentsdir %>/bootstrap-2.3.2/img',
-                        dest: '<%= distdir %>/components/img',
-                        src: '**',
-                        expand: true
-                    }]
-                },
-                select2: {
-                    files: [{
-                        cwd: '<%= componentsdir %>/select2-3.4.1/',
-                        dest: '<%= distdir %>/components/assets',
-                        src: ['*.png', '*.gif'],
-                        expand: true
-                    }]
-                },
-                fontawesome: {
-                    files: [{
-                        cwd: '<%= componentsdir %>/components-font-awesome-3.1.0/font',
-                        dest: '<%= distdir %>/components/font',
-                        src: ['**'],
-                        expand: true
-                    }]
-                }
-            },
-            sysConfig.copylang,
-            sysConfig.copyassets
-        ),
-        connect: {
-            server: {
-                options: {
-                    port: 9000,
-                    keepalive: true
-                }
-            }
-        }
-    };
-
-    /*grunt.log.writeln(JSON.stringify(gruntConfig, null, 4));*/
-
-    grunt.initConfig(gruntConfig);
+		connect: {
+			server: {
+				options: {
+					port: 9000,
+					keepalive: true
+				}
+			}
+		}
+	});
 };

@@ -9,4 +9,5 @@ define([
 	'./services/moduleConfig',
 	'./services/pageConfig',
 	'./services/reportService'
-]);
+], function() {
+});

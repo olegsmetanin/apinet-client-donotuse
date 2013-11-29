@@ -28,6 +28,7 @@ exports.init = function (grunt) {
 					extend(true, result, cfg);
 				}
 			};
+			var requirejs = require;
 
 			var define = function (name, module) {
 				if (name) {
@@ -36,7 +37,6 @@ exports.init = function (grunt) {
 					extend(true, result, { rawText: rawText });
 				}
 			};
-			require.config({}, define);
 
 			configs = configs || [];
 			for (var i = 0; i < configs.length; i++) {

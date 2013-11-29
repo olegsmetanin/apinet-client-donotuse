@@ -1,6 +1,5 @@
 ﻿(function(require, define) {
 	require.config({
-		baseUrl: '../',
 		waitSeconds: 60,
 		shim: {
 			'modernizr': {
