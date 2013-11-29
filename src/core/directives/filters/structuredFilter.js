@@ -96,7 +96,6 @@ define([
 						nodeUpdated: function(property, value) {
 							var forceMetadata = false;
 							if(property && $scope.context.hasOwnProperty(property)) {
-								$scope.context[property].dirty = true;
 								$scope.editingNode[property] = value;
 
 								if(property === 'path') {
@@ -113,7 +112,6 @@ define([
 									add: $scope.root,
 									delete: !$scope.root,
 									hover: false,
-									editing: false,
 									validation: {
 										path: [],
 										op: [],
@@ -122,18 +120,15 @@ define([
 									},
 									path: {
 										editable: false,
-										visible: true,
-										dirty: false
+										visible: true
 									},
 									op: {
 										editable: false,
-										visible: false,
-										dirty: false
+										visible: false
 									},
 									value: {
 										editable: false,
 										visible: false,
-										dirty: false,
 										editorType: null
 									}
 								};
@@ -153,7 +148,7 @@ define([
 										};
 									}
 								}
-								
+
 								if(!ctx.path.options || !ctx.path.options.length) {
 									ctx.path.options = $filteringService.applicablePaths(ctx.parentMeta);
 
@@ -198,7 +193,7 @@ define([
 										ctx.value.editorType = 'text';
 
 										if (metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
-												metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
+											metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
 											ctx.value.editorType = metadata.PropertyType;
 										}
 									}

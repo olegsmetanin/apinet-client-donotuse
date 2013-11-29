@@ -41,7 +41,7 @@ define(['angular', '../../moduleDef', 'text!./taskList.tpl.html', 'text!../modul
 	.controller('taskListCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n', 'taskStatuses', '$locale',
 		function($scope, sysConfig, apinetService, $window, i18n, taskStatuses, $locale) {
 
-		$scope.propsFilterCollapsed = true;
+		$scope.propsFilterCollapsed = false;
 		$scope.taskStatuses = taskStatuses;
 
 		$scope.$on('resetFilter', function() {

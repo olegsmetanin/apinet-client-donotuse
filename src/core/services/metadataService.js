@@ -1,25 +1,19 @@
 define(['angular', '../moduleDef'], function (angular, module) {
 	module.service('metadataService', ['$http', function($http) {
 		angular.extend(this, {
-			metadata: {},
+			metadata: { },
 
 			reset: function() {
-				this.metadata = {};
+				this.metadata = { };
 			},
 
 			modelMetadata: function (method, modelType, callback) {
-				if(this.metadata[method]) {
-					if(modelType) {
-						callback(this.metadata[method][modelType] ? this.metadata[method][modelType] : { });
-					}
-					else {
-						for(var key in this.metadata[method]) {
-							if(this.metadata[method].hasOwnProperty(key)) {
-								callback(this.metadata[method][key] ? this.metadata[method][key] : { });
-								break;
-							}
-						}
-					}
+				if(!modelType || !callback) {
+					return;
+				}
+
+				if(this.metadata[modelType]) {
+					callback(this.metadata[modelType]);
 					return;
 				}
 
@@ -28,12 +22,11 @@ define(['angular', '../moduleDef'], function (angular, module) {
 
 				var me = this;
 				promise.success(function (data) {
-					me.metadata[method] = data ? data : { };
-					me.modelMetadata(method, modelType, callback);
+					angular.extend(me.metadata, data || { });
+					me.modelMetadata(null, modelType, callback);
 				})
 				.error(function () {
-					me.metadata[method] = { };
-					me.modelMetadata(method, modelType, callback);
+					me.metadata = { };
 				});
 			}
 		});

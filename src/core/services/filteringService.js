@@ -370,7 +370,7 @@ define(['angular', '../moduleDef'], function (angular, module) {
 				var propertyTypeNode = node.items[0];
 				propertyTypeNode.path = 'PropertyType';
 				propertyTypeNode.op = '=';
-				propertyTypeNode.value = propertyTypeNode.value ? propertyTypeNode.value : '';
+				propertyTypeNode.value = propertyTypeNode.value ? propertyTypeNode.value : undefined;
 				return propertyTypeNode;
 			},
 

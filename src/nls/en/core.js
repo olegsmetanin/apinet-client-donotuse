@@ -120,6 +120,10 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 				'displayedRecords': 'Currently showing: {{ count }} records',
 				'applyRequired': 'Apply filter changes for records display',
 
+				'placeholders': {
+					'typeNode': 'Property type'
+				},
+
 				'ops': {
 					'exists': 'EXISTS',
 					'like': 'CONTAINS',

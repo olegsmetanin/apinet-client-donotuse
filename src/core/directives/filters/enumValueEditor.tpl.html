@@ -1,4 +1,4 @@
-<select ng-disabled="!context.value.editable" class="form-control"
+<select class="form-control"
 	ng-options="key as value for (key, value) in context.metadata.PossibleValues"
 	ng-model="tempValue" ng-change="nodeUpdated('value', tempValue);">
 </select>

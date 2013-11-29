@@ -45,7 +45,7 @@ define(['angular', '../../moduleDef', 'text!./filtersBox.tpl.html'], function (a
 					if(value) {
 						return;
 					}
-					$scope.collapsed = true;
+					//$scope.collapsed = true;
 				}, true);
 			}]
 		};

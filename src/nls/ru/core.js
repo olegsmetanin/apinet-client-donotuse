@@ -120,6 +120,10 @@ define(['angular', 'ago/core/moduleDef'], function(angular, module) {
 				'displayedRecords': 'Всего показано записей: {{ count }}',
 				'applyRequired': 'Примените изменения фильтра, для отображения записей',
 
+				'placeholders': {
+					'typeNode': 'Тип свойства'
+				},
+
 				'ops': {
 					'exists': 'СУЩЕСТВУЕТ',
 					'like': 'СОДЕРЖИТ',

@@ -14,7 +14,7 @@
 					</li>
 				</ul>
 			</span>
-			<span ng-show="context.add && !context.editing" class="input-group-btn">
+			<span ng-show="context.add" class="input-group-btn">
 				<button class="btn btn-success" title="{{ i18n.core.filters.buttons.newNode }}"
 				        ng-click="addNode()" ng-disabled="!context.add">
 					<i class="icon-plus"></i>
@@ -33,7 +33,7 @@
 			<span ng-show="context.value.visible && context.value.editorType"
 			      filter-value-editor="{{ context.value.editorType }}"></span>
 			<span ng-show="!context.value.visible || !context.value.editorType">&nbsp;</span>
-			<span ng-show="context.delete && !context.editing" class="input-group-btn">
+			<span ng-show="context.delete" class="input-group-btn">
 				<button class="btn btn-danger pull-right" title="{{ i18n.core.filters.buttons.deleteNode }}"
 				        ng-click="deleteNode()" ng-disabled="!context.delete">
 					<i class="icon-minus"></i>
