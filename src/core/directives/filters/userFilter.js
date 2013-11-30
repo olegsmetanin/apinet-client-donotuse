@@ -1,12 +1,12 @@
 define([
-	'angular',
 	'../../moduleDef',
+	'../../../components/angular-infrastructure',
 	'text!./userFilter.tpl.html',
 	'text!./userFilterNode.tpl.html',
 	'text!./booleanValueEditor.tpl.html',
 	'text!./dateValueEditor.tpl.html',
 	'text!./textValueEditor.tpl.html'
-], function (angular, module, tpl, nodeTpl, booleanEditorTpl, dateEditorTpl, textEditorTpl) {
+], function (module, angular, tpl, nodeTpl, booleanEditorTpl, dateEditorTpl, textEditorTpl) {
 
 	var editorTpls = { };
 	module.directive('userFilter', ['$compile', 'helpers', 'filteringService', 'metadataService',

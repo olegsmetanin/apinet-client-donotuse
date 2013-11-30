@@ -1,4 +1,4 @@
-define(['angular', './moduleDef'], function (angular, module) {
+define(['./moduleDef'], function (module) {
 	module.controller('LoginFormController', ['$scope', 'security', 'i18n', function ($scope, security, i18n) {
 		// The model for this form
 		//$scope.user = {};

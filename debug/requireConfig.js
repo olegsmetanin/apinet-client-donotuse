@@ -16,14 +16,14 @@
 				deps: ['jquery']
 			},
 			'jquery/select2': {
-				deps: ['jquery', 'css!jquery/select2/theme']
+				deps: ['jquery']
 			},
 
 			'bootstrap': {
 				deps: ['jquery']
 			},
 			'bootstrap/datepicker': {
-				deps: ['jquery', 'jquery-ui', 'css!bootstrap/datepicker/theme']
+				deps: ['jquery', 'jquery-ui']
 			},
 			'nls/ru/bootstrap_datepicker': {
 				deps: ['jquery', 'jquery-ui', 'bootstrap/datepicker']
@@ -34,12 +34,13 @@
 				deps: ['jquery']
 			},
 			'nls/en/angular': {
-				deps: ['jquery', 'angular']
+				deps: ['jquery', 'angular'],
+				init: function () { return this.angular.module('ngLocale'); }
 			},
 			'nls/ru/angular': {
-				deps: ['jquery', 'angular']
+				deps: ['jquery', 'angular'],
+				init: function () { return this.angular.module('ngLocale'); }
 			},
-
 			'angular-ui-router': {
 				deps: ['jquery', 'angular'],
 				init: function () { return this.angular.module('ui.router'); }
@@ -47,10 +48,6 @@
 			'angular-ui-bootstrap3': {
 				deps: ['jquery', 'angular'],
 				init: function () { return this.angular.module('ui.bootstrap'); }
-			},
-			'angular-ui-select2': {
-				deps: ['jquery', 'angular', 'jquery/select2'],
-				init: function () { return this.angular.module('ui.select2'); }
 			},
 			'angular-promise-tracker': {
 				deps: ['jquery', 'angular'],

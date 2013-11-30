@@ -1,12 +1,16 @@
-define(['angular', '../../moduleDef', 'text!./reportNotifier.tpl.html'], function (angular, module, tpl) {
+define([
+	'../../moduleDef',
+	'../../../components/angular-infrastructure',
+	'text!./reportNotifier.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('reportNotifier', ['security', 'reportService', '$timeout',
 		function(security, reportService, $timeout) {
-			var directive = {
+			return {
 				template: tpl,
 				restrict: 'EA',
 				replace: true,
 				scope: true,
-				link: function($scope, $element, $attrs, $controller) {
+				link: function($scope) {
 
 					$scope.showGenerating = false;
 
@@ -64,7 +68,6 @@ define(['angular', '../../moduleDef', 'text!./reportNotifier.tpl.html'], functio
 
 				}
 			};
-			return directive;
 		}
 	]);
 });

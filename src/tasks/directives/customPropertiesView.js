@@ -1,4 +1,8 @@
-define(['angular', '../moduleDef', 'text!./customPropertiesView.tpl.html'], function (angular, module, tpl) {
+define([
+	'../moduleDef',
+	'../../components/angular-infrastructure',
+	'text!./customPropertiesView.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('customProperties', ['sysConfig', '$rootScope', 'apinetService', '$window', '$filter',
 		function(sysConfig, $rootScope, apinetService, $window, $filter) {
 

@@ -1,4 +1,9 @@
-define(['angular', '../../moduleDef', 'text!./taskList.tpl.html', 'text!../moduleMenu.tpl.html'], function (angular, module, tpl, moduleMenuTpl) {
+define([
+	'../../moduleDef',
+	'../../../components/angular-infrastructure',
+	'text!./taskList.tpl.html',
+	'text!../moduleMenu.tpl.html'
+], function (module, angular, tpl, moduleMenuTpl) {
 	module.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider', 
 		function ($stateProvider, sysConfig, securityAuthorizationProvider) {
 
@@ -136,7 +141,9 @@ define(['angular', '../../moduleDef', 'text!./taskList.tpl.html', 'text!../modul
 
 		$scope.expiration = function(task) {
 			if (!task.DueDate) return null; //no due date set - can't calculate expiration
-			if (task.Status === taskStatuses.Closed) return null; //closed task can't be expired
+			if (task.Status === taskStatuses.Closed) {
+				return null;
+			} //closed task can't be expired
 			if (!angular.isDefined(task.expiration)) {
 
 				var now = new Date();

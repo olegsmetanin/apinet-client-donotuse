@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
 	module.service('i18n', ['$interpolate', '$rootScope', function ($interpolate, $rootScope) {
 		$rootScope.i18n = {
 			addMessages: function () {

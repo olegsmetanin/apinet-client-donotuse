@@ -1,4 +1,9 @@
-define(['angular', '../moduleDef', 'jquery', 'bootstrap/datepicker', 'i18n!nls/bootstrap_datepicker'], function (angular, module, $) {
+define([
+	'../moduleDef',
+	'../../components/jquery-infrastructure',
+	'../../components/angular-infrastructure',
+	'../../components/bootstrap-infrastructure'
+], function (module, $, angular) {
 	//extracted from angular-strap project
 	//https://github.com/mgcrea/angular-strap/blob/master/src/directives/datepicker.js
 	// https://github.com/eternicode/bootstrap-datepicker

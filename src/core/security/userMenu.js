@@ -1,7 +1,11 @@
-define(['angular', './moduleDef', 'text!./userMenu.tpl.html'], function (angular, module, userMenuTpl) {
+define([
+	'./moduleDef',
+	'../../components/angular-infrastructure',
+	'text!./userMenu.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('userMenu', ['security', 'sysConfig', function (security) {
 		return {
-			template: userMenuTpl,
+			template: tpl,
 			restrict: 'EA',
 			replace: true,
 			scope: true,

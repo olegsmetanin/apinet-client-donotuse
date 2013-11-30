@@ -1,4 +1,8 @@
-define(['angular', '../../moduleDef', 'css!./filteredList.css'], function (angular, module) {
+define([
+	'../../moduleDef',
+	'../../../components/angular-infrastructure',
+	'css!./filteredList.css'
+], function (module, angular) {
 	module.directive('filteredList', ['apinetService', '$timeout', 'sysConfig', function($apinetService, $timeout, sysConfig) {
 		return {
 			controller: ['$scope', '$rootScope', function($scope, $rootScope) {

@@ -1,4 +1,4 @@
-define(['angular', './moduleDef', 'text!./loginForm.tpl.html'], function (angular, module, loginFormTpl) {
+define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginFormTpl) {
 	module.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$modal', 'sysConfig', 'coreConfig', 'moduleConfig',
 		'apinetService', function ($http, $q, $location, queue, $modal, sysConfig, coreConfig, moduleConfig, apinetService) {
 
@@ -97,7 +97,7 @@ define(['angular', './moduleDef', 'text!./loginForm.tpl.html'], function (angula
 					apinetService.action({
 						method: 'core/auth/logout'
 					})
-					.then(function (result) {
+					.then(function () {
 						service.currentUser = null;
 						redirect(redirectTo);
 					});
@@ -126,7 +126,24 @@ define(['angular', './moduleDef', 'text!./loginForm.tpl.html'], function (angula
 				},
 
 				// Information about the current user
-				currentUser: null,
+				currentUser: {
+					"Login": "admin@apinet-test.com",
+					"Active": true,
+					"Name": "John",
+					"LastName": "Connor",
+					"MiddleName": "",
+					"FullName": "John Connor",
+					"FIO": "Connor J.",
+					"WhomFIO": null,
+					"JobName": "Administrator",
+					"WhomJobName": null,
+					"SystemRole": "Administrator",
+					"LastChangeTime": null,
+					"ModelVersion": 1,
+					"CreationTime": "2013-11-29T05:49:34.2Z",
+					"Id": "6bb0c06f-cca5-4e47-98a3-a28500a1ee31",
+					"Description": "UserModel: 6bb0c06f-cca5-4e47-98a3-a28500a1ee31"
+				},
 				currentUserGroups: [],
 
 				// Is the current user authenticated?

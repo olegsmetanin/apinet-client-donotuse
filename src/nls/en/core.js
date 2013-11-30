@@ -1,4 +1,4 @@
-define(['angular', 'ago/core/moduleDef'], function(angular, module) {
+define(['../../core/moduleDef'], function (module) {
 	module.run(['i18n', 'strapConfig', '$locale', function(i18n, strapConfig, $locale) {
 
 		$locale.DATETIME_FORMATS.ago_date = "MM/dd/yyyy";

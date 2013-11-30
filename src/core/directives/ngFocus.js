@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef'], function (module) {
 	//TODO remove when integrated angular 1.2.x
 	module.directive('ngFocus', ['$parse', function ($parse) {
 		return function (scope, element, attr) {

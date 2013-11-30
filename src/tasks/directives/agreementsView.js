@@ -1,4 +1,8 @@
-define(['angular', '../moduleDef', 'text!./agreementsView.tpl.html'], function (angular, module, tpl) {
+define([
+	'../moduleDef',
+	'../../components/angular-infrastructure',
+	'text!./agreementsView.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('agreements', ['apinetService', 'sysConfig', '$window', 'i18n', '$rootScope', 'taskStatuses',
 		function(apinetService, sysConfig, $window, i18n, $rootScope, taskStatuses){
 

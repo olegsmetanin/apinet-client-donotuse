@@ -1,4 +1,8 @@
-define(['angular', '../moduleDef', 'text!./taskTabs.tpl.html'], function (angular, module, tpl) {
+define([
+	'../moduleDef',
+	'../../components/angular-infrastructure',
+	'text!./taskTabs.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('tasTabs', ['$rootScope', function($rootScope) {
 		return {
 			restrict: 'E',

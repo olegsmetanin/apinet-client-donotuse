@@ -1,4 +1,8 @@
-define(['angular', '../moduleDef', 'jquery/select2'], function (angular, module) {
+define([
+	'../moduleDef',
+	'../../components/jquery-infrastructure',
+	'../../components/angular-infrastructure'
+], function (module, $, angular) {
 	/**
 	 * Enhanced Select2 Dropmenus
 	 *
@@ -27,7 +31,7 @@ define(['angular', '../moduleDef', 'jquery/select2'], function (angular, module)
 
 						if (repeatOption.length) {
 							repeatAttr = repeatOption.attr('ng-repeat') || repeatOption.attr('data-ng-repeat');
-							watch = jQuery.trim(repeatAttr.split('|')[0]).split(' ').pop();
+							watch = $.trim(repeatAttr.split('|')[0]).split(' ').pop();
 						}
 					}
 

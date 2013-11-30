@@ -1,4 +1,4 @@
-define(['angular', './moduleDef'], function (angular, module) {
+define(['./moduleDef'], function (module) {
 	module.provider('securityAuthorization', function () {
 		this.requireGroups = function (groups) {
 			return ['securityAuthorization', function (securityAuthorization) {
@@ -52,7 +52,7 @@ define(['angular', './moduleDef'], function (angular, module) {
 				// Require that there is an authenticated user, current project,
 				// and current user in any of requested groups of current project
 				requireGroups: function (requiredGroups) {
-					var promise = security.requestUserGroups(sysConfig.project).then(function (groups) {
+					return security.requestUserGroups(sysConfig.project).then(function (groups) {
 						var found = false;
 						for (var groupIndex = 0; groupIndex < requiredGroups.length; groupIndex++) {
 							var requiredGroup = requiredGroups[groupIndex];
@@ -68,13 +68,12 @@ define(['angular', './moduleDef'], function (angular, module) {
 							});
 						}
 					});
-					return promise;
 				},
 
 				// Require that there is an authenticated user, current project,
 				// and current user in any of requested groups of current project
 				requireRoles: function (requiredRoles) {
-					var promise = security.requestUserRole(sysConfig.project).then(function (role) {
+					return security.requestUserRole(sysConfig.project).then(function (role) {
 						var found = requiredRoles.indexOf(role) !== -1;
 						if (!found) {
 							//reason not analized in security service, no matter
@@ -83,11 +82,7 @@ define(['angular', './moduleDef'], function (angular, module) {
 							});
 						}
 					});
-					return promise;
 				}
-
-
-
 			};
 
 			return service;

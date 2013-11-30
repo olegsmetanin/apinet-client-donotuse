@@ -1,4 +1,8 @@
-define(['angular', '../moduleDef', 'text!./counter.tpl.html'], function(angular, module, tpl) {
+define([
+	'../moduleDef',
+	'../../components/angular-infrastructure',
+	'text!./counter.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('counter', ['sysConfig', 'apinetService', function(sysConfig, apinetService) {
 		return {
 			restrict: 'E',

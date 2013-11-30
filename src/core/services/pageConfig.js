@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
 	module.service('pageConfig', ['$rootScope',
 		function($rootScope) {
 			angular.extend(this, {

@@ -1,11 +1,11 @@
-define(['angular', '../../moduleDef', 'text!./topTabBar.tpl.html'], function (angular, module, tpl) {
+define(['../../moduleDef', 'text!./topTabBar.tpl.html'], function (module, tpl) {
 	module.directive("toptabbar", function() {
 		return {
 			template: tpl,
 			restrict: 'EA',
 			replace: true,
 			scope: {
-				"active": "@"
+				active: '@'
 			},
 			link: function($scope, $element, $attrs, $controller) {
 

@@ -1,7 +1,6 @@
 define([
-	'ago/home/moduleDef',
-	'ago/home/states',
-
+	'./moduleDef',
+	'./states',
 	'i18n!ago/nls/home'
 ], function(module) {
 	return module.config(['$urlRouterProvider', function($urlRouterProvider) {

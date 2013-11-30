@@ -1,4 +1,8 @@
-define(['angular', '../../moduleDef', 'text!./filterPersister.tpl.html'], function (angular, module, tpl) {
+define([
+	'../../moduleDef',
+	'../../../components/angular-infrastructure',
+	'text!./filterPersister.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('filterPersister', ['apinetService', function(apinetService) {
 		return {
 			replace: true,

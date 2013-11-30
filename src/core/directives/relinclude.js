@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
 	module.directive('ngRelinclude', ['$http', '$templateCache', '$anchorScroll', '$compile', 'sysConfig',
         function($http, $templateCache, $anchorScroll, $compile, sysConfig) {
             return {

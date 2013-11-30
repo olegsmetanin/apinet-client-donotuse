@@ -1,4 +1,4 @@
-define(['angular', '../../moduleDef'], function (angular, module) {
+define(['../../moduleDef'], function (module) {
 	module.directive('inlineButtons', [function() {
 		return {
 			restrict: 'E',
@@ -10,7 +10,7 @@ define(['angular', '../../moduleDef'], function (angular, module) {
 	'	<button type="button" class="btn" ng-show="isChanged" ng-click="update()" ng-disabled="!updateEnabled()" title="{{ i18n.core.buttons.save }}">' +
 	'		<i class="icon-ok"></i>' +
 	'	</button>' +
-	'	<img ng-show="waiting" class="waiting"></img>' +
+	'	<img ng-show="waiting" class="waiting" />' +
 	'</div>'
 		};
 	}]);

@@ -1,4 +1,9 @@
-define(['angular', '../moduleDef', 'text!./sortableHeading.tpl.html', 'css!./sortableHeading.css'], function (angular, module, tpl) {
+define([
+	'../moduleDef',
+	'../../components/angular-infrastructure',
+	'text!./sortableHeading.tpl.html',
+	'css!./sortableHeading.css'
+], function (module, angular, tpl) {
 	module.directive('sortableHeading', [function() {
 		return {
 			replace: true,

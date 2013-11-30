@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
 /**
  * Simple helper for select table rows with chekbox in the header.
  * Parametes set in object notation without braces.

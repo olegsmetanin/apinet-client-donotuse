@@ -1,16 +1,13 @@
 define([
+	'../jquery-infrastructure',
 	'modernizr',
-	'jquery',
-	'jquery-ui',
-	'jquery-migrate',
 	'retina',
-
-	'css!jquery-ui/themes/smoothness',
+	//'css!jquery-ui/themes/smoothness',
 	'css!bootstrap/theme',
 	'css!./light-theme.css',
 	'css!./theme-colors.css',
 	'css!./breadcrumbs.css'
-], function (Modernizr, jQuery) {
+], function (jQuery, Modernizr) {
 	jQuery(document).ready(function () {
 		var body, click_event, content, nav/*, nav_toggler*/;
 		//nav_toggler = jQuery('header .toggle-nav');

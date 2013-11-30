@@ -1,4 +1,4 @@
-define(['angular', '../../moduleDef'], function (angular, module) {
+define(['../../moduleDef'], function (module) {
 	module.controller('breadCrumbsCtrl', ['$scope', 'pageConfig', function($scope, $pageConfig) {
 		$scope.breadcrumbs = $pageConfig.current.breadcrumbs;
 		$scope.$on('page:configChanged', function() {

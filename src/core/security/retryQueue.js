@@ -1,4 +1,4 @@
-define(['angular', './moduleDef'], function (angular, module) {
+define(['./moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
 	module.factory('securityRetryQueue', ['$q', '$log', function ($q, $log) {
 		var retryQueue = [];
 		var service = {

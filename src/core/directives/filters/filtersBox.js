@@ -1,4 +1,8 @@
-define(['angular', '../../moduleDef', 'text!./filtersBox.tpl.html'], function (angular, module, tpl) {
+define([
+	'../../moduleDef',
+	'../../../components/angular-infrastructure',
+	'text!./filtersBox.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('filtersBox', [function() {
 		return {
 			restrict: 'EA',

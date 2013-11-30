@@ -1,6 +1,6 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
 	module.service('reportService', ['$rootScope', '$timeout', '$http', '$cacheFactory', '$q',
-		function($rootScope, $timeout, $http, $cacheFactory, $q) {
+		function($rootScope, $timeout, $http, $cacheFactory) {
 			angular.extend(this, {
 				reports: {
 					gen: [],
@@ -57,14 +57,12 @@ define(['angular', '../moduleDef'], function (angular, module) {
 					});
 				},
 
-				cancelReportGeneration: function(name) {
+				cancelReportGeneration: function() {
 					var that = this;
 					that.reports.gen = [];
 					$rootScope.$broadcast('events:reportsChanged');
 					// ajax request
 				}
-
-
 			});
 		}
 	]);

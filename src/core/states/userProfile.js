@@ -1,9 +1,9 @@
 define([
-	'angular',
 	'../moduleDef',
+	'../../components/angular-infrastructure',
 	'text!./userProfile.tpl.html',
 	'./page'
-], function (angular, module, tpl) {
+], function (module, angular, tpl) {
 	module.config(['$stateProvider', 'securityAuthorizationProvider', 'sysConfig',
 		function($stateProvider, securityAuthorizationProvider, sysConfig) {
 			$stateProvider.state({

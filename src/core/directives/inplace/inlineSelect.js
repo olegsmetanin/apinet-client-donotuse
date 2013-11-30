@@ -1,4 +1,4 @@
-define(['angular', '../../moduleDef'], function (angular, module) {
+define(['../../moduleDef'], function (module) {
 	module.directive('inlineSelect', [function() {
 		return {
 			restrict: 'E',

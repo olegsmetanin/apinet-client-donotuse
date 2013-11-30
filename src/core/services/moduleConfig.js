@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef'], function (module) {
 	module.service('moduleConfig', ['$q', '$http', 'sysConfig',
 		function ($q, $http, sysConfig) {
 			var service = {
@@ -19,7 +19,7 @@ define(['angular', '../moduleDef'], function (angular, module) {
 					}
 				},
 
-				getRole: function (project) {
+				getRole: function () {
 					return $q.when('admin');
 					/*TODO продумать как это должно работать. Вызывается из userRoleCtrl
 					return $http.post('/api/' + sysConfig.module + '/users/getRole', {

@@ -1,13 +1,11 @@
 ﻿require.config({
 	waitSeconds: 15,
+	shim: {
+		'jquery/select2': {
+			deps: ['jquery', 'css!jquery/select2/theme']
+		}
+	},
 	paths: {
-		'jquery': 'release/jquery',
-		'jquery-migrate': 'release/jquery',
-		'jquery-ui': 'release/jquery',
-		'jquery-ui/themes/smoothness': 'release/jquery',
-		'jquery/select2': 'release/jquery',
-		'jquery/select2/theme': 'release/jquery',
-
 		'css': 'release/components',
 		'css-builder': 'release/components',
 		'normalize': 'release/components',
@@ -17,6 +15,13 @@
 
 		'modernizr': 'release/components',
 		'retina': 'release/components',
+
+		'jquery': 'release/components',
+		'jquery-migrate': 'release/components',
+		'jquery-ui': 'release/components',
+		'jquery-ui/themes/smoothness': 'release/components',
+		'jquery/select2': 'components/select2/select2',
+		'jquery/select2/theme': 'components/select2/select2',
 
 		'bootstrap': 'release/components',
 		'bootstrap/theme': 'release/components',

@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
 	module.service('helpers', function () {
 		angular.extend(this, {
 			trimRegex: /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,

@@ -1,4 +1,8 @@
-define(['angular', '../moduleDef', 'text!./agoErrorMsg.tpl.html'], function (angular, module, tpl) {
+define([
+	'../moduleDef',
+	'../../components/angular-infrastructure',
+	'text!./agoErrorMsg.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('agoErrorMsg', function () {
 		return {
 			restrict: 'E',

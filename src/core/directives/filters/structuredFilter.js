@@ -1,7 +1,7 @@
 define([
-	'angular',
 	'../../moduleDef',
-	'jquery',
+	'../../../components/jquery-infrastructure',
+	'../../../components/angular-infrastructure',
 	'text!./structuredFilter.tpl.html',
 	'text!./structuredFilterNode.tpl.html',
 	'text!./booleanValueEditor.tpl.html',
@@ -9,10 +9,9 @@ define([
 	'text!./dateValueEditor.tpl.html',
 	'text!./enumValueEditor.tpl.html',
 	'text!./textValueEditor.tpl.html'
-], function (angular, module, $, tpl, nodeTpl, booleanEditorTpl, datetimeEditorTpl,
-		dateEditorTpl, enumEditorTpl, textEditorTpl) {
-
+], function (module, $, angular, tpl, nodeTpl, booleanEditorTpl, datetimeEditorTpl,	dateEditorTpl, enumEditorTpl, textEditorTpl) {
 	var editorTpls = { };
+
 	module.directive('structuredFilter', ['$compile', 'helpers', 'filteringService', 'metadataService',
 		function($compile, $helpers, $filteringService, $metadataService) {
 			angular.extend(editorTpls, {

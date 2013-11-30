@@ -1,4 +1,8 @@
-define(['angular', '../../moduleDef', 'css!./inlineEdit.css'], function (angular, module) {
+define([
+	'../../moduleDef',
+	'../../../components/angular-infrastructure',
+	'css!./inlineEdit.css'
+], function (module, angular) {
 	module.directive('inlineNone', function () {
 		return {
 			restrict: 'E',

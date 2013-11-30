@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef'], function (module) {
 	module.directive('agoInteger', function() {
 		var INTEGER_REGEXP = /^\-?\d*$/;
 		return {
@@ -15,7 +15,7 @@ define(['angular', '../moduleDef'], function (angular, module) {
 
 					if (INTEGER_REGEXP.test(viewValue)) {
 						// it is valid
-						var ival = parseInt(viewValue);
+						var ival = parseInt(viewValue, 10);
 						if ((min !== null && ival < min) || (max !== null && ival > max)) {
 							// it is invalid, return undefined (no model update)
 							ctrl.$setValidity('integer', false);

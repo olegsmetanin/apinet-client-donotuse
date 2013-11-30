@@ -13,13 +13,6 @@ module.exports = function (grunt) {
 
 	var concatRequireConfigs = require('./gruntHelpers').init(grunt).concatRequireConfigs;
 
-	var jqueryComponents = [
-		'jquery',
-		'jquery-migrate',
-		'jquery-ui',
-		'jquery/select2'
-	];
-
 	var componenentsList = [
 		'css',
 		'css-builder',
@@ -29,12 +22,14 @@ module.exports = function (grunt) {
 		'text',
 		'modernizr',
 		'retina',
+		'jquery',
+		'jquery-migrate',
+		'jquery-ui',
 		'bootstrap',
 		'bootstrap/datepicker',
 		'angular',
 		'angular-ui-router',
 		'angular-ui-bootstrap3',
-		'angular-ui-select2',
 		'angular-promise-tracker'
 	];
 
@@ -69,20 +64,9 @@ module.exports = function (grunt) {
 					'debug/requireConfig.js'
 				], {
 					baseUrl: './',
-					name: 'jquery',
-					out: 'release/jquery.js',
-					include: jqueryComponents
-				})
-			},
-			{
-				options: concatRequireConfigs([
-					'debug/requireConfig.js'
-				], {
-					baseUrl: './',
-					name: 'modernizr',
+					name: 'css',
 					out: 'release/components.js',
-					include: componenentsList,
-					exclude: jqueryComponents
+					include: componenentsList
 				})
 			},
 			{
@@ -111,7 +95,7 @@ module.exports = function (grunt) {
 					baseUrl: './',
 					name: 'ago/core/module',
 					out: 'release/core/module.js',
-					exclude: componenentsList.concat(jqueryComponents),
+					exclude: componenentsList,
 					map: {
 						'*': {
 							'ago/components/flatty/light-theme': 'ago/components/flatty/light-theme-embedded'
@@ -126,7 +110,7 @@ module.exports = function (grunt) {
 					baseUrl: './',
 					name: 'ago/home/module',
 					out: 'release/home/module.js',
-					exclude: componenentsList.concat(jqueryComponents).concat(['ago/core/module'])
+					exclude: componenentsList.concat(['ago/core/module'])
 				})
 			},
 			{
@@ -136,7 +120,7 @@ module.exports = function (grunt) {
 					baseUrl: './',
 					name: 'ago/tasks/module',
 					out: 'release/tasks/module.js',
-					exclude: componenentsList.concat(jqueryComponents).concat(['ago/core/module'])
+					exclude: componenentsList.concat(['ago/core/module'])
 				})
 			}
 		],

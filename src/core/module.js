@@ -1,11 +1,11 @@
 define([
 	'module',
-	'ago/core/moduleDef',
-	'ago/core/services',
-	'ago/core/directives',
-	'ago/core/states',
+	'./moduleDef',
+	'./services',
+	'./directives',
+	'./states',
 
-	'ago/components/flatty/theme',
+	'../components/flatty/theme',
 	'i18n!nls/angular',
 	'i18n!ago/nls/core',
 

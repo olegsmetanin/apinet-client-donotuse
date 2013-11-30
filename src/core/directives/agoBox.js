@@ -1,4 +1,9 @@
-define(['angular', '../moduleDef', 'text!./agoBox.tpl.html', 'css!./agoBox.css'], function (angular, module, tpl) {
+define([
+	'../moduleDef',
+	'../../components/angular-infrastructure',
+	'text!./agoBox.tpl.html',
+	'css!./agoBox.css'
+], function (module, angular, tpl) {
 	module.directive('agoBox', [function() {
 		return {
 			restrict: 'EA',
@@ -48,14 +53,15 @@ define(['angular', '../moduleDef', 'text!./agoBox.tpl.html', 'css!./agoBox.css']
 						}
 					},
 					headerClassWatcher: function(value, oldValue) {
+						var prop;
 						if (oldValue) {
-							for(var prop in oldValue) {
+							for(prop in oldValue) {
 								delete $scope.boxHeaderClass[prop];
 							}
 						}
 						if (value) {
 							var clsval = $scope.$eval(value);
-							for(var prop in clsval) {
+							for(prop in clsval) {
 								$scope.boxHeaderClass[prop] = clsval[prop];
 							}
 						}

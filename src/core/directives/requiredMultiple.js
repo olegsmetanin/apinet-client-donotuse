@@ -1,7 +1,8 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
 	module.directive('requiredMultiple', function () {
 		function isEmpty(value) {
-			return angular.isUndefined(value) || (angular.isArray(value) && value.length === 0) || value === '' || value === null || value !== value;
+			return angular.isUndefined(value) || (angular.isArray(value) && value.length === 0) ||
+				value === '' || value === null || value !== value;
 		}
 
 		return {
@@ -15,7 +16,7 @@ define(['angular', '../moduleDef'], function (angular, module) {
 				var validator = function (value) {
 					if (attr.required && (isEmpty(value) || value === false)) {
 						ctrl.$setValidity('required', false);
-						return;
+						return undefined;
 					} else {
 						ctrl.$setValidity('required', true);
 						return value;

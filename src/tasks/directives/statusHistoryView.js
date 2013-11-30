@@ -1,4 +1,8 @@
-define(['angular', '../moduleDef', 'text!./statusHistoryView.tpl.html'], function (angular, module, tpl) {
+define([
+	'../moduleDef',
+	'../../components/angular-infrastructure',
+	'text!./statusHistoryView.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('statusHistory', ['sysConfig', '$rootScope', 'taskStatuses', '$locale',
 		function(sysConfig, $rootScope, taskStatuses, $locale) {
 

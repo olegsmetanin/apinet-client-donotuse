@@ -1,4 +1,9 @@
-define(['angular', '../../moduleDef', 'text!./projectCreate.tpl.html', '../projects'], function (angular, module, tpl) {
+define([
+	'../../moduleDef',
+	'../../../components/angular-infrastructure',
+	'text!./projectCreate.tpl.html',
+	'../projects'
+], function (module, angular, tpl) {
 	module.config(['$stateProvider', 'securityAuthorizationProvider', function($stateProvider, securityAuthorizationProvider) {
 		$stateProvider.state('page.projects.projectCreate', {
 			url: '/projects/new',

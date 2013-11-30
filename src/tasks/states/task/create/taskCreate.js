@@ -1,4 +1,9 @@
-define(['angular', '../../../moduleDef', 'text!./taskCreate.tpl.html', 'text!../../moduleMenu.tpl.html'], function (angular, module, tpl, moduleMenuTpl) {
+define([
+	'../../../moduleDef',
+	'../../../../components/angular-infrastructure',
+	'text!./taskCreate.tpl.html',
+	'text!../../moduleMenu.tpl.html'
+], function (module, angular, tpl, moduleMenuTpl) {
 	module.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
 		function ($stateProvider, sysConfig, securityAuthorizationProvider) {
 

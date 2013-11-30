@@ -1,4 +1,4 @@
-define(['angular', './moduleDef'], function (angular, module) {
+define(['./moduleDef'], function (module) {
 	module.factory('securityInterceptor', ['$injector', 'securityRetryQueue', function ($injector, queue) {
 		return function (promise) {
 			// Intercept failed requests

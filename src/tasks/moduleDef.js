@@ -1,6 +1,3 @@
-define([
-	'angular',
-	'ago/core/module'
-], function (angular) {
+define(['../components/angular-infrastructure',	'../core/module'], function (angular) {
 	return angular.module('ago.tasks', ['ago.core']);
 });

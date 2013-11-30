@@ -1,4 +1,4 @@
-define(['angular', './moduleDef'], function (angular, module) {
+define(['./moduleDef'], function (module) {
 	module.controller('userRoleCtrl', ['$scope', '$http', 'moduleConfig', 'sysConfig', 'i18n',
 		function($scope, $http, moduleConfig, sysConfig, i18n) {
 

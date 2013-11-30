@@ -1,4 +1,4 @@
-define(['angular', '../../moduleDef', 'text!./filteredListActions.tpl.html'], function (angular, module, tpl) {
+define(['../../moduleDef', 'text!./filteredListActions.tpl.html'], function (module, tpl) {
 	module.directive('filteredListActions', [function() {
 		return {
 			restrict: 'A',

@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
 	module.service('metadataService', ['$http', function($http) {
 		angular.extend(this, {
 			metadata: null,

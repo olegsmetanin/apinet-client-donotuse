@@ -1,4 +1,4 @@
-define(['angular', '../../moduleDef', 'text!./eventNotifier.tpl.html'], function (angular, module, tpl) {
+define(['../../moduleDef', 'text!./eventNotifier.tpl.html'], function (module, tpl) {
 	module.directive('eventNotifier', [function() {
 		return {
 			template: tpl,

@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
 	module.directive('lookup', ['$compile', '$timeout', '$exceptionHandler', '$parse', 'apinetService', 'sysConfig', 'defaultPageSize',
 		function($compile, $timeout, $exceptionHandler, $parse, apinetService, sysConfig, defaultPageSize) {
 			return {

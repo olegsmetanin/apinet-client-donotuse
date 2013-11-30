@@ -1,4 +1,4 @@
-define(['angular', '../moduleDef'], function (angular, module) {
+define(['../moduleDef'], function (module) {
 	module.service('coreConfig', ['$q', '$http', 'sysConfig',
 		function($q, $http) {
 			var service = {

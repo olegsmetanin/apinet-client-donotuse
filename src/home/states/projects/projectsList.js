@@ -1,5 +1,10 @@
-﻿define(['angular', '../../moduleDef', 'text!./projectsList.tpl.html', 'css!./projectsList.css', '../projects'],
-	function (angular, module, tpl) {
+﻿define([
+	'../../moduleDef',
+	'../../../components/angular-infrastructure',
+	'text!./projectsList.tpl.html',
+	'../projects',
+	'css!./projectsList.css'
+], function (module, angular, tpl) {
 		module.config(['$stateProvider', function($stateProvider) {
 			$stateProvider.state('page.projects.projectsList', {
 				url: '/projects/listview',

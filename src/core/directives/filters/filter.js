@@ -1,4 +1,4 @@
-define(['angular', '../../moduleDef'], function (angular, module) {
+define(['../../moduleDef'], function (module) {
 	module.directive('filter', ['i18n', function() {
 		return {
 			restrict: 'E',

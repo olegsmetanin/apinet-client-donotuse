@@ -1,4 +1,8 @@
-define(['angular', '../moduleDef', 'text!./customPropertyEditor.tpl.html'], function (angular, module, tpl) {
+define([
+	'../moduleDef',
+	'../../components/angular-infrastructure',
+	'text!./customPropertyEditor.tpl.html'
+], function (module, angular, tpl) {
 	module.directive('customPropertyEditor', [function() {
 		return {
 			restrict: 'E',
@@ -7,11 +11,11 @@ define(['angular', '../moduleDef', 'text!./customPropertyEditor.tpl.html'], func
 			link: function(scope, elm) {
 				var $datepicker = $('input[ago-datepicker]', elm);
 
-				var onShow = function(e) {
+				var onShow = function() {
 					scope.elInput.off('blur', scope.onBlur);
 				};
 
-				var onHide = function(e) {
+				var onHide = function() {
 					scope.elInput.on('blur', scope.onBlur);
 				};
 

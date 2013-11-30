@@ -1,5 +1,9 @@
-define(['angular', '../../moduleDef', 'text!./projectStatuses.tpl.html', '../projects'],
-	function (angular, module, tpl) {
+define([
+	'../../moduleDef',
+	'../../../components/angular-infrastructure',
+	'text!./projectStatuses.tpl.html',
+	'../projects'
+], function (module, angular, tpl) {
 		module.config(['$stateProvider', function($stateProvider) {
 			$stateProvider.state({
 				name: 'page.projects.projectStatuses',
