@@ -157,7 +157,7 @@ module.exports = function (grunt) {
 					baseUrl: './',
 					name: 'ago/home/module',
 					out: 'release/home/module.js',
-					exclude: allComponents
+					exclude: allComponents.concat(['ago/core/module'])
 				})
 			},
 			{
@@ -187,7 +187,7 @@ module.exports = function (grunt) {
 					baseUrl: './',
 					name: 'ago/tasks/module',
 					out: 'release/tasks/module.js',
-					exclude: allComponents
+					exclude: allComponents.concat(['ago/core/module'])
 				})
 			},
 			{

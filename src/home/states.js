@@ -4,5 +4,4 @@ define([
 	'./states/projects/projectTags',
 	'./states/projects/projectStatuses',
 	'./states/projects/projectCreate'
-], function() {
-});
+], function() { });

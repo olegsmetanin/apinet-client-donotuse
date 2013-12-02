@@ -5,4 +5,4 @@ define([
 	'./directives/executorsView',
 	'./directives/statusHistoryView',
 	'./directives/taskTabs'
-]);
+], function() { });

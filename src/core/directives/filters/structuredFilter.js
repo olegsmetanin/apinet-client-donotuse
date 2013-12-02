@@ -86,10 +86,10 @@ define([
 				},
 				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 					$scope.node = $scope.node || { op: '&&', items: [ ] };
+					$scope.editingNode = angular.extend({ }, $scope.node);
 
 					angular.extend($scope, {
 						i18n: $rootScope.i18n,
-						editingNode: angular.extend({ }, $scope.node),
 						context: { },
 
 						nodeUpdated: function(property, value) {
