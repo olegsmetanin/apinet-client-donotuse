@@ -1,4 +1,4 @@
-define(['../../tasks/moduleDef'], function (module) {
+define(['../../moduleDef'], function (module) {
 	module.run(['i18n', function(i18n) {
 		i18n.addMessages('tasks', {
 			'roles': {

@@ -6,12 +6,12 @@ define([
 	'./states',
 
 	'../components/flatty/theme',
-	'i18n!nls/angular',
-	'i18n!ago/nls/core',
 
 	'css!ago/core/assets/form.css',
 	'css!ago/core/assets/list.css',
-	'css!ago/core/assets/tags.css'
+	'css!ago/core/assets/tags.css',
+
+	'i18n!./nls/module'
 ], function(requireModule, module) {
 	var sysConfig = requireModule.config().sysConfig || { };
 

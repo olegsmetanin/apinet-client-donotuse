@@ -2,7 +2,7 @@ define([
 	'../jquery-infrastructure',
 	'modernizr',
 	'retina',
-	//'css!jquery-ui/themes/smoothness',
+
 	'css!bootstrap/theme',
 	'css!./light-theme.css',
 	'css!./theme-colors.css',

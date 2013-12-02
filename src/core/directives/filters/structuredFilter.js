@@ -85,6 +85,8 @@ define([
 					getParentMetadata: '&'
 				},
 				controller: ['$scope', '$rootScope', function($scope, $rootScope) {
+					$scope.node = $scope.node || { op: '&&', items: [ ] };
+
 					angular.extend($scope, {
 						i18n: $rootScope.i18n,
 						editingNode: angular.extend({ }, $scope.node),
