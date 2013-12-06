@@ -1,4 +1,4 @@
-define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
+define(['../moduleDef', 'angular'], function (module, angular) {
 	module.service('filteringService', ['helpers', 'metadataService', 'i18n', function($helpers, $metadataService, i18n) {
 		angular.extend(this, {
 			getNodeMetadata: function(method, node, parentMetadata, callback) {

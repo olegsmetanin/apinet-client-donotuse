@@ -1,8 +1,10 @@
 define([
 	'../moduleDef',
-	'../../components/jquery-infrastructure',
-	'../../components/angular-infrastructure',
-	'../../components/bootstrap-infrastructure'
+	'jquery',
+	'angular',
+	'bootstrap/datepicker',
+	'css!bootstrap/datepicker/theme',
+	'i18n!core/nls/bootstrap_datepicker'
 ], function (module, $, angular) {
 	//extracted from angular-strap project
 	//https://github.com/mgcrea/angular-strap/blob/master/src/directives/datepicker.js

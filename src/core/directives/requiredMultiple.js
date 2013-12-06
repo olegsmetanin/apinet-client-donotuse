@@ -1,4 +1,4 @@
-define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
+define(['../moduleDef', 'angular'], function (module, angular) {
 	module.directive('requiredMultiple', function () {
 		function isEmpty(value) {
 			return angular.isUndefined(value) || (angular.isArray(value) && value.length === 0) ||

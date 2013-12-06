@@ -1,6 +1,6 @@
 define([
 	'../../moduleDef',
-	'../../../components/angular-infrastructure',
+	'angular',
 	'css!./filteredList.css'
 ], function (module, angular) {
 	module.directive('filteredList', ['apinetService', '$timeout', 'sysConfig', function($apinetService, $timeout, sysConfig) {

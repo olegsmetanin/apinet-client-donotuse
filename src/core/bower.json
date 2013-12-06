@@ -1,0 +1,29 @@
+{
+	"name": "core/module",
+	"version": "0.1.0",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"public/components"
+	],
+	"dependencies" : {
+		"requirejs": "requirejs#2.1.9",
+		"require-css": "require-css#0.0.8",
+		"requirejs-domready": "requirejs-domready#2.0.1",
+		"requirejs-i18n": "requirejs-i18n#2.0.4",
+		"requirejs-text": "requirejs-text#2.0.10",
+
+		"jquery": "jquery#2.0.3",
+		"jquery-ui": "jquery-ui#1.10.3",
+		"select2": "select2#3.4.1",
+		
+		"bootstrap": "bootstrap#3.0.0",
+		"eternicode-bootstrap-datepicker": "https://github.com/eternicode/bootstrap-datepicker/archive/gh-pages.zip",
+
+		"angular": "angular#1.2.3",
+		"angular-i18n": "angular-i18n#1.2.3",
+		"angular-ui-bootstrap3": "https://github.com/olegsmith/bootstrap/archive/bootstrap3_bis2.zip",
+		"angular-ui-router": "angular-ui-router#0.2.5",
+		"angular-promise-tracker": "angular-promise-tracker#1.4.2"
+	}
+}

@@ -1,6 +1,6 @@
 define([
 	'../../moduleDef',
-	'../../../components/angular-infrastructure',
+	'angular',
 	'text!./filterPersister.tpl.html'
 ], function (module, angular, tpl) {
 	module.directive('filterPersister', ['apinetService', function(apinetService) {
@@ -25,7 +25,7 @@ define([
 
 					saveFilter: function() {
 						apinetService.action({
-							method: 'system/users/saveFilter',
+							method: 'core/users/saveFilter',
 							name: $scope.saveFilterName,
 							group: $scope.group,
 							filter: $scope.filter
@@ -46,7 +46,7 @@ define([
 
 					loadFilter: function() {
 						apinetService.action({
-							method: 'system/users/loadFilter',
+							method: 'core/users/loadFilter',
 							name: $scope.loadFilterName ? $scope.loadFilterName : null,
 							group: $scope.group
 						})
@@ -66,7 +66,7 @@ define([
 
 					deleteFilter: function() {
 						apinetService.action({
-							method: 'system/users/deleteFilter',
+							method: 'core/users/deleteFilter',
 							name: $scope.loadFilterName ? $scope.loadFilterName : null,
 							group: $scope.group
 						})
@@ -83,7 +83,7 @@ define([
 				});
 
 				apinetService.getModels({
-					method: 'system/users/getFilterNames',
+					method: 'core/users/getFilterNames',
 					group: $scope.group
 				})
 				.then(function (result) {

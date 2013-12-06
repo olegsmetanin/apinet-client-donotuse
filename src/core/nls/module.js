@@ -1,4 +1,4 @@
-define('ago/core/nls/module', {
+define('core/nls/module', {
 	'en': true,
 	'ru': true
 });

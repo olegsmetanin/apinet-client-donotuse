@@ -1,6 +1,6 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./agoBox.tpl.html',
 	'css!./agoBox.css'
 ], function (module, angular, tpl) {

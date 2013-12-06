@@ -1,6 +1,5 @@
 define([
 	'./services/apinetService',
-	'./services/coreConfig',
 	'./services/dictionaryService',
 	'./services/filteringService',
 	'./services/helpers',

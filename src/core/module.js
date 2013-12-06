@@ -5,30 +5,34 @@ define([
 	'./directives',
 	'./states',
 
-	'../components/flatty/theme',
+	'./themes/flatty/theme',
 
-	'css!ago/core/assets/form.css',
-	'css!ago/core/assets/list.css',
-	'css!ago/core/assets/tags.css',
+	'css!./assets/form.css',
+	'css!./assets/list.css',
+	'css!./assets/tags.css',
 
 	'i18n!./nls/module'
 ], function(requireModule, module) {
-	var sysConfig = requireModule.config().sysConfig || { };
-
-	return module.constant('sysConfig', sysConfig)
+	return module.constant('sysConfig', { project: 'test', module: 'test' })
 		.value('strapConfig', {
-			language: sysConfig.lang,
+			language: 'en',
 			pickDate: true,
 			pickTime: false,
 			type: 'iso',
 			todayBtn: 'linked',
 			todayHighlight: 'true'
 		})
-		.config(['$locationProvider', function ($locationProvider) {
+		.config(['$locationProvider', '$urlRouterProvider', function ($locationProvider, $urlRouterProvider) {
 			$locationProvider.hashPrefix('!');
+			$urlRouterProvider.otherwise('/projects/listview');
 		}])
-		.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
-			$rootScope.$state = $state;
-			$rootScope.$stateParams = $stateParams;
-		}]);
+		.run(['$rootScope', '$state', '$stateParams', '$locale', 'strapConfig',
+			function ($rootScope, $state, $stateParams, $locale, strapConfig) {
+				$rootScope.$state = $state;
+				$rootScope.$stateParams = $stateParams;
+
+				$locale.supportedLocales = ['en','ru'];
+				strapConfig.language = $locale.id;
+			}
+		]);
 });

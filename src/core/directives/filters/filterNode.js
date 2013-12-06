@@ -1,4 +1,4 @@
-define(['../../moduleDef', '../../../components/angular-infrastructure'], function (module, angular) {
+define(['../../moduleDef', 'angular'], function (module, angular) {
 	module.directive('filterNode', ['$parse', function($parse) {
 		return {
 			restrict: 'A',

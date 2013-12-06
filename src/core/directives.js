@@ -11,7 +11,6 @@ define([
 	'./directives/lookup',
 	'./directives/ngBlur',
 	'./directives/ngFocus',
-	'./directives/relinclude',
 	'./directives/requiredMultiple',
 	'./directives/counter',
 

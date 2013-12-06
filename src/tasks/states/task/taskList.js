@@ -1,11 +1,11 @@
 define([
 	'../../moduleDef',
-	'../../../components/angular-infrastructure',
+	'angular',
 	'text!./taskList.tpl.html',
 	'text!../moduleMenu.tpl.html'
 ], function (module, angular, tpl, moduleMenuTpl) {
-	module.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider', 
-		function ($stateProvider, sysConfig, securityAuthorizationProvider) {
+	module.config(['$stateProvider', 'securityAuthorizationProvider',
+		function ($stateProvider, securityAuthorizationProvider) {
 
 		var home = {
 				name: 'page.home',

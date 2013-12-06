@@ -1,6 +1,6 @@
 define([
 	'../../moduleDef',
-	'../../../components/angular-infrastructure',
+	'angular',
 	'text!./reportNotifier.tpl.html'
 ], function (module, angular, tpl) {
 	module.directive('reportNotifier', ['security', 'reportService', '$timeout',

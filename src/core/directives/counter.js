@@ -1,6 +1,6 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./counter.tpl.html'
 ], function (module, angular, tpl) {
 	module.directive('counter', ['sysConfig', 'apinetService', function(sysConfig, apinetService) {

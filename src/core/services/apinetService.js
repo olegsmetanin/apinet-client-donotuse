@@ -1,7 +1,7 @@
 define([
 	'module',
 	'../moduleDef',
-	'../../components/angular-infrastructure'
+	'angular'
 ], function (requireModule, module, angular) {
 	var config = requireModule.config() || { };
 	config.apiRoot = config.apiRoot ? config.apiRoot : '/api/';

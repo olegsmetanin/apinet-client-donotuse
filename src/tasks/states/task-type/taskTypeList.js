@@ -1,6 +1,6 @@
 define([
 	'../../moduleDef',
-	'../../../components/angular-infrastructure',
+	'angular',
 	'text!./taskTypeList.tpl.html',
 	'text!../moduleMenu.tpl.html'
 ], function (module, angular, tpl, moduleMenuTpl) {

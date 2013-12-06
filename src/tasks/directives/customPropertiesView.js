@@ -1,10 +1,10 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./customPropertiesView.tpl.html'
 ], function (module, angular, tpl) {
-	module.directive('customProperties', ['sysConfig', '$rootScope', 'apinetService', '$window', '$filter',
-		function(sysConfig, $rootScope, apinetService, $window, $filter) {
+	module.directive('customProperties', ['$rootScope', 'apinetService', '$window', '$filter',
+		function($rootScope, apinetService, $window, $filter) {
 
 		return {
 			restrict: 'E',

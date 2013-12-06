@@ -1,6 +1,6 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./taskTabs.tpl.html'
 ], function (module, angular, tpl) {
 	module.directive('tasTabs', ['$rootScope', function($rootScope) {

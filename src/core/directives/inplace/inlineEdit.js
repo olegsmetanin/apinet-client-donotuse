@@ -1,6 +1,6 @@
 define([
 	'../../moduleDef',
-	'../../../components/angular-infrastructure',
+	'angular',
 	'css!./inlineEdit.css'
 ], function (module, angular) {
 	module.directive('inlineNone', function () {

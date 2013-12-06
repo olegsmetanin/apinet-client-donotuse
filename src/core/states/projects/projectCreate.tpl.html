@@ -1,0 +1,97 @@
+<div class="container" ng-controller="projectCreateCtrl">
+	<div class="row" id="content-wrapper">
+		<div class="col-xs-12">
+
+			<div class="box ">
+				<div class="box-header purple-background">
+					<div class="title">
+						<i class="icon-plus"></i>
+						{{ i18n.projects.create.title }}
+					</div>
+				</div>
+
+				<div class="box-content">
+					<ago-error-msg></ago-error-msg>
+					
+					<form name="form" class="form form-horizontal" novalidate>
+						<!-- Project type -->
+						<div class="form-group" ng-class="{'has-error': form.Type.$invalid}">
+							<label class="col-md-2 control-label" for="Type">{{ i18n.core.fields.type }}</label>
+							<div class="col-md-5">
+								<input type="text" id="Type" name="Type" lookup="core/dictionary/lookupProjectTypes"
+								       ng-model="model.Type" placeholder="{{ i18n.projects.create.placeholders.type }}" autofocus required class="form-control" />
+							</div>
+							<div class="col-md-5">
+								<span ng-show="form.Type.$error.required" class="help-block has-error">
+									* {{ i18n.core.errors.requiredField }}
+								</span>
+								<span ng-show="validation.fieldErrors['Type']" class="help-block has-error">
+									{{ validation.fieldErrors['Type'] | joinBy }}
+								</span>
+							</div>
+						</div>
+						<!-- Project code -->
+						<div class="form-group" ng-class="{'has-error': form.ProjectCode.$invalid}">
+							<label class="col-md-2 control-label" for="ProjectCode">{{ i18n.projects.fields.code }}</label>
+							<div class="col-md-5">
+								<input type="text" id="ProjectCode" name="ProjectCode" ng-model="model.ProjectCode" autofocus required class="form-control" />
+							</div>
+							<div class="col-md-5">
+								<span ng-show="form.ProjectCode.$error.required" class="help-block has-error">
+									* {{ i18n.core.errors.requiredField }}
+								</span>
+								<span ng-show="validation.fieldErrors['ProjectCode']" class="help-block has-error">
+									{{ validation.fieldErrors['ProjectCode'] | joinBy }}
+								</span>
+							</div>
+						</div>
+						<!-- Name -->
+						<div class="form-group" ng-class="{'has-error': form.Name.$invalid}">
+							<label class="col-md-2 control-label" for="Name">{{ i18n.core.fields.name }}</label>
+							<div class="col-md-5">
+								<input type="text" id="Name" name="Name" ng-model="model.Name" autofocus required class="form-control" />
+							</div>
+							<div class="col-md-5">
+								<span ng-show="form.Name.$error.required" class="help-block has-error">
+									* {{ i18n.core.errors.requiredField }}
+								</span>
+								<span ng-show="validation.fieldErrors['Name']" class="help-block has-error">
+									{{ validation.fieldErrors['Name'] | joinBy }}
+								</span>
+							</div>
+						</div>
+						<!-- Description -->
+						<div class="form-group">
+							<label class="col-md-2 control-label">{{ i18n.core.fields.description }}</label>
+							<div class="col-md-5">
+								<textarea name="Description" ng-model="model.Description" rows="3" class="form-control"></textarea>
+							</div>
+						</div>
+						<!-- Tags -->
+						<div class="form-group" ng-class="{'has-error': form.Tags.$invalid}">
+							<label for="Tags" class="col-md-2 control-label">{{ i18n.projects.fields.tags }}</label>
+							<div class="col-md-5">
+								<input type="text" id="Tags" name="Tags" lookup="core/dictionary/lookupProjectTags" ng-model="model.Tags"
+								       multiple placeholder="{{ i18n.tasks.create.placeholders.tags }}" class="form-control" />
+							</div>
+							<div class="col-md-5">
+								<span ng-show="validation.fieldErrors['Tags']" class="help-block has-error">
+									{{ validation.fieldErrors['Tags'] | joinBy }}
+								</span>
+							</div>
+						</div>
+						<!-- Action section -->
+						<div class="form-actions form-actions-padding-sm">
+							<div class="row">
+								<div class="col-md-10 col-md-offset-2">
+									<button type="button" class="btn btn-danger" ng-click="cancel()">{{ i18n.core.buttons.cancel }}</button>
+									<button type="button" class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">{{ i18n.core.buttons.save }}</button>
+								</div>
+							</div>
+						</div>			
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

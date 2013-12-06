@@ -1,6 +1,6 @@
 define([
 	'../../moduleDef',
-	'../../../components/angular-infrastructure',
+	'angular',
 	'text!./filtersBox.tpl.html'
 ], function (module, angular, tpl) {
 	module.directive('filtersBox', [function() {

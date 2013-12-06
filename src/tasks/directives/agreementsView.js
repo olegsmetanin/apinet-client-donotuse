@@ -1,10 +1,10 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./agreementsView.tpl.html'
 ], function (module, angular, tpl) {
-	module.directive('agreements', ['apinetService', 'sysConfig', '$window', 'i18n', '$rootScope', 'taskStatuses',
-		function(apinetService, sysConfig, $window, i18n, $rootScope, taskStatuses){
+	module.directive('agreements', ['apinetService', '$window', 'i18n', '$rootScope', 'taskStatuses',
+		function(apinetService, $window, i18n, $rootScope, taskStatuses){
 
 		return {
 			restrict: 'E',

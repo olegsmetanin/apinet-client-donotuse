@@ -1,6 +1,6 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./sortableHeading.tpl.html',
 	'css!./sortableHeading.css'
 ], function (module, angular, tpl) {

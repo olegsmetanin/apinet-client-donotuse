@@ -10,8 +10,7 @@
         "eqnull": true,
         "globals": {
 	        "require": true,
-	        "define": true/*,
-	        "angular": true,
-	        "sysConfig": true*/
+	        "requirejs": true,
+	        "define": true
         }
 }

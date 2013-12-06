@@ -46,7 +46,7 @@
 										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['Executors']}">
 											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.executors }}</label>
 											<div class="col-xs-12 col-sm-9 col-md-12">
-												<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()" input-lookup="home/projects/lookupParticipant" input-col="col-xs-12" multiple required>
+												<inline-lookup model="model.Executors" on-update="onUpdateProp(model, 'Executors', val)" on-cancel="resetValidation()" input-lookup="core/projects/lookupParticipant" input-col="col-xs-12" multiple required>
 													<executors model="model.Executors"></executors>
 												</inline-lookup>
 												<span ng-show="validation.fieldErrors['Executors']" class="help-block has-error">

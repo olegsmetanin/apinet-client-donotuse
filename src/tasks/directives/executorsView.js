@@ -1,6 +1,6 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./executorsView.tpl.html',
 	'css!./executorsView.css'
 ], function (module, angular, tpl) {

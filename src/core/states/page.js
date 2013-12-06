@@ -1,6 +1,6 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./page.tpl.html'
 ], function (module, angular, tpl) {
 	module.config(['$stateProvider', 'securityAuthorizationProvider', function($stateProvider, securityAuthorizationProvider) {
@@ -20,17 +20,14 @@ define([
 			}]
 		});
 	}])
-	.controller('HeaderCtrl', ['$scope', 'security', /*'moduleMenuUrl'*/, 'sysConfig', 'pageConfig',
-		function($scope, security, /*moduleMenuUrl,*/ sysConfig, pageConfig) {
-			$scope.isAuthenticated = security.isAuthenticated;
-			//$scope.moduleMenuUrl = moduleMenuUrl;
+	.controller('HeaderCtrl', ['$scope', 'security', 'pageConfig', function($scope, security, pageConfig) {
+		$scope.isAuthenticated = security.isAuthenticated;
 
-			$scope.isActiveMenu = function(item) {
-				return angular.isDefined(pageConfig) &&
-					angular.isDefined(pageConfig.current) &&
-					angular.isDefined(pageConfig.current.menu) &&
-					pageConfig.current.menu === item;
-			};
-		}
-	]);
+		$scope.isActiveMenu = function(item) {
+			return angular.isDefined(pageConfig) &&
+				angular.isDefined(pageConfig.current) &&
+				angular.isDefined(pageConfig.current.menu) &&
+				pageConfig.current.menu === item;
+		};
+	}]);
 });

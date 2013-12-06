@@ -1,0 +1,23 @@
+{
+    "name": "apinet-client",
+    "description": "AngularJS apinet-client",
+    "version": "0.1.0",
+    "homepage": "http://olegsmith.github.com/",
+    "author": {
+        "name": "Oleg Smetanin & Artem Naumov & Alexey Rumyantsev"
+    },
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/angular-ui/ui-router/blob/master/LICENSE"
+    }],
+    "dependencies": {
+    	"bower": "latest",
+		"grunt": "latest",
+	    "grunt-cli": "latest",
+	    "grunt-shell": "latest",
+		"grunt-recess": "latest",
+		"grunt-image-embed": "latest",
+		"grunt-contrib-requirejs": "latest",
+	    "grunt-contrib-copy": "latest"
+    }
+}

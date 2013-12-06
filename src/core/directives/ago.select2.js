@@ -1,7 +1,9 @@
 define([
 	'../moduleDef',
-	'../../components/jquery-infrastructure',
-	'../../components/angular-infrastructure'
+	'jquery',
+	'angular',
+	'jquery/select2',
+	'css!jquery/select2/theme'
 ], function (module, $, angular) {
 	/**
 	 * Enhanced Select2 Dropmenus

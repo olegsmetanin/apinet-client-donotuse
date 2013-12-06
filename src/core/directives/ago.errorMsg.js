@@ -1,6 +1,6 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./agoErrorMsg.tpl.html'
 ], function (module, angular, tpl) {
 	module.directive('agoErrorMsg', function () {

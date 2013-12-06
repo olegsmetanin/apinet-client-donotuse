@@ -1,4 +1,4 @@
-define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
+define(['../moduleDef', 'angular'], function (module, angular) {
 	module.service('dictionaryService', ['apinetService', 'helpers', 'sysConfig',
 		function ($apinetService, $helpers, sysConfig) {
 			angular.extend(this, {

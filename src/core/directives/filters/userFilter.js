@@ -1,6 +1,6 @@
 define([
 	'../../moduleDef',
-	'../../../components/angular-infrastructure',
+	'angular',
 	'text!./userFilter.tpl.html',
 	'text!./userFilterNode.tpl.html',
 	'text!./booleanValueEditor.tpl.html',
@@ -55,8 +55,8 @@ define([
 			};
 		}
 	])
-	.directive('userFilterNode', ['$filter', 'sysConfig', 'helpers', 'filteringService', 'metadataService', 'apinetService',
-		function($filter, sysConfig, $helpers, $filteringService, metadataService, apinetService) {
+	.directive('userFilterNode', ['$filter', 'helpers', 'filteringService', 'metadataService', 'apinetService',
+		function($filter, $helpers, $filteringService, metadataService, apinetService) {
 			return {
 				replace: true,
 				scope: {

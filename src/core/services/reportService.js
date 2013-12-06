@@ -1,4 +1,4 @@
-define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
+define(['../moduleDef', 'angular'], function (module, angular) {
 	module.service('reportService', ['$rootScope', '$timeout', '$http', '$cacheFactory', '$q',
 		function($rootScope, $timeout, $http, $cacheFactory) {
 			angular.extend(this, {

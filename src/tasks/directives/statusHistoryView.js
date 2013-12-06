@@ -1,10 +1,10 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./statusHistoryView.tpl.html'
 ], function (module, angular, tpl) {
-	module.directive('statusHistory', ['sysConfig', '$rootScope', 'taskStatuses', '$locale',
-		function(sysConfig, $rootScope, taskStatuses, $locale) {
+	module.directive('statusHistory', ['$rootScope', 'taskStatuses', '$locale',
+		function($rootScope, taskStatuses, $locale) {
 
 		return {
 			restrict: 'E',

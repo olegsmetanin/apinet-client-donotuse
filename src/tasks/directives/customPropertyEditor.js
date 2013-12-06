@@ -1,6 +1,6 @@
 define([
 	'../moduleDef',
-	'../../components/angular-infrastructure',
+	'angular',
 	'text!./customPropertyEditor.tpl.html'
 ], function (module, angular, tpl) {
 	module.directive('customPropertyEditor', [function() {

@@ -1,7 +1,7 @@
 define([
 	'../../moduleDef',
-	'../../../components/jquery-infrastructure',
-	'../../../components/angular-infrastructure',
+	'jquery',
+	'angular',
 	'text!./structuredFilter.tpl.html',
 	'text!./structuredFilterNode.tpl.html',
 	'text!./booleanValueEditor.tpl.html',

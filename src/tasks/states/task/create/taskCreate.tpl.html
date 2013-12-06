@@ -34,7 +34,7 @@
 						<div class="form-group" ng-class="{'has-error': form.executors.$invalid}">
 							<label for="executors" class="col-md-2 control-label">{{ i18n.tasks.fields.executors }}</label>
 							<div class="col-md-5">
-								<input type="text" id="executors" name="executors" lookup="home/projects/lookupParticipant" ng-model="model.executors" multiple placeholder="{{ i18n.tasks.create.placeholders.executors }}" required-multiple class="form-control" />
+								<input type="text" id="executors" name="executors" lookup="core/projects/lookupParticipant" ng-model="model.executors" multiple placeholder="{{ i18n.tasks.create.placeholders.executors }}" required-multiple class="form-control" />
 							</div>
 							<div class="col-md-5">
 								<span ng-show="form.executors.$error.required" class="help-block has-error">

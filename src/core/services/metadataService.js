@@ -1,29 +1,17 @@
-define(['../moduleDef', '../../components/angular-infrastructure'], function (module, angular) {
+define(['../moduleDef', 'angular'], function (module, angular) {
 	module.service('metadataService', ['$http', function($http) {
 		angular.extend(this, {
 			metadata: null,
+			promise: null,
 
 			modelMetadata: function (method, modelType, callback) {
 				if(!callback) {
 					return;
 				}
 
-				if(angular.isObject(this.metadata)) {
-					if(modelType) {
-						if(this.metadata[modelType]) {
-							callback(this.metadata[modelType]);
-							return;
-						}
-					}
-					else {
-						for(var key in this.metadata) {
-							if(!this.metadata.hasOwnProperty(key)) {
-								continue;
-							}
-							callback(this.metadata[key]);
-						}
-						return;
-					}
+				if(modelType && angular.isObject(this.metadata) && this.metadata[modelType]) {
+					callback(this.metadata[modelType]);
+					return;
 				}
 
 				var promise = this.promise ? this.promise : $http.post('/api/' + method, { });
@@ -31,12 +19,27 @@ define(['../moduleDef', '../../components/angular-infrastructure'], function (mo
 
 				var me = this;
 				promise.success(function (data) {
-					me.metadata = me.metadata || { };
-					angular.extend(me.metadata, data);
-					me.modelMetadata(null, modelType, callback);
+					me.metadata = angular.extend({ }, data);
+					me.promise = null;
+
+					if(modelType) {
+						if(me.metadata[modelType]) {
+							callback(me.metadata[modelType]);
+						}
+						return;
+					}
+
+					for(var key in me.metadata) {
+						if(!me.metadata.hasOwnProperty(key)) {
+							continue;
+						}
+						callback(me.metadata[key]);
+						return;
+					}
 				})
 				.error(function () {
 					me.metadata = null;
+					me.promise = null;
 				});
 			}
 		});

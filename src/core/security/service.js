@@ -1,6 +1,6 @@
 define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginFormTpl) {
-	module.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$modal', 'sysConfig', 'coreConfig', 'moduleConfig',
-		'apinetService', function ($http, $q, $location, queue, $modal, sysConfig, coreConfig, moduleConfig, apinetService) {
+	module.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$modal', 'moduleConfig',
+		'apinetService', function ($http, $q, $location, queue, $modal, moduleConfig, apinetService) {
 
 			// Redirect to the given url (defaults to '/')
 			function redirect(url) {
