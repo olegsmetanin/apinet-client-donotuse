@@ -4,35 +4,24 @@ define([
 	'text!./taskTypeList.tpl.html',
 	'text!../moduleMenu.tpl.html'
 ], function (module, angular, tpl, moduleMenuTpl) {
-	module.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
-		function ($stateProvider, sysConfig, securityAuthorizationProvider) {
-			var types = {
-				name: 'page.types',
-				url: '/dictionary/types',
-				views: {
-					'content': { template: tpl },
-					'moduleMenu': { template: moduleMenuTpl }
-				},
-				resolve: {
-					i18n: 'i18n',
-					pageConfig: 'pageConfig',
-					authUser: securityAuthorizationProvider.requireAuthenticatedUser()
-				},
-				onEnter: function(pageConfig, i18n) {
-					pageConfig.setConfig({
-						menu: 'tasks.dictionary.types',
-						breadcrumbs: [
-							{ name: i18n.msg('tasks.list.title'), url: '#!/' },
-							{ name: i18n.msg('tasks.types.title'), url: '#!/dictionary/types' }]
-					});
-				}
-			};
-
-			$stateProvider.state(types);
+	module.state({
+		name: 'page.project.taskTypes',
+		url: '/dictionary/types',
+		views: {
+			'': { template: tpl },
+			'moduleMenu@page': { template: moduleMenuTpl }
+		},
+		onEnter: function(pageConfig, i18n) {
+			pageConfig.setConfig({
+				menu: 'tasks.dictionary.types',
+				breadcrumbs: [
+					{ name: i18n.msg('tasks.list.title'), url: 'page.project.tasks' },
+					{ name: i18n.msg('tasks.types.title'), url: 'tasks.dictionary.types' }
+				]
+			});
 		}
-	])
-	.controller('taskTypeCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n',
-		function($scope, sysConfig, apinetService, $window, i18n) {
+	}).controller('taskTypeCtrl', ['$scope', '$stateParams', 'apinetService', '$window', 'i18n',
+		function($scope, $stateParams, apinetService, $window, i18n) {
 			var handleException = function(error) {
 				$scope.resetValidation();
 				$scope.validation.generalErrors = [error];
@@ -58,7 +47,7 @@ define([
 
 				apinetService.action({
 					method: 'tasks/dictionary/editTaskType',
-					project: sysConfig.project,
+					project: $stateParams.project,
 					model: $scope.editModel})
 				.then(function(result) {
 					if(result.validation.success) {
@@ -107,7 +96,7 @@ define([
 
 				apinetService.action({
 					method: 'tasks/dictionary/deleteTaskTypes',
-					project: sysConfig.project,
+					project: $stateParams.project,
 					ids: ids,
 					replacementTypeId: replaceId })
 				.then(function() {
@@ -125,7 +114,7 @@ define([
 
 				apinetService.action({
 					method: 'tasks/dictionary/deleteTaskType',
-					project: sysConfig.project,
+					project: $stateParams.project,
 					id: model.Id })
 				.then(function() {
 					$scope.removeFromModels([model]);
@@ -137,7 +126,7 @@ define([
 
 				return apinetService.action({
 					method: 'tasks/dictionary/editTaskType',
-					project: sysConfig.project,
+					project: $stateParams.project,
 					model: { Id: model.Id, Name: val, ModelVersion: model.ModelVersion }
 				}).then(function(response) {
 					if (response.validation.success) {
@@ -154,8 +143,9 @@ define([
 				model.validation = {};
 			};
 
-			$scope.requestParams = { project: sysConfig.project };
+			$scope.requestParams = { project: $stateParams.project };
 			$scope.editModel = {id: null, name: ''};
 			$scope.deleteModel = { replacementType: null };
-	}]);
+		}
+	]);
 });

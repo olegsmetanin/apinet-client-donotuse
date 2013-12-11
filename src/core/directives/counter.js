@@ -3,7 +3,7 @@ define([
 	'angular',
 	'text!./counter.tpl.html'
 ], function (module, angular, tpl) {
-	module.directive('counter', ['sysConfig', 'apinetService', function(sysConfig, apinetService) {
+	module.directive('counter', ['$stateParams', 'apinetService', function($stateParams, apinetService) {
 		return {
 			restrict: 'E',
 			replace: true,
@@ -17,7 +17,7 @@ define([
 
 				scope.read = function() {
 					var params = angular.extend({ }, scope.requestParams, {
-						project: sysConfig.project,
+						project: $stateParams.project,
 						method: attrs.action,
 						filter: scope.filter });
 					apinetService.action(params)

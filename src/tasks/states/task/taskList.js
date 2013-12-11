@@ -4,47 +4,29 @@ define([
 	'text!./taskList.tpl.html',
 	'text!../moduleMenu.tpl.html'
 ], function (module, angular, tpl, moduleMenuTpl) {
-	module.config(['$stateProvider', 'securityAuthorizationProvider',
-		function ($stateProvider, securityAuthorizationProvider) {
 
-		var home = {
-				name: 'page.home',
-				url: '',
-				views: {
-					'content': { template: tpl },
-					'moduleMenu': { template: moduleMenuTpl }
-				},
-				resolve: {
-					i18n: 'i18n',
-					pageConfig: 'pageConfig',
-					authUser: securityAuthorizationProvider.requireAuthenticatedUser()
-				},
-				onEnter: function(pageConfig, i18n) {
-					pageConfig.setConfig({
-						menu: 'tasks.list',
-						breadcrumbs: [{
-							name: i18n.msg('tasks.list.title'),
-							url: '#!/'
-						}]
-					});
-				}
-			};
-
-			var root = angular.copy(home);
-			root.name = 'page.root';
-			root.url = '/';
-
-			var tasks = angular.copy(home);
-			tasks.name = 'page.tasks';
-			tasks.url = '/tasks';
-
-			$stateProvider.state(home);
-			$stateProvider.state(root);
-			$stateProvider.state(tasks);
+	module.state({
+		name: 'page.project.tasks',
+		url: '/tasks',
+		views: {
+			'': { template: tpl },
+			'moduleMenu@page': { template: moduleMenuTpl }
+		},
+		resolve: {
+			i18n: 'i18n',
+			pageConfig: 'pageConfig'
+		},
+		onEnter: function(pageConfig, i18n) {
+			pageConfig.setConfig({
+				menu: 'tasks.list',
+				breadcrumbs: [{
+					name: i18n.msg('tasks.list.title'),
+					url: 'page.project.tasks'
+				}]
+			});
 		}
-	])
-	.controller('taskListCtrl', ['$scope', 'sysConfig', 'apinetService', '$window', 'i18n', 'taskStatuses', '$locale',
-		function($scope, sysConfig, apinetService, $window, i18n, taskStatuses, $locale) {
+	}).controller('taskListCtrl', ['$scope', '$stateParams', 'apinetService', '$window', 'i18n', 'taskStatuses', '$locale',
+		function($scope, $stateParams, apinetService, $window, i18n, taskStatuses, $locale) {
 
 		$scope.propsFilterCollapsed = true;
 		$scope.taskStatuses = taskStatuses;
@@ -77,7 +59,7 @@ define([
 
 			apinetService.action({
 				method: 'tasks/tasks/deleteTasks',
-				project: sysConfig.project,
+				project: $stateParams.project,
 				ids: ids })
 			.then(function() {
 				for(var i = 0; i < modelsToRemove.length; i++) {
@@ -97,7 +79,7 @@ define([
 
 			apinetService.action({
 				method: 'tasks/tasks/deleteTask',
-				project: sysConfig.project,
+				project: $stateParams.project,
 				id: task.Id})
 			.then(function() {
 				var taskIndex = $scope.models.indexOf(task);
@@ -131,7 +113,7 @@ define([
 			//need to load data
 			apinetService.action({
 				method: 'tasks/tasks/GetTaskDetails',
-				project: sysConfig.project,
+				project: $stateParams.project,
 				numpp: task.SeqNumber})
 			.then(function(response) {
 				angular.extend(task.details, response);
@@ -140,7 +122,9 @@ define([
 		};
 
 		$scope.expiration = function(task) {
-			if (!task.DueDate) return null; //no due date set - can't calculate expiration
+			if (!task.DueDate) {
+				return null;
+			} //no due date set - can't calculate expiration
 			if (task.Status === taskStatuses.Closed) {
 				return null;
 			} //closed task can't be expired
@@ -178,7 +162,8 @@ define([
 				task.expiration = { 
 					days: Math.abs(daysDiff), 
 					expired: daysDiff < 0,
-					title: msg }
+					title: msg
+				};
 			}
 
 			return task.expiration;

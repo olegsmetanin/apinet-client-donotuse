@@ -1,0 +1,15 @@
+{
+	"name": "tasks/module",
+	"version": "0.1.0",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"public/components"
+	],
+	"dependencies" : {
+		"require-css": "require-css#0.0.8",
+		"requirejs-i18n": "requirejs-i18n#2.0.4",
+		"requirejs-text": "requirejs-text#2.0.10",
+		"angular": "angular#1.2.3"
+	}
+}

@@ -1,5 +1,5 @@
 define(['../moduleDef', 'angular'], function (module, angular) {
-	module.service('metadataService', ['$http', function($http) {
+	module.service('metadataService', ['apinetService', function(apinetService) {
 		angular.extend(this, {
 			metadata: null,
 			promise: null,
@@ -14,11 +14,11 @@ define(['../moduleDef', 'angular'], function (module, angular) {
 					return;
 				}
 
-				var promise = this.promise ? this.promise : $http.post('/api/' + method, { });
+				var promise = this.promise ? this.promise : apinetService.action({ method: method });
 				this.promise = promise;
 
 				var me = this;
-				promise.success(function (data) {
+				promise.then(function (data) {
 					me.metadata = angular.extend({ }, data);
 					me.promise = null;
 
@@ -36,8 +36,7 @@ define(['../moduleDef', 'angular'], function (module, angular) {
 						callback(me.metadata[key]);
 						return;
 					}
-				})
-				.error(function () {
+				}, function () {
 					me.metadata = null;
 					me.promise = null;
 				});

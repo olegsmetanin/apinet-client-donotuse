@@ -62,7 +62,7 @@
 						</ago-box-title>
 						<ago-box-content>
 							<div class="box-toolbox box-toolbox-top" ng-show="currentUser.admin">
-								<a href="#!/projects/new" class="btn btn-primary">
+								<a ui-sref="page.projects.projectCreate" class="btn btn-primary">
 									<i class="icon-plus icon-white"></i>
 									<span>{{ i18n.core.buttons.add }}</span>
 								</a>
@@ -71,7 +71,7 @@
 							<div class="row">
 								<div ng-repeat="model in models" class="col-xs-12 col-sm-6 col-lg-4">
 									<div class="projectBox box-content clearfix">
-										<a href="/projects/{{model.ProjectCode}}" target="_blank">
+										<a ui-sref="page.project({ project: model.ProjectCode })" target="_blank">
 											<div class="projectIcon">&nbsp;</div>
 											<div class="projectInfo">
 												<h3 class="title">{{ model.Name }}</h3>

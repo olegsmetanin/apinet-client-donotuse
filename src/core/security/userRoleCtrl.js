@@ -1,11 +1,11 @@
 define(['./moduleDef'], function (module) {
-	module.controller('userRoleCtrl', ['$scope', '$http', 'moduleConfig', 'sysConfig', 'i18n',
-		function($scope, $http, moduleConfig, sysConfig, i18n) {
+	module.controller('userRoleCtrl', ['$scope', '$http', 'moduleConfig', '$stateParams', 'i18n',
+		function($scope, $http, moduleConfig, $stateParams, i18n) {
 
 			$scope.role = '';
 			$scope.roleName = '';
 
-			moduleConfig.getRole(sysConfig.project).then(function(role) {
+			moduleConfig.getRole($stateParams.project).then(function(role) {
 				$scope.setRole(role || 'nothing');
 			});
 
@@ -16,7 +16,7 @@ define(['./moduleDef'], function (module) {
 			$scope.setRole = function(role) {
 				//TODO testing, remove
 				$scope.role = role;
-				var roleNameKey = role === 'admin' ? 'core.roles.' : sysConfig.module + '.roles.';
+				var roleNameKey = role === 'admin' ? 'core.roles.' : $stateParams.project + '.roles.';
 				$scope.roleName = i18n.msg(roleNameKey + $scope.role);
 			};
 		}

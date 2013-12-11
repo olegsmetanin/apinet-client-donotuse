@@ -22,12 +22,5 @@ define([
 	}])
 	.controller('HeaderCtrl', ['$scope', 'security', 'pageConfig', function($scope, security, pageConfig) {
 		$scope.isAuthenticated = security.isAuthenticated;
-
-		$scope.isActiveMenu = function(item) {
-			return angular.isDefined(pageConfig) &&
-				angular.isDefined(pageConfig.current) &&
-				angular.isDefined(pageConfig.current.menu) &&
-				pageConfig.current.menu === item;
-		};
 	}]);
 });

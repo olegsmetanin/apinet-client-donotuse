@@ -4,45 +4,33 @@ define([
 	'text!./taskCreate.tpl.html',
 	'text!../../moduleMenu.tpl.html'
 ], function (module, angular, tpl, moduleMenuTpl) {
-	module.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
-		function ($stateProvider, sysConfig, securityAuthorizationProvider) {
-
-		var taskCreate = {
-				name: 'page.taskCreate',
-				url: '/tasks/new',
-				views: {
-					'content': { template: tpl },
-					'moduleMenu': { template: moduleMenuTpl }
-				},
-				resolve: {
-					i18n: 'i18n',
-					pageConfig: 'pageConfig',
-					currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
-				},
-				onEnter: function(pageConfig, i18n) {
-					pageConfig.setConfig({
-						breadcrumbs: [
-							{ name: i18n.msg('tasks.list.title'), url: '#!/' },
-							{ name: i18n.msg('tasks.create.title'), url: '#!/tasks/new' } ]
-					});
-				}
-			};
-
-			$stateProvider.state(taskCreate);
+	module.state({
+		name: 'page.project.taskCreate',
+		url: '/tasks/new',
+		views: {
+			'': { template: tpl },
+			'moduleMenu@page': { template: moduleMenuTpl }
+		},
+		onEnter: function(pageConfig, i18n) {
+			pageConfig.setConfig({
+				breadcrumbs: [
+					{ name: i18n.msg('tasks.list.title'), url: 'page.project.tasks' },
+					{ name: i18n.msg('tasks.create.title'), url: 'page.project.taskCreate' }
+				]
+			});
 		}
-	])
-	.controller('taskCreateCtrl', ['$scope', 'sysConfig', 'apinetService', '$state',
-		function($scope, sysConfig, apinetService, $state) {
+	}).controller('taskCreateCtrl', ['$scope', '$stateParams', 'apinetService', '$state',
+		function($scope, $stateParams, apinetService, $state) {
 
 			$scope.cancel = function() {
-				$state.transitionTo('page.root', {}, true);
+				$state.go('page.project.tasks');
 			};
 
 			$scope.create = function() {
 				var req = modelToRequest();
 				apinetService.action({
 					method: 'tasks/tasks/createTask',
-					project: sysConfig.project,
+					project: $stateParams.project,
 					model: req })
 				.then(function(response) {
 					if (response.validation.success) {
@@ -96,5 +84,6 @@ define([
 				$scope.validation.generalErrors = [];
 				$scope.validation.fieldErrors = {};
 			};
-	}]);
+		}
+	]);
 });

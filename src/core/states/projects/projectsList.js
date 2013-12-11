@@ -6,13 +6,14 @@
 	'css!./projectsList.css'
 ], function (module, angular, tpl) {
 		module.config(['$stateProvider', function($stateProvider) {
-			$stateProvider.state('page.projects.projectsList', {
+			$stateProvider.state({
+				name: 'page.projects.projectsList',
 				url: '/projects/listview',
 				onEnter: function(pageConfig, i18n) {
 					pageConfig.setConfig({
 						breadcrumbs: [{
 							name: i18n.msg('projects.list.title'),
-							url: '/#!/projects/listview'
+							url: 'page.projects.projectsList'
 						}]
 					});
 				},

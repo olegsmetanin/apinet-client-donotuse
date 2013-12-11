@@ -1,6 +1,6 @@
 define(['../moduleDef', 'angular'], function (module, angular) {
-	module.directive('lookup', ['$compile', '$timeout', '$exceptionHandler', '$parse', 'apinetService', 'sysConfig', 'defaultPageSize',
-		function($compile, $timeout, $exceptionHandler, $parse, apinetService, sysConfig, defaultPageSize) {
+	module.directive('lookup', ['$compile', '$timeout', '$exceptionHandler', '$parse', 'apinetService', '$stateParams', 'defaultPageSize',
+		function($compile, $timeout, $exceptionHandler, $parse, apinetService, $stateParams, defaultPageSize) {
 			return {
 				restrict: 'A',
 				scope: true,
@@ -20,7 +20,7 @@ define(['../moduleDef', 'angular'], function (module, angular) {
 
 								apinetService.getModels({
 									method: $attrs.action,
-									project: sysConfig.project,
+									project: $stateParams.project,
 									term: query.term,
 									page: query.page - 1
 								}).then(function(result) {

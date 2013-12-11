@@ -13,8 +13,7 @@ define([
 
 	'i18n!./nls/module'
 ], function(requireModule, module) {
-	return module.constant('sysConfig', { project: 'test', module: 'test' })
-		.value('strapConfig', {
+	return module.value('strapConfig', {
 			language: 'en',
 			pickDate: true,
 			pickTime: false,

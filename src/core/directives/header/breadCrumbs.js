@@ -16,7 +16,7 @@ define(['../../moduleDef'], function (module) {
 	'	</a>' +
 	'	<ul class="dropdown-menu">' +
 	'		<li ng-repeat="breadcrumb in breadcrumbs">' +
-	'			<a href="{{breadcrumb.url}}">{{breadcrumb.name}}</a>' +
+	'			<a ui-sref="{{breadcrumb.url}}">{{breadcrumb.name}}</a>' +
 	'		</li>' +
 	'	</ul>' +
 	'</div>'
@@ -29,7 +29,7 @@ define(['../../moduleDef'], function (module) {
 			template:
 	'<ul class="breadcrumb breadcrumbfull-nav" ng-controller="breadCrumbsCtrl">' +
 	'	<li ng-repeat="breadcrumb in breadcrumbs" style="margin-right: 5px">' +
-	'		<a href="{{breadcrumb.url}}">{{breadcrumb.name}}</a>' +
+	'		<a ui-sref="{{breadcrumb.url}}">{{breadcrumb.name}}</a>' +
 	'		<i class="icon-angle-right" ng-hide="$last"></i>' +
 	'	</li>' +
 	'</ul>'

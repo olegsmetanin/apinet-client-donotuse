@@ -1,7 +1,7 @@
 <div class="tabbable">
 	<ul class="nav nav-responsive nav-tabs">
 		<li ng-class="{active: tab == 'overview' }">
-			<a href="#!/tasks/{{ num }}">{{ i18n.tasks.view.tabs.overview }}</a>
+			<a ui-sref="page.project.page.project.taskView({ num: num })">{{ i18n.tasks.view.tabs.overview }}</a>
 		</li>
 		<li ng-class="{active: tab == 'comments'}">
 			<a href="#!/tasks/{{ num }}/comments">{{ i18n.tasks.view.tabs.comments }}</a>

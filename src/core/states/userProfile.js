@@ -16,7 +16,7 @@ define([
 				pageConfig.setConfig({
 					breadcrumbs: [{
 						name: i18n.msg('core.profile.title'),
-						url: '/#!/user/profile'
+						url: 'page.userProfile'
 					}]
 				});
 			},

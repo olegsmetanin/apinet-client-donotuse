@@ -18,19 +18,19 @@
 </li>
 
 <li ng-class="{'active': $state.is('page.project.info')}">
-	<a href="#!/project/info">
+	<a ui-sref="page.project.info">
 		<i class="icon-info"></i>
 		<span>{{ i18n.tasks.menu.projectInfo }}</span>
 	</a>
 </li>
-<li ng-class="{'active': $state.is('page.home') || $state.is('page.root') || $state.is('page.tasks')}">
-	<a href="#!/">
+<li ng-class="{'active': $state.is('page.project.tasks')}">
+	<a ui-sref="page.project.tasks">
 		<i class="icon-tasks"></i>
 		<span>{{ i18n.tasks.list.title }}</span>
 	</a>
 </li>
-<li ng-class="{'active': $state.is('page.types')}">
-	<a href="#!/dictionary/types">
+<li ng-class="{'active': $state.is('page.project.taskTypes')}">
+	<a ui-sref="page.project.taskTypes">
 		<i class="icon-cog"></i>
 		<span>{{ i18n.tasks.types.title }}</span>
 	</a>

@@ -1,6 +1,5 @@
 {
-    "name": "apinet-client",
-    "description": "AngularJS apinet-client",
+	"name": "core-module",
     "version": "0.1.0",
     "homepage": "http://olegsmith.github.com/",
     "author": {

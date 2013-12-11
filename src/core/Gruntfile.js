@@ -26,13 +26,13 @@ module.exports = function (grunt) {
 			{
 				options: {
 					baseUrl: '../',
-					mainConfigFile: 'requireConfigDev.js',
+					mainConfigFile: 'requireConfig.js',
 					uglify: {
 						mangle: false
 					},
 					name: 'core/module',
 					out: '../../release/core/module.js',
-					include: ['domReady'],
+					include: ['domReady', 'jquery-ui'],
 					exclude: [
 						'jquery',
 						'core/themes/flatty/theme'
@@ -42,7 +42,7 @@ module.exports = function (grunt) {
 			{
 				options: {
 					baseUrl: '../',
-					mainConfigFile: 'requireConfigDev.js',
+					mainConfigFile: 'requireConfig.js',
 					uglify: {
 						mangle: false
 					},
@@ -57,7 +57,7 @@ module.exports = function (grunt) {
 			{
 				options: {
 					baseUrl: '../',
-					mainConfigFile: 'requireConfigDev.js',
+					mainConfigFile: 'requireConfig.js',
 					uglify: {
 						mangle: false
 					},
@@ -91,7 +91,7 @@ module.exports = function (grunt) {
 			},
 			requireConfigProd: {
 				src: 'requireConfigProd.js',
-				dest: '../../release/core/'
+				dest: '../../release/core/requireConfig.js'
 			}
 		}
 	});

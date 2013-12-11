@@ -25,7 +25,7 @@ define(['./moduleDef'], function (module) {
 		};
 
 
-		this.$get = ['security', 'securityRetryQueue', 'sysConfig', function (security, queue, sysConfig) {
+		this.$get = ['security', 'securityRetryQueue', '$stateParams', function (security, queue, $stateParams) {
 			var service = {
 				// Require that there is an authenticated user
 				// (use this in a route resolve to prevent non-authenticated users from entering that route)
@@ -52,7 +52,7 @@ define(['./moduleDef'], function (module) {
 				// Require that there is an authenticated user, current project,
 				// and current user in any of requested groups of current project
 				requireGroups: function (requiredGroups) {
-					return security.requestUserGroups(sysConfig.project).then(function (groups) {
+					return security.requestUserGroups($stateParams.project).then(function (groups) {
 						var found = false;
 						for (var groupIndex = 0; groupIndex < requiredGroups.length; groupIndex++) {
 							var requiredGroup = requiredGroups[groupIndex];
@@ -73,7 +73,7 @@ define(['./moduleDef'], function (module) {
 				// Require that there is an authenticated user, current project,
 				// and current user in any of requested groups of current project
 				requireRoles: function (requiredRoles) {
-					return security.requestUserRole(sysConfig.project).then(function (role) {
+					return security.requestUserRole($stateParams.project).then(function (role) {
 						var found = requiredRoles.indexOf(role) !== -1;
 						if (!found) {
 							//reason not analized in security service, no matter

@@ -11,8 +11,8 @@ define([
 				onEnter: function(pageConfig, i18n) {
 					pageConfig.setConfig({
 						breadcrumbs: [
-							{ name: i18n.msg('projects.list.title'), url: '/#!/projects/listview' },
-							{ name: i18n.msg('projects.tags.title'), url: '/#!/projects/tags' }
+							{ name: i18n.msg('projects.list.title'), url: 'page.projects.projectsList' },
+							{ name: i18n.msg('projects.tags.title'), url: 'page.projects.projectTags' }
 						]
 					});
 				},

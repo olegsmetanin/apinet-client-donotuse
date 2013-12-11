@@ -4,36 +4,22 @@ define([
 	'text!./taskView.tpl.html',
 	'text!../../moduleMenu.tpl.html'
 ], function (module, angular, tpl, moduleMenuTpl) {
-	module.config(['$stateProvider', 'sysConfig', 'securityAuthorizationProvider',
-		function ($stateProvider, sysConfig, securityAuthorizationProvider) {
-
-		var taskView = {
-				name: 'page.taskView',
-				url: '/tasks/:num',
-				views: {
-					'content': { template: tpl },
-					'moduleMenu': { template: moduleMenuTpl }
-				},
-				resolve: {
-					i18n: 'i18n',
-					pageConfig: 'pageConfig',
-					currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
-				},
-				onEnter: ['pageConfig', '$stateParams', 'i18n', function(pageConfig, $stateParams, i18n) {
-					pageConfig.setConfig({
-						breadcrumbs: [
-							{ name: sysConfig.project, url: '#!/' },
-							{ name: i18n.msg('tasks.list.title'), url: '#!/' },
-							{ name: $stateParams.num, url: '#!/tasks/' + $stateParams.num }]
-					});
-				}]
-			};
-
-			$stateProvider.state(taskView);
-		}
-	])
-	.controller('taskViewCtrl', ['$scope', 'sysConfig', 'apinetService', '$stateParams',
-		function($scope, sysConfig, apinetService, $stateParams) {
+	module.state({
+		name: 'page.project.taskView',
+		url: '/tasks/:num',
+		views: {
+			'': { template: tpl },
+			'moduleMenu@page': { template: moduleMenuTpl }
+		},
+		onEnter: ['pageConfig', '$stateParams', 'i18n', function(pageConfig, $stateParams, i18n) {
+			pageConfig.setConfig({
+				breadcrumbs: [
+					{ name: i18n.msg('tasks.list.title'), url: 'page.project.tasks' },
+					{ name: $stateParams.num, url: 'page.project.taskView' }]
+			});
+		}]
+	}).controller('taskViewCtrl', ['$scope', '$stateParams', 'apinetService',
+		function($scope, $stateParams, apinetService) {
 
 			//TODO move to utils??
 			var make = function(task, prop, value, valueProp) {
@@ -54,7 +40,7 @@ define([
 			$scope.onUpdateProp = function(task, prop, val) {
 				return apinetService.action({
 					method: 'tasks/tasks/UpdateTask',
-					project: sysConfig.project,
+					project: $stateParams.project,
 					data: make(task, prop, val) })
 				.then(function(response) {
 					$scope.resetValidation();
@@ -79,12 +65,13 @@ define([
 
 			apinetService.action({
 				method: 'tasks/tasks/GetTask',
-				project: sysConfig.project,
+				project: $stateParams.project,
 				numpp: $stateParams.num })
 			.then(function(response) {
 				$scope.model = response;
 			}, handleException);
 
 			$scope.resetValidation();
-	}]);
+		}
+	]);
 });

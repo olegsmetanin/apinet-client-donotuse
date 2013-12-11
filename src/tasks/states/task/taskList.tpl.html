@@ -99,7 +99,7 @@
 						<ago-error-msg></ago-error-msg>
 
 						<div>
-							<a href="#!/tasks/new" class="btn btn-primary" ng-click="newItem();">
+							<a ui-sref="page.project.taskCreate" class="btn btn-primary" ng-click="newItem();">
 								<i class="icon-plus icon-white"></i>
 								<span>{{ i18n.tasks.list.buttons.add }}</span>
 							</a>
@@ -131,10 +131,10 @@
 											<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 										</td>
 										<td>
-											<a href="#!/tasks/{{model.SeqNumber}}" style="white-space: nowrap">
+											<a ui-sref="page.project.taskView({ num: model.SeqNumber })" style="white-space: nowrap">
 												{{ model.SeqNumber }}
 											</a>
-											<a href="" class="btn btn-primary btn-sm" data-toggle="button" ng-click="toggleDetails(model)">
+											<a href="#" class="btn btn-primary btn-sm" data-toggle="button" ng-click="toggleDetails(model)">
 												<i class="fa" ng-class="{ 'icon-chevron-up': model.details.expanded, 'icon-chevron-down': !model.details.expanded }"></i>
 											</a>
 										</td>
@@ -145,7 +145,7 @@
 											</p>
 											<span ng-repeat="t in model.Tags" class="tag">
 												{{ t.text }}
-												<a href="" title="{{ i18n.core.buttons.delete }}">&times;</a>
+												<a href="#" title="{{ i18n.core.buttons.delete }}">&times;</a>
 											</span>
 										</td>
 										<td>

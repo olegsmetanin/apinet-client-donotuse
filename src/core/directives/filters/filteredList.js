@@ -3,7 +3,7 @@ define([
 	'angular',
 	'css!./filteredList.css'
 ], function (module, angular) {
-	module.directive('filteredList', ['apinetService', '$timeout', 'sysConfig', function($apinetService, $timeout, sysConfig) {
+	module.directive('filteredList', ['apinetService', '$timeout', '$stateParams', function($apinetService, $timeout, $stateParams) {
 		return {
 			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				angular.extend($scope, {
@@ -32,7 +32,7 @@ define([
 
 					resetFilter: function() {
 						$scope.filter = { };
-						$scope.requestParams = { project: sysConfig.project };
+						$scope.requestParams = { project: $stateParams.project };
 						
 						$scope.$emit('resetFilter');
 						$scope.applyEnabled = false;

@@ -5,13 +5,14 @@ define([
 	'../projects'
 ], function (module, angular, tpl) {
 	module.config(['$stateProvider', 'securityAuthorizationProvider', function($stateProvider, securityAuthorizationProvider) {
-		$stateProvider.state('page.projects.projectCreate', {
+		$stateProvider.state({
+			name: 'page.projects.projectCreate',
 			url: '/projects/new',
 			onEnter: function(pageConfig, i18n) {
 				pageConfig.setConfig({
 					breadcrumbs: [
-						{ name: i18n.msg('projects.list.title'), url: '/#!/projects/listview' },
-						{ name: i18n.msg('projects.create.title'), url: '/#!/projects/new' }
+						{ name: i18n.msg('projects.list.title'), url: 'page.projects.projectsList' },
+						{ name: i18n.msg('projects.create.title'), url: 'page.projects.projectCreate' }
 					]
 				});
 			},

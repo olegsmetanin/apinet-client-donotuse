@@ -10,7 +10,5 @@ define([
 		Done: 'Done',
 		Discarded: 'Discarded',
 		Closed: 'Closed'
-	}).config(['$urlRouterProvider', function($urlRouterProvider) {
-		$urlRouterProvider.otherwise('/');
-	}]);
+	});
 });
