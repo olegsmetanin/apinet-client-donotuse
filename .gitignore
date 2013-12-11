@@ -16,8 +16,7 @@ node_modules
 ._.DS_Store
 ._*
 
-
-/components
+/src/*/components/**
 .idea
 
 *.orig
