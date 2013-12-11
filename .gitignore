@@ -17,6 +17,7 @@ node_modules
 ._*
 
 /src/*/components/**
+/release/**
 .idea
 
 *.orig
