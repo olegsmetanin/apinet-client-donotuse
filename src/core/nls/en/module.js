@@ -51,6 +51,7 @@ define(['../../moduleDef'], function (module) {
 				'description': 'Description',
 				'type': 'Type',
 				'creationTime': 'Creation time',
+				'lastChangeTime': 'Last changed',
 				'creator': 'Author',
 				'viewOrder': 'Seq.#',
 
@@ -186,6 +187,9 @@ define(['../../moduleDef'], function (module) {
 			},
 
 			'reporting': {
+				'fields': {
+					'size': 'File size'
+				},
 				'templates': {
 					'title': 'Report templates'
 				}

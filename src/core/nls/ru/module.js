@@ -50,7 +50,8 @@ define(['../../moduleDef'], function (module) {
 				'fullName': 'Полное наименование',
 				'description': 'Описание',
 				'type': 'Тип',
-				'creationTime': 'Дата создания',
+				'creationTime': 'Создано',
+				'lastChangeTime': 'Изменено',
 				'creator': 'Автор',
 				'viewOrder': '№ п/п',
 
@@ -186,6 +187,9 @@ define(['../../moduleDef'], function (module) {
 			},
 
 			'reporting': {
+				'fields': {
+					'size': 'Размер файла'
+				},
 				'templates': {
 					'title': 'Шаблоны отчетов'
 				}

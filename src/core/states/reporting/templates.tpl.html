@@ -1,7 +1,7 @@
 <div class="container"
 	ng-controller="reportTemplatesController"
 	filtered-list="{method: 'core/reporting/getTemplates'}"
-	initial-sorters="{ Name: 'desc'}">
+	initial-sorters="{ Name: 'asc'}">
 	<div class="row" id="content-wrapper">
 		<div class="col-xs-12">
 			<div class="row hidden-sm hidden-md hidden-lg">
@@ -37,12 +37,50 @@
 				</ago-box-title>
 				<ago-box-content>
 					<div class="box-toolbox box-toolbox-top">
-						<div style="width: 80%; height: 35px" file-upload="uploadOptions">
+						<div class="alert alert-error" ng-show="validation.generalErrors">
+							{{ validation.generalErrors | joinBy }}
+						</div>
+
+						<div style="width: 80%; height: 35px; border: 1px solid red" file-upload="uploadOptions">
+							Files drop zone (testing)
 						</div>
 						<button class="btn btn-primary" ng-click="newItem()">
 							<i class="icon-plus icon-white"></i>
 							<span>{{ i18n.core.buttons.add }}</span>
 						</button>
+					</div>
+
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="col-xs-7"><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
+										<th class="col-xs-2"><span sortable-heading="sorters.LastChange" caption="{{ i18n.core.fields.lastChangeTime }}"></span></th>
+										<th>{{ i18n.core.reporting.fields.size }}</th>
+										<th class="onepct">&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="m in models">
+										<td>
+											<a target="_blank" href="/download/report-template/{{m.Id}}">{{ m.Name }}</a>
+										</td>
+										<td>{{ m.LastChange | date:'ago_date' }}
+										<td>{{ m.Size | formatFileSize }}</td>
+										<td>
+											<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(m)"></ago-btn-delete>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="box-toolbox box-toolbox-bottom">
+						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
+
+						<counter action="core/reporting/getTemplatesCount"></counter>
 					</div>
 				</ago-box-content>
 			</ago-box>
