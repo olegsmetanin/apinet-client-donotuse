@@ -183,6 +183,12 @@ define(['../../moduleDef'], function (module) {
 				'fields': {
 					'firstName': 'Имя'
 				}
+			},
+
+			'reporting': {
+				'templates': {
+					'title': 'Шаблоны отчетов'
+				}
 			}
 		});
 

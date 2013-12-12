@@ -46,6 +46,24 @@
 			'angular-promise-tracker': {
 				deps: ['jquery', 'angular'],
 				init: function () { return this.angular.module('ajoslin.promise-tracker'); }
+			},
+			'blueimp-fileupload': {
+				deps: ['jquery', 'jquery-ui', 'angular', 
+						'jquery.iframe-transport',
+						'jquery.fileupload',
+						'jquery.ui.widget',
+						'jquery.fileupload-image',
+						'jquery.fileupload-audio',
+						'jquery.fileupload-video',
+						'jquery.fileupload-validate',
+						'jquery.fileupload-process',
+						'load-image-meta',
+						'load-image-exif',
+						'load-image-ios',
+						'canvas-to-blob',
+						'load-image'
+						],
+				init: function() { return this.angular.module('blueimp.fileupload'); }
 			}
 		},
 
@@ -62,6 +80,19 @@
 			'jquery-ui': 'core/components/jquery-ui/ui/jquery-ui',
 			'jquery/select2': 'core/components/select2/select2',
 			'jquery/select2/theme': 'core/components/select2/select2',
+			'jquery.iframe-transport': 'core/components/blueimp-file-upload/js/jquery.iframe-transport',
+			'jquery.fileupload': 'core/components/blueimp-file-upload/js/jquery.fileupload',
+			'jquery.fileupload-image': 'core/components/blueimp-file-upload/js/jquery.fileupload-image',
+			'jquery.fileupload-audio': 'core/components/blueimp-file-upload/js/jquery.fileupload-audio',
+			'jquery.fileupload-video': 'core/components/blueimp-file-upload/js/jquery.fileupload-video',
+			'jquery.fileupload-validate': 'core/components/blueimp-file-upload/js/jquery.fileupload-validate',
+			'jquery.fileupload-process': 'core/components/blueimp-file-upload/js/jquery.fileupload-process',
+			'jquery.ui.widget': 'core/components/blueimp-file-upload/js/vendor/jquery.ui.widget',
+			'load-image': 'core/components/blueimp-load-image/js/load-image.min',
+			'load-image-meta': 'core/components/blueimp-load-image/js/load-image-meta',
+			'load-image-exif': 'core/components/blueimp-load-image/js/load-image-exif',
+			'load-image-ios': 'core/components/blueimp-load-image/js/load-image-ios',
+			'canvas-to-blob': 'core/components/blueimp-canvas-to-blob/js/canvas-to-blob.min',
 
 			'bootstrap': 'core/components/bootstrap/dist/js/bootstrap',
 			'bootstrap/datepicker':	'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker',
@@ -74,7 +105,8 @@
 			'angular-ui-bootstrap3': 'core/components/angular-ui-bootstrap3/dist/ui-bootstrap-tpls-0.6.0-SNAPSHOT',
 			'angular-ui-router': 'core/components/angular-ui-router/release/angular-ui-router',
 			'angular-ui-select2': 'core/components/angular-ui-select2/src/select2',
-			'angular-promise-tracker': 'core/components/angular-promise-tracker/promise-tracker'
+			'angular-promise-tracker': 'core/components/angular-promise-tracker/promise-tracker',
+			'blueimp-fileupload': 'core/components/blueimp-file-upload/js/jquery.fileupload-angular'
 		}
 	});
 })(requirejs);

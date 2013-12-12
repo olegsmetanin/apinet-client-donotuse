@@ -183,6 +183,12 @@ define(['../../moduleDef'], function (module) {
 				'fields': {
 					'firstName': 'First name'
 				}
+			},
+
+			'reporting': {
+				'templates': {
+					'title': 'Report templates'
+				}
 			}
 		});
 

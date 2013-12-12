@@ -5,9 +5,10 @@ define([
 	'angular-ui-bootstrap3',
 	'angular-promise-tracker',
 	'i18n!core/nls/angular',
-	'./security/module'
+	'./security/module',
+	'blueimp-fileupload'
 ], function (angular) {
-	var module = angular.module('core.module', ['ui.router', 'ui.bootstrap', 'core.security.module', 'ajoslin.promise-tracker', 'ngLocale'],
+	var module = angular.module('core.module', ['ui.router', 'ui.bootstrap', 'core.security.module', 'ajoslin.promise-tracker', 'ngLocale', 'blueimp.fileupload'],
 		function($controllerProvider, $compileProvider, $stateProvider, $provide) {
 			module.controller = function( name, constructor ) {
 				$controllerProvider.register( name, constructor );
