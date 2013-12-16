@@ -193,6 +193,11 @@ define(['../../moduleDef'], function (module) {
 				'templates': {
 					'title': 'Report templates'
 				}
+			},
+
+			'upload': {
+				'placeholder': 'Drop files to upload here',
+				'addFiles': 'Add files...'
 			}
 		});
 

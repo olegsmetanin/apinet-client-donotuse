@@ -37,17 +37,10 @@
 				</ago-box-title>
 				<ago-box-content>
 					<div class="box-toolbox box-toolbox-top">
-						<div class="alert alert-error" ng-show="validation.generalErrors">
-							{{ validation.generalErrors | joinBy }}
-						</div>
+						<ago-error-msg></ago-error-msg>
 
-						<div style="width: 80%; height: 35px; border: 1px solid red" file-upload="uploadOptions">
-							Files drop zone (testing)
+						<div class="col-xs-12" ago-uploader="uploadOptions">
 						</div>
-						<button class="btn btn-primary" ng-click="newItem()">
-							<i class="icon-plus icon-white"></i>
-							<span>{{ i18n.core.buttons.add }}</span>
-						</button>
 					</div>
 
 					<div class="responsive-table">
@@ -66,7 +59,7 @@
 										<td>
 											<a target="_blank" href="/download/report-template/{{m.Id}}">{{ m.Name }}</a>
 										</td>
-										<td>{{ m.LastChange | date:'ago_date' }}
+										<td>{{ m.LastChange | date:'ago_datetime' }}
 										<td>{{ m.Size | formatFileSize }}</td>
 										<td>
 											<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(m)"></ago-btn-delete>

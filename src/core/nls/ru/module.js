@@ -193,6 +193,11 @@ define(['../../moduleDef'], function (module) {
 				'templates': {
 					'title': 'Шаблоны отчетов'
 				}
+			},
+
+			'upload': {
+				'placeholder': 'Перетащите сюда файлы для загрузки',
+				'addFiles': 'Выбрать файлы...'
 			}
 		});
 

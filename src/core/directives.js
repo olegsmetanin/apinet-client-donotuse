@@ -13,6 +13,7 @@ define([
 	'./directives/ngFocus',
 	'./directives/requiredMultiple',
 	'./directives/counter',
+	'./directives/ago.uploader',
 
 	'./directives/filters/filter',
 	'./directives/filters/filteredList',

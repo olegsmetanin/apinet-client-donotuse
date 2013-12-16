@@ -15,6 +15,10 @@ define([
 					scope.count = '?';
 				});
 
+				scope.$watchCollection('models', function(oldVal, newVal) {
+					scope.count = '?';
+				});
+
 				scope.read = function() {
 					var params = angular.extend({ }, scope.requestParams, {
 						project: $stateParams.project,

@@ -1,0 +1,29 @@
+<div file-upload="options" class="file-upload">
+	<span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+		<i class="icon-plus"></i>
+		<span>{{ i18n.core.upload.addFiles }}</span>
+		<input type="file" name="files[]" multiple ng-disabled="disabled">
+	</span>
+	{{ i18n.core.upload.placeholder }}
+
+	<div id="progressbar" class="progress progress-small" ng-show="uploading">
+		<div class="progress-bar progress-bar-success" ng-style="{'width': progress + '%'}">{{ progress }}%</div>
+	</div>
+
+	<table class="table table-striped ng-cloak" ng-hide="queue.length <= 0">
+		<tr data-ng-repeat="file in queue">
+			<td>
+				{{file.name}}
+			</td>
+			<td>
+				{{file.size | formatFileSize}}
+			</td>
+			<td>
+				<button type="button" class="btn btn-sm btn-warning" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
+					<i class="icon-ban-circle"></i>
+					<span>{{ i18n.core.buttons.cancel }}</span>
+				</button>
+			</td>
+		</tr>
+	</table>
+</div>
