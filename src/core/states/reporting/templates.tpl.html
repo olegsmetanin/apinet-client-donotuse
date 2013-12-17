@@ -58,6 +58,7 @@
 									<tr ng-repeat="m in models">
 										<td>
 											<a target="_blank" href="/download/report-template/{{m.Id}}">{{ m.Name }}</a>
+											<div ago-uploader="itemUploadOptions(m)" class="col-xs-12"></div>
 										</td>
 										<td>{{ m.LastChange | date:'ago_datetime' }}
 										<td>{{ m.Size | formatFileSize }}</td>
