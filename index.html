@@ -71,9 +71,7 @@
 	<span id="percent" style="width: 0;"></span>
 </div>
 
-<script type="text/javascript" src="/release/core/components/requirejs/require.js"></script>
-<script src="/release/core/requireConfig.js" type="text/javascript"></script>
-<script src="/requireConfig.js" type="text/javascript"></script>
+<script type="text/javascript" src="src/core/components/requirejs/require.js"></script>
 
 <script type="text/javascript">
 	(function (require) {
@@ -84,32 +82,28 @@
 		};
 
 		require.config({
+			waitSeconds: 60,
+			baseUrl: './src/',
+			paths: {
+				'jquery': 'core/components/jquery/jquery'
+			},
+			packages: ['core','tasks'],
 			config: {
-				i18n: {
+				'i18n': {
 					locale: getCookie('currentLocale') || window.navigator.userLanguage ||
 							window.navigator.language || 'en'
-				}
+				}/*,
+				 'core/services/apinetService': {
+				 apiRoot: 'http://localhost:36651/api/'
+				 }*/
 			}
 		});
-	})(requirejs);
-</script>
 
-<script type="text/javascript">
-	(function (require) {
-		var percent = document.getElementById('percent');
+		require(['jquery'], function () {
+			var percent = document.getElementById('percent');
+			percent.setAttribute('style', 'width: 100%');
 
-		require.config({
-			baseUrl: '/release/'
-		});
-		require(['jquery'], function ($) {
-			require(['angular'], function (angular) {
-				percent.setAttribute('style', 'width: 100%');
-
-				require(['core/module', 'domReady!'], function (module) {
-					percent.parentNode.parentNode.removeChild(percent.parentNode);
-					angular.bootstrap($('body'), [module.name]);
-				});
-			});
+			require(['core', 'core/module'], function() { percent.parentNode.parentNode.removeChild(percent.parentNode); });
 		});
 	})(requirejs);
 </script>

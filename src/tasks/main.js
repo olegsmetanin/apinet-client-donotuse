@@ -1,6 +1,5 @@
 ﻿(function(require) {
 	require.config({
-		waitSeconds: 60,
 		paths: {
 			'css': 'tasks/components/require-css/css',
 			'css-builder': 'tasks/components/require-css/css-builder',

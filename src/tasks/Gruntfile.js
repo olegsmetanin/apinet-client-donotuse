@@ -26,7 +26,7 @@ module.exports = function (grunt) {
 			{
 				options: {
 					baseUrl: '../',
-					mainConfigFile: 'requireConfig.js',
+					mainConfigFile: 'main.js',
 					uglify: {
 						mangle: false
 					},
@@ -44,6 +44,10 @@ module.exports = function (grunt) {
 			nls: {
 				src: 'nls/**',
 				dest: '../../release/tasks/'
+			},
+			main: {
+				src: 'mainProd.js',
+				dest: '../../release/tasks/main.js'
 			}
 		}
 	});
