@@ -5,13 +5,13 @@ define([
 	'./directives',
 	'./states',
 
-	'./themes/flatty/theme',
-
 	'css!./assets/form.css',
 	'css!./assets/list.css',
 	'css!./assets/tags.css',
 
-	'i18n!./nls/module'
+	'i18n!./nls/module',
+
+	'./themes/flatty/theme'
 ], function(requireModule, module) {
 	return module.value('strapConfig', {
 			language: 'en',

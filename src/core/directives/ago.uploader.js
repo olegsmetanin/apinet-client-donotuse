@@ -3,8 +3,8 @@ define([
 	'jquery',
 	'angular',
 	'text!./ago.uploader.tpl.html',
-	'css!./ago.uploader.css',
-	'blueimp-fileupload'
+	'css!./ago.uploader.css'/*,
+	'blueimp-fileupload'*/
 ], function (module, $, angular , tpl) {
 	module.directive('agoUploader', ['$stateParams', 'apinetService', 'i18n', function($stateParams, apinetService, i18n) {
 
