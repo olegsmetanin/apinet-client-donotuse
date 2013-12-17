@@ -25,7 +25,7 @@ define([
 
 		var handleException = function(error) {
 			$scope.resetValidation();
-			$scope.validation.generalErrors = [error];
+			$scope.validation.generalErrors = angular.isArray(error) ? error : [error];
 		};
 
 		$scope.uploadOptions = {
@@ -42,21 +42,13 @@ define([
 		};
 
 		$scope.itemUploadOptions = function(model) {
-			return {
-				url: 'api/core/reporting/UploadTemplate',
-				done: function(e, data) {
-					$scope.handleResult(data.result);
-				},
+			var itemOptions = angular.copy($scope.uploadOptions);
+			angular.extend(itemOptions, {
 				submit: function(e, data) {
 					angular.extend(data.formData, {templateId: model.Id});
-				},
-				fail: function(e, data) {
-					//if not canceled
-					if (data.errorThrown !== 'abort') {
-						handleException(data.result.message);
-					}
-				}	
-			}
+				}
+			});
+			return itemOptions;
 		};
 
 		$scope.handleResult = function(response) {
