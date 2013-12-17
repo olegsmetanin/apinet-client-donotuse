@@ -44,6 +44,7 @@ define([
 		$scope.itemUploadOptions = function(model) {
 			var itemOptions = angular.copy($scope.uploadOptions);
 			angular.extend(itemOptions, {
+				maxNumberOfFiles: 1,
 				submit: function(e, data) {
 					angular.extend(data.formData, {templateId: model.Id});
 				}

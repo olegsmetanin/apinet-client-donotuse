@@ -1,0 +1,8 @@
+<div file-upload="options" class="file-upload">
+	<span ng-hide="uploading" class="fileinput-button" ng-class="{disabled: disabled}">
+		<i class="icon-paper-clip"></i>
+		<input type="file" name="files[]" multiple ng-disabled="disabled" title="{{ i18n.core.upload.addFiles }}">
+	</span>
+	<img ng-show="uploading" src="core/themes/flatty/images/ajax-loaders/15.gif"></img>
+	<span ng-show="uploading">{{ progress }}%</span>
+</div>
