@@ -55,6 +55,7 @@ require.config({
 
 		'jquery': 'core/components/jquery/jquery',
 		'angular': 'core/module',
+		'jquery-ui': 'core/module',
 
 		'core/nls/ru/bootstrap_datepicker': 'core/module.ru',
 
@@ -66,6 +67,8 @@ require.config({
 	}
 });
 
-require(['jquery', 'angular', 'core/module', 'domReady!'], function ($, angular, module) {
-	angular.bootstrap($('body'), [module.name]);
+require(['jquery', 'angular', 'domReady!'], function ($, angular) {
+	require(['core/module'], function (module) {
+		angular.bootstrap($('body'), [module.name]);
+	});
 });

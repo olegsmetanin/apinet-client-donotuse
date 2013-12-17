@@ -2,7 +2,9 @@ require.config({
 	shim: {
 		'jquery-migrate': {
 			deps: ['jquery'],
-			init: function(jQuery) { jQuery.migrateMute = true; }
+			init: function (jQuery) {
+				jQuery.migrateMute = true;
+			}
 		},
 		'jquery-ui': {
 			deps: ['jquery']
@@ -27,24 +29,34 @@ require.config({
 		},
 		'nls/en/angular': {
 			deps: ['jquery', 'angular'],
-			init: function () { return this.angular.module('ngLocale'); }
+			init: function () {
+				return this.angular.module('ngLocale');
+			}
 		},
 		'nls/ru/angular': {
 			deps: ['jquery', 'angular'],
-			init: function () { return this.angular.module('ngLocale'); }
+			init: function () {
+				return this.angular.module('ngLocale');
+			}
 		},
 		'angular-ui-router': {
 			deps: ['jquery', 'angular'],
-			init: function () { return this.angular.module('ui.router'); }
+			init: function () {
+				return this.angular.module('ui.router');
+			}
 		},
 		'angular-ui-bootstrap3': {
 			deps: ['jquery', 'angular', 'bootstrap'],
-			init: function () { return this.angular.module('ui.bootstrap'); }
+			init: function () {
+				return this.angular.module('ui.bootstrap');
+			}
 		},
 		'angular-promise-tracker': {
 			deps: ['jquery', 'angular'],
-			init: function () { return this.angular.module('ajoslin.promise-tracker'); }
-		},
+			init: function () {
+				return this.angular.module('ajoslin.promise-tracker');
+			}
+		}/*,
 		'blueimp-fileupload': {
 			deps: [
 				'jquery', 'jquery-ui', 'angular',
@@ -62,8 +74,10 @@ require.config({
 				'canvas-to-blob',
 				'load-image'
 			],
-			init: function() { return this.angular.module('blueimp.fileupload'); }
-		}
+			init: function () {
+				return this.angular.module('blueimp.fileupload');
+			}
+		}*/
 	},
 
 	paths: {
@@ -87,15 +101,15 @@ require.config({
 		'jquery.fileupload-validate': 'core/components/blueimp-file-upload/js/jquery.fileupload-validate',
 		'jquery.fileupload-process': 'core/components/blueimp-file-upload/js/jquery.fileupload-process',
 		'jquery.ui.widget': 'core/components/blueimp-file-upload/js/vendor/jquery.ui.widget',
-		'load-image': 'core/components/blueimp-load-image/js/load-image.min',
+		'load-image': 'core/components/blueimp-load-image/js/load-image',
 		'load-image-meta': 'core/components/blueimp-load-image/js/load-image-meta',
 		'load-image-exif': 'core/components/blueimp-load-image/js/load-image-exif',
 		'load-image-ios': 'core/components/blueimp-load-image/js/load-image-ios',
-		'canvas-to-blob': 'core/components/blueimp-canvas-to-blob/js/canvas-to-blob.min',
+		'canvas-to-blob': 'core/components/blueimp-canvas-to-blob/js/canvas-to-blob',
 
 		'bootstrap': 'core/components/bootstrap/dist/js/bootstrap',
-		'bootstrap/datepicker':	'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker',
-		'core/nls/ru/bootstrap_datepicker':	'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru',
+		'bootstrap/datepicker': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker',
+		'core/nls/ru/bootstrap_datepicker': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru',
 		'bootstrap/datepicker/theme': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/css/datepicker',
 
 		'angular': 'core/components/angular/angular',
@@ -109,6 +123,8 @@ require.config({
 	}
 });
 
-require(['jquery', 'angular', 'core/module', 'domReady!'], function ($, angular, module) {
-	angular.bootstrap($('body'), [module.name]);
+require(['jquery', 'angular', 'domReady!'], function ($, angular) {
+	require(['core/module'], function (module) {
+		angular.bootstrap($('body'), [module.name]);
+	});
 });
