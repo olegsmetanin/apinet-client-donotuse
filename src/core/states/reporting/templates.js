@@ -31,7 +31,7 @@ define([
 		$scope.uploadOptions = {
 			url: 'api/core/reporting/UploadTemplate',
 			done: function(e, data) {
-				$scope.handleAdd(data.result);
+				$scope.handleResult(data.result);
 			},
 			fail: function(e, data) {
 				//if not canceled
@@ -41,12 +41,47 @@ define([
 			}
 		};
 
-		$scope.handleAdd = function(response) {
+		$scope.itemUploadOptions = function(model) {
+			return {
+				url: 'api/core/reporting/UploadTemplate',
+				done: function(e, data) {
+					$scope.handleResult(data.result);
+				},
+				submit: function(e, data) {
+					angular.extend(data.formData, {templateId: model.Id});
+				},
+				fail: function(e, data) {
+					//if not canceled
+					if (data.errorThrown !== 'abort') {
+						handleException(data.result.message);
+					}
+				}	
+			}
+		};
+
+		$scope.handleResult = function(response) {
 			if (response && response.files) {
 				response.files.map(function(file) {
-					$scope.models.push(file.model);
+					var idx = $scope.findIdexById(file.model.Id);
+					if (idx < 0) {
+						$scope.models.push(file.model);
+					} else {
+						angular.extend($scope.models[idx], file.model);
+					}
 				});
 			}
+		};
+
+		$scope.findIdexById = function(templateId) {
+			if (!templateId) return -1;
+			var modelIndex = -1;
+			angular.forEach($scope.models, function(model, index) {
+				if (model.Id === templateId){
+					modelIndex = index;
+					return;
+				}
+			});
+			return modelIndex;
 		};
 
 		$scope.delete = function(model) {

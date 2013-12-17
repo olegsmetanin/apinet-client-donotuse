@@ -25,6 +25,12 @@ define([
 			
 		};
 
+		//Prevent default browser behavior when file dropped on page (see blueimp doc for dropZone)
+		//needs run only one per page
+		$(document).bind('drop dragover', function (e) {
+			console.log('drop dragover');
+			e.preventDefault();
+		});
 		return {
 			restrict: 'EA',
 			replace: true,
@@ -34,25 +40,25 @@ define([
 				scope.uploading = false;
 				scope.progress = 0;
 
-				angular.extend(options, {
-					//autoUpload: false,
-					submit: function(e, data) {
-						//must have for uploader!! if some files uploaded in parallel and chuncked
-						data.formData = { uploadid: newUuid() };
-						scope.uploading = true;
-						scope.progress = 0;
-					},
-					progressall: function (e, data) {
-						var progress = parseInt(data.loaded / data.total * 100, 10);
-						scope.progress = progress;
-					},
-					always: function(e, data) {
-						scope.clear(data.files);
-						scope.uploading = scope.queue.length > 0;
-					}
+				scope.$on('fileuploadsubmit', function(e, data) {
+					//must have for uploader!! if some files uploaded in parallel and chuncked
+					data.formData = data.formData || {};
+					angular.extend(data.formData, {uploadid: newUuid()});
+					scope.uploading = true;
+					scope.progress = 0;
+				});
+				scope.$on('fileuploadprogressall', function (e, data) {
+					var progress = parseInt(data.loaded / data.total * 100, 10);
+					scope.progress = progress;
+				});
+				scope.$on('fileuploadalways', function(e, data) {
+					scope.clear(data.files);
+					scope.uploading = scope.queue.length > 0;
 				});
 				
 				scope.options = angular.extend(options, scope.$eval(attrs.agoUploader));
+				//reattach event handlers
+				$(elm[0]).fileupload('option', { dropZone: $(elm[0]), pasteZone: $(elm[0])});
 			}
 		};
 	}]);
