@@ -17,6 +17,9 @@ define(['./moduleDef'], function (module) {
 
 	// We have to add the interceptor to the queue as a string because the interceptor depends upon service instances that are not available in the config block.
 	.config(['$httpProvider', function ($httpProvider) {
+		$httpProvider.defaults.useXDomain = true;
+		$httpProvider.defaults.withCredentials = true;
+		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 		$httpProvider.responseInterceptors.push('securityInterceptor');
 	}]);
 });
