@@ -104,39 +104,41 @@ define([
 								}
 							}
 
-							$scope.getMetadata(function(metadata) {
-								var ctx = $scope.context = {
-									metadata: $scope.context.metadata,
-									parentMeta: $scope.context.parentMeta,
-									add: $scope.root,
-									delete: !$scope.root,
-									hover: false,
-									validation: {
-										path: [],
-										op: [],
-										value: [],
-										valid: true
-									},
-									path: {
-										editable: false,
-										visible: true
-									},
-									op: {
-										editable: false,
-										visible: false
-									},
-									value: {
-										editable: false,
-										visible: false,
-										editorType: null
-									}
-								};
+							var ctx = $scope.context = {
+								add: $scope.root,
+								delete: !$scope.root,
+								hover: false,
+								validation: {
+									path: [],
+									op: [],
+									value: [],
+									valid: true
+								},
+								path: {
+									editable: false,
+									visible: true
+								},
+								op: {
+									editable: false,
+									visible: false
+								},
+								value: {
+									editable: false,
+									visible: false,
+									editorType: null
+								}
+							};
 
+							if($scope.root) {
+								return;
+							}
+
+							$scope.getMetadata(function() {
 								$filteringService.afterNodeEdit($scope.editingNode, ctx.metadata);
 
 								var i;
 								if(!ctx.op.options || !ctx.op.options.length) {
-									ctx.op.options = $filter('applicableOps')($filteringService.allOps(), metadata);
+									ctx.op.options = $filter('applicableOps')($filteringService.allOps(), ctx.metadata);
 									if(!$scope.editingNode.op && ctx.op.options.length) {
 										$scope.editingNode.op = ctx.op.options[0];
 									}
@@ -175,7 +177,7 @@ define([
 									});
 								}
 
-								var composite = $filteringService.isCompositeNode($scope.editingNode, metadata);
+								var composite = $filteringService.isCompositeNode($scope.editingNode, ctx.metadata);
 								var special = $filteringService.isSpecialNode($scope.editingNode);
 
 								if(composite || special) {
@@ -191,9 +193,9 @@ define([
 									if(ctx.value.editable) {
 										ctx.value.editorType = 'text';
 
-										if (metadata.PropertyType === 'date' || metadata.PropertyType === 'datetime' ||
-											metadata.PropertyType === 'boolean' || metadata.PropertyType === 'enum') {
-											ctx.value.editorType = metadata.PropertyType;
+										if (ctx.metadata.PropertyType === 'date' || ctx.metadata.PropertyType === 'datetime' ||
+												ctx.metadata.PropertyType === 'boolean' || ctx.metadata.PropertyType === 'enum') {
+											ctx.value.editorType = ctx.metadata.PropertyType;
 										}
 									}
 								}
@@ -208,7 +210,7 @@ define([
 								ctx.op.displayValue = $filteringService.opDisplayName(
 									$scope.editingNode.op, $scope.editingNode.not, $scope.node.path);
 								ctx.value.displayValue = $filteringService.valueDisplayName(
-									$scope.editingNode.value, metadata);
+									$scope.editingNode.value, ctx.metadata);
 
 							}, forceMetadata);
 
