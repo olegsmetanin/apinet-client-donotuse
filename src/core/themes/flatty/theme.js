@@ -2,7 +2,6 @@ define([
 	'jquery',
 	'./modernizr',
 	'./retina',
-	'jquery-ui',
 
 	'css!./bootstrap.css',
 	'css!./light-theme.css',

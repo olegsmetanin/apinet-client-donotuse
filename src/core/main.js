@@ -56,28 +56,7 @@ require.config({
 			init: function () {
 				return this.angular.module('ajoslin.promise-tracker');
 			}
-		}/*,
-		'blueimp-fileupload': {
-			deps: [
-				'jquery', 'jquery-ui', 'angular',
-				'jquery.iframe-transport',
-				'jquery.fileupload',
-				'jquery.ui.widget',
-				'jquery.fileupload-image',
-				'jquery.fileupload-audio',
-				'jquery.fileupload-video',
-				'jquery.fileupload-validate',
-				'jquery.fileupload-process',
-				'load-image-meta',
-				'load-image-exif',
-				'load-image-ios',
-				'canvas-to-blob',
-				'load-image'
-			],
-			init: function () {
-				return this.angular.module('blueimp.fileupload');
-			}
-		}*/
+		}
 	},
 
 	paths: {

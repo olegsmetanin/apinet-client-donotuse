@@ -81,8 +81,12 @@ module.exports = function (grunt) {
 				src: 'components/requirejs/**',
 				dest: '../../release/core/'
 			},
-			requirecss: {
+			'require-css': {
 				src: 'components/require-css/**',
+				dest: '../../release/core/'
+			},
+			'requirejs-domready': {
+				src: 'components/requirejs-domready/**',
 				dest: '../../release/core/'
 			},
 			jquery: {

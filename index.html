@@ -87,15 +87,15 @@
 			paths: {
 				'jquery': 'core/components/jquery/jquery'
 			},
-			packages: ['core','tasks'],
+			packages: ['core', 'tasks'],
 			config: {
 				'i18n': {
 					locale: getCookie('currentLocale') || window.navigator.userLanguage ||
 							window.navigator.language || 'en'
-				}/*,
-				 'core/services/apinetService': {
-				 apiRoot: 'http://localhost:36651/api/'
-				 }*/
+				},
+				'core/services/apinetService': {
+					apiRoot: 'http://localhost:36651/api/'
+				}
 			}
 		});
 
@@ -103,7 +103,7 @@
 			var percent = document.getElementById('percent');
 			percent.setAttribute('style', 'width: 100%');
 
-			require(['core', 'core/module'], function() { percent.parentNode.parentNode.removeChild(percent.parentNode); });
+			require(['core'], function () { percent.parentNode.parentNode.removeChild(percent.parentNode); });
 		});
 	})(requirejs);
 </script>
