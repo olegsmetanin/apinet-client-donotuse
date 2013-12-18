@@ -10,7 +10,7 @@
         "url": "https://github.com/angular-ui/ui-router/blob/master/LICENSE"
     }],
     "dependencies": {
-    	"bower": "latest",
+    	"bower": "1.2.7",
 		"grunt": "latest",
 	    "grunt-cli": "latest",
 	    "grunt-shell": "latest",

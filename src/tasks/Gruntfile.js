@@ -17,7 +17,8 @@ module.exports = function (grunt) {
 			{
 				command: '"./node_modules/.bin/bower" install',
 				options: {
-					stdout: true
+					stdout: true,
+					strerr: true
 				}
 			}
 		],
