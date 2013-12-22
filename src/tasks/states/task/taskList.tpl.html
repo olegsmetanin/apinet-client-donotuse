@@ -103,6 +103,10 @@
 								<i class="icon-plus icon-white"></i>
 								<span>{{ i18n.tasks.list.buttons.add }}</span>
 							</a>
+
+							<ago-report-selector report-types="REPORT_TYPES" on-error="onReportError(error)" on-get-params="fillReportParameters(settings, parameters)">
+							</ago>
+
 							<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
 								{{ i18n.core.buttons.delete }}
 							</button>
@@ -134,7 +138,7 @@
 											<a ui-sref="page.project.taskView({ num: model.SeqNumber })" style="white-space: nowrap">
 												{{ model.SeqNumber }}
 											</a>
-											<a href="#" class="btn btn-primary btn-sm" data-toggle="button" ng-click="toggleDetails(model)">
+											<a href="" class="btn btn-primary btn-sm" data-toggle="button" ng-click="toggleDetails(model)">
 												<i class="fa" ng-class="{ 'icon-chevron-up': model.details.expanded, 'icon-chevron-down': !model.details.expanded }"></i>
 											</a>
 										</td>

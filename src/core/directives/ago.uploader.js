@@ -74,10 +74,7 @@ define([
 		});
 	};
 
-	module.directive('agoUploader', 
-		['$stateParams', 'apinetService', 'i18n', 
-		function($stateParams, apinetService, i18n) {
-		
+	module.directive('agoUploader', ['i18n', function(i18n) {
 		return {
 			restrict: 'EA',
 			replace: true,
@@ -91,10 +88,7 @@ define([
 		};
 	}]);
 
-	module.directive('agoUploaderInrow', 
-		['$stateParams', 'apinetService', 'i18n', '$timeout',
-		 function($stateParams, apinetService, i18n, $timeout) {
-		
+	module.directive('agoUploaderInrow', ['i18n', '$timeout', function(i18n, $timeout) {
 		return {
 			restrict: 'EA',
 			replace: true,

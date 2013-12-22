@@ -38,6 +38,8 @@ define([
 	'./directives/header/eventNotifier',
 	'./directives/header/reportNotifier',
 	'./directives/header/tabBar',
-	'./directives/header/topTabBar'
+	'./directives/header/topTabBar',
+
+	'./directives/reporting/ago.reportSelector'
 ], function() {
 });

@@ -190,6 +190,7 @@ define(['../../moduleDef'], function (module) {
 				'fields': {
 					'size': 'File size'
 				},
+				'selector': 'Reports',
 				'templates': {
 					'title': 'Report templates'
 				}

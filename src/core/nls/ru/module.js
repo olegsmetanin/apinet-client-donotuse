@@ -190,6 +190,7 @@ define(['../../moduleDef'], function (module) {
 				'fields': {
 					'size': 'Размер файла'
 				},
+				'selector': 'Отчеты',
 				'templates': {
 					'title': 'Шаблоны отчетов'
 				}

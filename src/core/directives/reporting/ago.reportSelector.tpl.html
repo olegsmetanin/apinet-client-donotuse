@@ -1,0 +1,11 @@
+<div class="btn-group dropdown" ng-show="reports.length > 0">
+	<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+		{{ i18n.core.reporting.selector }}
+		<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu">
+		<li ng-repeat="r in reports">
+			<a href="" ng-click="runReport(r)">{{ r.Name }}</a>
+		</li>
+	</ul>
+</div>

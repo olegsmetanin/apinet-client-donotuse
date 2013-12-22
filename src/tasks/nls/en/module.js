@@ -126,7 +126,9 @@ define(['jquery'], function ($) {
 			},
 
 			'buttons': {
-				'add': 'Create task'
+				'add': 'Create task',
+				'reportDefault': 'Task list',
+				'detailedTaskList': 'Detailed task list'
 			},
 
 			'placeholders': {

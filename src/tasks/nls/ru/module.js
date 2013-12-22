@@ -126,7 +126,9 @@ define(['jquery'], function ($) {
 			},
 
 			'buttons': {
-				'add': 'Создать задачу'
+				'add': 'Создать задачу',
+				'reportDefault': 'Список задач',
+				'detailedTaskList': 'Подробный список задач'
 			},
 
 			'placeholders': {
