@@ -12,60 +12,66 @@ define([
 				scope: true,
 				link: function($scope) {
 
-					$scope.showGenerating = false;
+					$scope.reports = {
+						count: 0,
+						running: [],
+						completed: []
+					};
 
-					$scope.showDone = false;
+					$scope.state = {
+						showRunning: false,
+						showCompleted: false,
+						updating: false,	
+					};
 
-					$scope.badge = '';
+					var handleException = function(error) {
+						$scope.state.updating = false;
+						console.log('Error in report notifier: %s', error);
+					};
 
-					$scope.updating = false;
+					var isRunning = function(report) {
+						return report && report.State &&
+							report.State === 'NotStarted' || report.State === 'Running';
+					};
 
+					$scope.update = function() {
+						$scope.state.updating = true;
 
-					function update() {
-						var reports = reportService.getUnreadUserReports(),
-							generating = [],
-							done = [];
-						for (var i = 0; i < reports.length; i++) {
-							if (reports[i].Status === 'done') {
-								done.push(angular.copy(reports[i]));
-							} else {
-								generating.push(angular.copy(reports[i]));
+						reportService.getTopLastReports()
+						.then(function(response) {
+
+							$scope.reports.running = [];
+							$scope.reports.completed = [];
+
+							for (var i = 0; i < response.length; i++) {
+								if (isRunning(response[i])) {
+									$scope.reports.running.push(response[i]);
+								} else {
+									$scope.reports.completed.push(response[i]);
+								}
 							}
-						}
 
-						$timeout(function() {
-
-							$scope.generating = generating;
-							$scope.showGenerating = generating.length !== 0;
-							$scope.done = done;
-							$scope.showDone = done.length !== 0;
-							$scope.badge = (generating.length === 0 ? (done.length === 0 ? '' : done.length) : generating.length + '/' + done.length);
-
-						});
-
-						$scope.updating = false;
-					}
+							$scope.state.showRunning = $scope.reports.running.length > 0;
+							$scope.state.showCompleted = $scope.reports.completed.length > 0;
+							$scope.reports.count = $scope.reports.running.length > 0
+								? $scope.reports.running.length
+								: $scope.reports.completed.length;
+							$scope.state.updating = false;
+						}, handleException);
+					};
 
 					$scope.$on('events:unreadReportsChanged', function() {
-						update();
+						$scope.update();
 					});
 
-					$scope.updateUnreadUserReports = function() {
-
-						$scope.updating = true;
-						reportService.updateUnreadUserReports();
-
+					$scope.cancel = function(report) {
+						//TODO
+						//reportService.cancelReportGeneration($scope.reports.gen[index].name);
+						console.log('Canceling report');
+						console.log(report);
 					};
 
-					$scope.cancelReportGeneration = function(index) {
-						reportService.cancelReportGeneration($scope.reports.gen[index].name);
-					};
-
-
-					$timeout(function() {
-						update();
-					});
-
+					$scope.update();
 				}
 			};
 		}
