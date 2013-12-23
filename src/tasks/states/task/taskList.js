@@ -180,31 +180,6 @@ define([
 			};
 		};
 
-		// $scope.runReport = function(type) {
-		// 	console.log('run report ' + type);
-
-		// 	var call = null;
-		// 	switch(type) {
-		// 		case $scope.REPORT_LIST:
-		// 		case $scope.REPORT_DETAILED:
-		// 			call = apinetService.action({
-		// 				method: 'tasks/tasks/runListReport',
-		// 				project: $stateParams.project,
-		// 				reportType: type,
-		// 				filter: $scope.filter,
-		// 				sorters: $scope.sortersArray,
-		// 				predefined: $scope.requestParams.predefined });
-		// 			break;
-		// 			//TODO other report types
-		// 		default:
-		// 			throw new Error('Unknown report type: ' + type);
-		// 	}
-
-		// 	call.then(function(response) {
-		// 		console.log('run report: ' + response);
-		// 	}, handleException);
-		// };
-
 		$scope.onReportError = function(error) {
 			handleException(error);
 		};

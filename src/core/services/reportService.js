@@ -8,18 +8,42 @@ define(['../moduleDef', 'angular'], function (module, angular) {
 				},
 				cache: $cacheFactory('userReports'),
 
-				getReportSettings: function(types) {
-					return apinetService.action({
-						method: 'core/reporting/getSettings',
-						types: types || [] });
+				getServices: function() {
+					var that = this,
+						services = that.cache.get('services');
+					if (services && services.length > 0) {
+						return $q.when(services);
+					}
+
+					return apinetService.action({method: 'core/reporting/getServices'})
+						.then(function(response) {
+							that.cache.put('services', response);
+							return response;
+						});
 				},
 
-				runReport: function(parameters, onError) {
+				getReportSettings: function(types) {
+					var that = this,
+						types = types || [],
+						settings = that.cache.get('settings.' + types.toString());
+
+					if (settings && settings.length > 0) {
+						return $q.when(settings);
+					}
+					return apinetService.action({
+						method: 'core/reporting/getSettings',
+						types: types}).then(function(response) {
+							that.cache.put('settings.' + types.toString(), response);
+							return response;
+						});
+				},
+
+				runReport: function(parameters) {
 					angular.extend(parameters, { method: 'core/reporting/runReport' });
-					apinetService.action(parameters)
+					return apinetService.action(parameters)
 					.then(function(response) {
 						//TODO increment counter, add task and plan for refresh
-					}, onError);
+					});
 				},
 
 

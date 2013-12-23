@@ -187,10 +187,15 @@ define(['../../moduleDef'], function (module) {
 			},
 
 			'reporting': {
+				'selector': 'Reports',
+				'title': 'Report generation',
+				'report': 'Select report',
+				'service': 'Select service to generate report',
+				'result': 'Report file name (optional)',
+				'run': 'Generate',
 				'fields': {
 					'size': 'File size'
 				},
-				'selector': 'Reports',
 				'templates': {
 					'title': 'Report templates'
 				}
