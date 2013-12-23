@@ -42,7 +42,8 @@ define(['../../moduleDef'], function (module) {
 				'delete': 'Delete',
 				'deleteSelected': 'Delete selected',
 				'edit': 'Edit',
-				'more': 'More'
+				'more': 'More',
+				'refresh': 'Refresh'
 			},
 
 			'fields': {
@@ -193,6 +194,9 @@ define(['../../moduleDef'], function (module) {
 				'service': 'Select service to generate report',
 				'result': 'Report file name (optional)',
 				'run': 'Generate',
+				'viewAll': 'View all reports',
+				'running': 'Running reports',
+				'unread': 'Unread reports',
 				'fields': {
 					'size': 'File size'
 				},

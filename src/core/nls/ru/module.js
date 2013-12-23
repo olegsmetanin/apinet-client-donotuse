@@ -42,7 +42,8 @@ define(['../../moduleDef'], function (module) {
 				'delete': 'Удалить',
 				'deleteSelected': 'Удалить выбранные',
 				'edit': 'Редактировать',
-				'more': 'Еще'
+				'more': 'Еще',
+				'refresh': 'Обновить'
 			},
 
 			'fields': {
@@ -193,6 +194,9 @@ define(['../../moduleDef'], function (module) {
 				'service': 'Выберите сервис для создания отчета',
 				'result': 'Имя файла отчета (опционально)',
 				'run': 'Создать',
+				'viewAll': 'Все отчеты',
+				'running': 'Выполняющиеся отчеты',
+				'unread': 'Непросмотренные отчеты',
 				'fields': {
 					'size': 'Размер файла'
 				},

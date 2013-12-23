@@ -3,8 +3,8 @@ define([
 	'angular',
 	'text!./reportNotifier.tpl.html'
 ], function (module, angular, tpl) {
-	module.directive('reportNotifier', ['security', 'reportService', '$timeout',
-		function(security, reportService, $timeout) {
+	module.directive('reportNotifier', ['security', 'reportService', '$timeout', '$rootScope',
+		function(security, reportService, $timeout, $rootScope) {
 			return {
 				template: tpl,
 				restrict: 'EA',
@@ -15,17 +15,37 @@ define([
 					$scope.reports = {
 						count: 0,
 						running: [],
-						completed: []
-					};
+						completed: [],
 
-					$scope.state = {
 						showRunning: false,
 						showCompleted: false,
-						updating: false,	
+						updating: false,
+
+						clear: function() {
+							this.running = [];
+							this.completed = [];
+						},
+
+						refresh: function() {
+							this.showRunning = this.running.length > 0;
+							this.showCompleted = this.completed.length > 0;
+							if (this.running.length > 0) {
+								this.count =  this.running.length
+							} else {
+								//need only completed and unread
+								this.count = 0;
+								for(var i = 0; i < this.completed.length; i++) {
+									if (this.completed[i].State === 'Completed' && 
+										this.completed[i].ResultUnread === true) {
+										this.count++;
+									}
+								}
+							}
+						}
 					};
 
 					var handleException = function(error) {
-						$scope.state.updating = false;
+						$scope.reports.updating = false;
 						console.log('Error in report notifier: %s', error);
 					};
 
@@ -35,13 +55,12 @@ define([
 					};
 
 					$scope.update = function() {
-						$scope.state.updating = true;
+						$scope.reports.updating = true;
 
 						reportService.getTopLastReports()
 						.then(function(response) {
 
-							$scope.reports.running = [];
-							$scope.reports.completed = [];
+							$scope.reports.clear();
 
 							for (var i = 0; i < response.length; i++) {
 								if (isRunning(response[i])) {
@@ -51,24 +70,34 @@ define([
 								}
 							}
 
-							$scope.state.showRunning = $scope.reports.running.length > 0;
-							$scope.state.showCompleted = $scope.reports.completed.length > 0;
-							$scope.reports.count = $scope.reports.running.length > 0
-								? $scope.reports.running.length
-								: $scope.reports.completed.length;
-							$scope.state.updating = false;
+							$scope.reports.refresh();
+							$scope.reports.updating = false;
 						}, handleException);
 					};
 
-					$scope.$on('events:unreadReportsChanged', function() {
+					$rootScope.$on('reports:newReport', function(e) {
+						$scope.reports.running.push(e.report);
+						$scope.reports.refresh();
+
 						$scope.update();
 					});
 
 					$scope.cancel = function(report) {
-						//TODO
-						//reportService.cancelReportGeneration($scope.reports.gen[index].name);
-						console.log('Canceling report');
-						console.log(report);
+						reportService.cancelReport(report.Id).
+							then(function() {
+								var reportIndex = $scope.reports.running.indexOf(report);
+								if (reportIndex >= 0) {
+									$scope.reports.running.splice(reportIndex, 1);
+								}
+								$scope.reports.refresh();
+
+								$scope.update();
+							}, handleException);
+					};
+
+					$scope.unreadOff = function(report) {
+						report.ResultUnread = false;
+						$scope.reports.refresh();
 					};
 
 					$scope.update();

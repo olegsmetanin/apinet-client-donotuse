@@ -8,17 +8,17 @@
 			<a href="" ng-click="update()" onclick="event.stopPropagation();">
 				<div class='widget-body'>
 					<div class='pull-left icon'>
-						<i ng-class="{'icon-spin': state.updating}" class="icon-refresh"></i>
+						<i ng-class="{'icon-spin': reports.updating}" class="icon-refresh"></i>
 					</div>
 					<div class='pull-left text'>
-						Refresh
+						{{ i18n.core.buttons.refresh }}
 					</div>
 				</div>
 			</a>
 		</li>
-		<li ng-show="state.showRunning" class="divider"></li>
-		<li ng-show="state.showRunning" class="text-center">Running reports</li>
-		<li ng-show="state.showRunning" ng-repeat="r in reports.running">
+		<li ng-show="reports.showRunning" class="divider"></li>
+		<li ng-show="reports.showRunning" class="text-center">{{ i18n.core.reporting.running }}</li>
+		<li ng-show="reports.showRunning" ng-repeat="r in reports.running">
 			<div class='widget-body'>
 				<div class='pull-left icon'>
 					<i class="icon-cog" ng-class="{'icon-spin': r.State === 'Running'}"></i>
@@ -30,15 +30,15 @@
 				</div>
 			</div>
 		</li>
-		<li ng-show="state.showCompleted" class="divider"></li>
-		<li ng-show="state.showCompleted" class="text-center">Unread reports</li>
-		<li ng-show="state.showCompleted" ng-repeat="r in reports.completed">
+		<li ng-show="reports.showCompleted" class="divider"></li>
+		<li ng-show="reports.showCompleted" class="text-center">{{ i18n.core.reporting.unread }}</li>
+		<li ng-show="reports.showCompleted" ng-repeat="r in reports.completed">
 			<div class='widget-body' ng-switch="r.State">
 				<div class='pull-left icon'>
-					<i class='icon-bar-chart' ng-class="{'text-success': r.State === 'Completed', 'text-error': r.State === 'Error', 'text-warning': r.State === 'Canceled'}"></i>
+					<i class='icon-bar-chart' ng-class="{'text-success': r.State === 'Completed' && r.ResultUnread === true, 'text-error': r.State === 'Error', 'text-warning': r.State === 'Canceled'}"></i>
 				</div>
 				<div class='pull-left text text-success' ng-switch-when="Completed">
-					<a target="_blank" href="/download/report/{{r.Id}}">
+					<a target="_blank" href="/download/report/{{r.Id}}" ng-click="unreadOff(r)">
 						{{r.ResultName}}
 					</a>
 				</div>
@@ -52,7 +52,7 @@
 		</li>
 
 		<li class="widget-footer">
-			<a href="#!/userReports">View all reports</a>
+			<a href="#!/userReports">{{ i18n.core.reporting.viewAll }}</a>
 		</li>
 	</ul>
 </li>

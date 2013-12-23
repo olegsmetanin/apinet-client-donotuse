@@ -2,10 +2,6 @@ define(['../moduleDef', 'angular'], function (module, angular) {
 	module.service('reportService', ['$rootScope', '$timeout', '$http', '$cacheFactory', '$q', 'apinetService',
 		function($rootScope, $timeout, $http, $cacheFactory, $q, apinetService) {
 			angular.extend(this, {
-				reports: {
-					running: [],
-					completed: []
-				},
 				cache: $cacheFactory('userReports'),
 
 				getServices: function() {
@@ -41,61 +37,21 @@ define(['../moduleDef', 'angular'], function (module, angular) {
 				runReport: function(parameters) {
 					angular.extend(parameters, { method: 'core/reporting/runReport' });
 					return apinetService.action(parameters)
-					.then(function(response) {
-						//TODO increment counter, add task and plan for refresh
-					});
+						.then(function(response) {
+							$rootScope.$emit('reports:newReport', {report: response});
+						});
 				},
 
 				getTopLastReports: function() {
 					return apinetService.action({ method: 'core/reporting/getTopLastReports' });
 				},
 
-				getUnreadUserReports: function() {
-					var that = this,
-						chVal = that.cache.get('unreadUserReports');
-					if (!chVal) {
-						that.updateUnreadUserReports();
-					}
-					return chVal || [];
-				},
-
-//				updateUnreadUserReports: function() {
-					//TODO: Вернуть потом
-					/*var that = this;
-
-					$http.post('/api/v1', {
-						action: 'getUnreadUserReports'
-					}).then(function(response) {
-						that.cache.put('unreadUserReports', response.data);
-						$rootScope.$broadcast('events:unreadReportsChanged');
-					});*/
-//				},
-
-
-				// setReports: function(new_reports) {
-				// 	var that = this;
-				// 	that.cache.put('unreadUserReports', new_reports);
-				// 	$rootScope.$broadcast('events:unreadReportsChanged');
-				// },
-
-				// reloadReports: function() {
-				// 	var that = this;
-
-				// 	$http.post('/api/v1', {
-				// 		action: 'generateStatus',
-				// 		model: 'Generator'
-				// 	}).then(function(response) {
-				// 		that.reports = response.data.reports;
-				// 		$rootScope.$broadcast('events:reportsChanged');
-				// 	});
-				// },
-
-				// cancelReportGeneration: function() {
-				// 	var that = this;
-				// 	that.reports.gen = [];
-				// 	$rootScope.$broadcast('events:reportsChanged');
-				// 	// ajax request
-				// }
+				cancelReport: function(id) {
+					return apinetService.action({
+						method: 'core/reporting/cancelReport',
+						id: id
+					});
+				}
 			});
 		}
 	]);
