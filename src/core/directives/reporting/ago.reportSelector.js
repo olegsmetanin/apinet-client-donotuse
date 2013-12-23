@@ -25,6 +25,8 @@ define([
 			link: function(scope, elm, attrs) {
 
 				var handleError = function(error) {
+					scope.error = error;
+
 					if (angular.isFunction(scope.onError)) {
 						scope.onError({error: error});	
 					} else {
@@ -55,6 +57,7 @@ define([
 
 				scope.open = function() {
 					var modalInstance = $modal.open({
+						scope: scope,
 						template: modalTpl,
 						resolve: {
 							services: function() {
@@ -66,26 +69,33 @@ define([
 						},
 						controller: ['$scope', '$modalInstance', 'services', 'settings',
 							function($scope, $modalInstance, services, settings) {
-								services = services || []; //if error
+								$scope.data = {};
 								settings = settings || []; //if error
-								$scope.services = services;
-								$scope.settings = settings;
-								$scope.service = services.length > 0 ? services[0] : null;
-								$scope.setting = settings.length > 0 ? settings[0] : null;
-								$scope.resultName = null;
+								services = services || []; //if error
+
+								angular.extend($scope.data, {
+									services: services,
+									settings: settings,
+									service: services.length > 0 ? services[0] : null,
+									setting: settings.length > 0 ? settings[0] : null,
+									resultName: null
+								});
+
 								$scope.ok = function() {
 									$modalInstance.close({
-										service: $scope.service,
-										setting: $scope.setting,
-										resultName: $scope.resultName
+										service: $scope.data.service,
+										setting: $scope.data.setting,
+										resultName: $scope.data.resultName
 									});
 								};
 								$scope.cancel = function () {
 									$modalInstance.dismiss('cancel');
 								};
 								$scope.valid = function() {
-									return $scope.service && $scope.service != null &&
-										$scope.setting && $scope.setting != null;
+									return $scope.data.service && $scope.data.setting;
+								};
+								$scope.clearError = function() {
+									$scope.error = null;
 								};
 							}]
 					});

@@ -5,18 +5,25 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
+				<div class="alert alert-danger alert-dismissable" ng-show="error">
+					<a class="close" href="" ng-click="clearError()">&times;</a>
+					<i class="icon-remove-sign"></i>
+					{{ error }}
+				</div>
+
 				<div class="form-group">
 					<lable>{{ i18n.core.reporting.report }}</label>
-					<select ng-options="s.Name for s in settings" ng-model="setting" class="form-control"></select>
+					<select ng-options="s.Name for s in data.settings" ng-model="data.setting" class="form-control"></select>
 				</div>
 				<div class="form-group">
 					<lable>{{ i18n.core.reporting.service }}</label>
-					<select ng-options="s.text for s in services" ng-model="service" class="form-control"></select>
+					<select ng-options="s.text for s in data.services" ng-model="data.service" class="form-control"></select>
 				</div>
 				<div class="form-group">
 					<lable>{{ i18n.core.reporting.result }}</label>
-					<input type="text" ng-model="resultName" class="form-control" />
+					<input type="text" ng-model="data.resultName" class="form-control" />
 				</div>
+				{{ data | json }}
 			</div>
 		</div>
 	</div>
