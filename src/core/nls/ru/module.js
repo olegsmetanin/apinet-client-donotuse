@@ -3,6 +3,7 @@ define(['../../moduleDef'], function (module) {
 
 		$locale.DATETIME_FORMATS.ago_date = "dd.MM.yyyy";
 		$locale.DATETIME_FORMATS.ago_datetime = "dd.MM.yyyy HH:mm";
+		$locale.DATETIME_FORMATS.ago_datelongtime = "dd.MM.yyyy HH:mm:ss";
 
 		strapConfig.format = 'dd.mm.yyyy';
 
@@ -197,11 +198,38 @@ define(['../../moduleDef'], function (module) {
 				'viewAll': 'Все отчеты',
 				'running': 'Выполняющиеся отчеты',
 				'unread': 'Непросмотренные отчеты',
-				'fields': {
-					'size': 'Размер файла'
-				},
 				'templates': {
-					'title': 'Шаблоны отчетов'
+					'title': 'Шаблоны отчетов',
+					'fields': {
+						'size': 'Размер файла'
+					},
+				},
+				'reports': {
+					'title': 'Отчеты пользователя',
+					'fields': {
+						'state': 'Состояние',
+						'startedAt': 'Запущен',
+						'completedAt': 'Завершен',
+						'duration': 'Время создания',
+						'progress': '% выполнения',
+						'errorMsg': 'Описание ошибки',
+						'errorDetails': 'Подробные сведения об ошибке'
+					},
+					'duration': {
+						'hours': {
+							'one': 'час',
+							'few': 'часа',
+							'many': 'часов',
+							'other': 'часов'
+						},
+						'minutes': {
+							'one': 'минута',
+							'few': 'минуты',
+							'many': 'минут',
+							'other': 'минут'	
+						},
+						'seconds': 'с'
+					}
 				}
 			},
 

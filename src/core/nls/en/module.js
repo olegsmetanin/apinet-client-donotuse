@@ -3,6 +3,7 @@ define(['../../moduleDef'], function (module) {
 
 		$locale.DATETIME_FORMATS.ago_date = "MM/dd/yyyy";
 		$locale.DATETIME_FORMATS.ago_datetime = "MM/dd/yyyy HH:mm";
+		$locale.DATETIME_FORMATS.ago_datelongtime = "MM/dd/yyyy HH:mm:ss";
 
 		strapConfig.format = 'mm/dd/yyyy';
 
@@ -160,7 +161,7 @@ define(['../../moduleDef'], function (module) {
 					'invalid': {
 						'op': 'Invalid operator'
 					},
-					expected: {
+					'expected': {
 						'guid': 'Value must be unique identifier (Guid)',
 						'int': 'Value must be integer',
 						'float': 'Value must be number',
@@ -197,11 +198,39 @@ define(['../../moduleDef'], function (module) {
 				'viewAll': 'View all reports',
 				'running': 'Running reports',
 				'unread': 'Unread reports',
-				'fields': {
-					'size': 'File size'
-				},
+
 				'templates': {
-					'title': 'Report templates'
+					'title': 'Report templates',
+					'fields': {
+						'size': 'File size'
+					},
+				},
+				'reports': {
+					'title': 'User reports',
+					'fields': {
+						'state': 'State',
+						'startedAt': 'Started at',
+						'completedAt': 'Completed at',
+						'duration': 'Duration',
+						'progress': 'Progress',
+						'errorMsg': 'Error text',
+						'errorDetails': 'Error details'
+					},
+					'duration': {
+						'hours': {
+							'one': 'hour',
+							'few': 'hours',
+							'many': 'hours',
+							'other': 'hours'
+						},
+						'minutes': {
+							'one': 'minute',
+							'few': 'minutes',
+							'many': 'minutes',
+							'other': 'minutes'	
+						},
+						'seconds': 'sec'
+					}
 				}
 			},
 

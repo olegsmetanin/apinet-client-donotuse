@@ -1,0 +1,6 @@
+<div ng-switch="report.State">
+	<a ng-switch-when="Completed" target="_blank" href="{{ downloadUrl() }}" ng-click="onDownload()" ng-class="{'text-success': report.ResultUnread}">{{ report.Name }}</a>
+	<span ng-switch-when="Canceled" class="text-warning">{{ report.Name }}</span>
+	<span ng-switch-when="Error" class="text-error">{{ report.Name }}</span>
+	<span ng-switch-default class="text-info">{{ report.Name }}</span>
+</div>

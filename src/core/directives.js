@@ -40,6 +40,8 @@ define([
 	'./directives/header/tabBar',
 	'./directives/header/topTabBar',
 
-	'./directives/reporting/ago.reportSelector'
+	'./directives/reporting/ago.reportSelector',
+	'./directives/reporting/ago.reportIcon',
+	'./directives/reporting/ago.reportLink'
 ], function() {
 });

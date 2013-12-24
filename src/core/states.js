@@ -7,6 +7,7 @@ define([
 	'./states/projects/projectTags',
 	'./states/projects/projectCreate',
 	'./states/reporting/reporting',
-	'./states/reporting/templates'
+	'./states/reporting/templates',
+	'./states/reporting/reports'
 ], function() {
 });

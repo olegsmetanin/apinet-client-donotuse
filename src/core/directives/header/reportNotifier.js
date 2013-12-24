@@ -95,8 +95,7 @@ define([
 							}, handleException);
 					};
 
-					$scope.unreadOff = function(report) {
-						report.ResultUnread = false;
+					$scope.whenDownload = function(report) {
 						$scope.reports.refresh();
 					};
 

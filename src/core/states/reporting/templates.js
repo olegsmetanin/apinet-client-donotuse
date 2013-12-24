@@ -1,8 +1,7 @@
 define([
 	'../../moduleDef',
 	'angular',
-	'text!./templates.tpl.html',
-	'../page'
+	'text!./templates.tpl.html'
 ], function (module, angular, template) {
 	module.config(['$stateProvider', function($stateProvider) {
 		$stateProvider.state({
@@ -20,8 +19,8 @@ define([
 		});
 	}])
 	.controller('reportTemplatesController', 
-		['$scope', 'apinetService', '$window', 'i18n',
-		function($scope, apinetService, $window, i18n) {
+		['$scope', 'apinetService', '$window', 'i18n', 'reportService',
+		function($scope, apinetService, $window, i18n, reportService) {
 
 		var handleException = function(error) {
 			$scope.resetValidation();
@@ -92,5 +91,10 @@ define([
 				}
 			}, handleException);
 		};
+
+		$scope.downloadUrl = function(template) {
+			return reportService.templateDownloadUrl(template.Id);
+		};
+
 	}]);
 });

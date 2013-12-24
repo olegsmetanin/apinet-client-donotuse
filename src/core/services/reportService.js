@@ -1,4 +1,8 @@
-define(['../moduleDef', 'angular'], function (module, angular) {
+define(['module', '../moduleDef', 'angular'], function (requireModule, module, angular) {
+
+	var config = requireModule.config() || { };
+	config.downloadRoot = config.downloadRoot ? config.downloadRoot : '/download/';
+
 	module.service('reportService', ['$rootScope', '$timeout', '$http', '$cacheFactory', '$q', 'apinetService',
 		function($rootScope, $timeout, $http, $cacheFactory, $q, apinetService) {
 			angular.extend(this, {
@@ -51,6 +55,21 @@ define(['../moduleDef', 'angular'], function (module, angular) {
 						method: 'core/reporting/cancelReport',
 						id: id
 					});
+				},
+
+				deleteReport: function(id) {
+					return apinetService.action({
+						method: 'core/reporting/deleteReport',
+						id: id
+					});
+				},
+
+				templateDownloadUrl: function(id) {
+					return config.downloadRoot + 'report-template/' + id;
+				},
+
+				reportDownloadUrl: function(id) {
+					return config.downloadRoot + 'report/' + id;
 				}
 			});
 		}

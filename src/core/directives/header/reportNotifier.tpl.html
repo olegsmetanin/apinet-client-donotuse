@@ -21,7 +21,7 @@
 		<li ng-show="reports.showRunning" ng-repeat="r in reports.running">
 			<div class='widget-body'>
 				<div class='pull-left icon'>
-					<i class="icon-cog" ng-class="{'icon-spin': r.State === 'Running'}"></i>
+					<ago-report-icon report="r"></ago-report-icon>
 				</div>
 				<div class='pull-left text'>
 					{{r.DataGenerationProgress}}% / {{r.ReportGenerationProgress}}%
@@ -33,26 +33,17 @@
 		<li ng-show="reports.showCompleted" class="divider"></li>
 		<li ng-show="reports.showCompleted" class="text-center">{{ i18n.core.reporting.unread }}</li>
 		<li ng-show="reports.showCompleted" ng-repeat="r in reports.completed">
-			<div class='widget-body' ng-switch="r.State">
+			<div class='widget-body'>
 				<div class='pull-left icon'>
-					<i class='icon-bar-chart' ng-class="{'text-success': r.State === 'Completed' && r.ResultUnread === true, 'text-error': r.State === 'Error', 'text-warning': r.State === 'Canceled'}"></i>
+					<ago-report-icon report="r"></ago-report-icon>
 				</div>
-				<div class='pull-left text text-success' ng-switch-when="Completed">
-					<a target="_blank" href="/download/report/{{r.Id}}" ng-click="unreadOff(r)">
-						{{r.ResultName}}
-					</a>
-				</div>
-				<div class='pull-left text text-warning' ng-switch-when="Canceled" onclick="event.preventDefault()">
-					{{r.Name}}
-				</div>
-				<div class='pull-left text text-error' ng-switch-when="Error">
-					{{r.Name}}
+				<div class='pull-left text' ago-report-link report="r" on-download="whenDownload(report)">
 				</div>
 			</div>
 		</li>
 
 		<li class="widget-footer">
-			<a href="#!/userReports">{{ i18n.core.reporting.viewAll }}</a>
+			<a href="" ui-sref="page.reporting.reports">{{ i18n.core.reporting.viewAll }}</a>
 		</li>
 	</ul>
 </li>
