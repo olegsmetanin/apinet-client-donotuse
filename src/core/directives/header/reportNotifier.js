@@ -75,10 +75,14 @@ define([
 						}, handleException);
 					};
 
-					$rootScope.$on('reports:newReport', function(e) {
-						$scope.reports.running.push(e.report);
+					$rootScope.$on('reports:newReport', function(e, args) {
+						$scope.reports.running.push(args.report);
 						$scope.reports.refresh();
 
+						$scope.update();
+					});
+
+					$rootScope.$on('reports:changed', function() {
 						$scope.update();
 					});
 

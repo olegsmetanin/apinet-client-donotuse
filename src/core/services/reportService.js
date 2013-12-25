@@ -1,12 +1,17 @@
 define(['module', '../moduleDef', 'angular'], function (requireModule, module, angular) {
 
 	var config = requireModule.config() || { };
+	config.apiRoot = config.apiRoot ? config.apiRoot : '/api/';
 	config.downloadRoot = config.downloadRoot ? config.downloadRoot : '/download/';
 
 	module.service('reportService', ['$rootScope', '$timeout', '$http', '$cacheFactory', '$q', 'apinetService',
 		function($rootScope, $timeout, $http, $cacheFactory, $q, apinetService) {
 			angular.extend(this, {
 				cache: $cacheFactory('userReports'),
+
+				fireChanged: function() {
+					$rootScope.$emit('reports:changed');
+				},
 
 				getServices: function() {
 					var that = this,
@@ -54,14 +59,18 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 					return apinetService.action({
 						method: 'core/reporting/cancelReport',
 						id: id
-					});
+					}).then(this.fireChanged);
 				},
 
 				deleteReport: function(id) {
 					return apinetService.action({
 						method: 'core/reporting/deleteReport',
 						id: id
-					});
+					}).then(this.fireChanged);
+				},
+
+				templateUploadUrl: function() {
+					return config.apiRoot + 'core/reporting/UploadTemplate';
 				},
 
 				templateDownloadUrl: function(id) {

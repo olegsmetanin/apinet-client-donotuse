@@ -28,7 +28,7 @@ define([
 		};
 
 		$scope.uploadOptions = {
-			url: 'api/core/reporting/UploadTemplate',
+			url: reportService.templateUploadUrl(),
 			done: function(e, data) {
 				$scope.handleResult(data.result);
 			},
