@@ -17,6 +17,8 @@
 		"grunt-recess": "latest",
 		"grunt-image-embed": "latest",
 		"grunt-contrib-requirejs": "latest",
-	    "grunt-contrib-copy": "latest"
+	    "grunt-contrib-copy": "latest",
+	    "grunt-contrib-concat": "latest",
+	    "grunt-contrib-uglify": "latest"
     }
 }

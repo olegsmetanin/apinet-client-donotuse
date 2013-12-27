@@ -1,12 +1,12 @@
 define([
 	'../moduleDef',
+	'require',
 	'jquery',
 	'angular',
 	'text!./ago.uploader.tpl.html',
 	'text!./ago.uploader.inrow.tpl.html',
 	'css!./ago.uploader.css'
-], function (module, $, angular , tpl, tplInrow) {
-
+], function (module, require, $, angular , tpl, tplInrow) {
 	//http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
 	//https://github.com/Widen/fine-uploader/blob/master/client/js/util.js#L443
 	var newUuid = function(){
@@ -68,8 +68,8 @@ define([
 		//reattach event handlers (from fileupload source - change specialAttributes)
 		$elm.fileupload('option', { dropZone: $dropTarget, pasteZone: $dropTarget});
 
-		$dropTarget.on('dragover', function(e) { $dropTarget.addClass('file-upload-dropzone_hover'); }) 
-		$dropTarget.on('dragleave', function(e) { $dropTarget.removeClass('file-upload-dropzone_hover'); })
+		$dropTarget.on('dragover', function(e) { $dropTarget.addClass('file-upload-dropzone_hover'); });
+		$dropTarget.on('dragleave', function(e) { $dropTarget.removeClass('file-upload-dropzone_hover'); });
 		scope.$on('destroy', function() {
 			$dropTarget.off('dragenter dragleave');
 		});
@@ -95,14 +95,16 @@ define([
 			replace: true,
 			template: tplInrow,
 			scope: true,
-			link: function(scope, elm, attrs) {
+			link: function($scope, elm, attrs) {
+				$scope.loadingImgUrl = require.toUrl('core/themes/flatty/images/ajax-loaders/15.gif');
+
 				$timeout(function(){
 					//needs wait for ng-repeat rendering
 					var $elm = $(elm[0]);
 					var $dropTarget = $(attrs.dropTarget);
-					applyHandlers(scope, $elm, $dropTarget);
+					applyHandlers($scope, $elm, $dropTarget);
 				
-					scope.options = angular.extend(options, scope.$eval(attrs.agoUploaderInrow));
+					$scope.options = angular.extend(options, $scope.$eval(attrs.agoUploaderInrow));
 				});
 			}
 		};

@@ -1,6 +1,6 @@
 define(['./moduleDef'], function (module) {
-	module.controller('userRoleCtrl', ['$scope', '$http', 'moduleConfig', '$stateParams', 'i18n',
-		function($scope, $http, moduleConfig, $stateParams, i18n) {
+	module.controller('userRoleCtrl', ['$scope', 'moduleConfig', '$stateParams', 'i18n',
+		function($scope, moduleConfig, $stateParams, i18n) {
 
 			$scope.role = '';
 			$scope.roleName = '';

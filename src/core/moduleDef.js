@@ -1,15 +1,18 @@
 define([
 	'angular',
 	'jquery-migrate',
+	'angular-resource',
 	'angular-ui-router',
 	'angular-ui-bootstrap3',
 	'angular-promise-tracker',
-	'./security/module',
 	'blueimp-fileupload',
+	'./security/module',
 	'i18n!core/nls/angular'
 ], function (angular) {
-	var module = angular.module('core.module', ['ui.router', 'ui.bootstrap', 'core.security.module', 'ajoslin.promise-tracker', 'ngLocale', 'blueimp.fileupload'],
-		function($controllerProvider, $compileProvider, $stateProvider, $provide) {
+	var module = angular.module('core.module', [
+		'ngResource', 'ui.router', 'ui.bootstrap', 'ajoslin.promise-tracker', 'blueimp.fileupload',
+		'core.security.module', 'ngLocale'
+	], function($controllerProvider, $compileProvider, $stateProvider, $provide) {
 			module.controller = function( name, constructor ) {
 				$controllerProvider.register( name, constructor );
 				return( this );

@@ -21,10 +21,12 @@
 		"bootstrap": "bootstrap#3.0.0",
 		"eternicode-bootstrap-datepicker": "https://github.com/eternicode/bootstrap-datepicker/archive/gh-pages.zip",
 
-		"angular": "angular#1.2.3",
-		"angular-i18n": "angular-i18n#1.2.3",
+		"angular": "angular#1.2.6",
+		"angular-i18n": "angular-i18n#1.2.6",
+		"angular-resource": "angular-resource#1.2.6",
 		"angular-ui-bootstrap3": "https://github.com/olegsmith/bootstrap/archive/bootstrap3_bis2.zip",
 		"angular-ui-router": "angular-ui-router#0.2.5",
-		"angular-promise-tracker": "angular-promise-tracker#1.4.2"
+		"angular-promise-tracker": "angular-promise-tracker#1.4.2",
+		"easyXDM": "easyXDM#2.4.17"
 	}
 }

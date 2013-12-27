@@ -1,11 +1,9 @@
 require.config({
 	paths: {
-		'css': 'core/components/require-css/css',
-		'css-builder': 'core/components/require-css/css-builder',
-		'normalize': 'core/components/require-css/normalize',
-		'domReady': 'core/components/requirejs-domready/domReady',
+		'css': 'core/module',
+		'domReady': 'core/module',
 
-		'jquery': 'core/components/jquery/jquery',
+		'jquery': 'core/module',
 		'angular': 'core/module',
 		'jquery-ui': 'core/module',
 
@@ -19,8 +17,8 @@ require.config({
 	}
 });
 
-require(['jquery', 'angular', 'domReady!'], function ($, angular) {
-	require(['core/module'], function (module) {
+require(['jquery-ui', 'angular', 'domReady!'], function ($, angular) {
+	require(['core/module','core/themes/flatty/theme'], function (module) {
 		angular.bootstrap($('body'), [module.name]);
 	});
 });

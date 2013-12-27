@@ -1,30 +1,125 @@
 define([
 	'module',
 	'../moduleDef',
-	'angular'
-], function (requireModule, module, angular) {
+	'angular',
+	'easyXDM'
+], function (requireModule, module, angular, easyXDM) {
 	var config = requireModule.config() || { };
 	config.apiRoot = config.apiRoot ? config.apiRoot : '/api/';
+	config.useEasyXDM = !angular.isDefined(config.useEasyXDM) || config.useEasyXDM;
+
+	var corsRpc = config.useEasyXDM ? new easyXDM.Rpc({
+		remote: config.apiRoot
+	}, {
+		remote: {
+			request: { }
+		}
+	}) : null;
 
 	module.constant('defaultPageSize', 20);
 
-	module.service('apinetService', ['$q', '$http', '$cacheFactory', 'i18n', function ($q, $http, $cacheFactory, i18n) {
+	module.service('apinetService', ['$q', '$http', '$cacheFactory', 'i18n', 'securityInterceptor', function ($q, $http, $cacheFactory, i18n, securityInterceptor) {
 		angular.extend(this, {
-			getModel: function (requestData, postProcessFn) {
+			performRequest: function(config) {
+				config = config || { };
+
 				var deferred = $q.defer();
+
+				var requestData = angular.extend({ }, config.requestData);
+				if(!requestData || !requestData.method) {
+					deferred.reject('Inconsistent request');
+					return deferred.promise;
+				}
+
+				var successFn = angular.isFunction(config.successFn) ? config.successFn : function() { };
+				var failureFn = angular.isFunction(config.failureFn) ? config.failureFn : function() { };
+
+				var method = requestData.method;
+				delete requestData.method;
+
+				if(!corsRpc) {
+					$http.post(config.apiRoot + '' + method, requestData)
+						.success(function(data) {
+							try {
+								deferred.resolve(successFn(data));
+							}
+							catch(e) {
+								deferred.reject(e);
+							}
+						})
+						.error(function(data, status) {
+							try {
+								deferred.resolve(failureFn(data, status));
+							}
+							catch(e) {
+								deferred.reject(e);
+							}
+						});
+
+					return deferred.promise;
+				}
+				else {
+					var JSON = easyXDM.getJSONObject();
+					var data = angular.extend({ }, requestData);
+
+					for(var key in data) {
+						if(!data.hasOwnProperty(key)) {
+							continue;
+						}
+						if(angular.isObject(data[key])) {
+							data[key] = JSON.stringify(data[key]);
+						}
+					}
+
+					corsRpc.request({
+						url: '../api/' + method,
+						method: 'POST',
+						data: data
+					}, function(response) {
+						response.corsConfig = angular.extend({ }, config);
+
+						try {
+							if(response.status !== 401 && response.status !== 403) {
+								deferred.resolve(successFn(response.data ? JSON.parse(response.data) : response.data));
+							}
+							else {
+								throw response;
+							}
+						}
+						catch(e) {
+							deferred.reject(e);
+						}
+					}, function(response) {
+						response.corsConfig = angular.extend({ }, config);
+
+						try {
+							deferred.resolve(failureFn(response.data ? JSON.parse(response.data) : response.data, response.status));
+						}
+						catch(e) {
+							deferred.reject(e);
+						}
+					});
+
+					return securityInterceptor(deferred.promise);
+				}
+			},
+
+			getModel: function (requestData, postProcessFn) {
 				var cache;
 
 				if(requestData.cacheable && requestData.modelType && requestData.id) {
 					cache = $cacheFactory.get(requestData.modelType) || $cacheFactory(requestData.modelType);
 					var cachedModel = cache.get(requestData.id);
 					if(cachedModel) {
+						var deferred = $q.defer();
 						deferred.resolve(cachedModel);
 						return deferred.promise;
 					}
 				}
 
-				$http.post(config.apiRoot + '' + requestData.method, requestData)
-					.success(function (data) {
+				return this.performRequest({
+					requestData: requestData,
+					successFn: function (data) {
 						if (data) {
 							if(angular.isFunction(postProcessFn)) {
 								data = postProcessFn(data);
@@ -37,57 +132,50 @@ define([
 								cache.put(requestData.id, data);
 							}
 
-							deferred.resolve(data);
-							return;
+							return data;
 						}
-						deferred.reject('Error: ' + (data.message ? data.message : i18n.msg('core.errors.unknown')));
-					})
-					.error(function (data, status) {
-						deferred.reject(data && data.message ?
-							data.message : i18n.msg('core.errors.title') + ': ' + status);
-					});
-				return deferred.promise;
+						throw 'Error: ' + (data.message ? data.message : i18n.msg('core.errors.unknown'));
+					},
+					failureFn: function (data, status) {
+						throw data && data.message ? data.message : i18n.msg('core.errors.title') + ': ' + status;
+					}
+				});
 			},
 
 			getModels: function (requestData, postProcessRowsFn) {
-				var deferred = $q.defer();
-				$http.post(config.apiRoot + '' + requestData.method, requestData)
-					.success(function (data) {
+				return this.performRequest({
+					requestData: requestData,
+					successFn: function (data) {
 						if (angular.isArray(data)) {
 							if(angular.isFunction(postProcessRowsFn)) {
 								data = postProcessRowsFn(data);
 								data = angular.isArray(data) ? data : [];
 							}
-							deferred.resolve(data);
-							return;
+							return data;
 						}
-						deferred.reject('Error: ' + (data.message ? data.message : i18n.msg('core.errors.unknown')));
-					})
-					.error(function (data, status) {
-						deferred.reject(data && data.message ?
-							data.message : i18n.msg('core.errors.title') + ': ' + status);
-					});
-				return deferred.promise;
+						throw 'Error: ' + (data.message ? data.message : i18n.msg('core.errors.unknown'));
+					},
+					failureFn: function (data, status) {
+						throw data && data.message ? data.message : i18n.msg('core.errors.title') + ': ' + status;
+					}
+				});
 			},
 
 			action: function (requestData) {
-				var deferred = $q.defer();
-
-				$http.post(config.apiRoot + '' + requestData.method, requestData)
-					.success(function (data) {
+				return this.performRequest({
+					requestData: requestData,
+					successFn: function (data) {
 						if(data) {
-							deferred.resolve(data);
+							return data;
 						}
 						else {
-							deferred.reject(data && data.message ? data.message : i18n.msg('core.errors.unknown'));
+							throw data && data.message ? data.message : i18n.msg('core.errors.unknown');
 						}
-					})
-					.error(function (data, status) {
-						deferred.reject(data && data.message ?
-							data.message : i18n.msg('core.errors.title') + ': ' + status);
-					});
-
-				return deferred.promise;
+					},
+					failureFn: function (data, status) {
+						throw data && data.message ? data.message : i18n.msg('core.errors.title') + ': ' + status;
+					}
+				});
 			}
 		});
 	}]);

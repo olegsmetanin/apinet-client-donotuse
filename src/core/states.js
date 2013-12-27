@@ -3,6 +3,7 @@ define([
 	'./states/userProfile',
 	'./states/project',
 	'./states/projects',
+	'./states/projects/processing',
 	'./states/projects/projectsList',
 	'./states/projects/projectTags',
 	'./states/projects/projectCreate',

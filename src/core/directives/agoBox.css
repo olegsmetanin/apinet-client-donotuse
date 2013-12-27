@@ -2,7 +2,3 @@ div.ago-box div.box-header-clickable {
   cursor: pointer;
   *cursor: hand;
 }
-
-div.ago-box .box-toolbox {
-	overflow: visible !important;
-}

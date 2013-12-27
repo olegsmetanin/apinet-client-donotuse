@@ -7,7 +7,12 @@ define(['./moduleDef'], function (module) {
 					// The request bounced because it was not authorized - add a new request to the retry queue
 					promise = queue.pushRetryFn('unauthorized-server', function retryRequest() {
 						// We must use $injector to get the $http service to prevent circular dependency
-						return $injector.get('$http')(originalResponse.config);
+						if(originalResponse.config) {
+							return $injector.get('$http')(originalResponse.config);
+						}
+						else {
+							return $injector.get('apinetService').performRequest(originalResponse.corsConfig);
+						}
 					});
 				}
 				return promise;

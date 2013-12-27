@@ -4,8 +4,8 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 	config.apiRoot = config.apiRoot ? config.apiRoot : '/api/';
 	config.downloadRoot = config.downloadRoot ? config.downloadRoot : '/download/';
 
-	module.service('reportService', ['$rootScope', '$timeout', '$http', '$cacheFactory', '$q', 'apinetService',
-		function($rootScope, $timeout, $http, $cacheFactory, $q, apinetService) {
+	module.service('reportService', ['$rootScope', '$timeout', '$cacheFactory', '$q', 'apinetService',
+		function($rootScope, $timeout, $cacheFactory, $q, apinetService) {
 			angular.extend(this, {
 				cache: $cacheFactory('userReports'),
 
@@ -28,9 +28,8 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 				},
 
 				getReportSettings: function(types) {
-					var that = this,
-						types = types || [],
-						settings = that.cache.get('settings.' + types.toString());
+					types = types || [];
+					var that = this, settings = that.cache.get('settings.' + types.toString());
 
 					if (settings && settings.length > 0) {
 						return $q.when(settings);

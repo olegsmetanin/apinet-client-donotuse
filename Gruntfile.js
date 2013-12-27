@@ -42,25 +42,19 @@ module.exports = function (grunt) {
 		}
 	});
 
-	grunt.registerTask('default', ['build','connect:release']);
+	grunt.registerTask('default', ['build','connect']);
+	grunt.registerTask('run', ['connect']);
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
-		connect: {
-			debug: {
+		connect: [
+			{
 				options: {
 					port: 9000,
 					keepalive: true
 				}
-			},
-			release: {
-				options: {
-					port: 9000,
-					keepalive: true,
-					base: './release/'
-				}
 			}
-		}
+		]
 	});
 };

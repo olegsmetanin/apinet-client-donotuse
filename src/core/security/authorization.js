@@ -1,11 +1,5 @@
 define(['./moduleDef'], function (module) {
 	module.provider('securityAuthorization', function () {
-		this.requireGroups = function (groups) {
-			return ['securityAuthorization', function (securityAuthorization) {
-				return securityAuthorization.requireGroups(groups);
-			}];
-		};
-
 		this.requireRoles = function (roles) {
 			return ['securityAuthorization', function (securityAuthorization) {
 				return securityAuthorization.requireRoles(roles);
@@ -46,27 +40,6 @@ define(['./moduleDef'], function (module) {
 							return queue.pushRetryFn('unauthorized-client', service.requireAdminUser);
 						}
 						return userInfo;
-					});
-				},
-
-				// Require that there is an authenticated user, current project,
-				// and current user in any of requested groups of current project
-				requireGroups: function (requiredGroups) {
-					return security.requestUserGroups($stateParams.project).then(function (groups) {
-						var found = false;
-						for (var groupIndex = 0; groupIndex < requiredGroups.length; groupIndex++) {
-							var requiredGroup = requiredGroups[groupIndex];
-							if ($.inArray(requiredGroup, groups) >= 0) {
-								found = true;
-								break;
-							}
-						}
-						if (!found) {
-							//reason not analized in security service, no matter
-							return queue.pushRetryFn('unauthorized-client', function () {
-								return service.requireGroups(requiredGroups);
-							});
-						}
 					});
 				},
 

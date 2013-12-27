@@ -7,7 +7,10 @@ require.config({
 			}
 		},
 		'jquery-ui': {
-			deps: ['jquery']
+			deps: ['jquery'],
+			init: function (jQuery) {
+				return jQuery;
+			}
 		},
 		'jquery/select2': {
 			deps: ['jquery']
@@ -21,6 +24,10 @@ require.config({
 		},
 		'nls/ru/bootstrap_datepicker': {
 			deps: ['jquery', 'jquery-ui', 'bootstrap/datepicker']
+		},
+
+		'easyXDM': {
+			exports: 'easyXDM'
 		},
 
 		'angular': {
@@ -37,6 +44,12 @@ require.config({
 			deps: ['jquery', 'angular'],
 			init: function () {
 				return this.angular.module('ngLocale');
+			}
+		},
+		'angular-resource': {
+			deps: ['jquery', 'angular'],
+			init: function () {
+				return this.angular.module('ngResource');
 			}
 		},
 		'angular-ui-router': {
@@ -91,9 +104,12 @@ require.config({
 		'core/nls/ru/bootstrap_datepicker': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru',
 		'bootstrap/datepicker/theme': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/css/datepicker',
 
+		'easyXDM': 'core/components/easyXDM/easyXDM',
+
 		'angular': 'core/components/angular/angular',
 		'core/nls/en/angular': 'core/components/angular-i18n/angular-locale_en',
 		'core/nls/ru/angular': 'core/components/angular-i18n/angular-locale_ru',
+		'angular-resource': 'core/components/angular-resource/angular-resource',
 		'angular-ui-bootstrap3': 'core/components/angular-ui-bootstrap3/dist/ui-bootstrap-tpls-0.6.0-SNAPSHOT',
 		'angular-ui-router': 'core/components/angular-ui-router/release/angular-ui-router',
 		'angular-ui-select2': 'core/components/angular-ui-select2/src/select2',
@@ -102,8 +118,8 @@ require.config({
 	}
 });
 
-require(['jquery', 'angular', 'domReady!'], function ($, angular) {
-	require(['core/module'], function (module) {
+require(['jquery-ui', 'angular', 'domReady!'], function ($, angular) {
+	require(['core/module','core/themes/flatty/theme'], function (module) {
 		angular.bootstrap($('body'), [module.name]);
 	});
 });

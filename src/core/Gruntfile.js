@@ -1,12 +1,20 @@
 module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-shell');
+	grunt.loadNpmTasks('grunt-recess');
+	grunt.loadNpmTasks('grunt-image-embed');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	grunt.registerTask('default', ['build']);
 	grunt.registerTask('build', [
 		'shell',
+		'recess',
+		'imageEmbed',
 		'requirejs',
+		'concat',
+		'uglify',
 		'copy'
 	]);
 
@@ -23,21 +31,58 @@ module.exports = function (grunt) {
 			}
 		],
 
+		recess: {
+			options: {
+				compile: true
+			},
+			agoBox: {
+				src: 'directives/agoBox.less',
+				dest: 'directives/agoBox.css'
+			},
+			filteredList: {
+				src: 'directives/filters/filteredList.less',
+				dest: 'directives/filters/filteredList.css'
+			},
+			sortableHeading: {
+				src: 'directives/sortableHeading.less',
+				dest: 'directives/sortableHeading.css'
+			},
+			projectsList: {
+				src: 'states/projects/projectsList.less',
+				dest: 'states/projects/projectsList.css'
+			}
+		},
+
+		imageEmbed: [
+			{
+				src: 'components/select2/select2.css',
+				dest: 'components/select2/select2-embeded.css',
+				options: {
+					deleteAfterEncoding : false
+				}
+			},
+			{
+				src: 'states/projects/projectsList.css',
+				dest: 'states/projects/projectsList.css',
+				options: {
+					deleteAfterEncoding : false
+				}
+			}
+		],
+
 		requirejs: [
 			{
 				options: {
 					baseUrl: '../',
 					mainConfigFile: 'main.js',
-					uglify: {
-						mangle: false
-					},
+					optimize: 'none',
 					name: 'core/module',
 					out: '../../release/core/module.js',
-					include: ['domReady', 'jquery-ui'],
-					exclude: [
-						'jquery',
-						'core/themes/flatty/theme'
-					]
+					include: ['domReady'],
+					stubModules: ['jquery'],
+					paths: {
+						'jquery/select2/theme': 'core/components/select2/select2-embeded'
+					}
 				}
 			},
 			{
@@ -73,26 +118,34 @@ module.exports = function (grunt) {
 			}
 		],
 
+		concat: {
+			options: {
+				separator: ';'
+			},
+			core: {
+				src: ['components/jquery/jquery.js','../../release/core/module.js'],
+				dest: '../../release/core/module.js'
+			}
+		},
+
+		uglify: {
+			options: {
+				mangle: false
+			},
+			core: {
+				src: '../../release/core/module.js',
+				dest: '../../release/core/module.js'
+			}
+		},
+
 		copy: {
 			themes: {
 				src: 'themes/**',
 				dest: '../../release/core/'
 			},
 			requirejs: {
-				src: 'components/requirejs/**',
-				dest: '../../release/core/'
-			},
-			'require-css': {
-				src: 'components/require-css/**',
-				dest: '../../release/core/'
-			},
-			'requirejs-domready': {
-				src: 'components/requirejs-domready/**',
-				dest: '../../release/core/'
-			},
-			jquery: {
-				src: 'components/jquery/**',
-				dest: '../../release/core/'
+				src: 'components/requirejs/require.js',
+				dest: '../../release/core/require.js'
 			},
 			main: {
 				src: 'mainProd.js',

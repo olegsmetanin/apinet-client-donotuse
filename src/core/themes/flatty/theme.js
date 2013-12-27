@@ -1,13 +1,12 @@
 define([
-	'jquery',
+	'jquery-ui',
 	'./modernizr',
 	'./retina',
 
 	'css!./bootstrap.css',
 	'css!./light-theme.css',
 	'css!./theme-colors.css',
-	'css!./breadcrumbs.css',
-	'domReady!'
+	'css!./breadcrumbs.css'
 ], function (jQuery, Modernizr) {
 	jQuery(document).ready(function () {
 		var body, click_event, content, nav/*, nav_toggler*/;

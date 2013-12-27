@@ -1,6 +1,6 @@
 define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginFormTpl) {
-	module.factory('security', ['$http', '$q', '$location', 'securityRetryQueue', '$modal', 'moduleConfig',
-		'apinetService', function ($http, $q, $location, queue, $modal, moduleConfig, apinetService) {
+	module.factory('security', ['$q', '$location', 'securityRetryQueue', '$modal', 'moduleConfig',
+		'apinetService', function ($q, $location, queue, $modal, moduleConfig, apinetService) {
 
 			// Redirect to the given url (defaults to '/')
 			function redirect(url) {
@@ -154,29 +154,6 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 				// Is the current user an adminstrator?
 				isAdmin: function () {
 					return !!(service.currentUser && service.currentUser.admin);
-				},
-
-				//Ask the backend about user groups in provided project
-				requestUserGroups: function (proj) {
-					if (!service.isAuthenticated()) {
-						return service.requestCurrentUser().then(function () {
-							return $http.post('/user-groups', {
-								project: proj
-							}).then(function (response) {
-									service.currentUserGroups = response.data.groups;
-									return service.currentUserGroups;
-								});
-						});
-					} else if (service.currentUserGroups !== null) {
-						return $q.when([]);
-					} else {
-						return $http.post('/user-groups', {
-							project: proj
-						}).then(function (response) {
-								service.currentUserGroups = response.data.groups;
-								return service.currentUserGroups;
-							});
-					}
 				},
 
 				//Ask the backend about user roles in provided project

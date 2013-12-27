@@ -94,9 +94,11 @@
 							window.navigator.language || 'en'
 				},
 				'core/services/apinetService': {
-					apiRoot: 'http://localhost:36651/api/'
+					useEasyXDM: true,
+					apiRoot: 'http://localhost:36651/cors/'
 				},
 				'core/services/reportService': {
+					apiRoot: 'http://localhost:36651/api/',
 					downloadRoot: 'http://localhost:36651/'
 				}
 			}
