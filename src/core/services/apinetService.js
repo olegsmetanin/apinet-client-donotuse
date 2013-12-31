@@ -20,19 +20,19 @@ define([
 
 	module.service('apinetService', ['$q', '$http', '$cacheFactory', 'i18n', 'securityInterceptor', function ($q, $http, $cacheFactory, i18n, securityInterceptor) {
 		angular.extend(this, {
-			performRequest: function(config) {
-				config = config || { };
+			performRequest: function(cfg) {
+				cfg = cfg || { };
 
 				var deferred = $q.defer();
 
-				var requestData = angular.extend({ }, config.requestData);
+				var requestData = angular.extend({ }, cfg.requestData);
 				if(!requestData || !requestData.method) {
 					deferred.reject('Inconsistent request');
 					return deferred.promise;
 				}
 
-				var successFn = angular.isFunction(config.successFn) ? config.successFn : function() { };
-				var failureFn = angular.isFunction(config.failureFn) ? config.failureFn : function() { };
+				var successFn = angular.isFunction(cfg.successFn) ? cfg.successFn : function() { };
+				var failureFn = angular.isFunction(cfg.failureFn) ? cfg.failureFn : function() { };
 
 				var method = requestData.method;
 				delete requestData.method;

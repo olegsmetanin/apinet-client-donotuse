@@ -1,6 +1,8 @@
 define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginFormTpl) {
 	module.factory('security', ['$q', '$location', 'securityRetryQueue', '$modal', 'moduleConfig',
-		'apinetService', function ($q, $location, queue, $modal, moduleConfig, apinetService) {
+		'apinetService', 'notificationService', 
+
+		function ($q, $location, queue, $modal, moduleConfig, apinetService, notificationService) {
 
 			// Redirect to the given url (defaults to '/')
 			function redirect(url) {
@@ -60,6 +62,7 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 
 				// Attempt to authenticate a user by the given email and password
 				login: function (email, password) {
+					notificationService.stop();
 					service.currentUser = null;
 					service.currentUserGroups = null;
 
@@ -75,7 +78,8 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 							service.currentUser = result;
 							if (service.isAuthenticated()) {
 								closeLoginDialog(true);
-							}
+							};
+							notificationService.start(service.currentUser.Login);
 						}
 
 						deferred.resolve(result);
@@ -98,6 +102,7 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 						method: 'core/auth/logout'
 					})
 					.then(function () {
+						notificationService.stop();
 						service.currentUser = null;
 						redirect(redirectTo);
 					});
@@ -115,6 +120,7 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 						.then(function (result) {
 							if (typeof result.success === 'undefined' || result.success) {
 								service.currentUser = result;
+								notificationService.start(service.currentUser.Login);
 								if (service.currentUser) {
 									service.currentUser.admin = service.currentUser.SystemRole === 'Administrator';
 								}

@@ -6,6 +6,7 @@ define([
 	'./services/metadataService',
 	'./services/moduleConfig',
 	'./services/pageConfig',
-	'./services/reportService'
+	'./services/reportService',
+	'./services/notificationService',
 ], function() {
 });

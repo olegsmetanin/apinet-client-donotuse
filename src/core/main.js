@@ -69,6 +69,10 @@ require.config({
 			init: function () {
 				return this.angular.module('ajoslin.promise-tracker');
 			}
+		},
+		'signalR': {
+			exports: 'signalR',
+			deps: ['jquery']
 		}
 	},
 
@@ -114,7 +118,9 @@ require.config({
 		'angular-ui-router': 'core/components/angular-ui-router/release/angular-ui-router',
 		'angular-ui-select2': 'core/components/angular-ui-select2/src/select2',
 		'angular-promise-tracker': 'core/components/angular-promise-tracker/promise-tracker',
-		'blueimp-fileupload': 'core/components/blueimp-file-upload/js/jquery.fileupload-angular'
+		'blueimp-fileupload': 'core/components/blueimp-file-upload/js/jquery.fileupload-angular',
+
+		'signalR': 'core/assets/jquery.signalR-2.0.1.min'
 	}
 });
 
