@@ -70,9 +70,8 @@ require.config({
 				return this.angular.module('ajoslin.promise-tracker');
 			}
 		},
-		'signalR': {
-			exports: 'signalR',
-			deps: ['jquery']
+		'socket.io-client': {
+			exports: 'socket.io-client'
 		}
 	},
 
@@ -120,7 +119,7 @@ require.config({
 		'angular-promise-tracker': 'core/components/angular-promise-tracker/promise-tracker',
 		'blueimp-fileupload': 'core/components/blueimp-file-upload/js/jquery.fileupload-angular',
 
-		'signalR': 'core/assets/jquery.signalR-2.0.1.min'
+		'socket.io-client': 'core/components/socket.io-client/dist/socket.io.min'
 	}
 });
 

@@ -3,29 +3,29 @@ define([
 	'../moduleDef',
 	'jquery',
 	'angular',
-	'signalR'
-], function(requireModule, module, $, angular, signalR) {
+	'socket.io-client'
+], function(requireModule, module, $, angular) {
 	var config = requireModule.config() || { };
 	config.signalRRoot = config.signalRRoot ? config.signalRRoot : '/signalR';
 
 	module.factory('notificationService', ['$rootScope', function($rootScope) {
 
-		var connection = $.hubConnection(config.signalRRoot, { useDefaultPath: false });
+		//var connection = $.hubConnection(config.signalRRoot, { useDefaultPath: false });
 		//connection.logging = true;
-		var notificationsHub = connection.createHubProxy('notificationsHub');
-		notificationsHub.on('onReportChanged', function(task) {
-			console.log('SignalR notification event recieved: %s', task);
-			$rootScope.$emit('reports:changed', {report: task});
-		});
+		//var notificationsHub = connection.createHubProxy('notificationsHub');
+		//notificationsHub.on('onReportChanged', function(task) {
+		//	console.log('SignalR notification event recieved: %s', task);
+		//	$rootScope.$emit('reports:changed', {report: task});
+		//});
 
 		return {
 			start: function(login) {
-				connection.qs = {'login': login };
-				connection.start();
+				//connection.qs = {'login': login };
+				//connection.start();
 			}, 
 
 			stop: function() {
-				connection.stop();
+				//connection.stop();
 			}
 		};
 
