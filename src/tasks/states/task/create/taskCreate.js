@@ -6,7 +6,7 @@ define([
 ], function (module, angular, tpl, moduleMenuTpl) {
 	module.state({
 		name: 'page.project.taskCreate',
-		url: '/tasks/new',
+		url: '/newTask',
 		views: {
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
@@ -35,9 +35,12 @@ define([
 				.then(function(response) {
 					if (response.validation.success) {
 						if ($scope.nextAction === 'goToTask') {
-							$state.transitionTo('page.taskView', {num: response.model}, true);
+							$state.transitionTo('page.project.taskView', {
+								num: response.model,
+								project: $stateParams.project
+							}, true);
 						} else if ($scope.nextAction === 'goToList') {
-							$state.transitionTo('page.root', {}, true);
+							$state.transitionTo('page.project.tasks', { project: $stateParams.project }, true);
 						} else if ($scope.nextAction === 'stayHere') {
 							$scope.model = initModel();
 							$scope.form.$setPristine();
