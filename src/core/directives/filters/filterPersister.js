@@ -15,13 +15,12 @@ define([
 				angular.extend($scope, {
 					i18n: $rootScope.i18n,
 
-					filterNames: [ ],
 					validation: {
 						generalErrors: [],
 						fieldErrors: {}
 					},
 					saveFilterName: '',
-					loadFilterName: { id:'', text: ''},
+					loadFilterName: { },
 
 					saveFilter: function() {
 						apinetService.action({
@@ -31,12 +30,7 @@ define([
 							filter: $scope.filter
 						})
 						.then(function(result) {
-							if(result.success) {
-								if($scope.filterNames.indexOf($scope.saveFilterName) === -1) {
-									$scope.filterNames.push($scope.saveFilterName);
-								}
-							}
-							else {
+							if(!result.success) {
 								angular.extend($scope.validation, result);
 							}
 						}, function(error) {
@@ -47,7 +41,7 @@ define([
 					loadFilter: function() {
 						apinetService.action({
 							method: 'core/users/loadFilter',
-							name: $scope.loadFilterName ? $scope.loadFilterName : null,
+							name: $scope.loadFilterName.lookupEntry ? $scope.loadFilterName.lookupEntry.id : null,
 							group: $scope.group
 						})
 						.then(function(result) {
@@ -67,27 +61,13 @@ define([
 					deleteFilter: function() {
 						apinetService.action({
 							method: 'core/users/deleteFilter',
-							name: $scope.loadFilterName ? $scope.loadFilterName : null,
+							name: $scope.loadFilterName.lookupEntry ? $scope.loadFilterName.lookupEntry.id : null,
 							group: $scope.group
 						})
-						.then(function() {
-							var index = $scope.filterNames.indexOf($scope.loadFilterName);
-							if(index === -1) {
-								return;
-							}
-							$scope.filterNames.splice(index, 1);
-						}, function(error) {
+						.then(function() { }, function(error) {
 							$scope.validation.generalErrors = error;
 						});
 					}
-				});
-
-				apinetService.getModels({
-					method: 'core/users/getFilterNames',
-					group: $scope.group
-				})
-				.then(function (result) {
-					$scope.filterNames = result;
 				});
 			}]
 		};

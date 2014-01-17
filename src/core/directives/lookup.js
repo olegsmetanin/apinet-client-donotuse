@@ -18,12 +18,12 @@ define(['../moduleDef', 'angular'], function (module, angular) {
 							$scope.timeout = $timeout(function() {
 								$scope.timeout = null;
 
-								apinetService.getModels({
+								apinetService.getModels(angular.extend({
 									method: $attrs.action,
 									project: $stateParams.project,
 									term: query.term,
 									page: query.page - 1
-								}).then(function(result) {
+								}, $scope.$eval($attrs.requestParams))).then(function(result) {
 										query.callback({
 											results: result,
 											more: result.length >= defaultPageSize,

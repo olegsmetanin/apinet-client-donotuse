@@ -5,13 +5,13 @@
 
 	<form class="form form-horizontal" name="saveFilterForm" novalidate>
 		<div class="form-group">
-			<label class="col-lg-3 control-label">{{ i18n.core.fields.name }}</label>
-			<div class="col-lg-9">
+			<label class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
+			<div class="col-md-9">
 				<input class="form-control" name="name" type="text" ng-model="saveFilterName" required />
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-offset-3 col-lg-9">
+			<div class="col-md-offset-3 col-md-9">
 				<button class="btn btn-primary" ng-click="saveFilter()"
 				        ng-disabled='saveFilterForm.$invalid'>{{ i18n.core.buttons.save }}</button>
 			</div>
@@ -20,15 +20,15 @@
 
 	<form class="form form-horizontal" name="loadFilterForm" novalidate>
 		<div class="form-group">
-			<label class="col-lg-3 control-label">{{ i18n.core.fields.name }}</label>
-			<div class="col-lg-9">
-				<select class="form-control" ng-model="loadFilterName" required ng-options="name for name in filterNames">
-				</select>
+			<label class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
+			<div class="col-md-9">
+				<input type="text" lookup="core/users/lookupFilterNames" lookup-options="{allowClear: true}"
+					ng-model="loadFilterName.lookupEntry" class="form-control" request-params="{ group: group }" required />
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-lg-offset-3 col-lg-9">
-				<button class="btn btn-success"ng-click="loadFilter()"
+			<div class="col-md-offset-3 col-md-9">
+				<button class="btn btn-success" ng-click="loadFilter()"
 				        ng-disabled='loadFilterForm.$invalid'>{{ i18n.core.buttons.load }}</button>
 				<button class="btn btn-danger" ng-click="deleteFilter()"
 				        ng-disabled='loadFilterForm.$invalid'>{{ i18n.core.buttons.delete }}</button>
