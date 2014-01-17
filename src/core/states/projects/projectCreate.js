@@ -52,9 +52,15 @@ define([
 						$scope.model.Type = $scope.model.Type.id;
 					}
 
+					var tagIds = $scope.model.Tags || [];
+					for(var i = 0; i < tagIds.length; i++) {
+						tagIds[i] = tagIds[i].id;
+					}
+
 					apinetService.action({
 						method: 'core/projects/createProject',
-						model: $scope.model
+						model: $scope.model,
+						tagIds: tagIds
 					}).then(function(result) {
 						if(typeof result.success === 'undefined' || result.success) {
 							$state.transitionTo('page.projects.projectsList');
