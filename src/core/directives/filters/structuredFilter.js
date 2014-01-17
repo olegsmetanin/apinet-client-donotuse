@@ -12,8 +12,8 @@ define([
 ], function (module, $, angular, tpl, nodeTpl, booleanEditorTpl, datetimeEditorTpl,	dateEditorTpl, enumEditorTpl, textEditorTpl) {
 	var editorTpls = { };
 
-	module.directive('structuredFilter', ['$compile', 'helpers', 'filteringService', 'metadataService',
-		function($compile, $helpers, $filteringService, $metadataService) {
+	module.directive('structuredFilter', ['$compile', 'filteringService', 'metadataService',
+		function($compile, $filteringService, $metadataService) {
 			angular.extend(editorTpls, {
 				boolean: $compile(booleanEditorTpl),
 				datetime: $compile(datetimeEditorTpl),
@@ -72,8 +72,8 @@ define([
 			};
 		}
 	])
-	.directive('structuredFilterNode', ['helpers', 'filteringService', 'metadataService', '$compile', '$filter',
-		function($helpers, $filteringService, $metadataService, $compile, $filter) {
+	.directive('structuredFilterNode', ['filteringService', 'metadataService', '$compile', '$filter',
+		function($filteringService, $metadataService, $compile, $filter) {
 			var compiledNodeTpl = $compile(nodeTpl);
 
 			return {

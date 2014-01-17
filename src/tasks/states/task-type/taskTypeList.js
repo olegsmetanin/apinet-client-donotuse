@@ -143,6 +143,11 @@ define([
 				model.validation = {};
 			};
 
+			$scope.createEnabled = function() {
+				return $scope.createTaskTypeForm.$valid && $scope.createTaskTypeForm.$dirty &&
+					(typeof $scope.validation.success === 'undefined' || $scope.validation.success);
+			};
+
 			$scope.requestParams = { project: $stateParams.project };
 			$scope.editModel = {id: null, name: ''};
 			$scope.deleteModel = { replacementType: null };

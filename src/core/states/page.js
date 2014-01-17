@@ -11,7 +11,6 @@ define([
 			resolve: {
 				i18n: 'i18n',
 				pageConfig: 'pageConfig',
-				promiseTracker: 'promiseTracker',
 				apinetService: 'apinetService',
 				currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
 			},

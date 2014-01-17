@@ -1,6 +1,26 @@
 define(['../moduleDef', 'angular'], function (module, angular) {
-	module.service('filteringService', ['helpers', 'metadataService', 'i18n', function($helpers, $metadataService, i18n) {
+	module.service('filteringService', ['metadataService', 'i18n', function($metadataService, i18n) {
 		angular.extend(this, {
+			localDateString: function (date) {
+				var padString = function (n) {
+					return n < 10 ? '0' + n : n;
+				};
+				return padString(date.getDate()) + '.' +
+					padString(date.getMonth() + 1) + '.' +
+					date.getFullYear();
+			},
+
+			localDateTimeString: function (date) {
+				var padString = function (n) {
+					return n < 10 ? '0' + n : n;
+				};
+				return padString(date.getDate()) + '.' +
+					padString(date.getMonth() + 1) + '.' +
+					date.getFullYear() + ' ' +
+					padString(date.getHours()) + ':' +
+					padString(date.getMinutes());
+			},
+
 			getNodeMetadata: function(method, node, parentMetadata, callback) {
 				var metadata;
 
@@ -179,11 +199,11 @@ define(['../moduleDef', 'angular'], function (module, angular) {
 				}
 				else if (metadata && metadata.PropertyType === 'date') {
 					date = new Date(value);
-					value = !isNaN(date.valueOf()) ? $helpers.localDateString(date) : value;
+					value = !isNaN(date.valueOf()) ? this.localDateString(date) : value;
 				}
 				else if (metadata && metadata.PropertyType === 'datetime') {
 					date = new Date(value);
-					value = !isNaN(date.valueOf()) ? $helpers.localDateTimeString(date) : value;
+					value = !isNaN(date.valueOf()) ? this.localDateTimeString(date) : value;
 				}
 				else if (metadata && metadata.PropertyType === 'enum') {
 					localized = metadata.PossibleValues ? metadata.PossibleValues[value] : '';

@@ -76,7 +76,7 @@ define([
 						method: 'POST',
 						data: data
 					}, function(response) {
-						response.corsConfig = angular.extend({ }, config);
+						response.corsConfig = angular.extend({ }, cfg);
 
 						try {
 							if(response.status !== 401 && response.status !== 403) {
@@ -90,7 +90,7 @@ define([
 							deferred.reject(e);
 						}
 					}, function(response) {
-						response.corsConfig = angular.extend({ }, config);
+						response.corsConfig = angular.extend({ }, cfg);
 
 						try {
 							deferred.resolve(failureFn(response.data ? JSON.parse(response.data) : response.data, response.status));

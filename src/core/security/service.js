@@ -78,7 +78,7 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 							service.currentUser = result;
 							if (service.isAuthenticated()) {
 								closeLoginDialog(true);
-							};
+							}
 							notificationService.start(service.currentUser.Login);
 						}
 
@@ -132,24 +132,7 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 				},
 
 				// Information about the current user
-				currentUser: {
-					"Login": "admin@apinet-test.com",
-					"Active": true,
-					"Name": "John",
-					"LastName": "Connor",
-					"MiddleName": "",
-					"FullName": "John Connor",
-					"FIO": "Connor J.",
-					"WhomFIO": null,
-					"JobName": "Administrator",
-					"WhomJobName": null,
-					"SystemRole": "Administrator",
-					"LastChangeTime": null,
-					"ModelVersion": 1,
-					"CreationTime": "2013-11-29T05:49:34.2Z",
-					"Id": "6bb0c06f-cca5-4e47-98a3-a28500a1ee31",
-					"Description": "UserModel: 6bb0c06f-cca5-4e47-98a3-a28500a1ee31"
-				},
+				currentUser: null,
 				currentUserGroups: [],
 
 				// Is the current user authenticated?

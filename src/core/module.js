@@ -5,6 +5,7 @@ define([
 	'./services',
 	'./directives',
 	'./states',
+	'./filters',
 
 	'css!./assets/form.css',
 	'css!./assets/list.css',
