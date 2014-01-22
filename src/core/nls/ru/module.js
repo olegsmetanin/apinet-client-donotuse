@@ -202,7 +202,7 @@ define(['../../moduleDef'], function (module) {
 					'title': 'Шаблоны отчетов',
 					'fields': {
 						'size': 'Размер файла'
-					},
+					}
 				},
 				'reports': {
 					'title': 'Отчеты пользователя',
@@ -236,6 +236,10 @@ define(['../../moduleDef'], function (module) {
 			'upload': {
 				'placeholder': 'Перетащите сюда файлы для загрузки',
 				'addFiles': 'Выбрать файлы...'
+			},
+
+			'tags': {
+				'newTag': 'Введите название нового тега'
 			}
 		});
 
@@ -276,16 +280,8 @@ define(['../../moduleDef'], function (module) {
 			},
 			'tags': {
 				'title': 'Справочник тегов',
-				'buttons': {
-					'add': 'Новый тег'
-				},
-
-				'filters': {
-					'ownership': {
-						'label': 'Принадлежность',
-						'personal': 'Персональные теги',
-						'common': 'Общие теги'
-					}
+				'placeholders': {
+					'new': 'Новый тег'
 				}
 			}
 		});

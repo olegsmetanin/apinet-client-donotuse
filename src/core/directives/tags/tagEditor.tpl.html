@@ -1,0 +1,42 @@
+<div>
+	<form class="form-inline" novalidate ng-class="{ 'has-error': !validation.success }"
+	      ng-mouseenter="hover = true;" ng-mouseleave="hover = false;">
+
+		<div class="input-group">
+			<span ng-show="tag.Id && !expanded" class="input-group-btn">
+				<button type="button" class="btn btn-mini" ng-click="expandChildren()">
+					<span class="arrow">►</span>
+				</button>
+				&nbsp;
+			</span>
+
+			<span ng-show="tag.Id && expanded" class="input-group-btn">
+				<button type="button" class="btn btn-mini" ng-click="collapseChildren()">
+					<span class="arrow">▼</span>
+				</button>
+				&nbsp;
+			</span>
+
+			<inline-text ng-show="tag.Name" model="tag.Name" on-update="doUpdate(val)" required></inline-text>
+
+			<span ng-show="validation.fieldErrors['Name']" class="help-block">
+				{{ validation.fieldErrors['Name'] | joinBy }}
+			</span>
+
+			<span ng-show="validation.generalErrors" class="help-block">
+				{{ validation.generalErrors | joinBy }}
+			</span>
+
+			<span ng-show="tag.Id && hover" class="input-group-btn">
+				<button class="btn btn-danger" title="{{ i18n.core.filters.buttons.deleteNode }}"
+				        ng-disabled="!tag.Id || !hover" ng-click="doDelete(tag)">
+					<i class="icon-minus"></i>
+				</button>
+			</span>
+		</div>
+	</form>
+
+	<div class="nodeChildren">
+		<div class="nodeChildrenContainer"></div>
+	</div>
+</div>

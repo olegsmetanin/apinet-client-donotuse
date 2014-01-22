@@ -19,83 +19,145 @@ define([
 				template: tpl
 			});
 		}])
-		.controller('projectTagsCtrl', ['$scope', 'apinetService', '$window', 'i18n',
-			function($scope, apinetService, $window, i18n) {
-				angular.extend($scope, {
-					editFormVisible: false,
-					editingItem: {},
+		.controller('projectTagsCtrl', ['$scope', 'apinetService',
+			function($scope, apinetService) {
+				$scope.loadTags = function(parentId, deferred) {
+					console.log('loadTags', parentId, deferred);
 
-					newItem: function() {
-						$scope.resetValidation();
-						$scope.editingItem = {};
-						$scope.editFormVisible = true;
-					},
+					if(!parentId) {
+						return;
+					}
 
-					editItem: function(item) {
-						$scope.resetValidation();
-						$scope.editingItem = angular.extend({}, item);
-						$scope.editFormVisible = true;
-					},
+					apinetService.getModels({
+						method: 'core/dictionary/getProjectTags',
+						parentId: parentId,
+						filter: [],
+						sorters: [],
+						page: 0
+					}).then(function(result) {
+						deferred.resolve(result || []);
+					}, function(error) {
+						deferred.reject(error);
+					});
+				};
 
-					deleteItem: function(item) {
-						if (!$window.confirm(i18n.msg('core.confirm.delete.records'))) {
+				/*$scope.loadRootTags = function(parentId, deferred) {
+					$scope.models = [];
+
+					var generalErrorsUnwatch = $scope.$watch('validation.generalErrors', function(value, oldValue) {
+						if(value === oldValue) {
 							return;
 						}
+						if(angular.isFunction(generalErrorsUnwatch)) {
+							generalErrorsUnwatch();
+						}
+						if(angular.isArray(value)) {
+							deferred.reject(value);
+						}
+					}, true);
 
-						$scope.resetValidation();
+					var unwatch = $scope.$watch('models', function(value, oldValue) {
+						if(value === oldValue) {
+							return;
+						}
+						if(angular.isFunction(unwatch)) {
+							unwatch();
+						}
+						if(angular.isArray(value)) {
+							deferred.resolve(value);
+						}
+						else {
+							deferred.reject(['Unknown error']);
+						}
+					}, true);
 
-						apinetService.action({
-							method: 'core/dictionary/deleteProjectTag',
-							id: item.Id
-						})
-						.then(function() {
-							$scope.cancelEdit();
-							var index = $scope.models.indexOf(item);
-							if(index === -1) {
-								return;
-							}
-							$scope.models.splice(index, 1);
-						}, function(error) {
-							$scope.validation.generalErrors = [ error ];
-						});
-					},
+					$scope.refreshList();
+				};
 
-					saveItem: function() {
-						$scope.resetValidation();
+				$scope.loadChildrenTags = function(parentId, deferred) {
+					console.log('loadChildrenTags', parentId);
 
-						apinetService.action(angular.extend({
-							method: 'core/dictionary/editProjectTag',
-							model: $scope.editingItem
-						}, $scope.requestParams))
-						.then(function(result) {
-							if(result.success) {
-								$scope.refreshList();
-								$scope.cancelEdit();
-							}
-							else {
-								angular.extend($scope.validation, result);
-							}
-						}, function(error) {
-							$scope.validation.generalErrors = [ error ];
-						});
-					},
+					apinetService.getModels({
+						method: 'core/dictionary/getProjectTags',
+						parentId: parentId,
+						filter: [],
+						sorters: [],
+						page: 0
+					}).then(function(result) {
+						deferred.resolve(result || []);
+					}, function(error) {
+						deferred.reject(error);
+					});
+				};*/
 
-					cancelEdit: function() {
-						$scope.editFormVisible = false;
+				$scope.createTag = function(parentId, name, deferred) {
+					console.log('createTag', parentId, name);
+
+					if(!name || !name.length) {
+						return;
 					}
-				});
 
-				$scope.$watch('requestParams', function() {
-					$scope.cancelEdit();
-				}, true);
+					apinetService.action({
+						method: 'core/dictionary/createProjectTag',
+						parentId: parentId,
+						name: name
+					}).then(function(result) {
+						if(result && !angular.isDefined(result.success)) {
+							deferred.resolve(result);
+						} else {
+							deferred.reject(result);
+						}
+					}, function(error) {
+						deferred.reject({
+							generalErrors: [error],
+							success: false
+						});
+					});
+				};
 
-				$scope.$on('resetFilter', function() {
-					$scope.filter.simple = { Ownership: 'Personal' };
-					$scope.requestParams.mode = 'Personal';
-				});
+				$scope.updateTag = function(id, name, deferred) {
+					if(!id || !id.length || !name || !name.length) {
+						return;
+					}
 
-				$scope.$watch('filter.simple.Ownership', function(value) {
-					$scope.requestParams.mode = value || 'Personal';
-				}, true);
+					apinetService.action({
+						method: 'core/dictionary/updateProjectTag',
+						id: id,
+						name: name
+					}).then(function(result) {
+						if(result && !angular.isDefined(result.success)) {
+							deferred.resolve(result);
+						} else {
+							deferred.reject(result);
+						}
+					}, function(error) {
+						deferred.reject({
+							generalErrors: [error],
+							success: false
+						});
+					});
+				};
+
+				$scope.deleteTag = function(id, deferred) {
+					if(!id || !id.length) {
+						return;
+					}
+
+					apinetService.action({
+						method: 'core/dictionary/deleteProjectTag',
+						id: id
+					}).then(function(result) {
+						if(result && result.success) {
+							deferred.resolve(id);
+						} else {
+							deferred.reject(result);
+						}
+					}, function(error) {
+						deferred.reject({
+							generalErrors: [error],
+							success: false
+						});
+					});
+				};
 			}]);
 });

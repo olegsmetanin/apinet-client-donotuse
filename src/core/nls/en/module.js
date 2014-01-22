@@ -237,6 +237,10 @@ define(['../../moduleDef'], function (module) {
 			'upload': {
 				'placeholder': 'Drop files to upload here',
 				'addFiles': 'Add files...'
+			},
+
+			'tags': {
+				'newTag': 'Enter new tag name'
 			}
 		});
 
@@ -276,17 +280,8 @@ define(['../../moduleDef'], function (module) {
 			},
 			'tags': {
 				'title': 'Tags dictionary',
-				'buttons': {
-					'add': 'New tag'
-				},
-
-				'filters': {
-					'ownership': {
-						'label': 'Ownership',
-
-						'personal': 'Personal tags',
-						'common': 'Common tags'
-					}
+				'placeholders': {
+					'new': 'New tag'
 				}
 			}
 		});
