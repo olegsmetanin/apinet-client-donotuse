@@ -60,15 +60,18 @@ define([
 				}
 				else {
 					var JSON = easyXDM.getJSONObject();
-					var data = angular.extend({ }, requestData);
+					var data = {};
 
-					for(var key in data) {
-						if(!data.hasOwnProperty(key)) {
+					for(var key in requestData) {
+						if(!requestData.hasOwnProperty(key)) {
 							continue;
 						}
-						if(angular.isObject(data[key])) {
-							data[key] = JSON.stringify(data[key]);
+						if (requestData[key] === null) {
+							continue; //nulls in form fields request does not handle rigth on server side
 						}
+						data[key] = angular.isObject(requestData[key])
+							? JSON.stringify(requestData[key])
+							: requestData[key];	
 					}
 
 					corsRpc.request({
@@ -165,12 +168,7 @@ define([
 				return this.performRequest({
 					requestData: requestData,
 					successFn: function (data) {
-						if(data) {
-							return data;
-						}
-						else {
-							throw data && data.message ? data.message : i18n.msg('core.errors.unknown');
-						}
+						return data;
 					},
 					failureFn: function (data, status) {
 						throw data && data.message ? data.message : i18n.msg('core.errors.title') + ': ' + status;
