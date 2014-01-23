@@ -9,10 +9,6 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 			angular.extend(this, {
 				cache: $cacheFactory('userReports'),
 
-				fireChanged: function() {
-					$rootScope.$emit('reports:changed');
-				},
-
 				getServices: function() {
 					var that = this,
 						services = that.cache.get('services');
@@ -44,10 +40,7 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 
 				runReport: function(parameters) {
 					angular.extend(parameters, { method: 'core/reporting/runReport' });
-					return apinetService.action(parameters)
-						.then(function(response) {
-							$rootScope.$emit('reports:newReport', {report: response});
-						});
+					return apinetService.action(parameters);
 				},
 
 				getTopLastReports: function() {
@@ -58,14 +51,14 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 					return apinetService.action({
 						method: 'core/reporting/cancelReport',
 						id: id
-					}).then(this.fireChanged);
+					});
 				},
 
 				deleteReport: function(id) {
 					return apinetService.action({
 						method: 'core/reporting/deleteReport',
 						id: id
-					}).then(this.fireChanged);
+					});
 				},
 
 				templateUploadUrl: function() {

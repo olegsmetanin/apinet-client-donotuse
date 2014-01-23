@@ -1,8 +1,16 @@
 define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginFormTpl) {
-	module.factory('security', ['$q', '$location', 'securityRetryQueue', '$modal', 'moduleConfig',
-		'apinetService', 'notificationService', 
 
-		function ($q, $location, queue, $modal, moduleConfig, apinetService, notificationService) {
+	var AUTH_EVENTS = {
+		LOGIN: 'auth:login',
+		LOGOUT: 'auth:logout'
+	};
+
+	module
+		.constant('AUTH_EVENTS', AUTH_EVENTS)
+		.factory('security', ['$q', '$location', 'securityRetryQueue', '$modal', 'moduleConfig',
+		'apinetService', '$rootScope',
+
+		function ($q, $location, queue, $modal, moduleConfig, apinetService, $rootScope) {
 
 			// Redirect to the given url (defaults to '/')
 			function redirect(url) {
@@ -62,7 +70,7 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 
 				// Attempt to authenticate a user by the given email and password
 				login: function (email, password) {
-					notificationService.stop();
+					$rootScope.$emit(AUTH_EVENTS.LOGOUT);
 					service.currentUser = null;
 					service.currentUserGroups = null;
 
@@ -79,7 +87,7 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 							if (service.isAuthenticated()) {
 								closeLoginDialog(true);
 							}
-							notificationService.start(service.currentUser.Login);
+							$rootScope.$emit(AUTH_EVENTS.LOGIN, {user: service.currentUser});
 						}
 
 						deferred.resolve(result);
@@ -102,7 +110,7 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 						method: 'core/auth/logout'
 					})
 					.then(function () {
-						notificationService.stop();
+						$rootScope.$emit(AUTH_EVENTS.LOGOUT);
 						service.currentUser = null;
 						redirect(redirectTo);
 					});
@@ -120,7 +128,7 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 						.then(function (result) {
 							if (typeof result.success === 'undefined' || result.success) {
 								service.currentUser = result;
-								notificationService.start(service.currentUser.Login);
+								$rootScope.$emit(AUTH_EVENTS.LOGIN, {user: service.currentUser})
 								if (service.currentUser) {
 									service.currentUser.admin = service.currentUser.SystemRole === 'Administrator';
 								}

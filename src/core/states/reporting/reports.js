@@ -19,8 +19,8 @@ define([
 		});
 	}])
 	.controller('reportsController', 
-		['$scope', 'apinetService', '$window', 'i18n', 'reportService', '$locale',
-		function($scope, apinetService, $window, i18n, reportService, $locale) {
+		['$scope', 'apinetService', '$window', 'i18n', 'reportService', '$locale', '$rootScope',
+		function($scope, apinetService, $window, i18n, reportService, $locale, $rootScope) {
 
 			var handleException = function(error) {
 				$scope.resetValidation();
@@ -77,10 +77,30 @@ define([
 
 			$scope.cancel = function(report) {
 				reportService.cancelReport(report.Id)
-					.then(function(response) {
-						angular.extend(report, response);
-					}, handleException);
+					.then(null, handleException);
 			};
+
+			var findById = function(id) {
+				if (!id) return null;
+
+				for(var i = 0; i < $scope.models.length; i++) {
+					if ($scope.models[i].Id == id) {
+						return $scope.models[i];
+					}
+				}
+
+				return null;
+			};
+
+			var deleteReport = function(id) {
+				var report = findById(id);
+				if (!report) return;
+
+				var reportIndex = $scope.models.indexOf(report);
+				if (reportIndex >= 0) {
+					$scope.models.splice(reportIndex, 1);
+				}
+			}
 
 			$scope.delete = function(report) {
 				if (!$window.confirm(i18n.msg('core.confirm.delete.record'))) {
@@ -89,12 +109,20 @@ define([
 
 				reportService.deleteReport(report.Id)
 					.then(function() {
-						var reportIndex = $scope.models.indexOf(report);
-						if (reportIndex >= 0) {
-							$scope.models.splice(reportIndex, 1);
-						}		
+						deleteReport(report.Id);
 					}, handleException);
 			};
+
+			$rootScope.$on('reports:deleted', function(e, arg) {
+				deleteReport(arg.report.Id);
+			});
+
+			$rootScope.$on('reports:changed', function(e, arg) {
+				var report = findById(arg.report.Id);
+				if (!report) return;
+
+				angular.extend(report, arg.report);
+			});
 		}]
 	);
 });

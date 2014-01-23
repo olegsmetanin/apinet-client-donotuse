@@ -41,6 +41,25 @@ define([
 									}
 								}
 							}
+						},
+
+						find: function(id, reports) {
+							if (!reports || !id) return null;
+
+							for(var i = 0; i < reports.length; i++) {
+								if (reports[i].Id === id) return reports[i];
+							}
+							return null;
+						},
+
+						remove: function(id, items) {
+							var forDelete = this.find(id, items);
+							if (forDelete) {
+								var idx = items.indexOf(forDelete);
+								items.splice(idx, 1);
+								return true;
+							}
+							return false;
 						}
 					};
 
@@ -75,15 +94,47 @@ define([
 						}, handleException);
 					};
 
-					$rootScope.$on('reports:newReport', function(e, args) {
-						$scope.reports.running.push(args.report);
-						$scope.reports.refresh();
+					$rootScope.$on('reports:changed', function(e, arg) {
+						var id = arg.report.Id;
 
-						$scope.update();
+						var existed = $scope.reports.find(id, $scope.reports.running);
+						if (existed) {
+							//not started -> running
+							//change progress
+							angular.extend(existed, arg.report);
+							if (!isRunning(existed)) {
+								//running -> completed, canceled, error
+								var ridx = $scope.reports.running.indexOf(existed);
+								$scope.reports.running.splice(ridx, 1);
+								$scope.reports.completed.push(existed);
+							}
+							$scope.reports.refresh();
+							return;
+						}
+
+						existed = $scope.reports.find(id, $scope.reports.completed);
+						if (existed) {
+							//unread -> read
+							angular.extend(existed, arg.report);
+							$scope.reports.refresh();
+							return;
+						}
+
+						if (isRunning(arg.report)) {
+							//new report
+							$scope.reports.running.push(arg.report);
+							$scope.reports.refresh();
+						}
+						//unread -> read, but no in top last reports, ignore
 					});
 
-					$rootScope.$on('reports:changed', function() {
-						$scope.update();
+					$rootScope.$on('reports:deleted', function(e, arg) {
+						var id = arg.report.Id;
+						//report can be only in one collection, so use ||
+						if ($scope.reports.remove(id, $scope.reports.running) ||
+							$scope.reports.remove(id, $scope.reports.completed)) {
+							$scope.reports.refresh();
+						}
 					});
 
 					$scope.cancel = function(report) {
@@ -95,7 +146,6 @@ define([
 								}
 								$scope.reports.refresh();
 
-								$scope.update();
 							}, handleException);
 					};
 
