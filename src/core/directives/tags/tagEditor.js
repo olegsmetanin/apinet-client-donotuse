@@ -5,13 +5,13 @@ define([
 ], function (module, angular, tpl) {
 	module.directive('tagEditor', ['$q', '$window', '$compile', 'i18n',
 		function($q, $window, $compile, i18n) {
-			var compiledTpl = $compile(tpl);
-
 			return {
 				restrict: 'E',
 				replace: true,
+				template: tpl,
 				scope: {
 					tag: '=',
+					owningList: '=',
 					loadTags: '&',
 					createTag: '&',
 					updateTag: '&',
@@ -24,47 +24,7 @@ define([
 						childrenContainer: null,
 						expanded: false,
 
-						/*newTag: function() {
-							console.log('newTag');
-							//$scope.validation = { success: true };
-							//$scope.tag = { Name: $rootScope.i18n.core.tags.newTag };
-
-						},
-
-						doCreate: function(name) {
-							console.log('doCreate', name);
-							if(!name || !name.length || !$scope.tag) {
-								return;
-							}
-
-							$scope.validation = { success: true };
-							$scope.newName = $rootScope.i18n.core.tags.newTag;
-							//$scope.tag.Name = $rootScope.i18n.core.tags.newTag;*/
-
-
-							//console.log('doCreated', name);
-							/*var deferred = $q.defer();
-							deferred.promise.then(function(createdTag) {
-								console.log('created', createdTag);
-								if($scope.children && $scope.children.length) {
-									if(!$scope.children[0]) {
-										$scope.children.splice(0, 1);
-									}
-								}
-
-								$scope.children = $scope.children || [];
-								$scope.children.unshift(createdTag);
-								$scope.children.unshift(null);
-							}, function(validation) {
-								$scope.validation = validation;
-							});
-
-							$scope.createTag({ parentId: $scope.parentId, name: name, deferred: deferred });
-						},*/
-
 						doUpdate: function(name) {
-							console.log('doUpdate', name, $scope.tag);
-
 							if(!name || !name.length || !$scope.tag) {
 								return;
 							}
@@ -74,17 +34,16 @@ define([
 
 							if(!$scope.tag.Id || $scope.tag.parentId) {
 								deferred.promise.then(function(createdTag) {
-									console.log('created', createdTag);
-									
-									/*if($scope.children && $scope.children.length) {
-										if(!$scope.children[0]) {
-											$scope.children.splice(0, 1);
+									$scope.owningList = $scope.owningList || [];
+
+									for(var i = 0; i < $scope.owningList.length; i++) {
+										if($scope.owningList[i] && !$scope.owningList[i].Id) {
+											$scope.owningList.splice(i, 1);
+											break;
 										}
 									}
 
-									$scope.children = $scope.children || [];
-									$scope.children.unshift(createdTag);
-									$scope.children.unshift(null);*/
+									$scope.owningList.unshift(createdTag);
 								}, function(validation) {
 									$scope.validation = validation;
 								});
@@ -109,8 +68,19 @@ define([
 						},
 
 						doDelete: function() {
-							if(!$scope.tag || !$scope.tag.Id) {
+							if(!$scope.tag) {
 								return;
+							}
+
+							if(!$scope.tag.Id) {
+								$scope.owningList = $scope.owningList || [];
+
+								for(var i = 0; i < $scope.owningList.length; i++) {
+									if($scope.owningList[i] === $scope.tag) {
+										$scope.owningList.splice(i, 1);
+										return;
+									}
+								}
 							}
 
 							var confirmed = false;
@@ -130,7 +100,14 @@ define([
 
 							var deferred = $q.defer();
 							deferred.promise.then(function(id) {
-								console.log('deleted', id);
+								$scope.owningList = $scope.owningList || [];
+
+								for(var i = 0; i < $scope.owningList.length; i++) {
+									if($scope.owningList[i] && $scope.owningList[i].Id === id) {
+										$scope.owningList.splice(i, 1);
+										break;
+									}
+								}
 							}, function(validation) {
 								$scope.validation = validation;
 							});
@@ -143,15 +120,11 @@ define([
 								return;
 							}
 
-							console.log('expandChildren');
-
 							var deferred = $q.defer();
 
 							deferred.promise.then(function(tags) {
 								$scope.children = tags || [];
-								//$scope.children.unshift(null);
 								$scope.renderChildren();
-
 								$scope.expanded = true;
 							});
 
@@ -159,49 +132,43 @@ define([
 						},
 
 						collapseChildren: function() {
-							console.log('collapseChildren');
-
 							$scope.children = null;
 							$scope.clearChildren();
-
 							$scope.expanded = false;
 						}
 					});
 				}],
 				link: function($scope, element) {
-					compiledTpl($scope, function(cloned) {
-						element.replaceWith(cloned);
-						$scope.childrenContainer = $('.nodeChildrenContainer', cloned);
+					$scope.childrenContainer = $('.nodeChildrenContainer', element);
 
-						$scope.renderChildren = function() {
-							if(!$scope.children || !$scope.childrenContainer) {
-								return;
-							}
+					$scope.renderChildren = function() {
+						if(!$scope.children || !$scope.childrenContainer) {
+							return;
+						}
 
-							var listTpl =
-								'<tags-list load-tags="loadTags({ parentId: parentId, deferred: deferred })" ' +
-								'   create-tag="createTag({ parentId: parentId, name: name, deferred: deferred })" '+
-								'   update-tag="updateTag({ id: id, name: name, deferred: deferred })" ' +
-								'   delete-tag="deleteTag({ id: id, deferred: deferred })" class="col-md-12" ' +
-								'   tags="children"' +
-								'   parent-id="' + $scope.tag.Id + '">' +
-								'</tags-list>';
+						var listTpl =
+							'<tags-list load-tags="loadTags({ parentId: parentId, deferred: deferred })" ' +
+							'   create-tag="createTag({ parentId: parentId, name: name, deferred: deferred })" '+
+							'   update-tag="updateTag({ id: id, name: name, deferred: deferred })" ' +
+							'   delete-tag="deleteTag({ id: id, deferred: deferred })" class="col-md-12" ' +
+							'   tags="children"' +
+							'   parent-id="' + $scope.tag.Id + '">' +
+							'</tags-list>';
 
-							$compile(listTpl)($scope, function(cloned) {
-								$scope.childrenContainer.html('');
-								$scope.childrenContainer.append(cloned);
-							});
-						};
-
-						$scope.clearChildren = function() {
-							if(!$scope.childrenContainer) {
-								return;
-							}
+						$compile(listTpl)($scope, function(cloned) {
 							$scope.childrenContainer.html('');
-						};
+							$scope.childrenContainer.append(cloned);
+						});
+					};
 
-						$scope.renderChildren();
-					});
+					$scope.clearChildren = function() {
+						if(!$scope.childrenContainer) {
+							return;
+						}
+						$scope.childrenContainer.html('');
+					};
+
+					$scope.renderChildren();
 				}
 			};
 		}]);

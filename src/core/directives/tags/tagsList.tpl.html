@@ -1,15 +1,19 @@
-<div>
-	<div>
-		<button class="btn btn-success" title="{{ i18n.core.buttons.new }}" ng-click="newTag()">
-			<i class="icon-plus"></i>
-		</button>
+<div class="tags-list col-md-12">
+	<div class="row buttons">
+		<div class="col-md-12">
+			<button class="btn btn-success" title="{{ i18n.core.buttons.new }}" ng-click="newTag()">
+				<i class="icon-plus"></i>
+			</button>
+		</div>
 	</div>
-	<tag-editor ng-repeat="tag in tags"
-        class="row"
-        tag="tag"
-        load-tags="loadTags({ parentId: parentId, deferred: deferred })"
-        create-tag="createTag({ parentId: parentId, name: name, deferred: deferred })"
-        update-tag="updateTag({ id: id, name: name, deferred: deferred })"
-        delete-tag="deleteTag({ id: id, deferred: deferred })">
-	</tag-editor>
+	<div class="row records">
+		<tag-editor ng-repeat="tag in tags"
+            tag="tag"
+            owning-list="tags"
+            load-tags="loadTags({ parentId: parentId, deferred: deferred })"
+            create-tag="createTag({ parentId: parentId, name: name, deferred: deferred })"
+            update-tag="updateTag({ id: id, name: name, deferred: deferred })"
+            delete-tag="deleteTag({ id: id, deferred: deferred })">
+		</tag-editor>
+	</div>
 </div>
