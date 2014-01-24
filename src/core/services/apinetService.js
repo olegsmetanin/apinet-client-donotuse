@@ -5,11 +5,12 @@ define([
 	'easyXDM'
 ], function (requireModule, module, angular, easyXDM) {
 	var config = requireModule.config() || { };
-	config.apiRoot = config.apiRoot ? config.apiRoot : '/api/';
+	config.apiRoot = config.apiRoot ? config.apiRoot : '/';
+	config.notificationRoot = config.notificationRoot ? config.notificationRoot : 'http://localhost:36653';
 	config.useEasyXDM = !angular.isDefined(config.useEasyXDM) || config.useEasyXDM;
 
 	var corsRpc = config.useEasyXDM ? new easyXDM.Rpc({
-		remote: config.apiRoot
+		remote: config.apiRoot + 'cors/'
 	}, {
 		remote: {
 			request: { }
@@ -38,7 +39,7 @@ define([
 				delete requestData.method;
 
 				if(!corsRpc) {
-					$http.post(config.apiRoot + '' + method, requestData)
+					$http.post(config.apiRoot + 'api/' + method, requestData)
 						.success(function(data) {
 							try {
 								deferred.resolve(successFn(data));
@@ -174,6 +175,18 @@ define([
 						throw data && data.message ? data.message : i18n.msg('core.errors.title') + ': ' + status;
 					}
 				});
+			},
+
+			notificationRoot: function() {
+				return config.notificationRoot;
+			},
+
+			apiUrl: function(relative) {
+				return config.apiRoot + 'api/' + relative;
+			},
+
+			downloadUrl: function(relative) {
+				return config.apiRoot + 'download/' + relative;
 			}
 		});
 	}]);

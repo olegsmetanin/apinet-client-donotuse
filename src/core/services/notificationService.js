@@ -5,13 +5,10 @@ define([
 	'angular',
 	'socket.io-client'
 ], function(requireModule, module, $, angular) {
-	var config = requireModule.config() || { };
-	config.notificationRoot = config.notificationRoot ? config.notificationRoot : 'http://localhost:36653';
 
 	module.factory('notificationService', ['$rootScope', 'AUTH_EVENTS', function($rootScope, AUTH_EVENTS) {
 
-		var 
-			socket = null
+		var socket = null
 			, token = null
 			, offLogin = null
 			, offLogout = null
@@ -31,9 +28,9 @@ define([
 				}
 			}
 
-			, connect = function() {
+			, connect = function(url) {
 				//force need because disconnect not work if this option is false
-				socket = io.connect(config.notificationRoot + '?token=' + token, {'force new connection': true});
+				socket = io.connect(url + '?token=' + token, {'force new connection': true});
 				socket.on('reports_changed', function (data) { 
 					emit('reports:changed', data);
 				});
@@ -43,12 +40,12 @@ define([
 			};
 
 		return {
-			start: function() {
+			start: function(url) {
 				offLogin = $rootScope.$on(AUTH_EVENTS.LOGIN, function(e, args) {
 					if (!socket || !token || token !== args.user.Token) {
 						disconnect();
 						token = args.user.Token;
-						connect();
+						connect(url);
 					}
 				});
 
@@ -70,8 +67,9 @@ define([
 		};
 	}]);
 
-	module.run(['notificationService', '$rootScope', function(notificationService, $rootScope) {
-		notificationService.start();
+	module.run(['apinetService', 'notificationService', '$rootScope',
+	 function(apinetService, notificationService, $rootScope) {
+		notificationService.start(apinetService.notificationRoot());
 		$rootScope.$on('$destroy', function() {
 			notificationService.stop()
 		});
