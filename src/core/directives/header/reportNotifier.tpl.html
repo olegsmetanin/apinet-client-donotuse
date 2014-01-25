@@ -1,7 +1,7 @@
 <li class="dropdown light only-icon widget">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 		<i class="icon-print"></i>
-		<div ng-show="reports.count > 0" class="label">{{ reports.count }}</div>
+		<div ng-show="reports.count.active > 0 || reports.count.unread > 0" class="label">{{ reports.count.active }} / {{ reports.count.unread }}</div>
 	</a>
 	<ul class="dropdown-menu">
 		<li>
@@ -16,9 +16,9 @@
 				</div>
 			</a>
 		</li>
-		<li ng-show="reports.showRunning" class="divider"></li>
-		<li ng-show="reports.showRunning" class="text-center">{{ i18n.core.reporting.running }}</li>
-		<li ng-show="reports.showRunning" ng-repeat="r in reports.running">
+		<li ng-show="reports.showActive" class="divider"></li>
+		<li ng-show="reports.showActive" class="text-center">{{ i18n.core.reporting.running }}</li>
+		<li ng-show="reports.showActive" ng-repeat="r in reports.active">
 			<div class='widget-body'>
 				<div class='pull-left icon'>
 					<ago-report-icon report="r"></ago-report-icon>
@@ -37,7 +37,7 @@
 				<div class='pull-left icon'>
 					<ago-report-icon report="r"></ago-report-icon>
 				</div>
-				<div class='pull-left text' ago-report-link report="r" on-download="whenDownload(report)">
+				<div class='pull-left text' ago-report-link report="r">
 				</div>
 			</div>
 		</li>

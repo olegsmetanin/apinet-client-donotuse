@@ -12,13 +12,6 @@ define([
 			, token = null
 			, offLogin = null
 			, offLogout = null
-
-			, emit = function(event, msg) {
-				$rootScope.$apply(function() {
-					var reportTask = JSON.parse(msg);
-					$rootScope.$emit(event, {report: reportTask});
-				});
-			}
 		
 			, disconnect = function() {
 				if (socket) {
@@ -31,11 +24,8 @@ define([
 			, connect = function(url) {
 				//force need because disconnect not work if this option is false
 				socket = io.connect(url + '?token=' + token, {'force new connection': true});
-				socket.on('reports_changed', function (data) { 
-					emit('reports:changed', data);
-				});
-				socket.on('reports_deleted', function (data) { 
-					emit('reports:deleted', data);
+				socket.on('reports_changed', function (msg) {
+					$rootScope.$emit('reports:' + msg.type, {report: msg.report});
 				});
 			};
 

@@ -3,8 +3,10 @@ define([
 	'angular',
 	'text!./reportNotifier.tpl.html'
 ], function (module, angular, tpl) {
-	module.directive('reportNotifier', ['security', 'reportService', '$timeout', '$rootScope',
-		function(security, reportService, $timeout, $rootScope) {
+	module.directive('reportNotifier', 
+		['security', 'reportService', '$timeout', '$rootScope', 'REPORT_EVENTS', 'REPORT_STATES', 
+		function(security, reportService, $timeout, $rootScope, REPORT_EVENTS, REPORT_STATES) {
+
 			return {
 				template: tpl,
 				restrict: 'EA',
@@ -13,48 +15,43 @@ define([
 				link: function($scope) {
 
 					$scope.reports = {
-						count: 0,
-						running: [],
+						count: {
+							active: 0,
+							unread: 0
+						},
+						active: [],
 						completed: [],
 
-						showRunning: false,
+						showActive: false,
 						showCompleted: false,
 						updating: false,
 
 						clear: function() {
-							this.running = [];
+							this.count.active = 0;
+							this.count.unread = 0;
+							this.active = [];
 							this.completed = [];
 						},
 
 						refresh: function() {
-							this.showRunning = this.running.length > 0;
+							this.showActive = this.active.length > 0;
 							this.showCompleted = this.completed.length > 0;
-							if (this.running.length > 0) {
-								this.count =  this.running.length
-							} else {
-								//need only completed and unread
-								this.count = 0;
-								for(var i = 0; i < this.completed.length; i++) {
-									if (this.completed[i].State === 'Completed' && 
-										this.completed[i].ResultUnread === true) {
-										this.count++;
-									}
-								}
-							}
 						},
 
-						find: function(id, reports) {
-							if (!reports || !id) return null;
+						find: function(id, lookActive) {
+							if (!id) return null;
 
+							var reports = lookActive ? this.active : this.completed;
 							for(var i = 0; i < reports.length; i++) {
 								if (reports[i].Id === id) return reports[i];
 							}
 							return null;
 						},
 
-						remove: function(id, items) {
-							var forDelete = this.find(id, items);
+						remove: function(id, fromActive) {
+							var forDelete = this.find(id, fromActive);
 							if (forDelete) {
+								var items = fromActive ? this.active : this.completed;
 								var idx = items.indexOf(forDelete);
 								items.splice(idx, 1);
 								return true;
@@ -70,7 +67,8 @@ define([
 
 					var isRunning = function(report) {
 						return report && report.State &&
-							report.State === 'NotStarted' || report.State === 'Running';
+							report.State === REPORT_STATES.NotStarted || 
+							report.State === REPORT_STATES.Running;
 					};
 
 					$scope.update = function() {
@@ -80,12 +78,14 @@ define([
 						.then(function(response) {
 
 							$scope.reports.clear();
+							$scope.reports.count.active = response.active;
+							$scope.reports.count.unread = response.unread;
 
-							for (var i = 0; i < response.length; i++) {
-								if (isRunning(response[i])) {
-									$scope.reports.running.push(response[i]);
+							for (var i = 0; i < response.reports.length; i++) {
+								if (isRunning(response.reports[i])) {
+									$scope.reports.active.push(response.reports[i]);
 								} else {
-									$scope.reports.completed.push(response[i]);
+									$scope.reports.completed.push(response.reports[i]);
 								}
 							}
 
@@ -94,63 +94,40 @@ define([
 						}, handleException);
 					};
 
-					$rootScope.$on('reports:changed', function(e, arg) {
-						var id = arg.report.Id;
-
-						var existed = $scope.reports.find(id, $scope.reports.running);
+					$scope.merge = function(e, arg) {
+						var newReport = arg.report;
+						var existed = $scope.reports.find(newReport.Id, true);
 						if (existed) {
-							//not started -> running
-							//change progress
-							angular.extend(existed, arg.report);
-							if (!isRunning(existed)) {
-								//running -> completed, canceled, error
-								var ridx = $scope.reports.running.indexOf(existed);
-								$scope.reports.running.splice(ridx, 1);
-								$scope.reports.completed.push(existed);
-							}
+							angular.extend(existed, newReport);
 							$scope.reports.refresh();
 							return;
 						}
 
-						existed = $scope.reports.find(id, $scope.reports.completed);
+						existed = $scope.reports.find(newReport.Id, false);
 						if (existed) {
-							//unread -> read
-							angular.extend(existed, arg.report);
+							angular.extend(existed, newReport);
 							$scope.reports.refresh();
 							return;
 						}
+						//if no in our top list - simply ignore
+					};
 
-						if (isRunning(arg.report)) {
-							//new report
-							$scope.reports.running.push(arg.report);
-							$scope.reports.refresh();
-						}
-						//unread -> read, but no in top last reports, ignore
-					});
-
-					$rootScope.$on('reports:deleted', function(e, arg) {
-						var id = arg.report.Id;
-						//report can be only in one collection, so use ||
-						if ($scope.reports.remove(id, $scope.reports.running) ||
-							$scope.reports.remove(id, $scope.reports.completed)) {
-							$scope.reports.refresh();
-						}
-					});
+					$rootScope.$on(REPORT_EVENTS.CREATED, $scope.update);
+					$rootScope.$on(REPORT_EVENTS.RUNNED, $scope.merge);
+					$rootScope.$on(REPORT_EVENTS.PROGRESS, $scope.merge);
+					$rootScope.$on(REPORT_EVENTS.COMPLETED, $scope.update);
+					$rootScope.$on(REPORT_EVENTS.ABORTED, $scope.update);
+					$rootScope.$on(REPORT_EVENTS.ERROR, $scope.update);
+					$rootScope.$on(REPORT_EVENTS.CANCELED, $scope.update);
+					$rootScope.$on(REPORT_EVENTS.DELETED, $scope.update);
+					$rootScope.$on(REPORT_EVENTS.DOWNLOADED, $scope.update);
 
 					$scope.cancel = function(report) {
 						reportService.cancelReport(report.Id).
 							then(function() {
-								var reportIndex = $scope.reports.running.indexOf(report);
-								if (reportIndex >= 0) {
-									$scope.reports.running.splice(reportIndex, 1);
-								}
+								$scope.reports.remove(report.Id, true);
 								$scope.reports.refresh();
-
 							}, handleException);
-					};
-
-					$scope.whenDownload = function(report) {
-						$scope.reports.refresh();
 					};
 
 					$scope.update();

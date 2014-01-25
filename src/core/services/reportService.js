@@ -1,6 +1,29 @@
 define(['module', '../moduleDef', 'angular'], function (requireModule, module, angular) {
 
-	module.service('reportService', ['$rootScope', '$timeout', '$cacheFactory', '$q', 'apinetService',
+	var REPORT_EVENTS = {
+		CREATED    : 'reports:created',
+		RUNNED     : 'reports:runned',
+		PROGRESS   : 'reports:progress',
+		COMPLETED  : 'reports:completed',
+		ABORTED    : 'reports:aborted',
+		ERROR      : 'reports:error',
+		CANCELED   : 'reports:canceled',
+		DELETED    : 'reports:deleted',
+		DOWNLOADED : 'reports:downloaded'
+	};
+
+	var REPORT_STATES = {
+		NotStarted : 'NotStarted',
+		Running    : 'Running',
+		Completed  : 'Completed',
+		Canceled   : 'Canceled',
+		Error      : 'Error'
+	};
+
+	module
+		.constant('REPORT_EVENTS', REPORT_EVENTS)
+		.constant('REPORT_STATES', REPORT_STATES)
+		.service('reportService', ['$rootScope', '$timeout', '$cacheFactory', '$q', 'apinetService',
 		function($rootScope, $timeout, $cacheFactory, $q, apinetService) {
 			angular.extend(this, {
 				cache: $cacheFactory('userReports'),
