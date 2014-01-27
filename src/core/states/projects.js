@@ -9,7 +9,13 @@
 			abstract: true,
 			views: {
 				'content': { template: '<div ui-view></div>' },
-				'moduleMenu': { template: moduleMenuTpl }
+				'moduleMenu': { 
+					template: moduleMenuTpl,
+					controller: ['$scope', 'security', function($scope, security) {
+						$scope.$watch(function() { return security.isAdmin(); }, 
+							function(newValue) { $scope.isAdmin = newValue; });
+					}]
+				}
 			}
 		});
 	}]);
