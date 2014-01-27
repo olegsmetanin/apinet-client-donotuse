@@ -91,7 +91,18 @@ define([
 
 							$scope.reports.refresh();
 							$scope.reports.updating = false;
+							$scope.updatePromise = null;
 						}, handleException);
+					};
+
+					$scope.updatePromise = null;
+
+					$scope.throttleUpdate = function() {
+						if ($scope.updatePromise) {
+							$timeout.cancel($scope.updatePromise);
+						}
+
+						$scope.updatePromise = $timeout($scope.update, 300);
 					};
 
 					$scope.merge = function(e, arg) {
@@ -112,15 +123,15 @@ define([
 						//if no in our top list - simply ignore
 					};
 
-					$rootScope.$on(REPORT_EVENTS.CREATED, $scope.update);
+					$rootScope.$on(REPORT_EVENTS.CREATED, $scope.throttleUpdate);
 					$rootScope.$on(REPORT_EVENTS.RUNNED, $scope.merge);
 					$rootScope.$on(REPORT_EVENTS.PROGRESS, $scope.merge);
-					$rootScope.$on(REPORT_EVENTS.COMPLETED, $scope.update);
-					$rootScope.$on(REPORT_EVENTS.ABORTED, $scope.update);
-					$rootScope.$on(REPORT_EVENTS.ERROR, $scope.update);
-					$rootScope.$on(REPORT_EVENTS.CANCELED, $scope.update);
-					$rootScope.$on(REPORT_EVENTS.DELETED, $scope.update);
-					$rootScope.$on(REPORT_EVENTS.DOWNLOADED, $scope.update);
+					$rootScope.$on(REPORT_EVENTS.COMPLETED, $scope.throttleUpdate);
+					$rootScope.$on(REPORT_EVENTS.ABORTED, $scope.throttleUpdate);
+					$rootScope.$on(REPORT_EVENTS.ERROR, $scope.throttleUpdate);
+					$rootScope.$on(REPORT_EVENTS.CANCELED, $scope.throttleUpdate);
+					$rootScope.$on(REPORT_EVENTS.DELETED, $scope.throttleUpdate);
+					$rootScope.$on(REPORT_EVENTS.DOWNLOADED, $scope.throttleUpdate);
 
 					$scope.cancel = function(report) {
 						reportService.cancelReport(report.Id).

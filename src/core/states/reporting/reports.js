@@ -19,8 +19,8 @@ define([
 		});
 	}])
 	.controller('reportsController', 
-		['$scope', 'apinetService', '$window', 'i18n', 'reportService', '$locale', '$rootScope',
-		function($scope, apinetService, $window, i18n, reportService, $locale, $rootScope) {
+		['$scope', 'apinetService', '$window', 'i18n', 'reportService', '$locale', '$rootScope', 'REPORT_EVENTS',
+		function($scope, apinetService, $window, i18n, reportService, $locale, $rootScope, REPORT_EVENTS) {
 
 			var handleException = function(error) {
 				$scope.resetValidation();
@@ -102,6 +102,14 @@ define([
 				}
 			}
 
+			$scope.merge = function(e, arg) {
+				var changedReport = arg.report;
+				var report = findById(changedReport.Id);
+				if (!report) return;
+
+				angular.extend(report, changedReport);
+			};
+
 			$scope.delete = function(report) {
 				if (!$window.confirm(i18n.msg('core.confirm.delete.record'))) {
 					return;
@@ -113,16 +121,19 @@ define([
 					}, handleException);
 			};
 
-			$rootScope.$on('reports:deleted', function(e, arg) {
+			$rootScope.$on(REPORT_EVENTS.CREATED, function(e, arg) {
+				$scope.models.unshift(arg.report);
+			});
+			$rootScope.$on(REPORT_EVENTS.RUNNED, $scope.merge);
+			$rootScope.$on(REPORT_EVENTS.PROGRESS, $scope.merge);
+			$rootScope.$on(REPORT_EVENTS.COMPLETED, $scope.merge);
+			$rootScope.$on(REPORT_EVENTS.ABORTED, $scope.merge);
+			$rootScope.$on(REPORT_EVENTS.ERROR, $scope.merge);
+			$rootScope.$on(REPORT_EVENTS.CANCELED, $scope.merge);
+			$rootScope.$on(REPORT_EVENTS.DELETED, function(e, arg) {
 				deleteReport(arg.report.Id);
 			});
-
-			$rootScope.$on('reports:changed', function(e, arg) {
-				var report = findById(arg.report.Id);
-				if (!report) return;
-
-				angular.extend(report, arg.report);
-			});
+			$rootScope.$on(REPORT_EVENTS.DOWNLOADED, $scope.merge);
 		}]
 	);
 });
