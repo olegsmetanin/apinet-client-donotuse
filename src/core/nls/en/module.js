@@ -203,7 +203,7 @@ define(['../../moduleDef'], function (module) {
 					'title': 'Report templates',
 					'fields': {
 						'size': 'File size'
-					},
+					}
 				},
 				'reports': {
 					'title': 'User reports',
@@ -240,6 +240,8 @@ define(['../../moduleDef'], function (module) {
 			},
 
 			'tags': {
+				'addTag': 'Add new tag',
+				'removeTag': 'Remove tag',
 				'newTag': 'Enter new tag name'
 			}
 		});

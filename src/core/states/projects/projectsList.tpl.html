@@ -78,9 +78,21 @@
 											</div>
 										</a>
 										<div class="clearfix"></div>
-										<div class="pull-left">
+										<div class="pull-left tagsBox">
 											<span ng-repeat="t in viewModel.Tags" class="tag">
 												{{ t.text }}
+												<a ng-click="detag(viewModel, t)" href="" title="{{ i18n.core.tags.removeTag }}">&times;</a>
+											</span>
+											<span ng-show="!viewModel.newTagMode" class="newTagBtn">
+												<button ng-click="newTag(viewModel);" title="{{ i18n.core.tags.addTag }}" type="button" class="btn btn-success btn-xs">+</button>
+											</span>
+											<span ng-show="viewModel.newTagMode" class="newTagLookup">
+												<input type="text" lookup="core/dictionary/lookupProjectTags" ng-model="viewModel.newTagModel"
+												       placeholder="{{ i18n.tasks.create.placeholders.tags }}" style="width: 200px;"
+												       ng-change="newTagSelected(viewModel);" autofocus />
+											</span>
+											<span ng-show="viewModel.newTagMode" class="cancelNewTagBtn">
+												<button ng-click="cancelNewTag(viewModel);" title="{{ i18n.core.buttons.cancel }}" type="button" class="btn btn-warning btn-xs">x</button>
 											</span>
 										</div>
 										<div class="pull-right">

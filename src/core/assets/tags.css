@@ -11,7 +11,8 @@
 	vertical-align: baseline;
 	background-color: #999999;
 	border-radius: 10px;
-	margin-left: 3px;
+	margin-right: 3px;
+	margin-bottom: 3px;
 }
 
 .tag:first-child {
@@ -24,4 +25,8 @@
 .tag > a:hover {
 	color: #ffffff;
 	text-decoration: none;
+}
+
+.cancelNewTagBtn {
+	margin-left: 5px;
 }

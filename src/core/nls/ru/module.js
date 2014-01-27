@@ -239,6 +239,8 @@ define(['../../moduleDef'], function (module) {
 			},
 
 			'tags': {
+				'addTag': 'Добавить тег',
+				'removeTag': 'Удалить тег',
 				'newTag': 'Введите название нового тега'
 			}
 		});

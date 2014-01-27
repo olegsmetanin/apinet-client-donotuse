@@ -149,7 +149,18 @@
 											</p>
 											<span ng-repeat="t in model.Tags" class="tag">
 												{{ t.text }}
-												<a href="#" title="{{ i18n.core.buttons.delete }}">&times;</a>
+												<a ng-click="detag(model, t)" href="" title="{{ i18n.core.tags.removeTag }}">&times;</a>
+											</span>
+											<span ng-show="!model.newTagMode" class="newTagBtn">
+												<button ng-click="newTag(model);" title="{{ i18n.core.tags.addTag }}" type="button" class="btn btn-success btn-xs">+</button>
+											</span>
+											<span ng-show="model.newTagMode" class="newTagLookup">
+												<input type="text" lookup="tasks/dictionary/lookupTags" ng-model="model.newTagModel"
+												       placeholder="{{ i18n.tasks.create.placeholders.tags }}" style="width: 200px;"
+												       ng-change="newTagSelected(model);" autofocus />
+											</span>
+											<span ng-show="model.newTagMode" class="cancelNewTagBtn">
+												<button ng-click="cancelNewTag(model);" title="{{ i18n.core.buttons.cancel }}" type="button" class="btn btn-warning btn-xs">x</button>
 											</span>
 										</td>
 										<td>
