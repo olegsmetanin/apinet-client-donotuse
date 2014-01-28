@@ -35,9 +35,6 @@ define([
 
 	'./directives/reporting/ago.reportSelector',
 	'./directives/reporting/ago.reportIcon',
-	'./directives/reporting/ago.reportLink',
-
-	'./directives/tags/tagsList',
-	'./directives/tags/tagEditor'
+	'./directives/reporting/ago.reportLink'
 ], function() {
 });

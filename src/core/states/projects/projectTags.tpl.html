@@ -38,8 +38,50 @@
 				</ago-box-title>
 				
 				<ago-box-content>
-					<tags-list tags="models" load-tags="loadTags(parentId, deferred)" create-tag="createTag(parentId, name, deferred)"
-						update-tag="updateTag(id, name, deferred)" delete-tag="deleteTag(id, deferred)"></tags-list>
+					<div class="box-toolbox box-toolbox-top clearfix">
+						<ago-error-msg></ago-error-msg>
+
+						<div class="pull-left btn-group">
+							<button class="btn btn-success" title="{{ i18n.core.tags.addTag }}" ng-click="newTag()">
+								<i class="icon-plus"></i>
+							</button>
+						</div>
+					</div>
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th style="width: 50%;"><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
+										<th><span sortable-heading="sorters.FullName" caption="{{ i18n.core.fields.fullName }}"></span></th>
+										<th style="width: 100px;">&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="model in models">
+										<td>
+											<inline-text model="model.Name" on-update="onUpdate(model, val)" on-cancel="onCancel(model)" input-class="span10" required></inline-text>
+											<span ng-show="model.validation.generalErrors" class="help-block alert-error">
+												{{ model.validation.generalErrors | joinBy }}
+											</span>
+											<span ng-show="model.validation.fieldErrors['Name']" class="help-block alert-error">
+												{{ model.validation.fieldErrors['Name'] | joinBy }}
+											</span>
+										</td>
+										<td>{{ model.FullName }}</td>
+										<td>
+											<div class="btn-group">
+												<button ng-show="model.Id" class="btn btn-success btn-sm" title="{{ i18n.core.tags.addTag }}" ng-click="newTag(model)">
+													<i class="icon-plus"></i>
+												</button>
+												<ago-btn-delete title="{{ i18n.tasks.types.buttons.delete }}" ng-click="deleteTag(model)"></ago-btn-delete>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
 
 					<div class="box-toolbox box-toolbox-bottom">
 						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
