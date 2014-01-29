@@ -20,27 +20,19 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 		Error      : 'Error'
 	};
 
+	var REPORT_PRIORITY_TYPE = {
+		BY_DATE : 0,
+		BY_USER : 1
+	};
+
 	module
 		.constant('REPORT_EVENTS', REPORT_EVENTS)
 		.constant('REPORT_STATES', REPORT_STATES)
+		.constant('REPORT_PRIORITY_TYPE', REPORT_PRIORITY_TYPE)
 		.service('reportService', ['$rootScope', '$timeout', '$cacheFactory', '$q', 'apinetService',
 		function($rootScope, $timeout, $cacheFactory, $q, apinetService) {
 			angular.extend(this, {
 				cache: $cacheFactory('userReports'),
-
-				getServices: function() {
-					var that = this,
-						services = that.cache.get('services');
-					if (services && services.length > 0) {
-						return $q.when(services);
-					}
-
-					return apinetService.action({method: 'core/reporting/getServices'})
-						.then(function(response) {
-							that.cache.put('services', response);
-							return response;
-						});
-				},
 
 				getReportSettings: function(types) {
 					types = types || [];

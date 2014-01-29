@@ -16,8 +16,11 @@
 					<select ng-options="s.Name for s in data.settings" ng-model="data.setting" class="form-control"></select>
 				</div>
 				<div class="form-group">
-					<lable>{{ i18n.core.reporting.service }}</label>
-					<select ng-options="s.text for s in data.services" ng-model="data.service" class="form-control"></select>
+					<lable>{{ i18n.core.reporting.priority.title }}</label>
+					<select ng-model="data.priority" class="form-control">
+						<option value="{{ priorities.BY_DATE }}">{{ i18n.core.reporting.priority.byDate }}</option>
+						<option value="{{ priorities.BY_USER }}">{{ i18n.core.reporting.priority.byUser }}</option>
+					</select>
 				</div>
 				<div class="form-group">
 					<lable>{{ i18n.core.reporting.result }}</label>

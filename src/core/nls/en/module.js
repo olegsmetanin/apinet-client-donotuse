@@ -192,7 +192,11 @@ define(['../../moduleDef'], function (module) {
 				'selector': 'Reports',
 				'title': 'Report generation',
 				'report': 'Select report',
-				'service': 'Select service to generate report',
+				'priority': {
+					'title': 'Select priority type',
+					'byUser': 'By project participant',
+					'byDate': 'By date'
+				},
 				'result': 'Report file name (optional)',
 				'run': 'Generate',
 				'viewAll': 'View all reports',

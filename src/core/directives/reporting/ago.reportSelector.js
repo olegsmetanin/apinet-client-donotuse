@@ -6,8 +6,8 @@ define([
 	'text!./ago.reportSelectorModal.tpl.html'
 ], function (module, $, angular , tpl, modalTpl) {
 	module.directive('agoReportSelector', 
-		['$stateParams', 'reportService', 'i18n', '$q', '$modal',
-		function($stateParams, reportService, i18n, $q, $modal) {
+		['$stateParams', 'reportService', 'i18n', '$q', '$modal', 'REPORT_PRIORITY_TYPE', 
+		function($stateParams, reportService, i18n, $q, $modal, REPORT_PRIORITY_TYPE) {
 
 		return {
 			restrict: 'E',
@@ -21,6 +21,7 @@ define([
 			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				//in link function interpolation extract empty value, move i18n assigment here
 				$scope.i18n = $rootScope.i18n;
+				$scope.priorities = REPORT_PRIORITY_TYPE;
 			}],
 			link: function(scope, elm, attrs) {
 
@@ -37,8 +38,9 @@ define([
 
 				scope.runReport = function(modalResult) {
 					var parameters = {
-						serviceId: modalResult.service.id,
+						project: $stateParams.project,
 						settingsId: modalResult.setting.Id,
+						priority: modalResult.priority,
 						resultName: modalResult.resultName,
 						parameters: null
 					};
@@ -60,31 +62,26 @@ define([
 						scope: scope,
 						template: modalTpl,
 						resolve: {
-							services: function() {
-								return reportService.getServices().catch(handleError);
-							},
 							settings: function() {
 								return reportService.getReportSettings(scope.types).catch(handleError);
 							}
 						},
-						controller: ['$scope', '$modalInstance', 'services', 'settings',
-							function($scope, $modalInstance, services, settings) {
+						controller: ['$scope', '$modalInstance', 'settings',
+							function($scope, $modalInstance, settings) {
 								$scope.data = {};
 								settings = settings || []; //if error
-								services = services || []; //if error
 
 								angular.extend($scope.data, {
-									services: services,
 									settings: settings,
-									service: services.length > 0 ? services[0] : null,
 									setting: settings.length > 0 ? settings[0] : null,
+									priority: REPORT_PRIORITY_TYPE.BY_DATE,
 									resultName: null
 								});
 
 								$scope.ok = function() {
 									$modalInstance.close({
-										service: $scope.data.service,
 										setting: $scope.data.setting,
+										priority: $scope.data.priority,
 										resultName: $scope.data.resultName
 									});
 								};
@@ -92,7 +89,7 @@ define([
 									$modalInstance.dismiss('cancel');
 								};
 								$scope.valid = function() {
-									return $scope.data.service && $scope.data.setting;
+									return $scope.data.setting;
 								};
 								$scope.clearError = function() {
 									$scope.error = null;
