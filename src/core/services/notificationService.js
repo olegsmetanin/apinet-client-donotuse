@@ -25,7 +25,9 @@ define([
 				//force need because disconnect not work if this option is false
 				socket = io.connect(url + '?token=' + token, {'force new connection': true});
 				socket.on('reports_changed', function (msg) {
-					$rootScope.$emit('reports:' + msg.type, {report: msg.report});
+					$rootScope.$apply(function() {
+						$rootScope.$emit('reports:' + msg.type, {report: msg.report});
+					});
 				});
 			};
 
