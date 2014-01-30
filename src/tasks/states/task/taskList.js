@@ -159,11 +159,11 @@ define([
 						break;
 				}
 
-				var msgKey = 'tasks.list.expiration.' + (daysDiff < 0 ? 'already' : 'will');
+				var msgKey = 'tasks.list.expiration.' + (daysDiff >= 0 ? 'already' : 'will');
 				var msg = i18n.msg(msgKey, {days: Math.abs(daysDiff), daysText: daysText});
 				task.expiration = { 
 					days: Math.abs(daysDiff), 
-					expired: daysDiff < 0,
+					expired: daysDiff >= 0,
 					title: msg
 				};
 			}
