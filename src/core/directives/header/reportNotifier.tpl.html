@@ -24,9 +24,18 @@
 					<ago-report-icon report="r"></ago-report-icon>
 				</div>
 				<div class='pull-left text'>
-					{{r.DataGenerationProgress}}% / {{r.ReportGenerationProgress}}%
-					{{r.Name}}
-					<button type="button" ng-click="cancel(r)" onclick="event.stopPropagation();" class="btn btn-xs btn-danger pull-right">{{ i18n.core.buttons.cancel }}</button>
+					<div class="clearfix">
+						<a class="btn btn-sm btn-primary pull-right" ng-show="isInQueue(r)" onclick="event.stopPropagation();" title="{{ i18n.core.reporting.position }}">{{ reports.positions[r.Id] || '?' }}</a>
+
+						<span ng-hide="isInQueue(r)">
+							{{r.DataGenerationProgress}}% / {{r.ReportGenerationProgress}}%
+						</span>
+						{{r.Name}}
+						<small class="text-muted">{{ r.Project }}</small>
+					</div>
+					<div class="clearfix" style="margin-top: 5px">
+						<button type="button" ng-click="cancel(r)" onclick="event.stopPropagation();" class="btn btn-xs btn-danger pull-right">{{ i18n.core.buttons.cancel }}</button>
+					</div>
 				</div>
 			</div>
 		</li>
