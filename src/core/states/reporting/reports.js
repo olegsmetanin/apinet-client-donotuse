@@ -121,6 +121,8 @@ define([
 					}, handleException);
 			};
 
+			$scope.positions = {};
+
 			$rootScope.$on(REPORT_EVENTS.CREATED, function(e, arg) {
 				$scope.models.unshift(arg.report);
 			});
@@ -134,6 +136,15 @@ define([
 				deleteReport(arg.report.Id);
 			});
 			$rootScope.$on(REPORT_EVENTS.DOWNLOADED, $scope.merge);
+			$rootScope.$on('workqueue:changed', function(e, arg) {
+				var positions = arg.positions;
+				$scope.positions = {};
+				for(var i = 0; i < positions.length; i++) {
+					var pos = positions[i];
+					$scope.positions[pos.taskId] = 
+						pos.position > 99 ? '> 99' : pos.position;
+				};
+			});
 		}]
 	);
 });

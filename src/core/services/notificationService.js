@@ -29,6 +29,11 @@ define([
 						$rootScope.$emit('reports:' + msg.type, {report: msg.report});
 					});
 				});
+				socket.on('workqueue_changed', function(msg) {
+					$rootScope.$apply(function() {
+						$rootScope.$emit('workqueue:changed', {positions: msg.data});
+					});
+				});
 			};
 
 		return {

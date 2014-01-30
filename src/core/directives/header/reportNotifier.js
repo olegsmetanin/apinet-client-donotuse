@@ -21,6 +21,7 @@ define([
 						},
 						active: [],
 						completed: [],
+						positions: {},
 
 						showActive: false,
 						showCompleted: false,
@@ -71,12 +72,16 @@ define([
 							report.State === REPORT_STATES.Running;
 					};
 
+					$scope.isInQueue = function(report) {
+						return report && report.State && 
+							report.State === REPORT_STATES.NotStarted;
+					};
+
 					$scope.update = function() {
 						$scope.reports.updating = true;
 
 						reportService.getTopLastReports()
 						.then(function(response) {
-
 							$scope.reports.clear();
 							$scope.reports.count.active = response.active;
 							$scope.reports.count.unread = response.unread;
@@ -93,6 +98,14 @@ define([
 							$scope.reports.updating = false;
 							$scope.updatePromise = null;
 						}, handleException);
+					};
+
+					$scope.cancel = function(report) {
+						reportService.cancelReport(report.Id).
+							then(function() {
+								$scope.reports.remove(report.Id, true);
+								$scope.reports.refresh();
+							}, handleException);
 					};
 
 					$scope.updatePromise = null;
@@ -133,13 +146,15 @@ define([
 					$rootScope.$on(REPORT_EVENTS.DELETED, $scope.throttleUpdate);
 					$rootScope.$on(REPORT_EVENTS.DOWNLOADED, $scope.throttleUpdate);
 
-					$scope.cancel = function(report) {
-						reportService.cancelReport(report.Id).
-							then(function() {
-								$scope.reports.remove(report.Id, true);
-								$scope.reports.refresh();
-							}, handleException);
-					};
+					$rootScope.$on('workqueue:changed', function(e, arg) {
+						var positions = arg.positions;
+						$scope.reports.positions = {};
+						for(var i = 0; i < positions.length; i++) {
+							var pos = positions[i];
+							$scope.reports.positions[pos.taskId] = 
+								pos.position > 99 ? '> 99' : pos.position;
+						};
+					});
 
 					$scope.update();
 				}

@@ -202,6 +202,7 @@ define(['../../moduleDef'], function (module) {
 				'viewAll': 'View all reports',
 				'running': 'Running reports',
 				'unread': 'Unread reports',
+				'position': 'Position in work queue',
 
 				'templates': {
 					'title': 'Report templates',

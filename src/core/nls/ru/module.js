@@ -202,6 +202,8 @@ define(['../../moduleDef'], function (module) {
 				'viewAll': 'Все отчеты',
 				'running': 'Выполняющиеся отчеты',
 				'unread': 'Непросмотренные отчеты',
+				'position': 'Место в очереди задач',
+
 				'templates': {
 					'title': 'Шаблоны отчетов',
 					'fields': {
