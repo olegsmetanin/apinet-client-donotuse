@@ -65,9 +65,15 @@ require.config({
 			}
 		},
 		'angular-promise-tracker': {
-			deps: ['jquery', 'angular'],
+			deps: ['jquery', 'jquery-bridget', 'imagesloaded', 'masonry', 'angular'],
 			init: function () {
 				return this.angular.module('ajoslin.promise-tracker');
+			}
+		},
+		'angular-masonry': {
+			deps: ['jquery', 'masonry', 'angular'],
+			init: function () {
+				return this.angular.module('wu.masonry');
 			}
 		},
 		'socket.io-client': {
@@ -84,6 +90,7 @@ require.config({
 		'text': 'core/components/requirejs-text/text',
 
 		'jquery': 'core/components/jquery/jquery',
+		'jquery-bridget': 'core/components/jquery-bridget/jquery.bridget',
 		'jquery-migrate': 'core/components/jquery/jquery-migrate',
 		'jquery-ui': 'core/components/jquery-ui/ui/jquery-ui',
 		'jquery/select2': 'core/components/select2/select2',
@@ -109,6 +116,16 @@ require.config({
 
 		'easyXDM': 'core/components/easyXDM/easyXDM',
 
+		'masonry': 'core/components/masonry/masonry',
+		'outlayer': 'core/components/outlayer',
+		'get-size': 'core/components/get-size',
+		'imagesloaded': 'core/components/imagesloaded/imagesloaded',
+		'get-style-property': 'core/components/get-style-property',
+		'eventie': 'core/components/eventie',
+		'doc-ready': 'core/components/doc-ready',
+		'eventEmitter': 'core/components/eventEmitter',
+		'matches-selector': 'core/components/matches-selector',
+
 		'angular': 'core/components/angular/angular',
 		'core/nls/en/angular': 'core/components/angular-i18n/angular-locale_en',
 		'core/nls/ru/angular': 'core/components/angular-i18n/angular-locale_ru',
@@ -117,6 +134,7 @@ require.config({
 		'angular-ui-router': 'core/components/angular-ui-router/release/angular-ui-router',
 		'angular-ui-select2': 'core/components/angular-ui-select2/src/select2',
 		'angular-promise-tracker': 'core/components/angular-promise-tracker/promise-tracker',
+		'angular-masonry': 'core/components/angular-masonry/angular-masonry',
 		'blueimp-fileupload': 'core/components/blueimp-file-upload/js/jquery.fileupload-angular',
 
 		'socket.io-client': 'core/components/socket.io-client/dist/socket.io.min'

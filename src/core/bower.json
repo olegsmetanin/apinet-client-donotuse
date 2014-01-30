@@ -27,6 +27,7 @@
 		"angular-ui-bootstrap3": "https://github.com/olegsmith/bootstrap/archive/bootstrap3_bis2.zip",
 		"angular-ui-router": "angular-ui-router#0.2.5",
 		"angular-promise-tracker": "angular-promise-tracker#1.4.2",
+		"angular-masonry": "angular-masonry#0.7.0",
 		"easyXDM": "easyXDM#2.4.17",
 		
 		"socket.io-client": "socket.io-client#0.9.16"

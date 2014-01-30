@@ -67,9 +67,9 @@
 								</a>
 							</div>
 
-							<div class="row">
-								<div ng-repeat="viewModel in models" class="col-xs-12 col-sm-6 col-lg-4">
-									<div class="projectBox box-content clearfix">
+							<div masonry>
+								<div ng-repeat="viewModel in models" class="projectBox masonry-brick col-xs-12 col-md-6 col-lg-6">
+									<div class="box-content clearfix">
 										<a ui-sref="page.project({ project: viewModel.Model.ProjectCode })" target="_blank">
 											<div class="projectIcon">&nbsp;</div>
 											<div class="projectInfo">
@@ -77,14 +77,18 @@
 												<small>{{ viewModel.Model.Description }}</small>
 											</div>
 										</a>
-										<div class="clearfix"></div>
-										<div class="pull-left tagsBox">
+										<div class="statusBox">
+											<span class="label label-warning">{{ viewModel.Model.Status }}</span>
+										</div>
+										<div class="tagsBox">
 											<span ng-repeat="t in viewModel.Tags" class="tag">
 												{{ t.text }}
-												<a ng-click="detag(viewModel, t)" href="" title="{{ i18n.core.tags.removeTag }}">&times;</a>
+												<a ng-click="detag(viewModel, t)" href="" title="{{ i18n.core.tags.removeTag }}">&nbsp;&times;</a>
 											</span>
 											<span ng-show="!viewModel.newTagMode" class="newTagBtn">
-												<button ng-click="newTag(viewModel);" title="{{ i18n.core.tags.addTag }}" type="button" class="btn btn-success btn-xs">+</button>
+												<button ng-click="newTag(viewModel);" title="{{ i18n.core.tags.addTag }}" type="button" class="btn btn-success btn-sm">
+													<i class="icon-plus"></i>
+												</button>
 											</span>
 											<span ng-show="viewModel.newTagMode" class="newTagLookup">
 												<input type="text" lookup="core/dictionary/lookupProjectTags" ng-model="viewModel.newTagModel"
@@ -92,12 +96,10 @@
 												       ng-change="newTagSelected(viewModel);" autofocus />
 											</span>
 											<span ng-show="viewModel.newTagMode" class="cancelNewTagBtn">
-												<button ng-click="cancelNewTag(viewModel);" title="{{ i18n.core.buttons.cancel }}" type="button" class="btn btn-warning btn-xs">x</button>
+												<button ng-click="cancelNewTag(viewModel);" title="{{ i18n.core.buttons.cancel }}" type="button" class="btn btn-warning btn-sm">x</button>
 											</span>
 										</div>
-										<div class="pull-right">
-											<span class="label label-warning">{{ viewModel.Model.Status }}</span>
-										</div>
+										<div class="clearfix"></div>
 									</div>
 								</div>
 							</div>

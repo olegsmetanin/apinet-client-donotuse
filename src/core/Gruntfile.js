@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('default', ['build']);
 	grunt.registerTask('build', [
 		'shell',
-		'recess',
+		/*'recess',*/
 		'imageEmbed',
 		'requirejs',
 		'concat',
