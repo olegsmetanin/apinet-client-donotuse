@@ -22,6 +22,7 @@ define([
 					breadcrumbs: [
 						{ name: i18n.msg('projects.list.title'), url: 'page.projects.projectsList' },
 						{ name: value, url: 'page.project.tasks' },
+						{ name: i18n.msg('tasks.list.title'), url: 'page.project.tasks' },
 						{ name: $stateParams.num, url: 'page.project.taskView' }
 					]
 				});
