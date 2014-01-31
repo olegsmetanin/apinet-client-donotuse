@@ -146,18 +146,13 @@ define([
 					$rootScope.$on(REPORT_EVENTS.DELETED, $scope.throttleUpdate);
 					$rootScope.$on(REPORT_EVENTS.DOWNLOADED, $scope.throttleUpdate);
 
-					$rootScope.$on('workqueue:changed', function(e, arg) {
-						var positions = arg.positions;
-						$scope.reports.positions = {};
-						for(var i = 0; i < positions.length; i++) {
-							var pos = positions[i];
-							$scope.reports.positions[pos.taskId] = 
-								pos.position > 99 ? '> 99' : pos.position;
-						};
-					});
-
 					$scope.update();
-				}
+					$scope.reports.positions = reportService.getQueuePositions();
+					$scope.$watch(
+						function() { return reportService.getQueuePositions() },
+						function(newValue) { $scope.reports.positions = newValue; } 
+					);
+				}	
 			};
 		}
 	]);
