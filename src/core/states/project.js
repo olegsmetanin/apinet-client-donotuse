@@ -12,7 +12,7 @@
 				'content': { template: '<div ui-view></div>' },
 				'moduleMenu': { template: moduleMenuTpl }
 			},
-			onEnter: function(apinetService, $state, $stateParams){
+			onEnter: function(apinetService, $state, $stateParams, $rootScope){
 				apinetService.getModel({
 					method: 'core/projects/projectInfo',
 					project: $stateParams.project
@@ -20,6 +20,7 @@
 					if(!data || !data.Module) {
 						return;
 					}
+					$rootScope.currentProjectName = data.Name;
 					require([data.Module + '/module'], function() {
 						$state.go('page.project.' + data.Module);
 					});

@@ -11,13 +11,22 @@ define([
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
 		},
-		onEnter: ['pageConfig', '$stateParams', 'i18n', function(pageConfig, $stateParams, i18n) {
-			pageConfig.setConfig({
-				breadcrumbs: [
-					{ name: i18n.msg('tasks.list.title'), url: 'page.project.tasks' },
-					{ name: $stateParams.num, url: 'page.project.taskView' }]
+		onEnter: function(pageConfig, $stateParams, i18n, $rootScope) {
+			var unwatch = $rootScope.$watch('currentProjectName', function(value) {
+				if(!value) {
+					return;
+				}
+				unwatch();
+
+				pageConfig.setConfig({
+					breadcrumbs: [
+						{ name: i18n.msg('projects.list.title'), url: 'page.projects.projectsList' },
+						{ name: value, url: 'page.project.tasks' },
+						{ name: $stateParams.num, url: 'page.project.taskView' }
+					]
+				});
 			});
-		}]
+		}
 	}).controller('taskViewCtrl', ['$scope', '$stateParams', 'apinetService',
 		function($scope, $stateParams, apinetService) {
 

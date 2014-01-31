@@ -12,6 +12,7 @@ define([
 				i18n: 'i18n',
 				pageConfig: 'pageConfig',
 				apinetService: 'apinetService',
+				$timeout: '$timeout',
 				currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
 			},
 			controller: ['$rootScope', 'currentUser', function($rootScope, currentUser) {

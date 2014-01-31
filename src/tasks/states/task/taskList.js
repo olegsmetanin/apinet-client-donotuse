@@ -12,17 +12,20 @@ define([
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
 		},
-		resolve: {
-			i18n: 'i18n',
-			pageConfig: 'pageConfig'
-		},
-		onEnter: function(pageConfig, i18n) {
-			pageConfig.setConfig({
-				menu: 'tasks.list',
-				breadcrumbs: [{
-					name: i18n.msg('tasks.list.title'),
-					url: 'page.project.tasks'
-				}]
+		onEnter: function(pageConfig, i18n, $rootScope) {
+			var unwatch = $rootScope.$watch('currentProjectName', function(value) {
+				if(!value) {
+					return;
+				}
+				unwatch();
+
+				pageConfig.setConfig({
+					breadcrumbs: [
+						{ name: i18n.msg('projects.list.title'), url: 'page.projects.projectsList' },
+						{ name: value, url: 'page.project.tasks' },
+						{ name: i18n.msg('tasks.list.title'), url: 'page.project.tasks' }
+					]
+				});
 			});
 		}
 	}).controller('taskListCtrl', ['$scope', '$stateParams', 'apinetService', '$window', 'i18n', 'taskStatuses', '$locale',
@@ -154,6 +157,8 @@ define([
 						break;
 					case 'zero':
 					case 'two':
+						daysText = '';
+						break;
 					default:
 						daysText = '';
 						break;
