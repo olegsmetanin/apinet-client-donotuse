@@ -2,9 +2,10 @@
 	'../../moduleDef',
 	'angular',
 	'text!./projectsList.tpl.html',
+	'jquery',
 	'../projects',
 	'css!./projectsList.css'
-], function (module, angular, tpl) {
+], function (module, angular, tpl, $) {
 	module.config(['$stateProvider', function ($stateProvider) {
 			$stateProvider.state({
 				name: 'page.projects.projectsList',
@@ -22,7 +23,11 @@
 				template: tpl
 			});
 		}])
-		.controller('projectsListCtrl', ['$scope', 'apinetService', function ($scope, apinetService) {
+		.controller('projectsListCtrl', ['$scope', '$timeout', 'apinetService', function ($scope, $timeout, apinetService) {
+			$scope.doLayout = function() {
+				$('.projectsWall').masonry();
+			};
+
 			$scope.newTag = function (viewModel) {
 				if(!viewModel) {
 					return;
@@ -30,6 +35,8 @@
 
 				viewModel.newTagMode = true;
 				viewModel.newTagModel = null;
+
+				$timeout($scope.doLayout);
 			};
 
 			$scope.cancelNewTag = function (viewModel) {
@@ -39,6 +46,8 @@
 
 				viewModel.newTagMode = false;
 				viewModel.newTagModel = null;
+
+				$timeout($scope.doLayout);
 			};
 
 			$scope.newTagSelected = function (viewModel) {
@@ -61,6 +70,8 @@
 				}).then(function (result) {
 					if (result) {
 						viewModel.Tags.push(angular.extend({ }, viewModel.newTagModel));
+
+						$timeout($scope.doLayout);
 					}
 				});
 			};
@@ -82,6 +93,8 @@
 								break;
 							}
 						}
+
+						$timeout($scope.doLayout);
 					}
 				});
 			};
