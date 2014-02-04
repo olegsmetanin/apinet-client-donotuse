@@ -102,7 +102,9 @@ define(['../../moduleDef'], function (module) {
 				},
 				'buttons': {
 					'signIn': 'Вход',
-					'signOut': 'Выход'
+					'signOut': 'Выход',
+					'signInFacebook': 'Facebook',
+					'signInTwitter': 'Twitter'
 				},
 				'reason': {
 					'notAuthorized': 'У вас недостаточно прав. Возможно вы хотите войти под другим именем?',

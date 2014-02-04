@@ -24,6 +24,13 @@
         </div>
     </div>
     <div class="modal-footer">
+		<a href="" class="btn" ng-click="loginFacebook()">
+			{{ i18n.core.auth.buttons.signInFacebook }}
+		</a>
+		<a href="" class="btn" ng-click="loginTwitter()">
+			{{ i18n.core.auth.buttons.signInTwitter }}
+		</a>
+
         <button type="button" class="btn btn-primary login" ng-click="login()" ng-disabled='form.$invalid'>
 	        {{ i18n.core.auth.buttons.signIn }}
         </button>

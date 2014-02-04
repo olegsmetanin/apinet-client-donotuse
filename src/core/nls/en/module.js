@@ -102,7 +102,9 @@ define(['../../moduleDef'], function (module) {
 				},
 				'buttons': {
 					'signIn': 'Sign in',
-					'signOut': 'Sign out'
+					'signOut': 'Sign out',
+					'signInFacebook': 'Facebook',
+					'signInTwitter': 'Twitter'
 				},
 				'reason': {
 					'notAuthorized': 'You do not have the necessary access permissions.  Do you want to login as someone else?',

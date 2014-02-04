@@ -1,5 +1,8 @@
 define(['./moduleDef'], function (module) {
-	module.controller('LoginFormController', ['$scope', 'security', 'i18n', function ($scope, security, i18n) {
+	module.controller('LoginFormController', 
+		['$scope', 'security', 'i18n', '$window', '$location', 
+		function ($scope, security, i18n, $window, $location) {
+
 		// The model for this form
 		//$scope.user = {};
 		//Debug purposes
@@ -41,5 +44,11 @@ define(['./moduleDef'], function (module) {
 		$scope.cancelLogin = function () {
 			security.cancelLogin();
 		};
+
+		$scope.loginFacebook = function() {
+			security.startOAuthLoginFlow('Facebook').then(null, function (error) {
+				$scope.authError = i18n.msg('core.auth.errors.serverError', { exception: error });
+			});
+		}
 	}]);
 });
