@@ -187,6 +187,10 @@ define([
 
 			downloadUrl: function(relative) {
 				return config.apiRoot + 'download/' + relative;
+			},
+
+			oauthUrl: function(provider) {
+				return config.apiRoot + 'oauth/begin/' + provider;
 			}
 		});
 	}]);

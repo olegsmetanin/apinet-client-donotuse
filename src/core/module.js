@@ -55,31 +55,13 @@ define([
 				return '/projects/listview';
 			});
 		}])
-		.run(['$rootScope', '$state', '$stateParams', '$locale', 'strapConfig', '$location', 'security',
-			function ($rootScope, $state, $stateParams, $locale, strapConfig, $location, security) {
+		.run(['$rootScope', '$state', '$stateParams', '$locale', 'strapConfig', 
+			function ($rootScope, $state, $stateParams, $locale, strapConfig) {
 				$rootScope.$state = $state;
 				$rootScope.$stateParams = $stateParams;
 
 				$locale.supportedLocales = ['en','ru'];
 				strapConfig.language = $locale.id;
-
-				//Check if we run as a result or oauth provider redirection
-				//Test for our param 'state' present in query
-				var getQueryVariable = function (variable)
-				{
-				       var query = window.location.search.substring(1);
-				       var vars = query.split("&");
-				       for (var i=0;i<vars.length;i++) {
-				               var pair = vars[i].split("=");
-				               if(pair[0] == variable){return pair[1];}
-				       }
-				       return(false);
-				};
-				var state = getQueryVariable('state');
-				if (state) {
-					//this is oauth provider redirection, proceed
-					security.proceedOAuthLoginFlow();
-				}
 			}
 		]);
 });

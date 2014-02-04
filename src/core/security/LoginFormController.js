@@ -46,9 +46,7 @@ define(['./moduleDef'], function (module) {
 		};
 
 		$scope.loginFacebook = function() {
-			security.startOAuthLoginFlow('Facebook').then(null, function (error) {
-				$scope.authError = i18n.msg('core.auth.errors.serverError', { exception: error });
-			});
-		}
+			$window.location.href = security.facebookLoginUrl();
+		};
 	}]);
 });
