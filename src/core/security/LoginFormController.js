@@ -48,5 +48,9 @@ define(['./moduleDef'], function (module) {
 		$scope.loginFacebook = function() {
 			$window.location.href = security.facebookLoginUrl();
 		};
+
+		$scope.loginTwitter = function() {
+			$window.location.href = security.twitterLoginUrl();
+		};
 	}]);
 });

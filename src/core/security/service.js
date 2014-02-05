@@ -104,6 +104,11 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 							'?url=' + $window.encodeURIComponent($location.absUrl());
 					},
 
+					twitterLoginUrl: function() {
+						return apinetService.oauthUrl('twi') + 
+							'?url=' + $window.encodeURIComponent($location.absUrl());
+					},
+
 					// Give up trying to login and clear the retry queue
 					cancelLogin: function () {
 						closeLoginDialog(false);
