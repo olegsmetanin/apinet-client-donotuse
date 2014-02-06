@@ -134,7 +134,7 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 						}
 						else {
 							return apinetService.action({
-								method: 'core/auth/currentUser'
+								method: 'core/auth/currentUserDto'
 							})
 							.then(function (result) {
 								if (typeof result.success === 'undefined' || result.success) {
