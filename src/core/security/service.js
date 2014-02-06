@@ -9,9 +9,9 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 		.constant('AUTH_EVENTS', AUTH_EVENTS)
 		.factory('security', 
 			['$q', '$location', 'securityRetryQueue', '$modal', 'moduleConfig', 'apinetService'
-			 , '$rootScope', '$window',
+			 , '$rootScope', '$window', 'startupPath', 
 
-			function ($q, $location, queue, $modal, moduleConfig, apinetService, $rootScope, $window) {
+			function ($q, $location, queue, $modal, moduleConfig, apinetService, $rootScope, $window, startupPath) {
 
 				// Redirect to the given url (defaults to '/')
 				function redirect(url) {
@@ -55,6 +55,12 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 						service.showLogin();
 					}
 				});
+
+				function oauthLoginUrl(provider) {
+					var returnUrl = startupPath.url || $location.absUrl();
+					return apinetService.oauthUrl(provider) + 
+						'?url=' + $window.encodeURIComponent(returnUrl);
+				};
 
 				// The public API of the service
 				var service = {
@@ -100,13 +106,11 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 					},
 
 					facebookLoginUrl: function() {
-						return apinetService.oauthUrl('fb') + 
-							'?url=' + $window.encodeURIComponent($location.absUrl());
+						return oauthLoginUrl('fb');
 					},
 
 					twitterLoginUrl: function() {
-						return apinetService.oauthUrl('twi') + 
-							'?url=' + $window.encodeURIComponent($location.absUrl());
+						return oauthLoginUrl('twi');
 					},
 
 					// Give up trying to login and clear the retry queue

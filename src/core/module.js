@@ -13,7 +13,8 @@ define([
 
 	'i18n!./nls/module'
 ], function(requireModule, module, require) {
-	return module.value('strapConfig', {
+	return module
+		.value('strapConfig', {
 			language: 'en',
 			pickDate: true,
 			pickTime: false,
@@ -21,9 +22,15 @@ define([
 			todayBtn: 'linked',
 			todayHighlight: 'true'
 		})
-		.config(['$locationProvider', '$urlRouterProvider', function ($locationProvider, $urlRouterProvider) {
+		.constant('startupPath', { url: ''})
+		.config(['$locationProvider', '$urlRouterProvider', 'startupPath', 
+			function ($locationProvider, $urlRouterProvider, startupPath) {
+
 			$locationProvider.hashPrefix('!');
 			$urlRouterProvider.otherwise(function($injector, $location) {
+				//share info for sign in via oauth provider (see security.service for facebook and twitter)
+				//because else we have return path as /projects/processing, but it is not are real startup path
+				startupPath.url = $location.absUrl();
 				var url = $location.url();
 				var path = $location.path().toLowerCase();
 				var parts = path.split('/');
