@@ -2,7 +2,9 @@
     <a ng-show="!isAuthenticated()" ng-click="login()" href="#">Login</a>
 
     <a ng-show="isAuthenticated()" href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <img width="23" height="23" src="http://beer2code.com/themes/core-admin/images/avatars/avatar1.jpg" />
+        <img width="23" height="23" 
+            src="http://beer2code.com/themes/core-admin/images/avatars/avatar1.jpg"
+            ng-src="{{currentUser.AvatarUrl}}" />
 	    <span class="user-name">{{ currentUser.FullName }}</span>
 	    <b class="caret"></b>
     </a>
