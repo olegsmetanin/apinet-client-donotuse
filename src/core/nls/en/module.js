@@ -256,6 +256,7 @@ define(['../../moduleDef'], function (module) {
 		i18n.addMessages('projects', {
 			'fields': {
 				'code': 'Project code',
+				'public': 'Public project',
 				'status': 'Status',
 				'tags': 'Tags'
 			},
@@ -292,6 +293,9 @@ define(['../../moduleDef'], function (module) {
 				'placeholders': {
 					'new': 'New tag'
 				}
+			},
+			'settings': {
+				'title': 'Project settings'
 			}
 		});
 	}]);

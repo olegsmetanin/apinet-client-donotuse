@@ -7,10 +7,6 @@ define(['jquery'], function ($) {
 			'executor': 'Исполнитель'
 		},
 
-		'menu': {
-			'projectInfo': 'Информация о проекте'
-		},
-
 		'fields': {
 			'seqNumber': 'Номер задачи',
 			'type': 'Тип задачи',

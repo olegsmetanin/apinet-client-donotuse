@@ -64,6 +64,8 @@ define([
 					}).then(function(result) {
 						if(typeof result.success === 'undefined' || result.success) {
 							$state.transitionTo('page.projects.projectsList');
+							//TODO not worked - at this stage task module routes if not loaded yet
+							//$state.transitionTo('page.project.settings', { project: $scope.model.ProjectCode }, true);
 						}
 						else {
 							$scope.handleValidationErrors(result);

@@ -256,6 +256,7 @@ define(['../../moduleDef'], function (module) {
 		i18n.addMessages('projects', {
 			'fields': {
 				'code': 'Код проекта',
+				'public': 'Публичный проект',
 				'status': 'Статус',
 				'tags': 'Теги'
 			},
@@ -293,6 +294,9 @@ define(['../../moduleDef'], function (module) {
 				'placeholders': {
 					'new': 'Новый тег'
 				}
+			},
+			'settings': {
+				'title': 'Настройки проекта'
 			}
 		});
 	}]);

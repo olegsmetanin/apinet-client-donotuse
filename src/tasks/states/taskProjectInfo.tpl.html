@@ -1,0 +1,50 @@
+<div class="container" ng-controller="projectInfoCtrl">
+	<div class="row" id="content-wrapper">
+		<div class="col-xs-12">
+
+			<div class="box ">
+				<div class="box-header purple-background">
+					<div class="title">
+						<i class="icon-info"></i>
+						{{ i18n.projects.settings.title }}
+					</div>
+				</div>
+
+				<div class="box-content">
+					<ago-error-msg></ago-error-msg>
+
+					<form class="form form-horizontal" novalidate>
+						<!-- Project code and type - read only section -->
+						<div class="row">
+							<div class="form-group col-xs-12 col-md-6">
+								<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.projects.fields.code }}</label>
+								<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.ProjectCode }}</p></div>
+							</div>
+							<div class="form-group col-xs-12 col-md-6">
+								<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.type }}</label>
+								<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.Type }}</p></div>
+							</div>
+						</div>
+
+						<!-- Name and status -->
+						<div class="row">
+							<div class="form-group col-xs-12 col-md-6">
+								<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.name }}</label>
+								<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.ProjectCode }}</p></div>
+							</div>
+							<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['TaskType']}">
+								<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.type }}</label>
+								<div class="col-xs-12 col-sm-9 col-md-12">
+									<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskTypes" input-col="col-xs-12" required></inline-lookup>
+									<span ng-show="validation.fieldErrors['TaskType']" class="help-block has-error">
+										{{ validation.fieldErrors['TaskType'] | joinBy }}
+									</span>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
