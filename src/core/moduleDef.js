@@ -6,13 +6,14 @@ define([
 	'angular-ui-bootstrap3',
 	'angular-promise-tracker',
 	'angular-masonry',
+	'lvl-dragdrop',
 	'blueimp-fileupload',
 	'./security/module',
 	'i18n!core/nls/angular'
 ], function (angular) {
 	var module = angular.module('core.module', [
 		'ngResource', 'ui.router', 'ui.bootstrap', 'ajoslin.promise-tracker', 'wu.masonry', 'blueimp.fileupload',
-		'core.security.module', 'ngLocale'
+		'core.security.module', 'ngLocale', 'lvl.directives.dragdrop'
 	], function($controllerProvider, $compileProvider, $stateProvider, $provide) {
 			module.controller = function( name, constructor ) {
 				$controllerProvider.register( name, constructor );

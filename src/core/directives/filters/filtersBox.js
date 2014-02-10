@@ -13,6 +13,7 @@ define([
 				meta: '@',
 				group: '@',
 				filter: '=filtersBox',
+				sorters: '=',
 				applyEnabled: '=',
 				applyFilter: '=',
 				resetFilter: '='
@@ -23,6 +24,7 @@ define([
 					collapsed: false,
 					structuredCollapsed: true,
 					favoritesCollapsed: true,
+					sortersCollapsed: true,
 
 					applyFilterClick: function(e) {
 						if(e) {

@@ -65,7 +65,10 @@ define(['../../moduleDef'], function (module) {
 
 			'sorting': {
 				'ascending': 'Ascending',
-				'descending': 'Descending'
+				'descending': 'Descending',
+				'title': 'Sorting',
+				'availableFields': 'Available fields',
+				'sortingFields': 'Sorting fields'
 			},
 
 			'errors': {

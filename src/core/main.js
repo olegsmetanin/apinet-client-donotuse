@@ -25,9 +25,6 @@ require.config({
 		'nls/ru/bootstrap_datepicker': {
 			deps: ['jquery', 'jquery-ui', 'bootstrap/datepicker']
 		},
-		'bootstrap-tabdrop': {
-			deps: ['jquery']
-		},
 
 		'easyXDM': {
 			exports: 'easyXDM'
@@ -116,8 +113,6 @@ require.config({
 		'bootstrap/datepicker': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker',
 		'core/nls/ru/bootstrap_datepicker': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru',
 		'bootstrap/datepicker/theme': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/css/datepicker',
-		'bootstrap-tabdrop': 'core/components/bootstrap-tabdrop/build/js/bootstrap-tabdrop.min',
-		'bootstrap-tabdrop/css': 'core/components/bootstrap-tabdrop/build/css/tabdrop',
 
 		'easyXDM': 'core/components/easyXDM/easyXDM',
 
@@ -140,6 +135,8 @@ require.config({
 		'angular-ui-select2': 'core/components/angular-ui-select2/src/select2',
 		'angular-promise-tracker': 'core/components/angular-promise-tracker/promise-tracker',
 		'angular-masonry': 'core/components/angular-masonry/angular-masonry',
+		'angular-uuid': 'core/components/angular-dragdrop/script/lvl-uuid',
+		'lvl-dragdrop': 'core/directives/lvl-drag-drop',
 		'blueimp-fileupload': 'core/components/blueimp-file-upload/js/jquery.fileupload-angular',
 
 		'socket.io-client': 'core/components/socket.io-client/dist/socket.io.min'

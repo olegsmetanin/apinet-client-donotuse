@@ -17,7 +17,7 @@
 			</div>
 
 			<!-- Filter -->
-			<div filters-box="filter" meta="tasks/dictionary/taskTypeMetadata" group="Tasks.TaskType"
+			<div filters-box="filter" sorters="sorters" meta="tasks/dictionary/taskTypeMetadata" group="Tasks.TaskType"
 				apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter"
 				style="padding-top: 5px">
 					<form class="form form-horizontal">
@@ -84,9 +84,9 @@
 										<th class="onepct">
 											<input type="checkbox" checker="items: 'models'">
 										</th>
-										<th><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
-										<th style="width: 15%"><span sortable-heading="sorters.Creator_FIO" caption="{{ i18n.core.fields.creator }}"></span></th>
-										<th style="width: 20%"><span sortable-heading="sorters.CreationTime" caption="{{ i18n.core.fields.creationTime }}"></span></th>
+										<th>{{ i18n.core.fields.name }}</th>
+										<th style="width: 15%">{{ i18n.core.fields.creator }}</th>
+										<th style="width: 20%">{{ i18n.core.fields.creationTime }}</th>
 										<th class="onepct">&nbsp;</th>
 									</tr>
 								</thead>

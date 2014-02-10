@@ -17,7 +17,7 @@
 				</div>
 			</div>
 
-			<div filters-box="filter" meta="core/dictionary/projectTagMetadata" group="ProjectTags"
+			<div filters-box="filter" sorters="sorters" meta="core/dictionary/projectTagMetadata" group="ProjectTags"
 				apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter"
 				style="padding-top: 5px">
 				<form class="form form-horizontal">
@@ -52,8 +52,8 @@
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th style="width: 50%;"><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
-										<th><span sortable-heading="sorters.FullName" caption="{{ i18n.core.fields.fullName }}"></span></th>
+										<th style="width: 50%;">{{ i18n.core.fields.name }}</th>
+										<th>{{ i18n.core.fields.fullName }}</th>
 										<th style="width: 100px;">&nbsp;</th>
 									</tr>
 								</thead>

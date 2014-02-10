@@ -15,7 +15,7 @@
 				</div>
 			</div>
 
-			<div filters-box="filter" meta="core/reporting/reportTaskMetadata" group="Reporting.Reports" apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter" style="padding-top: 5px">
+			<div filters-box="filter" sorters="sorters" meta="core/reporting/reportTaskMetadata" group="Reporting.Reports" apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter" style="padding-top: 5px">
 				<ago-box-content>
 					<form class="form form-horizontal">
 						<div class="form-group">
@@ -43,11 +43,11 @@
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<td><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></td>
-										<td><span sortable-heading="sorters.State" caption="{{ i18n.core.reporting.reports.fields.state }}"></span></td>
-										<td><span sortable-heading="sorters.CreationTime" caption="{{ i18n.core.fields.creationTime }}"></span></td>
-										<td>{{ i18n.core.reporting.reports.fields.progress }}</td>
-										<td>&nbsp;</td>
+										<th>{{ i18n.core.fields.name }}</th>
+										<th>{{ i18n.core.reporting.reports.fields.state }}</th>
+										<th>{{ i18n.core.fields.creationTime }}</th>
+										<th>{{ i18n.core.reporting.reports.fields.progress }}</th>
+										<th>&nbsp;</th>
 									</tr>
 								</thead>
 								<tbody>

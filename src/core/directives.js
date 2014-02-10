@@ -6,7 +6,6 @@ define([
 	'./directives/buttons',
 	'./directives/buttonToggle',
 	'./directives/checker',
-	'./directives/sortableHeading',
 	'./directives/integer',
 	'./directives/lookup',
 	'./directives/requiredMultiple',
@@ -20,6 +19,7 @@ define([
 	'./directives/filters/filtersBox',
 	'./directives/filters/structuredFilter',
 	'./directives/filters/userFilter',
+	'./directives/filters/structuredSorters',
 
 	'./directives/inplace/inlineButtons',
 	'./directives/inplace/inlineDate',

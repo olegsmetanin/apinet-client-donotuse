@@ -1,0 +1,29 @@
+<div class="structuredSorters">
+	<table class="table table-bordered">
+		<thead>
+		<tr>
+			<th style="width: 50%;">{{ i18n.core.sorting.availableFields }}</th>
+			<th style="width: 50%;">{{ i18n.core.sorting.sortingFields }}</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td x-lvl-drop-target="true" x-on-drop="reverted(dragEl, dropEl)">
+				<div ng-repeat="sorter in availableFields" x-lvl-draggable="true" property="{{sorter.property}}" style="margin-bottom: 5px;">
+					<button class="btn btn-primary">
+						{{sorter.displayName}}
+					</button>
+				</div>
+			</td>
+			<td x-lvl-drop-target="true" x-on-drop="dropped(dragEl, dropEl)">
+				<div ng-repeat="sorter in sorters track by $index" x-lvl-draggable="true" property="{{sorter.property}}" style="margin-bottom: 5px;">
+					<button class="btn btn-primary" ng-click="switchDirection($event)" property="{{sorter.property}}">
+						{{sorter.displayName}} {{ sorter.direction }}
+					</button>
+				</div>
+				<div class="placeholder" ng-hide="sorters.length > 0">Drag sorting fields here</div>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>

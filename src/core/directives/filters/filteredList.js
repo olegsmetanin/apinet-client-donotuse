@@ -3,12 +3,11 @@ define([
 	'angular',
 	'css!./filteredList.css'
 ], function (module, angular) {
-	module.directive('filteredList', ['apinetService', '$timeout', '$stateParams', function($apinetService, $timeout, $stateParams) {
+	module.directive('filteredList', ['apinetService', 'i18n', '$timeout', '$stateParams', function($apinetService, i18n, $timeout, $stateParams) {
 		return {
 			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				angular.extend($scope, {
-					sorters: { },
-					sortersArray: [ ],
+					sorters: [ ],
 
 					filter: { },
 					requestParams: { },
@@ -75,7 +74,7 @@ define([
 						var params = angular.extend({ }, $scope.requestParams, {
 							method: $scope.method,
 							filter: $scope.filter,
-							sorters: $scope.sortersArray,
+							sorters: $scope.sorters,
 							page: $scope.paging.page
 						});
 						$scope.resetValidation();
@@ -111,71 +110,6 @@ define([
 								$scope.validation.generalErrors = [ error ];
 							});
 					},
-					sortersWatcher: function(value, oldValue) {
-						if(value === oldValue) {
-							return;
-						}
-
-						var tempArray = [ ];
-						var sorter;
-						var key;
-
-						var maxPriority = 0;
-						for(key in value || { }) {
-							if(!$scope.sorters.hasOwnProperty(key)) {
-								continue;
-							}
-
-							sorter = $scope.sorters[key];
-							if(!sorter.direction || !sorter.priority ||
-								(sorter.direction !== 'asc' && sorter.direction !== 'desc') || !sorter.priority) {
-								continue;
-							}
-
-							maxPriority = sorter.priority > maxPriority ? sorter.priority : maxPriority;
-
-							sorter.property = key.replace('_', '.');
-							tempArray.push(sorter);
-						}
-
-						for(key in value) {
-							if(!$scope.sorters.hasOwnProperty(key)) {
-								continue;
-							}
-
-							sorter = $scope.sorters[key];
-							if(!sorter.direction || sorter.priority ||
-								(sorter.direction !== 'asc' && sorter.direction !== 'desc')) {
-								continue;
-							}
-
-							maxPriority = maxPriority + 1;
-							sorter.priority = maxPriority;
-
-							sorter.property = key.replace('_', '.');
-							tempArray.push(sorter);
-						}
-
-						tempArray.sort(function(s1, s2) {
-							if (s1.priority > s2.priority) {
-								return 1;
-							}
-							return s1.priority < s2.priority ? -1 : 0;
-						});
-
-						$scope.sortersArray = [ ];
-						for(var i = 0; i < tempArray.length; i++) {
-							sorter = tempArray[i];
-
-							$scope.sortersArray.push({
-								property: sorter.property,
-								descending: sorter.direction === 'desc'
-							});
-
-							sorter.priority = i + 1;
-							delete sorter.property;
-						}
-					},
 					pageWatcher: function(value, oldValue) {
 						if(value <= oldValue) {
 							return;
@@ -192,12 +126,6 @@ define([
 						}
 						$scope.applyEnabled = true;
 						$scope.$emit('filterChanged');
-					},
-					refreshingWatcher: function(value, oldValue) {
-						if(value === oldValue) {
-							return;
-						}
-						$scope.refreshList();
 					}
 				});
 			}],
@@ -207,7 +135,6 @@ define([
 
 				var initialSorters = $scope.$eval(attrs.initialSorters) || { };
 
-				var i = 1;
 				for(var key in initialSorters) {
 					if(!initialSorters.hasOwnProperty(key)) {
 						continue;
@@ -218,14 +145,12 @@ define([
 						continue;
 					}
 
-					$scope.sorters[key] = {
-						direction: direction,
-						priority: i
-					};
-
-					i = i + 1;
+					$scope.sorters.push({
+						property: key,
+						descending: direction === 'desc',
+						direction: direction === 'desc' ? i18n.msg('core.sorting.descending') : i18n.msg('core.sorting.ascending')
+					});
 				}
-				$scope.sortersWatcher($scope.sorters);
 
 				var inputParams = $scope.$eval(attrs.filteredList);
 				angular.extend($scope, inputParams);
@@ -233,11 +158,10 @@ define([
 				$scope.resetFilter();
 
 				$timeout(function() {
-					$scope.$watch('sorters', $scope.sortersWatcher, true);
+					$scope.$watch('sorters', $scope.applyEnablingWatcher, true);
 					$scope.$watch('paging.page', $scope.pageWatcher, true);
 					$scope.$watch('filter', $scope.applyEnablingWatcher, true);
 					$scope.$watch('requestParams', $scope.applyEnablingWatcher, true);
-					$scope.$watch('sortersArray', $scope.refreshingWatcher, true);
 				}, 500);
 			}
 		};

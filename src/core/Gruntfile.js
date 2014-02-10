@@ -43,10 +43,6 @@ module.exports = function (grunt) {
 				src: 'directives/filters/filteredList.less',
 				dest: 'directives/filters/filteredList.css'
 			},
-			sortableHeading: {
-				src: 'directives/sortableHeading.less',
-				dest: 'directives/sortableHeading.css'
-			},
 			projectsList: {
 				src: 'states/projects/projectsList.less',
 				dest: 'states/projects/projectsList.css'

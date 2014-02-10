@@ -15,7 +15,7 @@
 				</div>
 			</div>
 
-			<div filters-box="filter" meta="core/reporting/templateMetadata" group="Reporting.Templates" apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter" style="padding-top: 5px">
+			<div filters-box="filter" sorters="sorters" meta="core/reporting/templateMetadata" group="Reporting.Templates" apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter" style="padding-top: 5px">
 				<ago-box-content>
 					<form class="form form-horizontal">
 						<div class="form-group">
@@ -46,8 +46,8 @@
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th class="col-xs-7"><span sortable-heading="sorters.Name" caption="{{ i18n.core.fields.name }}"></span></th>
-										<th class="col-xs-2"><span sortable-heading="sorters.LastChange" caption="{{ i18n.core.fields.lastChangeTime }}"></span></th>
+										<th class="col-xs-7">{{ i18n.core.fields.name }}</th>
+										<th class="col-xs-2">{{ i18n.core.fields.lastChangeTime }}</th>
 										<th>{{ i18n.core.reporting.templates.fields.size }}</th>
 										<th class="onepct">&nbsp;</th>
 									</tr>

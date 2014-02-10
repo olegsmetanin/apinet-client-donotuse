@@ -34,6 +34,10 @@
 				<div class="col-lg-6">
 					<div filters-box-more-filters-transclude></div>
 
+					<ago-box color="red" border="red" caption="{{ i18n.core.sorting.title }}" padding title-click-collapse collapsed="sortersCollapsed">
+						<div structured-sorters ng-model="sorters" meta="meta" sorters="sorters"></div>
+					</ago-box>
+
 					<ago-box color="green" border="green" caption="{{ i18n.core.filters.complex }}" padding title-click-collapse collapsed="structuredCollapsed">
 						<div structured-filter filter-ng-model="filter.complex" meta="meta"></div>
 					</ago-box>

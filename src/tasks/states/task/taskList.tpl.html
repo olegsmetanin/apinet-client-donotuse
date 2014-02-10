@@ -17,7 +17,7 @@
 			</div>
 
 			<!-- Filter -->	
-			<div filters-box="filter" meta="tasks/tasks/taskMetadata" group="Tasks.Task" 
+			<div filters-box="filter" sorters="sorters" meta="tasks/tasks/taskMetadata" group="Tasks.Task"
 				apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter"
 				style="padding-top: 5px">
 				<form class="form form-horizontal">
@@ -105,7 +105,7 @@
 							</a>
 
 							<ago-report-selector report-types="REPORT_TYPES" on-error="onReportError(error)" on-get-params="fillReportParameters(settings, parameters)">
-							</ago>
+							</ago-report-selector>
 
 							<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
 								{{ i18n.core.buttons.delete }}
@@ -121,11 +121,11 @@
 										<th class="onepct">
 											<input type="checkbox" checker="items: 'models'">
 										</th>
-										<th class="col-xs-1"><span sortable-heading="sorters.InternalSeqNumber" caption="{{ i18n.tasks.fields.seqNumber }}"></span></th>
-										<th class="col-xs-4"><span sortable-heading="sorters.TaskType_Name" caption="{{ i18n.tasks.fields.type }}"></span></th>
+										<th class="col-xs-1">{{ i18n.tasks.fields.seqNumber }}</th>
+										<th class="col-xs-4">{{ i18n.tasks.fields.type }}</th>
 										<th class="col-xs-4">{{ i18n.tasks.fields.executors }}</th>
-										<th class="col-xs-2"><span sortable-heading="sorters.DueDate" caption="{{ i18n.tasks.fields.dueDate }}"></span></th>
-										<th class="col-xs-2"><span sortable-heading="sorters.Status" caption="{{ i18n.tasks.fields.status }}"></span></th>
+										<th class="col-xs-2">{{ i18n.tasks.fields.dueDate }}</th>
+										<th class="col-xs-2">{{ i18n.tasks.fields.status }}</th>
 										<th class="onepct">&nbsp;</th>
 									</tr>
 								</thead>
