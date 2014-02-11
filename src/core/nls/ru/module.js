@@ -299,7 +299,9 @@ define(['../../moduleDef'], function (module) {
 				}
 			},
 			'settings': {
-				'title': 'Настройки проекта'
+				'title': 'Настройки проекта',
+				'publicTitle': 'Да (видем всем)',
+				'privateTitle': 'Нет (видим только участникам)'
 			}
 		});
 	}]);

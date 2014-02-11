@@ -1,0 +1,19 @@
+<div class="tagsBox">
+	<span ng-repeat="t in viewModel.Tags" class="tag">
+		{{ t.text }}
+		<a ng-click="detag(viewModel, t)" href="" title="{{ i18n.core.tags.removeTag }}">&nbsp;&times;</a>
+	</span>
+	<span ng-show="!viewModel.newTagMode" class="newTagBtn">
+		<button ng-click="newTag(viewModel)" title="{{ i18n.core.tags.addTag }}" type="button" class="btn btn-success btn-sm">
+			<i class="icon-plus"></i>
+		</button>
+	</span>
+	<span ng-show="viewModel.newTagMode" class="newTagLookup">
+		<input type="text" lookup="$$lookupUrl$$" ng-model="viewModel.newTagModel"
+		       placeholder="{{ i18n.core.tags.newTag }}" style="width: 200px;"
+		       ng-change="tag(viewModel)" />
+	</span>
+	<span ng-show="viewModel.newTagMode" class="cancelNewTagBtn">
+		<button ng-click="cancelNewTag(viewModel)" title="{{ i18n.core.buttons.cancel }}" type="button" class="btn btn-warning btn-sm">&times;</button>
+	</span>
+</div>

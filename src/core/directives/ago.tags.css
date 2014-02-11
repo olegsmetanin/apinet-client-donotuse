@@ -1,5 +1,6 @@
 .tag {
 	display: inline-block;
+	float: left;
 	min-width: 10px;
 	padding: 3px 7px;
 	font-size: 12px;
@@ -29,6 +30,14 @@
 .tag > a:hover {
 	color: #ffffff;
 	text-decoration: none;
+}
+
+span.tag:after {
+	content: "\00a0";
+}
+ 
+span.tag:last-child:after {
+	content: "";
 }
 
 .cancelNewTagBtn {

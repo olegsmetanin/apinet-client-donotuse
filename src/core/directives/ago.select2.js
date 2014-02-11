@@ -98,6 +98,7 @@ define([
 
 								if (!isSelect && (opts.multiple || (!controller.$viewValue ||
 									angular.isObject(controller.$viewValue)))) {
+
 									elm.select2('data', opts.multiple ?
 										convertToSelect2Model(controller.$viewValue) : controller.$viewValue);
 									return;

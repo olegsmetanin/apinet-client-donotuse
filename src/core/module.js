@@ -9,7 +9,6 @@ define([
 
 	'css!./assets/form.css',
 	'css!./assets/list.css',
-	'css!./assets/tags.css',
 
 	'i18n!./nls/module'
 ], function(requireModule, module, require) {

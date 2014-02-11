@@ -2,47 +2,111 @@
 	<div class="row" id="content-wrapper">
 		<div class="col-xs-12">
 
-			<div class="box ">
-				<div class="box-header purple-background">
-					<div class="title">
-						<i class="icon-info"></i>
-						{{ i18n.projects.settings.title }}
-					</div>
-				</div>
-
-				<div class="box-content">
+			<div class="row">
+				<div class="col-xs-12">
 					<ago-error-msg></ago-error-msg>
 
-					<form class="form form-horizontal" novalidate>
-						<!-- Project code and type - read only section -->
-						<div class="row">
-							<div class="form-group col-xs-12 col-md-6">
-								<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.projects.fields.code }}</label>
-								<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.ProjectCode }}</p></div>
-							</div>
-							<div class="form-group col-xs-12 col-md-6">
-								<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.type }}</label>
-								<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.Type }}</p></div>
-							</div>
-						</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<ago-box color="purple" title-click-collapse collapsible="true" large="true" collapsed="generalCollapsed" style="padding-top: 5px">
+								<ago-box-title>
+									<i class="icon-info"></i>
+									{{ i18n.projects.settings.title }}
+								</ago-box-title>
+								<ago-box-actions>
+									<a class="btn btn-xs btn-link">
+										<i class="fa" ng-class="{ 'icon-chevron-up': !generalCollapsed, 'icon-chevron-down': generalCollapsed }"></i>
+									</a>
+								</ago-box-actions>
+								<form class="form form-horizontal" novalidate>
+									<!-- Project code and type - read only section -->
+									<div class="row">
+										<div class="form-group col-xs-12 col-md-6">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.projects.fields.code }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.ProjectCode }}</p></div>
+										</div>
+										<div class="form-group col-xs-12 col-md-6">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.type }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.Type }}</p></div>
+										</div>
+									</div>
 
-						<!-- Name and status -->
-						<div class="row">
-							<div class="form-group col-xs-12 col-md-6">
-								<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.name }}</label>
-								<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.ProjectCode }}</p></div>
-							</div>
-							<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['TaskType']}">
-								<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.tasks.fields.type }}</label>
-								<div class="col-xs-12 col-sm-9 col-md-12">
-									<inline-lookup model="model.TaskType" on-update="onUpdateProp(model, 'TaskType', val)" on-cancel="resetValidation()" input-lookup="tasks/dictionary/lookupTaskTypes" input-col="col-xs-12" required></inline-lookup>
-									<span ng-show="validation.fieldErrors['TaskType']" class="help-block has-error">
-										{{ validation.fieldErrors['TaskType'] | joinBy }}
-									</span>
-								</div>
-							</div>
+									<!-- Name and status -->
+									<div class="row">
+										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['Name']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.name }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
+												<inline-text model="model.Name" on-update="onUpdateProp(model, 'Name', val)" on-cancel="resetValidation()" input-col="col-xs-12" required></inline-text>
+												<span ng-show="validation.fieldsError['Name']" class="help-block has-alert">
+													{{ validation.fieldsError['Name'] | joinBy }}
+												</span>
+											</div>
+										</div>
+										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['Status']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.projects.fields.status }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
+												<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" on-cancel="resetValidation()" input-lookup="tasks/project/lookupProjectStatuses" input-col="col-xs-12" required></inline-lookup>
+												<span ng-show="validation.fieldErrors['Status']" class="help-block has-error">
+													{{ validation.fieldErrors['Status'] | joinBy }}
+												</span>
+											</div>
+										</div>
+									</div>
+
+									<!-- Description -->
+									<div class="row">
+										<div class="form-group col-xs-12" ng-class="{'has-error': validation.fieldErrors['Description']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.description }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
+												<inline-text-area model="model.Description" on-update="onUpdateProp(model, 'Description', val)" on-cancel="resetValidation()" input-col="col-xs-12" input-rows="5"></inline-text-area>
+												<span ng-show="validation.fieldErrors['Description']" class="help-block has-error">
+													{{ validation.fieldErrors['Description'] | joinBy }}
+												</span>
+											</div>
+										</div>
+									</div>
+
+									<!-- Public project and tags -->
+									<div class="row">
+										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['VisibleForAll']}">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.projects.fields.public }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
+												<inline-checkbox model="model.VisibleForAll" true-exp="i18n.projects.settings.publicTitle" false-exp="i18n.projects.settings.privateTitle" on-update="onUpdateProp(model, 'VisibleForAll', val)" on-cancel="resetValidation()"></inline-checkbox>
+												<span ng-show="validation.fieldErrors['VisibleForAll']" class="help-block has-error">
+													{{ validation.fieldErrors['VisibleForAll'] | joinBy }}
+												</span>
+											</div>
+										</div>
+										<div class="form-group col-xs-12 col-md-6">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.projects.fields.tags }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12">
+												<ago-tags view-model="model"
+													lookup-method="core/dictionary/lookupProjectTags"
+													tag-method="tasks/project/tagProject"
+													detag-method="tasks/project/detagProject"
+													on-error="onError(error)">
+												</ago-tags>
+											</div>
+
+											
+										</div>
+									</div>
+
+									<!-- Author and creation time - read only section -->
+									<div class="row">
+										<div class="form-group col-xs-12 col-md-6">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.creator }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.Author }}</p></div>
+										</div>
+										<div class="form-group col-xs-12 col-md-6">
+											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.core.fields.creationTime }}</label>
+											<div class="col-xs-12 col-sm-9 col-md-12"><p class="form-control-static">{{ model.CreationTime | date:'ago_datetime' }}</p></div>
+										</div>
+									</div>
+								</form>
+							</ago-box>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>

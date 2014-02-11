@@ -298,7 +298,9 @@ define(['../../moduleDef'], function (module) {
 				}
 			},
 			'settings': {
-				'title': 'Project settings'
+				'title': 'Project settings',
+				'publicTitle': 'Yes (visible for all)',
+				'privateTitle': 'No (visible only for members)'
 			}
 		});
 	}]);

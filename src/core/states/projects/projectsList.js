@@ -25,78 +25,9 @@
 		}])
 		.controller('projectsListCtrl', ['$scope', '$timeout', 'apinetService', function ($scope, $timeout, apinetService) {
 			$scope.doLayout = function() {
-				$('.projectsWall').masonry();
-			};
-
-			$scope.newTag = function (viewModel) {
-				if(!viewModel) {
-					return;
-				}
-
-				viewModel.newTagMode = true;
-				viewModel.newTagModel = null;
-
-				$timeout($scope.doLayout);
-			};
-
-			$scope.cancelNewTag = function (viewModel) {
-				if(!viewModel) {
-					return;
-				}
-
-				viewModel.newTagMode = false;
-				viewModel.newTagModel = null;
-
-				$timeout($scope.doLayout);
-			};
-
-			$scope.newTagSelected = function (viewModel) {
-				if(!viewModel || !viewModel.newTagModel || !viewModel.newTagModel.id) {
-					return;
-				}
-
-				for (var i = 0; i < viewModel.Tags.length; i++) {
-					if (viewModel.Tags[i].id === viewModel.newTagModel.id) {
-						return;
-					}
-				}
-
-				viewModel.newTagMode = false;
-
-				apinetService.action({
-					method: 'core/projects/tagProject',
-					projectId: viewModel.Model.Id,
-					tagId: viewModel.newTagModel.id
-				}).then(function (result) {
-					if (result) {
-						viewModel.Tags.push(angular.extend({ }, viewModel.newTagModel));
-
-						$timeout($scope.doLayout);
-					}
-				});
-			};
-
-			$scope.detag = function (viewModel, tag) {
-				if (!viewModel || !viewModel.Model || !viewModel.Tags || !tag) {
-					return;
-				}
-
-				apinetService.action({
-					method: 'core/projects/detagProject',
-					projectId: viewModel.Model.Id,
-					tagId: tag.id
-				}).then(function (result) {
-					if (result) {
-						for (var i = 0; i < viewModel.Tags.length; i++) {
-							if (viewModel.Tags[i] === tag) {
-								viewModel.Tags.splice(i, 1);
-								break;
-							}
-						}
-
-						$timeout($scope.doLayout);
-					}
-				});
+				$timeout(function() {
+					$('.projectsWall').masonry();
+				}, 0, false);
 			};
 
 			$scope.$on('resetFilter', function () {

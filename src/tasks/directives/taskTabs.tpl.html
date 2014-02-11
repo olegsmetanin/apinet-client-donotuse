@@ -5,10 +5,10 @@
 		</li>
 		<!-- This items not implemented yet -->
 		<li ng-class="{active: tab == 'comments'}">
-			<a ui-sref="page.project.taskComments({ num })">{{ i18n.tasks.view.tabs.comments }}</a>
+			<a ui-sref="page.project.taskComments({ num: num })">{{ i18n.tasks.view.tabs.comments }}</a>
 		</li>
 		<li ng-class="{active: tab == 'files'}">
-			<a ui-sref="page.project.taskFiles({ num })">{{ i18n.tasks.view.tabs.files }}</a>
+			<a ui-sref="page.project.taskFiles({ num: num })">{{ i18n.tasks.view.tabs.files }}</a>
 		</li>
 	</ul>
 </div>

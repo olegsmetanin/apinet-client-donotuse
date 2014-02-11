@@ -1,6 +1,6 @@
 define(['../moduleDef', 'angular'], function (module, angular) {
-	module.directive('lookup', ['$compile', '$timeout', '$exceptionHandler', '$parse', 'apinetService', '$stateParams', 'defaultPageSize',
-		function($compile, $timeout, $exceptionHandler, $parse, apinetService, $stateParams, defaultPageSize) {
+	module.directive('lookup', ['$compile', '$timeout', '$exceptionHandler', 'apinetService', '$stateParams', 'defaultPageSize',
+		function($compile, $timeout, $exceptionHandler, apinetService, $stateParams, defaultPageSize) {
 			return {
 				restrict: 'A',
 				scope: true,

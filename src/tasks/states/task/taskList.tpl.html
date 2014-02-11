@@ -147,25 +147,12 @@
 											<p ng-show="model.Content" title="{{ model.Content }}">
 												<small class="clip-content">{{ model.Content | textCut:50 }}</small>
 											</p>
-											<div class="tagsBox">
-												<span ng-repeat="t in model.Tags" class="tag">
-													{{ t.text }}
-													<a ng-click="detag(model, t)" href="" title="{{ i18n.core.tags.removeTag }}">&nbsp;&times;</a>
-												</span>
-												<span ng-show="!model.newTagMode" class="newTagBtn">
-													<button ng-click="newTag(model);" title="{{ i18n.core.tags.addTag }}" type="button" class="btn btn-success btn-sm">
-														<i class="icon-plus"></i>
-													</button>
-												</span>
-												<span ng-show="model.newTagMode" class="newTagLookup">
-													<input type="text" lookup="tasks/dictionary/lookupTags" ng-model="model.newTagModel"
-													       placeholder="{{ i18n.tasks.create.placeholders.tags }}" style="width: 200px;"
-													       ng-change="newTagSelected(model);" autofocus />
-												</span>
-												<span ng-show="model.newTagMode" class="cancelNewTagBtn">
-													<button ng-click="cancelNewTag(model);" title="{{ i18n.core.buttons.cancel }}" type="button" class="btn btn-warning btn-sm">x</button>
-												</span>
-											</div>
+											<ago-tags view-model="model"
+												lookup-method="tasks/dictionary/lookupTags"
+												tag-method="tasks/tasks/tagTask"
+												detag-method="tasks/tasks/detagTask"
+												on-error="onReportError(error)">
+											</ago-tags>
 										</td>
 										<td>
 											<executors model="model.Executors" ></executors>

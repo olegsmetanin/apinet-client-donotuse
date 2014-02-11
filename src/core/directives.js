@@ -11,6 +11,7 @@ define([
 	'./directives/requiredMultiple',
 	'./directives/counter',
 	'./directives/ago.uploader',
+	'./directives/ago.tags',
 
 	'./directives/filters/filteredList',
 	'./directives/filters/filteredListActions',
@@ -28,6 +29,7 @@ define([
 	'./directives/inplace/inlineText',
 	'./directives/inplace/inlineTextArea',
 	'./directives/inplace/inlineSelect',
+	'./directives/inplace/inlineCheckbox',
 
 	'./directives/header/breadCrumbs',
 	'./directives/header/eventNotifier',
