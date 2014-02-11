@@ -302,6 +302,17 @@ define(['../../moduleDef'], function (module) {
 				'title': 'Project settings',
 				'publicTitle': 'Yes (visible for all)',
 				'privateTitle': 'No (visible only for members)'
+			},
+			'members': {
+				'title': 'Members',
+				'placeholders': {
+					'newMember': 'Select new member'
+				},
+				'fields': {
+					'user': 'Full name',
+					'roles': 'Roles in project',
+					'current': 'Current role'
+				}
 			}
 		});
 	}]);

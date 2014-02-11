@@ -12,7 +12,7 @@
 				'content': { template: '<div ui-view></div>' },
 				'moduleMenu': { template: moduleMenuTpl }
 			},
-			onEnter: function(apinetService, $state, $stateParams, $rootScope){
+			onEnter: function(apinetService, $state, $stateParams, $rootScope, $location){
 				apinetService.getModel({
 					method: 'core/projects/projectInfo',
 					project: $stateParams.project

@@ -4,5 +4,6 @@ define([
 	'./directives/customPropertyEditor',
 	'./directives/executorsView',
 	'./directives/statusHistoryView',
-	'./directives/taskTabs'
+	'./directives/taskTabs',
+	'./directives/taskProjectMembers'
 ], function() { });

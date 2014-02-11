@@ -1,0 +1,64 @@
+<div>
+<ago-box color="blue" title-click-collapse collapsible="true" large="true" collapsed="collapsed">
+	<ago-box-title>
+		<i class="icon-group"></i>
+		{{ i18n.projects.members.title }}
+	</ago-box-title>
+	<ago-box-actions>
+		<a class="btn btn-xs btn-link">
+			<i class="fa" ng-class="{ 'icon-chevron-up': !collapsed, 'icon-chevron-down': collapsed }"></i>
+		</a>
+	</ago-box-actions>
+	<ago-box-content>
+		<div class="box-toolbox box-toolbox-top" ng-show="isMembersEditable()">
+			<div class="row">
+				<div class="col-xs-12">
+					<form class="form-inline" novalidate>
+						<div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
+							<input type="text" name="member" lookup="core/users/lookupUsers" ng-model="editables.newMember" placeholder="{{ i18n.projects.members.placeholders.newMember }}" class="form-control" />
+						</div>
+						<div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
+							<div class="btn-group">
+								<label class="btn btn-primary" ng-class="{'active': editables.isAdmin}" ng-click="editables.isAdmin = !editables.isAdmin">
+									Administrator
+								</label>
+								<label class="btn btn-primary" ng-class="{'active': editables.isManager}" ng-click="editables.isManager = !editables.isManager">
+									Manager
+								</label>
+								<label class="btn btn-primary" ng-class="{'active': editables.isExecutor}" ng-click="editables.isExecutor = !editables.isExecutor">
+									Executor
+								</label>
+							</div>
+							<button type="button" class="btn btn-success pull-right">
+								<i class="icon-plus"></i>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="responsive-table">
+			<div class="scrollable-area">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>{{ i18n.projects.members.fields.user }}</th>
+							<th>{{ i18n.projects.members.fields.roles }}</th>
+							<th>{{ i18n.projects.members.fields.current }}</th>
+							<th class="onepct">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="m in models">
+							<td>{{ m.FullName }}</td>
+							<td>{{ m.Roles | joinBy }}</td>
+							<td>{{ m.CurrentRole }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</ago-box-content>
+</ago-box>
+</div>

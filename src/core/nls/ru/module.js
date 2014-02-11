@@ -303,6 +303,17 @@ define(['../../moduleDef'], function (module) {
 				'title': 'Настройки проекта',
 				'publicTitle': 'Да (видем всем)',
 				'privateTitle': 'Нет (видим только участникам)'
+			},
+			'members': {
+				'title': 'Участники',
+				'placeholders': {
+					'newMember': 'Выберите пользователя'
+				},
+				'fields': {
+					'user': 'ФИО',
+					'roles': 'Роли в проекте',
+					'current': 'Текущая роль'
+				}
 			}
 		});
 	}]);
