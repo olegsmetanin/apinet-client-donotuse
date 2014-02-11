@@ -68,7 +68,8 @@ define(['../../moduleDef'], function (module) {
 				'descending': 'Descending',
 				'title': 'Sorting',
 				'availableFields': 'Available fields',
-				'sortingFields': 'Sorting fields'
+				'sortingFields': 'Sorting fields',
+				'removeField': 'Remove field'
 			},
 
 			'errors': {

@@ -21,8 +21,10 @@
 						return;
 					}
 					$rootScope.currentProjectName = data.Name;
-					require([data.Module + '/module'], function() {
-						$state.go('page.project.' + data.Module);
+					require([data.Module], function() {
+						require([data.Module + '/module'], function () {
+							$state.go('page.project.' + data.Module);
+						});
 					});
 				}, function() {
 					$state.go('page.projects.projectsList');

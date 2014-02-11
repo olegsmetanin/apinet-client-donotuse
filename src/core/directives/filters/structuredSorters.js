@@ -19,18 +19,24 @@ define([
 					sorters: $scope.sorters || [],
 
 					dropped: function(dragEl) {
-						$scope.moveElement(dragEl, $scope.availableFields, $scope.sorters);
+						var element = $(dragEl);
+						var property = element.attr('property');
+						$scope.moveElement(property, $scope.availableFields, $scope.sorters);
 					},
 
 					reverted: function(dragEl) {
-						$scope.moveElement(dragEl, $scope.sorters, $scope.availableFields);
-					},
-					
-					moveElement: function(dragEl, from, to) {
-						var result = null;
-
 						var element = $(dragEl);
 						var property = element.attr('property');
+						$scope.moveElement(property, $scope.sorters, $scope.availableFields);
+					},
+
+					remove: function(property) {
+						$scope.moveElement(property, $scope.sorters, $scope.availableFields);
+					},
+					
+					moveElement: function(property, from, to) {
+						var result = null;
+
 						if(!property) {
 							return result;
 						}
@@ -45,7 +51,7 @@ define([
 
 						if(index >= 0) {
 							var src = from[index];
-							$scope.$apply(function() {
+							var fn = function() {
 								result = {
 									property: src.property,
 									displayName: src.displayName,
@@ -53,14 +59,21 @@ define([
 								};
 								to.push(result);
 								from.splice(index, 1);
-							});
+							};
+
+							if($rootScope.$$phase) {
+								fn();
+							}
+							else {
+								$scope.$apply(fn);
+							}
 						}
 
 						return result;
 					},
 
 					switchDirection: function(event) {
-						var element = $(event.target);
+						var element = $(event.currentTarget);
 						var property = element.attr('property');
 
 						var sorter = null;
@@ -99,6 +112,13 @@ define([
 						});
 
 						for(var i = 0; i < $scope.sorters.length; i++) {
+							for(var j = 0; j < $scope.availableFields.length; j++) {
+								if($scope.availableFields[j].property === $scope.sorters[i].property) {
+									$scope.availableFields.splice(j, 1);
+									break;
+								}
+							}
+
 							if($scope.sorters[i].property === key) {
 								$scope.sorters[i].displayName = metadata.PrimitiveProperties[key].DisplayName;
 							}

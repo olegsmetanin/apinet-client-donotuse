@@ -68,7 +68,8 @@ define(['../../moduleDef'], function (module) {
 				'descending': 'По убыванию',
 				'title': 'Сортировка',
 				'availableFields': 'Доступные поля',
-				'sortingFields': 'Используемые поля'
+				'sortingFields': 'Используемые поля',
+				'removeField': 'Убрать поле'
 			},
 
 			'errors': {
