@@ -71,27 +71,7 @@
 	<span id="progressBar" style="width: 0;"></span>
 </div>
 
-<script type="text/javascript">
-	//workaround for fb 'behavior'
-	//http://stackoverflow.com/questions/7131909/facebook-callback-appends-to-return-url
-    if (window.location.hash && window.location.hash == '#_=_') {
-        if (window.history && history.pushState) {
-            window.history.pushState("", document.title, window.location.pathname);
-        } else {
-            // Prevent scrolling by storing the page's current scroll offset
-            var scroll = {
-                top: document.body.scrollTop,
-                left: document.body.scrollLeft
-            };
-            window.location.hash = '';
-            // Restore the scroll offset, should be flicker free
-            document.body.scrollTop = scroll.top;
-            document.body.scrollLeft = scroll.left;
-        }
-    }
-</script>
-
-<script type="text/javascript" src="src/core/components/requirejs/require.js"></script>
+<script type="text/javascript" src="core/require.js"></script>
 
 <script type="text/javascript">
 	(function (require) {
@@ -102,36 +82,98 @@
 		};
 
 		require.config({
-			waitSeconds: 60,
-			baseUrl: './src/',
+			waitSeconds: 15,
+			baseUrl: './',
 			paths: {
-				'jquery': 'core/components/jquery/jquery'
+				'jquery': 'core/module'
 			},
-			packages: ['core', 'tasks'],
+			packages: ['core','tasks'],
 			config: {
 				'i18n': {
 					locale: getCookie('currentLocale') || window.navigator.userLanguage ||
-							window.navigator.language || 'en'
+						window.navigator.language || 'en'
 				},
-				
 				'core/services/apinetService': {
-					useEasyXDM: true,//turn to false for options requests, no url change needed
-					apiRoot: 'http://localhost:36651/',
-					notificationRoot: 'http://localhost:36653'
+					useEasyXDM: true,
+					apiRoot: 'http://api.agosystems.com/',
+					notificationRoot: 'http://api.agosystems.com'
 				},
 				'core/services/reportService': {
-					apiRoot: 'http://localhost:36651//api/',
-					downloadRoot: 'http://localhost:36653'
+					apiRoot: 'http://api.agosystems.com/api/',
+					downloadRoot: 'http://api.agosystems.com/download/'
 				}
 			}
 		});
 
+		var resources = {
+			'/core/module.js': 0,
+			'/core/themes/flatty/light-theme.css': 0
+		};
+		var resourcesCount = 2;
+		var loadedCount = 0;
 		var progressBar = document.getElementById('progressBar');
-		progressBar.setAttribute('style', 'width: 100%');
 
-		require(['jquery'], function () {
-			require(['core'], function () { progressBar.parentNode.parentNode.removeChild(progressBar.parentNode); });
-		});
+		var processRequire = function() {
+			require(['jquery'], function () {
+				require(['core'], function () { progressBar.parentNode.parentNode.removeChild(progressBar.parentNode); });
+			});
+		};
+
+		var loadResourceFn = function(resourceName) {
+			var scriptName = window.location.origin + resourceName;
+
+			var completeFn = function() {
+				loadedCount = loadedCount + 1;
+				if(loadedCount < resourcesCount) {
+					return;
+				}
+
+				processRequire();
+			};
+
+			var request = new XMLHttpRequest();
+
+			request.addEventListener('progress', function(event) {
+				if(!event.lengthComputable) {
+					return;
+				}
+
+				var newPercents = Math.round(event.loaded * 100 / event.total);
+				if(resources[resourceName] !== newPercents) {
+					resources[resourceName] = newPercents;
+
+					var total = 0;
+					for(var key in resources) {
+						if(!resources.hasOwnProperty(key)) {
+							continue;
+						}
+
+						total = total + resources[key];
+					}
+
+					progressBar.setAttribute('style', 'width: ' + total / resourcesCount + '%');
+				}
+			}, false);
+			request.addEventListener('load', completeFn, false);
+			request.addEventListener('error', completeFn, false);
+			request.addEventListener('abort', completeFn, false);
+
+			request.open('GET', scriptName, true);
+			request.send(null);
+		};
+
+		if(typeof(window.ActiveXObject) === 'undefined') {
+			for(var key in resources) {
+				if(!resources.hasOwnProperty(key)) {
+					continue;
+				}
+
+				loadResourceFn(key);
+			}
+		}
+		else {
+			processRequire();
+		}
 	})(requirejs);
 </script>
 </body>
