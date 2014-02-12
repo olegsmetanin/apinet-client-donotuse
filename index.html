@@ -68,7 +68,7 @@
 <body class="contrast-red fixed-header fixed-navigation">
 <div ui-view></div>
 <div class="bar gradient stripe color3 centered">
-	<span id="percent" style="width: 0;"></span>
+	<span id="progressBar" style="width: 0;"></span>
 </div>
 
 <script type="text/javascript">
@@ -126,11 +126,11 @@
 			}
 		});
 
-		require(['jquery'], function () {
-			var percent = document.getElementById('percent');
-			percent.setAttribute('style', 'width: 100%');
+		var progressBar = document.getElementById('progressBar');
+		progressBar.setAttribute('style', 'width: 100%');
 
-			require(['core'], function () { percent.parentNode.parentNode.removeChild(percent.parentNode); });
+		require(['jquery'], function () {
+			require(['core'], function () { progressBar.parentNode.parentNode.removeChild(progressBar.parentNode); });
 		});
 	})(requirejs);
 </script>
