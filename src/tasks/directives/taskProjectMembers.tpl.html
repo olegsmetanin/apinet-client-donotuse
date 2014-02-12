@@ -5,6 +5,8 @@
 		{{ i18n.projects.members.title }}
 	</ago-box-title>
 	<ago-box-actions>
+		<input type="text" class="input-sm search" ng-model="requestParams.term" placeholder="search members" ng-click="onSearchClick($event)" />
+
 		<a class="btn btn-xs btn-link">
 			<i class="fa" ng-class="{ 'icon-chevron-up': !collapsed, 'icon-chevron-down': collapsed }"></i>
 		</a>
@@ -13,7 +15,7 @@
 		<div class="box-toolbox box-toolbox-top" ng-show="isMembersEditable()">
 			<div class="row">
 				<div class="col-xs-12">
-					<form class="form-inline" novalidate>
+					<form name="addMemberForm" class="form-inline" novalidate>
 						<div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
 							<input type="text" name="member" lookup="core/users/lookupUsers" ng-model="editables.newMember" placeholder="{{ i18n.projects.members.placeholders.newMember }}" class="form-control" />
 						</div>
@@ -29,7 +31,7 @@
 									Executor
 								</label>
 							</div>
-							<button type="button" class="btn btn-success pull-right">
+							<button type="button" class="btn btn-success pull-right" ng-click="add()">
 								<i class="icon-plus"></i>
 							</button>
 						</div>
@@ -43,21 +45,43 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>{{ i18n.projects.members.fields.user }}</th>
-							<th>{{ i18n.projects.members.fields.roles }}</th>
-							<th>{{ i18n.projects.members.fields.current }}</th>
+							<th class="col-xs-4">{{ i18n.projects.members.fields.user }}</th>
+							<th class="col-xs-4">{{ i18n.projects.members.fields.roles }}</th>
+							<th class="col-xs-4">{{ i18n.projects.members.fields.current }}</th>
 							<th class="onepct">&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="m in models">
 							<td>{{ m.FullName }}</td>
-							<td>{{ m.Roles | joinBy }}</td>
-							<td>{{ m.CurrentRole }}</td>
+							<td>
+								<inline-lookup model="m.Roles" on-update="changeRoles(m, val)" input-lookup="tasks/project/lookupRoles" input-col="col-xs-12" multiple required>
+									<ul class="members">
+										<li ng-repeat="r in m.Roles">{{ r.text }}</li>
+									</ul>
+								</inline-lookup>
+								<span ng-show="m.validation.fieldErrors['Roles']" class="help-block alert-danger">
+									{{ m.validation.fieldErrors['Roles'] | joinBy }}
+								</span>
+							<td>
+								<inline-lookup model="m.Current" on-update="changeCurrentRole(m, val)" input-lookup="tasks/project/lookupRoles" input-col="col-xs-12" required></inline-lookup>
+								<span ng-show="m.validation.fieldErrors['CurrentRole']" class="help-block alert-danger">
+									{{ m.validation.fieldErrors['CurrentRole'] | joinBy }}
+								</span>
+							</td>
+							<td>
+								<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="remove(m)"></ago-btn-delete>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+		</div>
+
+		<div class="box-toolbox box-toolbox-bottom">
+			<button type="button" class="btn btn-primary" ng-click="nextPage()">{{ i18n.core.buttons.more }}</button>
+
+			<counter action='tasks/project/getMembersCount'></counter>
 		</div>
 	</ago-box-content>
 </ago-box>

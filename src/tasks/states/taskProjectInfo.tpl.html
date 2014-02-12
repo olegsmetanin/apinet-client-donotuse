@@ -45,7 +45,7 @@
 										<div class="form-group col-xs-12 col-md-6" ng-class="{'has-error': validation.fieldErrors['Status']}">
 											<label class="col-xs-12 col-sm-3 col-md-12 control-label">{{ i18n.projects.fields.status }}</label>
 											<div class="col-xs-12 col-sm-9 col-md-12">
-												<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" on-cancel="resetValidation()" input-lookup="tasks/project/lookupProjectStatuses" input-col="col-xs-12" required></inline-lookup>
+												<inline-lookup model="model.Status" on-update="onUpdateProp(model, 'Status', val)" on-cancel="resetValidation()" input-lookup="core/dictionary/lookupProjectStatuses" input-col="col-xs-12" required></inline-lookup>
 												<span ng-show="validation.fieldErrors['Status']" class="help-block has-error">
 													{{ validation.fieldErrors['Status'] | joinBy }}
 												</span>
@@ -106,7 +106,7 @@
 								</form>
 							</ago-box>
 
-							<task-project-members project-id="model.Id">
+							<task-project-members on-error="onError(error)">
 							</task-project-members>
 						</div>
 					</div>

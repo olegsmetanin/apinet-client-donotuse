@@ -1,0 +1,21 @@
+ul.members {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+ 
+ul.members li {
+	float: left;
+	display: inline;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ 
+ul.members li:after {
+	content: "\00a0";
+}
+ 
+ul.members li:last-child:after {
+	content: "";
+}
