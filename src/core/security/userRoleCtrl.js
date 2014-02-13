@@ -1,23 +1,36 @@
 define(['./moduleDef'], function (module) {
-	module.controller('userRoleCtrl', ['$scope', 'moduleConfig', '$stateParams', 'i18n',
-		function($scope, moduleConfig, $stateParams, i18n) {
+	module.controller('userRoleCtrl', 
+		['$scope', 'moduleConfig', '$stateParams', '$exceptionHandler', 'security',
+		function($scope, moduleConfig, $stateParams, $exceptionHandler, security) {
 
-			$scope.role = '';
-			$scope.roleName = '';
+			$scope.role = null;
+			$scope.memberRoles = [];
 
-			moduleConfig.getRole($stateParams.project).then(function(role) {
-				$scope.setRole(role || 'nothing');
-			});
-
-			$scope.roleIs = function(role) {
-				return $scope.role === role;
+			var onError = function(error) {
+				//Where we can show this elsewhere?
+				$exceptionHandler(error);
 			};
 
-			$scope.setRole = function(role) {
-				//TODO testing, remove
-				$scope.role = role;
-				var roleNameKey = role === 'admin' ? 'core.roles.' : $stateParams.project + '.roles.';
-				$scope.roleName = i18n.msg(roleNameKey + $scope.role);
+			moduleConfig.getMemberRoles($stateParams.project).then(function(roles) {
+				$scope.memberRoles = roles;
+				moduleConfig.getRole($stateParams.project).then(function(role) {
+					$scope.role = role;
+				}, onError);
+			}, onError);
+
+			$scope.setRole = function(newRole) {
+				security.switchRole($stateParams.project, newRole.id)
+				.then(function(response) {
+					if (response === true) {
+						$scope.role = newRole;
+						//Fix module config, that preserve data between
+						//controllers reinitialization
+						moduleConfig.setRole($stateParams.project, newRole)
+						.then(null, onError);
+					} else {
+						onError('Switching role was unsuccessful');
+					}
+				}, onError);
 			};
 		}
 	]);

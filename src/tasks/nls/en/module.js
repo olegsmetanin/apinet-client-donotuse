@@ -2,11 +2,6 @@ define(['jquery'], function ($) {
 	var i18n = $('body').injector().get('i18n');
 
 	i18n.addMessages('tasks', {
-		'roles': {
-			'manager': 'Manager',
-			'executor': 'Executor'
-		},
-
 		'fields': {
 			'seqNumber': 'Task number',
 			'type': 'Task type',

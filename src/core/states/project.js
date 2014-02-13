@@ -12,24 +12,28 @@
 				'content': { template: '<div ui-view></div>' },
 				'moduleMenu': { template: moduleMenuTpl }
 			},
-			onEnter: function(apinetService, $state, $stateParams, $rootScope, $location){
-				apinetService.getModel({
-					method: 'core/projects/projectInfo',
-					project: $stateParams.project
-				}).then(function(data) {
-					if(!data || !data.Module) {
-						return;
-					}
-					$rootScope.currentProjectName = data.Name;
-					require([data.Module], function() {
-						require([data.Module + '/module'], function () {
-							$state.go('page.project.' + data.Module);
+			onEnter: ['apinetService', '$state', '$stateParams', '$rootScope', 
+				function(apinetService, $state, $stateParams, $rootScope){
+					apinetService.getModel({
+						method: 'core/projects/projectInfo',
+						project: $stateParams.project
+					}).then(function(data) {
+						if(!data || !data.Module) {
+							return;
+						}
+						$rootScope.currentProjectName = data.Name;
+						//used in moduleConfig for requesting module configuration
+						//and in security/service for switching user role in project
+						$rootScope.module = data.Module;
+						require([data.Module], function() {
+							require([data.Module + '/module'], function () {
+								$state.go('page.project.' + data.Module);
+							});
 						});
+					}, function() {
+						$state.go('page.projects.projectsList');
 					});
-				}, function() {
-					$state.go('page.projects.projectsList');
-				});
-			}
+			}]
 		});
 	}]);
 });

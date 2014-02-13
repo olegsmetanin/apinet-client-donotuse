@@ -10,7 +10,6 @@ define(['../../moduleDef'], function (module) {
 		i18n.addMessages('core', {
 			'roles': {
 				'title': 'Роли ({{role}})',
-				'admin': 'Администратор',
 				'nothing': 'отсутствует'
 			},
 

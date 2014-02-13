@@ -79,7 +79,6 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 					login: function (email, password) {
 						$rootScope.$emit(AUTH_EVENTS.LOGOUT);
 						service.currentUser = null;
-						service.currentUserGroups = null;
 
 						var deferred = $q.defer();
 
@@ -156,7 +155,6 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 
 					// Information about the current user
 					currentUser: null,
-					currentUserGroups: [],
 
 					// Is the current user authenticated?
 					isAuthenticated: function () {
@@ -183,6 +181,14 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 						} else {
 							return getRole();
 						}
+					},
+
+					switchRole: function(project, role) {
+						return apinetService.action({
+							method: $rootScope.module + '/project/switchRole',
+							project: project,
+							current: role
+						});
 					}
 				};
 
