@@ -91,7 +91,8 @@ module.exports = function (grunt) {
 					name: 'core/nls/en/module',
 					out: '../../release/core/module.en.js',
 					include: [
-						'core/nls/en/angular'
+						'core/nls/en/angular',
+						'core/nls/en/bootstrap_datepicker'
 					],
 					exclude: ['core/module']
 				}

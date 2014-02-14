@@ -70,9 +70,8 @@ define([
 						if (requestData[key] === null) {
 							continue; //nulls in form fields request does not handle rigth on server side
 						}
-						data[key] = angular.isObject(requestData[key])
-							? JSON.stringify(requestData[key])
-							: requestData[key];	
+						data[key] = angular.isObject(requestData[key]) ?
+							JSON.stringify(requestData[key]) : requestData[key];
 					}
 
 					corsRpc.request({

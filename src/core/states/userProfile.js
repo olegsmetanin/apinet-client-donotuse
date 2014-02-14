@@ -24,13 +24,13 @@ define([
 				'content': {
 					template: tpl,
 
-					controller: ['$scope', '$rootScope', '$window', '$locale', 'apinetService',
-						function($scope, $rootScope, $window, $locale, apinetService, currentUser) {
+					controller: ['$scope', '$rootScope', '$window', 'i18n', 'apinetService',
+						function($scope, $rootScope, $window, i18n, apinetService, currentUser) {
 							angular.extend($scope, {
 								currentUser: currentUser,
 								i18n: $rootScope.i18n,
-								locales: $locale.supportedLocales,
-								currentLocale: $locale.id,
+								locales: i18n.supportedLocales,
+								currentLocale: i18n.locale,
 
 								setLocale: function(locale) {
 									if(locale === $scope.currentLocale || $scope.locales.indexOf(locale) === -1) {
@@ -46,8 +46,7 @@ define([
 											return;
 										}
 
-										$scope.currentLocale = result.currentLocale;
-										$window.location.reload();
+										$scope.currentLocale = i18n.setLocale(result.currentLocale);
 									});
 								}
 							});

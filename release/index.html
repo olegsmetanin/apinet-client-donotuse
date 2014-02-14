@@ -62,12 +62,6 @@
 
 <script type="text/javascript">
 	(function (require) {
-		var getCookie = function (cookie) {
-			var matches = cookie && cookie.length && document.cookie.match(new RegExp(
-					"(?:^|; )" + cookie.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
-			return matches ? decodeURIComponent(matches[1]) : undefined;
-		};
-
 		require.config({
 			waitSeconds: 15,
 			baseUrl: './',
@@ -77,13 +71,18 @@
 			packages: ['core','tasks'],
 			config: {
 				'i18n': {
-					locale: getCookie('currentLocale') || window.navigator.userLanguage ||
-						window.navigator.language || 'en'
+					locale: 'en'
+				},
+				'core/services/i18n': {
+					locale: 'en',
+					globalRequire: require
 				},
 				'core/services/apinetService': {
 					useEasyXDM: true,
 					apiRoot: 'http://api.agosystems.com/',
-					notificationRoot: 'http://socket.agosystems.com'
+					notificationRoot: 'http://socket.agosystems.com'/*,
+					apiRoot: 'http://localhost:36651/',
+					notificationRoot: 'http://localhost:36653'*/
 				}
 			}
 		});
@@ -102,7 +101,7 @@
 		};
 
 		var loadResourceFn = function(resourceName) {
-			var scriptName = window.location.origin + resourceName;
+			var scriptName = window.location.origin + window.location.pathname + resourceName;
 
 			var completeFn = function() {
 				loadedCount = loadedCount + 1;

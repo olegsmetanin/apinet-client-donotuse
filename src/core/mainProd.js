@@ -2,12 +2,14 @@ require.config({
 	paths: {
 		'css': 'core/module',
 		'domReady': 'core/module',
+		'i18n': 'core/module',
 
 		'jquery': 'core/module',
 		'angular': 'core/module',
 		'jquery-ui': 'core/module',
 
 		'core/nls/ru/bootstrap_datepicker': 'core/module.ru',
+		'core/nls/en/bootstrap_datepicker': 'core/module.en',
 
 		'core/nls/en/angular': 'core/module.en',
 		'core/nls/ru/angular': 'core/module.ru',

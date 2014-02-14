@@ -22,12 +22,6 @@ require.config({
 		'bootstrap/datepicker': {
 			deps: ['jquery', 'jquery-ui']
 		},
-		'nls/ru/bootstrap_datepicker': {
-			deps: ['jquery', 'jquery-ui', 'bootstrap/datepicker']
-		},
-		'bootstrap-tabdrop': {
-			deps: ['jquery']
-		},
 
 		'easyXDM': {
 			exports: 'easyXDM'
@@ -114,11 +108,7 @@ require.config({
 
 		'bootstrap': 'core/components/bootstrap/dist/js/bootstrap',
 		'bootstrap/datepicker': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker',
-		'core/nls/ru/bootstrap_datepicker': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.ru',
 		'bootstrap/datepicker/theme': 'core/components/eternicode-bootstrap-datepicker/bootstrap-datepicker/css/datepicker',
-
-		'bootstrap-tabdrop': 'core/components/bootstrap-tabdrop/build/js/bootstrap-tabdrop.min',
-		'bootstrap-tabdrop/css': 'core/components/bootstrap-tabdrop/build/css/tabdrop',
 
 		'easyXDM': 'core/components/easyXDM/easyXDM',
 

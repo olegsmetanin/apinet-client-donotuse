@@ -12,8 +12,8 @@
 				'content': { template: '<div ui-view></div>' },
 				'moduleMenu': { template: moduleMenuTpl }
 			},
-			onEnter: ['apinetService', '$state', '$stateParams', '$rootScope', 
-				function(apinetService, $state, $stateParams, $rootScope){
+			onEnter: ['apinetService', '$state', '$stateParams', '$rootScope', 'i18n',
+				function(apinetService, $state, $stateParams, $rootScope, i18n){
 					apinetService.getModel({
 						method: 'core/projects/projectInfo',
 						project: $stateParams.project
@@ -27,6 +27,8 @@
 						$rootScope.module = data.Module;
 						require([data.Module], function() {
 							require([data.Module + '/module'], function () {
+								i18n.setLocale(null);
+
 								$state.go('page.project.' + data.Module);
 							});
 						});

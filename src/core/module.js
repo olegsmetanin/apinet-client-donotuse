@@ -14,7 +14,6 @@ define([
 ], function(requireModule, module, require) {
 	return module
 		.value('strapConfig', {
-			language: 'en',
 			pickDate: true,
 			pickTime: false,
 			type: 'iso',
@@ -61,13 +60,18 @@ define([
 				return '/projects/listview';
 			});
 		}])
-		.run(['$rootScope', '$state', '$stateParams', '$locale', 'strapConfig', 
-			function ($rootScope, $state, $stateParams, $locale, strapConfig) {
+		.run(['$rootScope', '$state', '$stateParams', 'i18n', 'apinetService',
+			function ($rootScope, $state, $stateParams, i18n, apinetService) {
 				$rootScope.$state = $state;
 				$rootScope.$stateParams = $stateParams;
 
-				$locale.supportedLocales = ['en','ru'];
-				strapConfig.language = $locale.id;
+				apinetService.action({ method: 'core/users/getLocale' }).then(function (locale) {
+					if(locale && locale.length) {
+						i18n.setLocale(locale);
+					}
+				}, function() {
+					i18n.setLocale(null);
+				});
 			}
 		]);
 });
