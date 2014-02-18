@@ -1,38 +1,20 @@
-define(['../../moduleDef'], function (module) {
-	module.controller('breadCrumbsCtrl', ['$scope', 'pageConfig', function($scope, $pageConfig) {
-		$scope.breadcrumbs = $pageConfig.current.breadcrumbs;
-		$scope.$on('page:configChanged', function() {
-			$scope.breadcrumbs = $pageConfig.current.breadcrumbs;
-		});
-	}])
-	.directive('breadCrumbs', function() {
+define([
+	'../../moduleDef',
+	'text!./breadCrumbs.tpl.html',
+	'text!./breadCrumbsFull.tpl.html'
+], function (module, tpl, fullTpl) {
+	module.directive('breadCrumbs', function() {
 		return {
 			restrict: 'A',
 			replace: true,
-			template:
-	'<div class="btn-group pull-left" ng-controller="breadCrumbsCtrl">' +
-	'	<a class="breadcrumb-nav btn dropdown-toggle" data-toggle="dropdown">' +
-	'		<i class=\'icon-chevron-right\'></i>' +
-	'	</a>' +
-	'	<ul class="dropdown-menu">' +
-	'		<li ng-repeat="breadcrumb in breadcrumbs">' +
-	'			<a ui-sref="{{breadcrumb.url}}">{{breadcrumb.name}}</a>' +
-	'		</li>' +
-	'	</ul>' +
-	'</div>'
+			template: tpl
 		};
 	})
 	.directive('breadCrumbsFull', function() {
 		return {
 			restrict: 'A',
 			replace: true,
-			template:
-	'<ul class="breadcrumb breadcrumbfull-nav" ng-controller="breadCrumbsCtrl">' +
-	'	<li ng-repeat="breadcrumb in breadcrumbs" style="margin-right: 5px">' +
-	'		<a ui-sref="{{breadcrumb.url}}">{{breadcrumb.name}}</a>' +
-	'		<i class="icon-angle-right" ng-hide="$last"></i>' +
-	'	</li>' +
-	'</ul>'
+			template: fullTpl
 		};
 	});
 });

@@ -8,17 +8,14 @@ define([
 		$stateProvider.state({
 			name: 'page.userProfile',
 			url: '/user/profile',
-			resolve: {
-				pageConfig: 'pageConfig',
-				currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
-			},
-			onEnter: function(pageConfig, i18n) {
-				pageConfig.setConfig({
-					breadcrumbs: [{
-						name: i18n.msg('core.profile.title'),
-						url: 'page.userProfile'
-					}]
+			onEnter: function($rootScope) {
+				$rootScope.breadcrumbs.push({
+					name: 'core.profile.title',
+					url: 'page.userProfile'
 				});
+			},
+			onExit: function($rootScope) {
+				$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 			},
 			views: {
 				'content': {

@@ -4,8 +4,6 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 
 	module.service('tasks/nls/module/en', ['i18n', function(i18n) {
 		return function() {
-			console.log('localizing tasks en');
-
 			i18n.addMessages('tasks', {
 				'fields': {
 					'seqNumber': 'Task number',

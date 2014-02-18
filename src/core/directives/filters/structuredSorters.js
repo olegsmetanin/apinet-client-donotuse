@@ -30,6 +30,10 @@ define([
 						$scope.moveElement(property, $scope.sorters, $scope.availableFields);
 					},
 
+					add: function(property) {
+						$scope.moveElement(property, $scope.availableFields, $scope.sorters);
+					},
+
 					remove: function(property) {
 						$scope.moveElement(property, $scope.sorters, $scope.availableFields);
 					},

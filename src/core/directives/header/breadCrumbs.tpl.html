@@ -1,0 +1,10 @@
+<div class="btn-group pull-left">
+	<a class="breadcrumb-nav btn dropdown-toggle" data-toggle="dropdown">
+		<i class=\icon-chevron-right\></i>
+	</a>
+	<ul class="dropdown-menu">
+		<li ng-repeat="breadcrumb in breadcrumbs">
+			<a ui-sref="{{breadcrumb.url}}">{{ i18n[breadcrumb.name] || breadcrumb.name }}</a>
+		</li>
+	</ul>
+</div>

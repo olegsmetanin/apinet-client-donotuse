@@ -10,17 +10,22 @@ define([
 			template: tpl,
 			resolve: {
 				i18n: 'i18n',
-				pageConfig: 'pageConfig',
 				apinetService: 'apinetService',
 				$timeout: '$timeout',
 				currentUser: securityAuthorizationProvider.requireAuthenticatedUser()
 			},
 			controller: ['$rootScope', 'currentUser', function($rootScope, currentUser) {
 				$rootScope.currentUser = currentUser;
-			}]
+			}],
+			onEnter: function ($rootScope) {
+				$rootScope.breadcrumbs = [ ];
+			},
+			onExit: function ($rootScope) {
+				$rootScope.breadcrumbs = [ ];
+			}
 		});
 	}])
-	.controller('HeaderCtrl', ['$scope', 'security', 'pageConfig', function($scope, security, pageConfig) {
+	.controller('HeaderCtrl', ['$scope', 'security', function($scope, security) {
 		$scope.isAuthenticated = security.isAuthenticated;
 	}]);
 });

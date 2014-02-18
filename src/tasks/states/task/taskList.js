@@ -2,33 +2,35 @@ define([
 	'../../moduleDef',
 	'angular',
 	'text!./taskList.tpl.html',
-	'text!../moduleMenu.tpl.html'
+	'text!../moduleMenu.tpl.html',
+	'../tasks'
 ], function (module, angular, tpl, moduleMenuTpl) {
 
 	module.state({
-		name: 'page.project.tasks',
+		name: 'page.project.tasks.tasksList',
 		url: '/tasks',
 		views: {
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
 		},
-		onEnter: function(pageConfig, i18n, $rootScope) {
+		onEnter: function($rootScope) {
 			var unwatch = $rootScope.$watch('currentProjectName', function(value) {
 				if(!value) {
 					return;
 				}
 				unwatch();
 
-				pageConfig.setConfig({
-					breadcrumbs: [
-						{ name: i18n.msg('projects.list.title'), url: 'page.projects.projectsList' },
-						{ name: value, url: 'page.project.tasks' },
-						{ name: i18n.msg('tasks.list.title'), url: 'page.project.tasks' }
-					]
+				$rootScope.breadcrumbs.push({
+					name: 'tasks.list.title',
+					url: 'page.project.tasks.tasksList'
 				});
 			});
+		},
+		onExit: function($rootScope) {
+			$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 		}
-	}).controller('taskListCtrl', ['$scope', '$stateParams', 'apinetService', '$window', 'i18n', 'taskStatuses', '$locale',
+	})
+	.controller('taskListCtrl', ['$scope', '$stateParams', 'apinetService', '$window', 'i18n', 'taskStatuses', '$locale',
 		function($scope, $stateParams, apinetService, $window, i18n, taskStatuses, $locale) {
 
 		$scope.REPORT_TYPES = ['task-list'];

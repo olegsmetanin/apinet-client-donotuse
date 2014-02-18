@@ -1,14 +1,14 @@
 <div class="tabbable">
 	<ul class="nav nav-responsive nav-tabs">
 		<li ng-class="{active: tab == 'overview' }">
-			<a ui-sref="page.project.taskView({ num: num })">{{ i18n.tasks.view.tabs.overview }}</a>
+			<a ui-sref="page.project.tasks.taskView({ num: num })">{{ i18n.tasks.view.tabs.overview }}</a>
 		</li>
 		<!-- This items not implemented yet -->
 		<li ng-class="{active: tab == 'comments'}">
-			<a ui-sref="page.project.taskComments({ num: num })">{{ i18n.tasks.view.tabs.comments }}</a>
+			<a ui-sref="page.project.tasks.taskComments({ num: num })">{{ i18n.tasks.view.tabs.comments }}</a>
 		</li>
 		<li ng-class="{active: tab == 'files'}">
-			<a ui-sref="page.project.taskFiles({ num: num })">{{ i18n.tasks.view.tabs.files }}</a>
+			<a ui-sref="page.project.tasks.taskFiles({ num: num })">{{ i18n.tasks.view.tabs.files }}</a>
 		</li>
 	</ul>
 </div>

@@ -7,15 +7,16 @@ define([
 		$stateProvider.state({
 			name: 'page.reporting.templates',
 			url: '/projects/reporting/templates',
-			onEnter: function(pageConfig, i18n) {
-				pageConfig.setConfig({
-					breadcrumbs: [{
-						name: i18n.msg('core.reporting.templates.title'),
-						url: 'page.reporting.templates'
-					}]
+			template: template,
+			onEnter: function($rootScope) {
+				$rootScope.breadcrumbs.push({
+					name: 'core.reporting.templates.title',
+					url: 'page.reporting.templates'
 				});
 			},
-			template: template
+			onExit: function($rootScope) {
+				$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
+			}
 		});
 	}])
 	.controller('reportTemplatesController', 
@@ -65,12 +66,13 @@ define([
 		};
 
 		$scope.findIdexById = function(templateId) {
-			if (!templateId) return -1;
+			if (!templateId) {
+				return -1;
+			}
 			var modelIndex = -1;
 			angular.forEach($scope.models, function(model, index) {
 				if (model.Id === templateId){
 					modelIndex = index;
-					return;
 				}
 			});
 			return modelIndex;

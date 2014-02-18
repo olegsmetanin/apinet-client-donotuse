@@ -14,20 +14,20 @@
 	</ul>
 </li>
 
-<li ng-class="{'active': $state.is('page.project.settings')}">
-	<a ui-sref="page.project.settings">
+<li ng-class="{'active': $state.is('page.project.tasks.settings')}">
+	<a ui-sref="page.project.tasks.settings">
 		<i class="icon-info"></i>
 		<span>{{ i18n.projects.settings.title }}</span>
 	</a>
 </li>
-<li ng-class="{'active': $state.is('page.project.tasks')}">
-	<a ui-sref="page.project.tasks">
+<li ng-class="{'active': $state.is('page.project.tasks.tasksList')}">
+	<a ui-sref="page.project.tasks.tasksList">
 		<i class="icon-tasks"></i>
 		<span>{{ i18n.tasks.list.title }}</span>
 	</a>
 </li>
-<li ng-class="{'active': $state.is('page.project.taskTypes')}">
-	<a ui-sref="page.project.taskTypes">
+<li ng-class="{'active': $state.is('page.project.tasks.taskTypes')}">
+	<a ui-sref="page.project.tasks.taskTypes">
 		<i class="icon-cog"></i>
 		<span>{{ i18n.tasks.types.title }}</span>
 	</a>

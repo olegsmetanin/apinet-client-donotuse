@@ -10,7 +10,7 @@
 		<tr>
 			<td x-lvl-drop-target="true" x-on-drop="reverted(dragEl, dropEl)">
 				<div ng-repeat="sorter in availableFields" style="margin-bottom: 5px;">
-					<button class="btn btn-primary" x-lvl-draggable="true" property="{{sorter.property}}">
+					<button class="btn btn-primary" x-lvl-draggable="true" property="{{sorter.property}}" ng-click="add(sorter.property)">
 						{{sorter.displayName}}
 					</button>
 				</div>

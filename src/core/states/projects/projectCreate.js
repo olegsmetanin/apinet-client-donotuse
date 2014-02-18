@@ -8,17 +8,20 @@ define([
 		$stateProvider.state({
 			name: 'page.projects.projectCreate',
 			url: '/projects/new',
-			onEnter: function(pageConfig, i18n) {
-				pageConfig.setConfig({
-					breadcrumbs: [
-						{ name: i18n.msg('projects.list.title'), url: 'page.projects.projectsList' },
-						{ name: i18n.msg('projects.create.title'), url: 'page.projects.projectCreate' }
-					]
-				});
-			},
 			template: tpl,
 			resolve: {
 				adminUser: securityAuthorizationProvider.requireAdminUser()
+			},
+			onEnter: function($rootScope) {
+				console.log('projectCreate on enter');
+				$rootScope.breadcrumbs.push({
+					name: 'projects.create.title',
+					url: 'page.projects.projectCreate'
+				});
+			},
+			onExit: function($rootScope) {
+				console.log('projectCreate on exit');
+				$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 			}
 		});
 	}])

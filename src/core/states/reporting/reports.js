@@ -7,15 +7,16 @@ define([
 		$stateProvider.state({
 			name: 'page.reporting.reports',
 			url: '/projects/reporting/reports',
-			onEnter: function(pageConfig, i18n) {
-				pageConfig.setConfig({
-					breadcrumbs: [{
-						name: i18n.msg('core.reporting.reports.title'),
-						url: 'page.reporting.reports'
-					}]
+			template: template,
+			onEnter: function($rootScope) {
+				$rootScope.breadcrumbs.push({
+					name: 'core.reporting.reports.title',
+					url: 'page.reporting.reports'
 				});
 			},
-			template: template
+			onExit: function($rootScope) {
+				$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
+			}
 		});
 	}])
 	.controller('reportsController', 

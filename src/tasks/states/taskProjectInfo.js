@@ -2,33 +2,35 @@ define([
 	'../moduleDef',
 	'angular',
 	'text!./taskProjectInfo.tpl.html',
-	'text!./moduleMenu.tpl.html'
+	'text!./moduleMenu.tpl.html',
+	'./tasks'
 ], function (module, angular, tpl, moduleMenuTpl) {
 	module.state({
-		name: 'page.project.settings',
+		name: 'page.project.tasks.settings',
 		url: '/settings',
 		views: {
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
 		},
-		onEnter: function(pageConfig, i18n, $rootScope) {
+		onEnter: function($rootScope) {
 			var unwatch = $rootScope.$watch('currentProjectName', function(value) {
 				if(!value) {
 					return;
 				}
 				unwatch();
 
-				pageConfig.setConfig({
-					breadcrumbs: [
-						{ name: i18n.msg('projects.list.title'), url: 'page.projects.projectsList' },
-						{ name: value, url: 'page.project.tasks' },
-						{ name: i18n.msg('projects.settings.title'), url: 'page.project.settings' }
-					]
+				$rootScope.breadcrumbs.push({
+					name: 'projects.settings.title',
+					url: 'page.project.tasks.settings'
 				});
 			});
+		},
+		onExit: function($rootScope) {
+			$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 		}
-	}).controller('projectInfoCtrl', ['$scope', '$stateParams', 'apinetService', 'i18n', 
-		function($scope, $stateParams, apinetService, i18n) {
+	})
+	.controller('projectInfoCtrl', ['$scope', '$stateParams', 'apinetService',
+		function($scope, $stateParams, apinetService) {
 			$scope.resetValidation = function() {
 				if (!$scope.validation) {
 					$scope.validation = {};

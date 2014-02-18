@@ -16,6 +16,15 @@
 							function(newValue) { $scope.isAdmin = newValue; });
 					}]
 				}
+			},
+			onEnter: function($rootScope) {
+				$rootScope.breadcrumbs.push({
+					name: 'projects.list.title',
+					url: 'page.projects.projectsList'
+				});
+			},
+			onExit: function($rootScope) {
+				$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 			}
 		});
 	}]);

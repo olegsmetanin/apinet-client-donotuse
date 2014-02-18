@@ -10,20 +10,10 @@
 			$stateProvider.state({
 				name: 'page.projects.projectsList',
 				url: '/projects/listview',
-				onEnter: function (pageConfig, i18n) {
-					pageConfig.setConfig({
-						breadcrumbs: [
-							{
-								name: i18n.msg('projects.list.title'),
-								url: 'page.projects.projectsList'
-							}
-						]
-					});
-				},
 				template: tpl
 			});
 		}])
-		.controller('projectsListCtrl', ['$scope', '$timeout', 'apinetService', function ($scope, $timeout, apinetService) {
+		.controller('projectsListCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
 			$scope.doLayout = function() {
 				$timeout(function() {
 					$('.projectsWall').masonry();

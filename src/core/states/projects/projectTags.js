@@ -8,15 +8,16 @@ define([
 			$stateProvider.state({
 				name: 'page.projects.projectTags',
 				url: '/projects/tags',
-				onEnter: function(pageConfig, i18n) {
-					pageConfig.setConfig({
-						breadcrumbs: [
-							{ name: i18n.msg('projects.list.title'), url: 'page.projects.projectsList' },
-							{ name: i18n.msg('projects.tags.title'), url: 'page.projects.projectTags' }
-						]
+				template: tpl,
+				onEnter: function($rootScope) {
+					$rootScope.breadcrumbs.push({
+						name: 'projects.tags.title',
+						url: 'page.projects.projectTags'
 					});
 				},
-				template: tpl
+				onExit: function($rootScope) {
+					$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
+				}
 			});
 		}])
 		.controller('projectTagsCtrl', ['$scope', '$window', 'i18n', 'apinetService', function($scope, $window, i18n, apinetService) {
