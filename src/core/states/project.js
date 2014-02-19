@@ -33,7 +33,9 @@
 						require([data.Module + '/module'], function () {
 							i18n.setLocale(null);
 
-							$state.go('page.project.' + data.Module + '.default');
+							if($state.current.name === 'page.project') {
+								$state.go('page.project.' + data.Module + '.default');
+							}
 						});
 					});
 				}, function() {

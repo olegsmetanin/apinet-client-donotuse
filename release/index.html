@@ -79,10 +79,10 @@
 				},
 				'core/services/apinetService': {
 					useEasyXDM: true,
-					apiRoot: 'http://api.agosystems.com/',
-					notificationRoot: 'http://socket.agosystems.com'/*,
+					/*apiRoot: 'http://api.agosystems.com/',
+					notificationRoot: 'http://socket.agosystems.com',*/
 					apiRoot: 'http://localhost:36651/',
-					notificationRoot: 'http://localhost:36653'*/
+					notificationRoot: 'http://localhost:36653'
 				}
 			}
 		});
@@ -119,7 +119,7 @@
 					return;
 				}
 
-				var newPercents = Math.round(event.loaded * 90 / event.total);
+				var newPercents = Math.round(event.loaded * 99 / event.total);
 				if(resources[resourceName] !== newPercents) {
 					resources[resourceName] = newPercents;
 
