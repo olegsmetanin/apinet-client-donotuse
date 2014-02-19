@@ -17,8 +17,8 @@ define(['./moduleDef'], function (module) {
 		if (security.getLoginReason()) {
 
 			$scope.authReason = security.isAuthenticated() ?
-				i18n.msg('core.auth.reason.notAuthorized') :
-				i18n.msg('core.auth.reason.notAuthenticated');
+				'core.auth.reason.notAuthorized' :
+				'core.auth.reason.notAuthenticated';
 		}
 
 		// Attempt to authenticate the user specified in the form's model

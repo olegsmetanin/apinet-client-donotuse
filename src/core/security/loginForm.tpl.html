@@ -4,10 +4,10 @@
     </div>
     <div class="modal-body">
         <div class="alert alert-warning" ng-show="authReason">
-            {{authReason}}
+            {{ i18n[authReason] || authReason }}
         </div>
         <div class="alert alert-error" ng-show="authError">
-            {{authError}}
+            {{ authError }}
         </div>
         <div class="alert alert-info">{{ i18n.core.auth.credentials.legend }}</div>
         <div class="form-group">
