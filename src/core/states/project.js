@@ -12,7 +12,7 @@
 				'content': { template: '<div ui-view></div>' },
 				'moduleMenu': { template: moduleMenuTpl }
 			},
-			onEnter: function(apinetService, $state, $stateParams, $rootScope, i18n) {
+			onEnter: function(apinetService, $state, $stateParams, $rootScope) {
 				$rootScope.breadcrumbs.push({
 					name: 'projects.list.title',
 					url: 'page.projects.projectsList'
@@ -25,16 +25,21 @@
 					if(!data || !data.Module) {
 						return;
 					}
-					$rootScope.currentProjectName = data.Name;
+
 					//used in moduleConfig for requesting module configuration
 					//and in security/service for switching user role in project
 					$rootScope.module = data.Module;
+					$rootScope.currentProjectName = data.Name;
+
+					$rootScope.breadcrumbs.push({
+						name: $rootScope.currentProjectName,
+						url: 'page.project.' + data.Module
+					});
+
 					require([data.Module], function() {
 						require([data.Module + '/module'], function () {
-							i18n.setLocale(null);
-
 							if($state.current.name === 'page.project') {
-								$state.go('page.project.' + data.Module);
+								$state.go('.' + data.Module);
 							}
 						});
 					});
@@ -43,7 +48,15 @@
 				});
 			},
 			onExit: function($rootScope) {
-				$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
+				var count = 1;
+				if($rootScope.currentProjectName) {
+					count = 2;
+				}
+
+				$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - count, count);
+
+				delete $rootScope.module;
+				delete $rootScope.currentProjectName;
 			}
 		});
 	}]);

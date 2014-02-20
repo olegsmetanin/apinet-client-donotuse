@@ -15,7 +15,7 @@ define(['../moduleDef', 'angular', 'require', 'module'], function (module, angul
 			},
 
 			handleNotFound: function(key) {
-				return '?' + key + '?';
+				return config.release ? '' : '?' + key + '?';
 			}
 		};
 

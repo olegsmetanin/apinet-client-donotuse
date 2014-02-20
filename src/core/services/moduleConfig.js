@@ -16,9 +16,11 @@ define(['../moduleDef'], function (module) {
 					//May be module does not exists in scope at this point, wait
 					//If already presented, watch will be called immediate
 					var unwatch = $rootScope.$watch('module', function(newVal) {
-						if (!newVal) return;
-
+						if (!newVal) {
+							return;
+						}
 						unwatch();
+
 						apinetService.action({
 							method: newVal + '/config/configuration',
 							project: project

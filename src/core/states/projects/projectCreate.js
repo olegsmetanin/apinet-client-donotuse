@@ -13,26 +13,24 @@ define([
 				adminUser: securityAuthorizationProvider.requireAdminUser()
 			},
 			onEnter: function($rootScope) {
-				console.log('projectCreate on enter');
 				$rootScope.breadcrumbs.push({
 					name: 'projects.create.title',
 					url: 'page.projects.projectCreate'
 				});
 			},
 			onExit: function($rootScope) {
-				console.log('projectCreate on exit');
 				$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 			}
 		});
 	}])
-	.controller('projectCreateCtrl', ['$scope', 'apinetService', '$state',
-		function($scope, apinetService, $state) {
+	.controller('projectCreateCtrl', ['$scope', 'apinetService', '$state', '$location',
+		function($scope, apinetService, $state, $location) {
 			angular.extend($scope, {
 				model: { },
 				validation: { },
 
 				cancel: function() {
-					$state.transitionTo('page.projects.projectsList', {}, true);
+					$state.go('page.projects.projectsList');
 				},
 
 				handleException: function(error) {
@@ -66,9 +64,7 @@ define([
 						tagIds: tagIds
 					}).then(function(result) {
 						if(typeof result.success === 'undefined' || result.success) {
-							$state.transitionTo('page.projects.projectsList');
-							//TODO not worked - at this stage task module routes if not loaded yet
-							//$state.transitionTo('page.project.settings', { project: $scope.model.ProjectCode }, true);
+							$location.url('/project/' + $scope.model.ProjectCode +'/settings');
 						}
 						else {
 							$scope.handleValidationErrors(result);

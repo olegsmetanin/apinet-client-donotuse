@@ -75,7 +75,8 @@
 				},
 				'core/services/i18n': {
 					locale: 'en',
-					globalRequire: require
+					globalRequire: require,
+					release: true
 				},
 				'core/services/apinetService': {
 					useEasyXDM: true,
@@ -93,10 +94,12 @@
 		};
 		var resourcesCount = 2;
 		var loadedCount = 0;
+		var currentPercents = 0;
 
 		var processRequire = function() {
 			require(['jquery'], function () {
-				require(['core'], function () { });
+				require(['core'], function () {
+				});
 			});
 		};
 
@@ -109,6 +112,18 @@
 					return;
 				}
 
+				var timeoutFn = function() {
+					if(currentPercents >= 100) {
+						return;
+					}
+
+					currentPercents = currentPercents + 1;
+					document.body.setAttribute('data-progrecss', currentPercents.toString());
+					window.setTimeout(timeoutFn, 600);
+				};
+
+				window.setTimeout(timeoutFn, 600);
+
 				processRequire();
 			};
 
@@ -119,7 +134,7 @@
 					return;
 				}
 
-				var newPercents = Math.round(event.loaded * 99 / event.total);
+				var newPercents = Math.round(event.loaded * 80 / event.total);
 				if(resources[resourceName] !== newPercents) {
 					resources[resourceName] = newPercents;
 
@@ -132,7 +147,8 @@
 						total = total + resources[key];
 					}
 
-					document.body.setAttribute('data-progrecss', Math.round(total / resourcesCount).toString());
+					currentPercents = Math.round(total / resourcesCount);
+					document.body.setAttribute('data-progrecss', currentPercents.toString());
 				}
 			}, false);
 			request.addEventListener('load', completeFn, false);

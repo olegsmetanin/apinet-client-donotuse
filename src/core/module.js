@@ -48,8 +48,10 @@ define([
 							if(!data || !data.Module) {
 								return;
 							}
-							require([data.Module + '/module'], function() {
-								$timeout(function() { $location.url(url); });
+							require([data.Module], function() {
+								require([data.Module + '/module'], function() {
+									$timeout(function() { $location.url(url); });
+								});
 							});
 						}, function() {
 							$state.go('page.projects.projectsList');

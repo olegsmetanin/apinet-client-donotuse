@@ -2,27 +2,19 @@ define([
 	'../../../moduleDef',
 	'angular',
 	'text!./taskCreate.tpl.html',
-	'text!../../moduleMenu.tpl.html',
-	'../../tasks'
+	'text!../../moduleMenu.tpl.html'
 ], function (module, angular, tpl, moduleMenuTpl) {
 	module.state({
-		name: 'page.project.tasks.taskCreate',
+		name: 'page.project.taskCreate',
 		url: '/newTask',
 		views: {
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
 		},
 		onEnter: function($rootScope) {
-			var unwatch = $rootScope.$watch('currentProjectName', function(value) {
-				if(!value) {
-					return;
-				}
-				unwatch();
-
-				$rootScope.breadcrumbs.push({
-					name: 'tasks.create.title',
-					url: 'page.project.tasks.taskCreate'
-				});
+			$rootScope.breadcrumbs.push({
+				name: 'tasks.create.title',
+				url: 'page.project.taskCreate'
 			});
 		},
 		onExit: function($rootScope) {
@@ -32,7 +24,7 @@ define([
 		function($scope, $stateParams, apinetService, $state) {
 
 			$scope.cancel = function() {
-				$state.go('page.project.tasks.tasksList');
+				$state.go('page.project.tasks');
 			};
 
 			$scope.create = function() {
@@ -44,12 +36,12 @@ define([
 				.then(function(response) {
 					if (response.validation.success) {
 						if ($scope.nextAction === 'goToTask') {
-							$state.transitionTo('page.project.tasks.taskView', {
+							$state.go('page.project.taskView', {
 								num: response.model,
 								project: $stateParams.project
-							}, true);
+							});
 						} else if ($scope.nextAction === 'goToList') {
-							$state.transitionTo('page.project.tasks.tasksList', { project: $stateParams.project }, true);
+							$state.go('page.project.tasks', { project: $stateParams.project });
 						} else if ($scope.nextAction === 'stayHere') {
 							$scope.model = initModel();
 							$scope.form.$setPristine();

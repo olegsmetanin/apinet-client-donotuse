@@ -172,4 +172,6 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 			});
 		};
 	}]);
+
+	i18n.setLocale(null);
 });

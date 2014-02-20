@@ -1,5 +1,4 @@
 define([
-	'./states/tasks',
 	'./states/task-type/taskTypeList',
 	'./states/task/taskList',
 	'./states/task/create/taskCreate',

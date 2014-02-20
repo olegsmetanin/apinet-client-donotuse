@@ -2,28 +2,20 @@ define([
 	'../../moduleDef',
 	'angular',
 	'text!./taskList.tpl.html',
-	'text!../moduleMenu.tpl.html',
-	'../tasks'
+	'text!../moduleMenu.tpl.html'
 ], function (module, angular, tpl, moduleMenuTpl) {
 
 	module.state({
-		name: 'page.project.tasks.tasksList',
+		name: 'page.project.tasks',
 		url: '/tasks',
 		views: {
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
 		},
 		onEnter: function($rootScope) {
-			var unwatch = $rootScope.$watch('currentProjectName', function(value) {
-				if(!value) {
-					return;
-				}
-				unwatch();
-
-				$rootScope.breadcrumbs.push({
-					name: 'tasks.list.title',
-					url: 'page.project.tasks.tasksList'
-				});
+			$rootScope.breadcrumbs.push({
+				name: 'tasks.list.title',
+				url: 'page.project.tasks'
 			});
 		},
 		onExit: function($rootScope) {

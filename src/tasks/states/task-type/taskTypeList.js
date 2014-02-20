@@ -2,27 +2,19 @@ define([
 	'../../moduleDef',
 	'angular',
 	'text!./taskTypeList.tpl.html',
-	'text!../moduleMenu.tpl.html',
-	'../tasks'
+	'text!../moduleMenu.tpl.html'
 ], function (module, angular, tpl, moduleMenuTpl) {
 	module.state({
-		name: 'page.project.tasks.taskTypes',
+		name: 'page.project.taskTypes',
 		url: '/dictionary/types',
 		views: {
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
 		},
 		onEnter: function($rootScope) {
-			var unwatch = $rootScope.$watch('currentProjectName', function(value) {
-				if(!value) {
-					return;
-				}
-				unwatch();
-
-				$rootScope.breadcrumbs.push({
-					name: 'tasks.types.title',
-					url: 'page.project.tasks.taskTypes'
-				});
+			$rootScope.breadcrumbs.push({
+				name: 'tasks.types.title',
+				url: 'page.project.taskTypes'
 			});
 		},
 		onExit: function($rootScope) {
