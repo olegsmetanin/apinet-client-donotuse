@@ -1,11 +1,10 @@
 ﻿define(['../moduleDef'], function (module) {
 	module.state({
-		abstract: true,
 		name: 'page.project.tasks',
 		views: {
 			'': { template: '<div ui-view></div>' }
 		},
-		onEnter: function($rootScope) {
+		onEnter: function($rootScope, $state) {
 			var unwatch = $rootScope.$watch('currentProjectName', function(value) {
 				if(!value) {
 					return;
@@ -16,6 +15,8 @@
 					name: value,
 					url: 'page.project.tasks.tasksList'
 				});
+
+				$state.go('page.project.tasks.tasksList');
 			});
 		},
 		onExit: function($rootScope) {

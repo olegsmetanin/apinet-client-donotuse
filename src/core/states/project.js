@@ -34,7 +34,7 @@
 							i18n.setLocale(null);
 
 							if($state.current.name === 'page.project') {
-								$state.go('page.project.' + data.Module + '.default');
+								$state.go('page.project.' + data.Module);
 							}
 						});
 					});
