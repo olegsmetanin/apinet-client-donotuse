@@ -71,7 +71,7 @@ define([
 		$dropTarget.on('dragover', function(e) { $dropTarget.addClass('file-upload-dropzone_hover'); });
 		$dropTarget.on('dragleave', function(e) { $dropTarget.removeClass('file-upload-dropzone_hover'); });
 		scope.$on('destroy', function() {
-			$dropTarget.off('dragenter dragleave');
+			$dropTarget.off('dragenter dragover dragleave');
 		});
 	};
 
