@@ -31,10 +31,17 @@
 					$rootScope.module = data.Module;
 					$rootScope.currentProjectName = data.Name;
 
-					$rootScope.breadcrumbs.push({
+					var breadcrumb = {
 						name: $rootScope.currentProjectName,
 						url: 'page.project.' + data.Module
-					});
+					};
+
+					if($rootScope.breadcrumbs.length > 1) {
+						$rootScope.breadcrumbs.splice(1,0, breadcrumb);
+					}
+					else {
+						$rootScope.breadcrumbs.push(breadcrumb);
+					}
 
 					require([data.Module], function() {
 						require([data.Module + '/module'], function () {

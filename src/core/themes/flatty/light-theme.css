@@ -4973,3 +4973,27 @@ pre {
 
 .select2-results .select2-highlighted {
   background-color: #f34541; }
+  
+@media (max-width: 767px) {
+	.hide-xs {
+		display: none;
+	}
+}
+  
+@media (min-width: 768px) {
+	.hide-sm {
+		display: none;
+	}
+}
+  
+@media (min-width: 992px) {
+	.hide-md {
+		display: none;
+	}
+}
+
+@media (min-width: 1200px) {
+	.hide-lg {
+		display: none;
+	}
+}

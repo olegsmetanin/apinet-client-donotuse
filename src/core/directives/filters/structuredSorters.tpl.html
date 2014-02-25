@@ -1,21 +1,10 @@
 <div class="structuredSorters">
-	<table class="table table-bordered">
-		<thead>
-		<tr>
-			<th style="width: 50%;">{{ i18n.core.sorting.availableFields }}</th>
-			<th style="width: 50%;">{{ i18n.core.sorting.sortingFields }}</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr>
-			<td x-lvl-drop-target="true" x-on-drop="reverted(dragEl, dropEl)">
-				<div ng-repeat="sorter in availableFields" style="margin-bottom: 5px;">
-					<button class="btn btn-primary" x-lvl-draggable="true" property="{{sorter.property}}" ng-click="add(sorter.property)">
-						{{sorter.displayName}}
-					</button>
-				</div>
-			</td>
-			<td x-lvl-drop-target="true" x-on-drop="dropped(dragEl, dropEl)">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+			<div>
+				<h4>{{ i18n.core.sorting.sortingFields }}</h4>
+			</div>
+			<div x-lvl-drop-target="true" x-on-drop="dropped(dragEl, dropEl)">
 				<div ng-repeat="sorter in sorters track by $index" style="margin-bottom: 5px;">
 					<button class="btn btn-primary" title="{{ sorter.direction }}" ng-click="switchDirection($event)" property="{{sorter.property}}" x-lvl-draggable="true">
 						<span>{{sorter.displayName}}</span>
@@ -25,8 +14,20 @@
 					<ago-btn-delete title="{{ i18n.core.sorting.removeField }}" ng-click="remove(sorter.property)"></ago-btn-delete>
 				</div>
 				<div class="placeholder" ng-hide="sorters.length > 0">Drag sorting fields here</div>
-			</td>
-		</tr>
-		</tbody>
-	</table>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+			<div>
+				<h4>{{ i18n.core.sorting.availableFields }}</h4>
+			</div>
+			<div x-lvl-drop-target="true" x-on-drop="reverted(dragEl, dropEl)">
+				<div ng-repeat="sorter in availableFields" style="margin-bottom: 5px;">
+					<button class="btn btn-primary" x-lvl-draggable="true" property="{{sorter.property}}" ng-click="add(sorter.property)">
+						{{sorter.displayName}}
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
 </div>
