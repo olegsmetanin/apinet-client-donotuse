@@ -3,7 +3,6 @@
 		<i class="icon-paper-clip"></i>
 		<input type="file" name="files[]" multiple ng-disabled="disabled" title="{{ i18n.core.upload.addFiles }}">
 	</span>
-	<!--TODO: in css-->
 	<img ng-show="uploading" ng-src="{{ loadingImgUrl }}" />
 	<span ng-show="uploading">{{ progress }}%</span>
 </div>

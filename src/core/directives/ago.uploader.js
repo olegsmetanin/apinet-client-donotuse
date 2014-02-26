@@ -17,7 +17,7 @@ define([
 		});
 	};
 
-	var options = {
+	var defaultOptions = {
 		autoUpload: true,
 		xhrFields: { withCredentials: true },
 		maxChunkSize: 1024 * 1024 * 3//, //3Mb default
@@ -84,7 +84,8 @@ define([
 			link: function(scope, elm, attrs) {
 				applyHandlers(scope, $(elm[0]));
 				
-				scope.options = angular.extend(options, scope.$eval(attrs.agoUploader));
+				var ops = angular.copy(defaultOptions);
+				scope.options = angular.extend(ops, scope.$eval(attrs.agoUploader));
 			}
 		};
 	}]);
@@ -104,7 +105,8 @@ define([
 					var $dropTarget = $(attrs.dropTarget);
 					applyHandlers($scope, $elm, $dropTarget);
 				
-					$scope.options = angular.extend(options, $scope.$eval(attrs.agoUploaderInrow));
+					var ops = angular.copy(defaultOptions);
+					$scope.options = angular.extend(ops, $scope.$eval(attrs.agoUploaderInrow));
 				});
 			}
 		};
