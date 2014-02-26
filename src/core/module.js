@@ -48,8 +48,9 @@ define([
 							if(!data || !data.Module) {
 								return;
 							}
-							require([data.Module], function() {
-								require([data.Module + '/module'], function() {
+							var m = data.Module.toLowerCase();
+							require([m], function() {
+								require([m + '/module'], function() {
 									$timeout(function() { $location.url(url); });
 								});
 							});
