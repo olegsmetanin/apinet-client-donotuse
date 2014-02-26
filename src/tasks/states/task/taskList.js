@@ -179,6 +179,10 @@ define([
 			};
 		};
 
+		$scope.downloadUrl = function(file) {
+			return apinetService.downloadUrl('file/' + $stateParams.project + '/' + file.id);
+		};
+
 		$scope.onReportError = function(error) {
 			handleException(error);
 		};

@@ -195,8 +195,8 @@
 													<tr>
 														<td>{{ 'tasks.fields.topFiles' | i18n:{ count: 5 } }}</td>
 														<td>
-															<a href="/services/download/file/{{f}}" target="_blank" ng-repeat="f in model.details.Files">
-																<i class="icon-paper-clip"></i>{{ f }}
+															<a href="{{ downloadUrl(f) }}" target="_blank" class="pull-left" ng-repeat="f in model.details.Files">
+																<i class="icon-paper-clip"></i>{{ f.text }}
 															</a>
 														</td>
 													</tr>

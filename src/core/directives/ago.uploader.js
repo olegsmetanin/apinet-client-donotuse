@@ -20,7 +20,7 @@ define([
 	var options = {
 		autoUpload: true,
 		xhrFields: { withCredentials: true },
-		maxChunkSize: 1024 * 1024 * 5//, //5Mb default
+		maxChunkSize: 1024 * 1024 * 3//, //3Mb default
 		//maxChunkSize: 1024//, testing chunking
 	};
 

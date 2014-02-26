@@ -100,6 +100,10 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 							'date': 'date'
 						},
 						'numFormat': 'Expected format 0##[.0##]'
+					},
+					'files': {
+						'title': 'Files',
+						'fields': { 'size': 'File size' }
 					}
 				},
 

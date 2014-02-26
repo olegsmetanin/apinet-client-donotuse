@@ -1,0 +1,94 @@
+<div class="container" 
+	ng-controller="taskFilesCtrl"
+	filtered-list="{method: 'tasks/tasks/getFiles', ownerId: numpp}"
+	initial-sorters="{Name: 'asc'}">
+	<div class="row" id="content-wrapper">
+		<div class="col-xs-12">
+
+			<div class="row">
+				<div class="col-xs-12">
+					<task-tabs current-tab="files" task-num="numpp" style="padding-top: 5px"></task-tabs>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<div filters-box="filter" sorters="sorters" meta="tasks/tasks/TaskFilesMetadata" group="Tasks.TaskFiles" apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter">
+
+						<form class="form form-horizontal">
+							<div class="form-group">
+								<label class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
+								<div class="col-md-9">
+									<input type="text" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="form-control"  />
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<ago-box color="purple" large="true" header-class="{'hidden-xs': true, 'hidden-md': true, 'hidden-lg': true}">
+						<ago-box-title>
+							<i class="fa icon-file-alt"></i>
+							{{ i18n.tasks.view.files.title }}
+						</ago-box-title>
+						<ago-box-content>
+							<div class="box-toolbox box-toolbox-top">
+								<ago-error-msg></ago-error-msg>
+
+								<div>
+									<div class="col-xs-10" ago-uploader="topUploadOption()">
+									</div>
+								<!-- </div>
+								<div class="col-xs-2"> -->
+									<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{i18n.core.buttons.deleteSelected}}">{{ i18n.core.buttons.delete }}</button>
+								</div>
+							</div>
+
+							<div class="responsive-table">
+							<div class="scrollable-area">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="onepct">
+											<input type="checkbox" checker="items: 'models'">
+										</th>
+										<th class="col-md-4 col-sm-8 col-xs-11">{{ i18n.core.fields.name }}</th>
+										<th class="col-md-2 col-sm-3 hidden-xs">{{ i18n.tasks.view.files.fields.size }}</th>
+										<th class="col-md-2 hidden-sm hidden-xs">{{ i18n.core.fields.creator }}</th>
+										<th class="col-md-2 hidden-sm hidden-xs">{{ i18n.core.fields.creationTime }}</th>
+										<th class="onepct">&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr id="{{f.Id}}" ng-repeat="f in models">
+										<td>
+											<input type="checkbox" ng-model="f.selected" data-itemid="{{ f.Id }}">
+										</td>
+										<td>
+											<a target="_blank" href="{{ downloadUrl(f) }}">{{ f.Name }}</a>
+
+											<div ago-uploader-inrow="itemUploadOption(f)" drop-target="#{{f.Id}}" class="col-xs-12"></div>
+										</td>
+										<td class="hidden-xs">{{ f.Size | formatFileSize }}</td>
+										<td class="hidden-sm hidden-xs">{{ f.Author }}</td>
+										<td class="hidden-sm hidden-xs">{{ f.CreationTime | date:'ago_datetime' }}</td>
+										<td>
+											<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(f)"></ago-btn-delete>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+							</div>
+
+							<div class="box-toolbox box-toolbox-bottom">
+								<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
+
+								<counter action="tasks/tasks/getFilesCount"></counter>
+							</div>
+						</ago-box-content>
+					</ago-box>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
