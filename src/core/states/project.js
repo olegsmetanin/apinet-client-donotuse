@@ -43,10 +43,11 @@
 						$rootScope.breadcrumbs.push(breadcrumb);
 					}
 
-					require([data.Module], function() {
-						require([data.Module + '/module'], function () {
+					var m = data.Module.toLowerCase();
+					require([m], function() {
+						require([m + '/module'], function () {
 							if($state.current.name === 'page.project') {
-								$state.go('.' + data.Module);
+								$state.go('.' + m);
 							}
 						});
 					});
