@@ -16,7 +16,9 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 					'note': 'Note',
 					'agreements': 'Agreements',
 					'topFiles': 'Files (top {{count}})',
-					'tags': 'Tags'
+					'tags': 'Tags',
+					'estimatedTime': 'Estimated time',
+					'spentTime': 'Spent time'
 				},
 
 				'confirm': {

@@ -16,7 +16,9 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 					'note': 'Примечание',
 					'agreements': 'Согласования',
 					'topFiles': 'Файлы (топ {{count}})',
-					'tags': 'Теги'
+					'tags': 'Теги',
+					'estimatedTime': 'Планируемое время',
+					'spentTime': 'Затраченное время'
 				},
 
 				'confirm': {
