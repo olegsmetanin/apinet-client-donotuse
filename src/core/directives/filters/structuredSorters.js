@@ -10,12 +10,13 @@ define([
 			template: tpl,
 			scope: {
 				meta: '=',
-				sorters: '='
+				sorters: '=',
+				expanded: '='
 			},
 			controller: ['$scope', '$rootScope', 'i18n', function($scope, $rootScope, i18n) {
 				angular.extend($scope, {
 					i18n: $rootScope.i18n,
-					availableFields: [],
+					availableFields: null,
 					sorters: $scope.sorters || [],
 
 					dropped: function(dragEl) {
@@ -97,38 +98,51 @@ define([
 							}
 							sorter.direction = !sorter.descending ? i18n.msg('core.sorting.ascending') : i18n.msg('core.sorting.descending');
 						}
-					}
-				});
+					},
 
-				$metadataService.modelMetadata($scope.meta, null, function(metadata) {
-					if(!metadata || !metadata.PrimitiveProperties) {
-						return;
-					}
-
-					for(var key in metadata.PrimitiveProperties) {
-						if(!metadata.PrimitiveProperties.hasOwnProperty(key)) {
-							continue;
+					processMetadata: function() {
+						if($scope.availableFields) {
+							return;
 						}
 
-						$scope.availableFields.push({
-							property: key,
-							displayName: metadata.PrimitiveProperties[key].DisplayName
-						});
+						$metadataService.modelMetadata($scope.meta, null, function(metadata) {
+							if(!metadata || !metadata.PrimitiveProperties) {
+								return;
+							}
 
-						for(var i = 0; i < $scope.sorters.length; i++) {
-							for(var j = 0; j < $scope.availableFields.length; j++) {
-								if($scope.availableFields[j].property === $scope.sorters[i].property) {
-									$scope.availableFields.splice(j, 1);
-									break;
+							$scope.availableFields = [];
+							for(var key in metadata.PrimitiveProperties) {
+								if(!metadata.PrimitiveProperties.hasOwnProperty(key)) {
+									continue;
+								}
+
+								$scope.availableFields.push({
+									property: key,
+									displayName: metadata.PrimitiveProperties[key].DisplayName
+								});
+
+								for(var i = 0; i < $scope.sorters.length; i++) {
+									for(var j = 0; j < $scope.availableFields.length; j++) {
+										if($scope.availableFields[j].property === $scope.sorters[i].property) {
+											$scope.availableFields.splice(j, 1);
+											break;
+										}
+									}
+
+									if($scope.sorters[i].property === key) {
+										$scope.sorters[i].displayName = metadata.PrimitiveProperties[key].DisplayName;
+									}
 								}
 							}
-
-							if($scope.sorters[i].property === key) {
-								$scope.sorters[i].displayName = metadata.PrimitiveProperties[key].DisplayName;
-							}
-						}
+						});
 					}
 				});
+
+				$scope.$watch('expanded', function(value) {
+					if(value) {
+						$scope.processMetadata();
+					}
+				}, true);
 			}]
 		};
 	}

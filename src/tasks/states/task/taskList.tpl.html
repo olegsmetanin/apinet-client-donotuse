@@ -123,9 +123,9 @@
 										</th>
 										<th class="col-lg-1 col-xs-2">{{ i18n.tasks.fields.seqNumber }}</th>
 										<th class="col-lg-4 col-xs-10">{{ i18n.tasks.fields.type }}</th>
-										<th class="col-lg-4 hide-xs">{{ i18n.tasks.fields.executors }}</th>
-										<th class="col-lg-2 hide-xs">{{ i18n.tasks.fields.dueDate }}</th>
-										<th class="col-lg-2 hide-xs">{{ i18n.tasks.fields.status }}</th>
+										<th class="col-lg-4 hidden-xs">{{ i18n.tasks.fields.executors }}</th>
+										<th class="col-lg-2 hidden-xs">{{ i18n.tasks.fields.dueDate }}</th>
+										<th class="col-lg-2 hidden-xs">{{ i18n.tasks.fields.status }}</th>
 										<th class="onepct">&nbsp;</th>
 									</tr>
 								</thead>
@@ -154,15 +154,15 @@
 												on-error="onReportError(error)">
 											</ago-tags>
 										</td>
-										<td class="hide-xs">
+										<td class="hidden-xs">
 											<executors model="model.Executors" ></executors>
 										</td>
-										<td class="hide-xs">
+										<td class="hidden-xs">
 											{{ model.DueDate | date:'ago_date' }}
 											<span ng-if="model.DueDate && model.Status !== taskStatuses.Closed" title="{{ expiration(model).title }}" class="badge" ng-class="{'label-warning': !expiration(model).expired, 'label-important': expiration(model).expired }">{{ expiration(model).days }}
 											</span>
 										</td>
-										<td class="hide-xs">{{ model.Status }}</td>
+										<td class="hidden-xs">{{ model.Status }}</td>
 										<td>
 											<ago-btn-delete title="{{ i18n.tasks.list.placeholders.delete }}" ng-click="delete(model)"></ago-btn-delete>
 										</td>

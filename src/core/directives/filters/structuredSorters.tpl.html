@@ -4,7 +4,7 @@
 			<div>
 				<h4>{{ i18n.core.sorting.sortingFields }}</h4>
 			</div>
-			<div x-lvl-drop-target="true" x-on-drop="dropped(dragEl, dropEl)">
+			<div x-lvl-drop-target="true" x-on-drop="dropped(dragEl, dropEl)" style="padding-bottom: 20px;">
 				<div ng-repeat="sorter in sorters track by $index" style="margin-bottom: 5px;">
 					<button class="btn btn-primary" title="{{ sorter.direction }}" ng-click="switchDirection($event)" property="{{sorter.property}}" x-lvl-draggable="true">
 						<span>{{sorter.displayName}}</span>
@@ -28,6 +28,5 @@
 				</div>
 			</div>
 		</div>
-		<div class="clearfix"></div>
 	</div>
 </div>

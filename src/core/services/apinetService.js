@@ -82,21 +82,23 @@ define([
 						response.corsConfig = angular.extend({ }, cfg);
 
 						try {
-							if(response.status !== 401 && response.status !== 403) {
-								deferred.resolve(successFn(response.data ? JSON.parse(response.data) : response.data));
-							}
-							else {
-								throw response;
-							}
+							deferred.resolve(successFn(response.data ? JSON.parse(response.data) : response.data));
 						}
 						catch(e) {
 							deferred.reject(e);
 						}
 					}, function(response) {
-						response.corsConfig = angular.extend({ }, cfg);
+						var responseData = response.data || { };
+						responseData.corsConfig = angular.extend({ }, cfg);
 
 						try {
-							deferred.resolve(failureFn(response.data ? JSON.parse(response.data) : response.data, response.status));
+							if(responseData.status !== 401 && responseData.status !== 403 && responseData.status !== 404) {
+								deferred.resolve(failureFn(responseData.data ? JSON.parse(responseData.data) : responseData.data,
+									responseData.status ? responseData.status : 500));
+							}
+							else {
+								throw responseData;
+							}
 						}
 						catch(e) {
 							deferred.reject(e);
@@ -137,7 +139,7 @@ define([
 
 							return data;
 						}
-						throw 'Error: ' + (data.message ? data.message : i18n.msg('core.errors.unknown'));
+						throw i18n.msg('core.errors.unknown');
 					},
 					failureFn: function (data, status) {
 						throw data && data.message ? data.message : i18n.msg('core.errors.title') + ': ' + status;
@@ -156,7 +158,7 @@ define([
 							}
 							return data;
 						}
-						throw 'Error: ' + (data.message ? data.message : i18n.msg('core.errors.unknown'));
+						throw data && data.message ? data.message : i18n.msg('core.errors.unknown');
 					},
 					failureFn: function (data, status) {
 						throw data && data.message ? data.message : i18n.msg('core.errors.title') + ': ' + status;
