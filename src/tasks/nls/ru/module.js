@@ -106,6 +106,19 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 					'files': {
 						'title': 'Файлы',
 						'fields': { 'size': 'Размер файла' }
+					},
+					'timelog': {
+						'title': 'Затраченное время',
+						'empty': 'Нет записей',
+						'placeholders': {
+							'time': 'Затраченное время (часы)',
+							'comment': 'Комментарий (опционально)'
+						},
+						'fields': {
+							'time': 'Время',
+							'comment': 'Комментарий'
+						},
+						'closed': 'Задача уже закрыта'
 					}
 				},
 

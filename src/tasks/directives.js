@@ -5,5 +5,6 @@ define([
 	'./directives/executorsView',
 	'./directives/statusHistoryView',
 	'./directives/taskTabs',
-	'./directives/taskProjectMembers'
+	'./directives/taskProjectMembers',
+	'./directives/timelogView'
 ], function() { });

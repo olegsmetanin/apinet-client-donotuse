@@ -56,6 +56,7 @@ define(['../../moduleDef'], function (module) {
 					'creationTime': 'Creation time',
 					'lastChangeTime': 'Last changed',
 					'creator': 'Author',
+					'editor': 'Editor',
 					'viewOrder': 'Seq.#',
 
 					'customProperties': {

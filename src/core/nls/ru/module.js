@@ -56,6 +56,7 @@ define(['core/moduleDef'], function (module) {
 					'creationTime': 'Создано',
 					'lastChangeTime': 'Изменено',
 					'creator': 'Автор',
+					'editor': 'Редактор',
 					'viewOrder': '№ п/п',
 
 					'customProperties': {

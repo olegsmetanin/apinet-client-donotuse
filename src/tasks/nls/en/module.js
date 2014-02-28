@@ -106,6 +106,19 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 					'files': {
 						'title': 'Files',
 						'fields': { 'size': 'File size' }
+					},
+					'timelog': {
+						'title': 'Timelog',
+						'empty': 'No timelog entries',
+						'placeholders': {
+							'time': 'Spent time (hours)',
+							'comment': 'Comment (optional)'
+						},
+						'fields': {
+							'time': 'Time',
+							'comment': 'Comment'
+						},
+						'closed': 'Timelog closed'
 					}
 				},
 

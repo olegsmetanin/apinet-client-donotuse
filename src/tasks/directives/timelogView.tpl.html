@@ -1,0 +1,65 @@
+<div>
+<ago-box color="blue" title-click-collapse collapsible="true" large="true" collapsed="timelogCollapsed">
+	<ago-box-title>
+		<i class="icon-time"></i>
+		{{ i18n.tasks.view.timelog.title }}
+	</ago-box-title>
+	<ago-box-actions>
+		<a class="btn btn-xs btn-link">
+			<i class="fa" ng-class="{ 'icon-chevron-up': !timelogCollapsed, 'icon-chevron-down': timelogCollapsed }"></i>
+		</a>
+	</ago-box-actions>
+
+	<ago-box-content>
+		<ago-error-msg></ago-error-msg>
+		<div class="box-toolbox box-toolbox-top" ng-show="isTimelogEditable()">
+
+			<form name="addTimeForm" class="form-inline" novalidate>
+				<div class="row">
+					<div class="col-md-2 col-xs-4" ng-class="{'has-error': (addTimeForm.$invalid || validation.fieldErrors['Time'] || (editables.focused && hasAddError()))}">
+						<input type="text" class="form-control col-xs-2" ng-model="editables.time" ng-focus="editables.focused = true" ng-blur="editables.focused = false" ng-required="editables.focused" placeholder="{{i18n.tasks.view.timelog.placeholders.time}}"></input>
+					</div>
+					<div class="col-md-5 col-xs-8 input-group" style="padding-left: 0">
+						<input type="text" class="form-control col-xs-5" ng-model="editables.comment" placeholder="{{i18n.tasks.view.timelog.placeholders.comment}}"></input>
+						<div class="input-group-btn">
+							<button class="btn btn-success" ng-disabled="hasAddError()" ng-click="add()">{{ i18n.core.buttons.add }}</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<p ng-hide="model.Timelog.length">
+			<span class="text-muted">{{ i18n.tasks.view.timelog.empty }}</span>
+		</p>
+		<table class="table" ng-show="model.Timelog.length">
+			<thead>
+				<tr>
+					<th class="col-sm-3 col-xs-7">{{ i18n.core.fields.name }}</th>
+					<th class="col-sm-2 col-xs-5">{{ i18n.tasks.view.timelog.fields.time }}</th>
+					<th class="col-sm-3 hidden-xs">{{ i18n.tasks.view.timelog.fields.comment }}</th>
+					<th class="col-md-2 hidden-sm hidden-xs">{{ i18n.core.fields.editor }}</th>
+					<th class="col-md-2 hidden-sm hidden-xs">{{ i18n.core.fields.creationTime }}</th>
+					<th class="onepct">&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="e in model.Timelog">
+					<td class="col-md-3 col-xs-8">{{ e.Member }}</td>
+					<td class="col-md-2 col-xs-4">
+						<inline-text model="e.Time" on-update="updateTime(e, 'time', val)" on-cancel="resetValidation()" required />
+					</td>
+					<td class="col-md-3 hidden-xs">
+						<inline-text model="e.Comment" on-update="updateTime(e, 'comment', val)" on-cancel="resetValidation()"/>
+					</td>
+					<td class="col-md-2 hidden-sm hidden-xs">{{ e.Editor }}</td>
+					<td class="col-md-2 hidden-sm hidden-xs">{{ e.CreationTime | date:'ago_datetime' }}</td>
+					<td>
+						<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(e)"></ago-btn-delete>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</ago-box-content>
+</ago-box>
+</div>

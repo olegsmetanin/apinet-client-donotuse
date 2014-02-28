@@ -39,6 +39,10 @@ define([
 				$scope.onUpdateProp($scope.model, 'CustomStatus', hrecord.id);
 			};
 
+			$scope.syncSpentTime = function(delta) {
+				$scope.model.SpentTime += delta;
+			}
+
 			$scope.onUpdateProp = function(task, prop, val) {
 				return apinetService.action({
 					method: 'tasks/tasks/UpdateTask',
