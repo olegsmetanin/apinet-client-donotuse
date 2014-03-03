@@ -1,4 +1,7 @@
-define(['../../moduleDef'], function (module) {
+define([
+	'../../moduleDef',
+	'jquery',
+	'jquery/select2'], function (module, $, s2) {
 	module.directive('inlineLookup', ['$timeout', function ($timeout) {
 		return {
 			restrict: 'E',

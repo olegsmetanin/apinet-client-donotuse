@@ -1,4 +1,4 @@
-define(['../../moduleDef'], function (module) {
+define(['../../moduleDef', 'jquery'], function (module, $) {
 	module.directive('inlineDate', ['$timeout', function () {
 		return {
 			restrict: 'E',

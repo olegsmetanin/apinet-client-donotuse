@@ -80,17 +80,17 @@
 				},
 				'core/services/apinetService': {
 					useEasyXDM: true,
-					apiRoot: 'http://api.agosystems.com/',
-					notificationRoot: 'http://socket.agosystems.com'/*,
+					/*apiRoot: 'http://api.agosystems.com/',
+					notificationRoot: 'http://socket.agosystems.com',*/
 					apiRoot: 'http://localhost:36651/',
-					notificationRoot: 'http://localhost:36653'*/
+					notificationRoot: 'http://localhost:36653'
 				}
 			}
 		});
 
 		var resources = {
-			'/core/module.js': 0,
-			'/core/themes/flatty/light-theme.css': 0
+			'core/module.js': 0,
+			'core/themes/flatty/light-theme.css': 0
 		};
 		var resourcesCount = 2;
 		var loadedCount = 0;
@@ -104,7 +104,17 @@
 		};
 
 		var loadResourceFn = function(resourceName) {
-			var scriptName = window.location.origin + window.location.pathname + resourceName;
+			var origin = window.location.origin || 
+			(window.location.protocol + "//" + window.location.hostname 
+			+ (window.location.port ? ':' + window.location.port: ''));
+		
+			var scriptName = origin;
+			if (window.location.pathname.lastIndexOf('/', 0) !== 0)
+				scriptName = scriptName + '/';
+			scriptName = scriptName + window.location.pathname;
+			//if (resourceName.lastIndexOf('/', 0) !== 0)
+			//	scriptName = scriptName + '/';
+			scriptName = scriptName + resourceName;
 
 			var completeFn = function() {
 				loadedCount = loadedCount + 1;
