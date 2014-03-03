@@ -19,6 +19,6 @@
 		"grunt-contrib-requirejs": "latest",
 	    "grunt-contrib-copy": "latest",
 	    "grunt-contrib-concat": "latest",
-	    "grunt-contrib-uglify": "latest"
+	    "grunt-contrib-uglify": "0.3.2"
     }
 }
