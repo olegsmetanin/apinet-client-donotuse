@@ -40,7 +40,7 @@
 					<th class="col-sm-3 hidden-xs">{{ i18n.tasks.view.timelog.fields.comment }}</th>
 					<th class="col-md-2 hidden-sm hidden-xs">{{ i18n.core.fields.editor }}</th>
 					<th class="col-md-2 hidden-sm hidden-xs">{{ i18n.core.fields.creationTime }}</th>
-					<th class="onepct">&nbsp;</th>
+					<th class="onepct" ng-show="isTimelogEditable()">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -54,7 +54,7 @@
 					</td>
 					<td class="col-md-2 hidden-sm hidden-xs">{{ e.Editor }}</td>
 					<td class="col-md-2 hidden-sm hidden-xs">{{ e.CreationTime | date:'ago_datetime' }}</td>
-					<td>
+					<td ng-show="isTimelogEditable()">
 						<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(e)"></ago-btn-delete>
 					</td>
 				</tr>
