@@ -129,15 +129,20 @@ define([
 
 						// ngModel rendering
 						controller.$render = function ngModelRender() {
-							if (isAppleTouch) {
-								var date = controller.$viewValue ? $.fn.datepicker.DPGlobal.formatDate(controller.$viewValue, $.fn.datepicker.DPGlobal.parseFormat(format), language) : '';
-								element.val(date);
-								return date;
-							}
-							if (!controller.$viewValue) {
-								element.val('');
-							}
-							return element.datepicker('update', controller.$viewValue);
+							//artem1 fix-wrap to $timeout (last row throw $digest already in progress via
+							//datepicker.update -> elm.val(...).change()->jquery event->angular inputListentr
+							//https://github.com/angular/angular.js/blob/ca30fce28ca13284bfa1c926e810ed75cdcde499/src/ng/directive/input.js#L391)
+							$timeout(function() {
+								if (isAppleTouch) {
+									var date = controller.$viewValue ? $.fn.datepicker.DPGlobal.formatDate(controller.$viewValue, $.fn.datepicker.DPGlobal.parseFormat(format), language) : '';
+									element.val(date);
+									return date;
+								}
+								if (!controller.$viewValue) {
+									element.val('');
+								}
+								/*return*/ element.datepicker('update', controller.$viewValue);
+							});
 						};
 
 					}
