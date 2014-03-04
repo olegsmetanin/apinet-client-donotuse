@@ -1,4 +1,4 @@
-define(['../moduleDef', 'angular'], function (module, angular) {
+define(['../moduleDef', 'angular', 'jquery', 'jquery/select2'], function (module, angular, $, s2) {
 	module.directive('lookup', ['$compile', '$timeout', '$exceptionHandler', 'apinetService', '$stateParams', 'defaultPageSize',
 		function($compile, $timeout, $exceptionHandler, apinetService, $stateParams, defaultPageSize) {
 			return {
