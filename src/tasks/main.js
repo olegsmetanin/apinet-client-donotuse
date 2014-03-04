@@ -1,11 +1,5 @@
 ﻿(function (require) {
 	require.config({
-		shim: {
-			'bootstrap-tabdrop': {
-				deps: ['jquery']
-			}
-		},
-
 		paths: {
 			'css': 'tasks/components/require-css/css',
 			'css-builder': 'tasks/components/require-css/css-builder',
@@ -13,8 +7,8 @@
 			'i18n': 'tasks/components/requirejs-i18n/i18n',
 			'text': 'tasks/components/requirejs-text/text',
 
-			'bootstrap-tabdrop': 'tasks/components/bootstrap-tabdrop/build/js/bootstrap-tabdrop.min',
-			'bootstrap-tabdrop/css': 'tasks/components/bootstrap-tabdrop/build/css/tabdrop'
+			'bootstrap-tabdrop': 'tasks/wrapped-components/bootstrap-tabdrop',
+			'bootstrap-tabdrop/css': 'tasks/wrapped-components/bootstrap-tabdrop'
 		}
 	});
 })(requirejs);

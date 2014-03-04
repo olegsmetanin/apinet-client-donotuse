@@ -1,10 +1,10 @@
 define([
 	'../moduleDef',
-	'angular',
+	'jquery',
 	'text!./taskTabs.tpl.html',
 	'bootstrap-tabdrop',
 	'css!bootstrap-tabdrop/css'
-], function (module, angular, tpl, tb, tbcss) {
+], function (module, $, tpl) {
 	module.directive('taskTabs', ['$rootScope', function($rootScope) {
 		return {
 			restrict: 'E',
