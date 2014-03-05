@@ -43,6 +43,10 @@ define([
 						var $state = $injector.get('$state');
 						var $timeout = $injector.get('$timeout');
 
+
+						var $rootScope = $injector.get('$rootScope');
+						$rootScope.breadcrumbsHidden = true;
+
 						apinetService.getModel({
 							method: 'core/projects/projectInfo',
 							project: parts[1]
@@ -57,6 +61,7 @@ define([
 								});
 							});
 						}, function() {
+							$rootScope.breadcrumbsHidden = false;
 							$state.go('page.projects.projectsList');
 						});
 						return '/projects/processing';

@@ -215,6 +215,9 @@ define([
 						return $element.fileupload('processing', data);
 					}
 				};
+
+				console.log('$.support.fileInput', $.support.fileInput);
+
 				$scope.disabled = !$.support.fileInput;
 				$scope.queue = $scope.queue || [];
 				$scope.clear = function (files) {

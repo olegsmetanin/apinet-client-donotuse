@@ -13,6 +13,8 @@
 				'moduleMenu': { template: moduleMenuTpl }
 			},
 			onEnter: function(apinetService, $state, $stateParams, $rootScope) {
+				$rootScope.breadcrumbsHidden = true;
+
 				$rootScope.breadcrumbs.push({
 					name: 'projects.list.title',
 					url: 'page.projects.projectsList'
@@ -47,12 +49,15 @@
 
 					require([m], function() {
 						require([m + '/module'], function () {
+							$rootScope.breadcrumbsHidden = false;
+
 							if($state.current.name === 'page.project') {
 								$state.go('.' + m);
 							}
 						});
 					});
 				}, function() {
+					$rootScope.breadcrumbsHidden = false;
 					$state.go('page.projects.projectsList');
 				});
 			},
