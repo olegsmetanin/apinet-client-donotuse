@@ -7,10 +7,7 @@ require.config({
 			}
 		},
 		'jquery-ui': {
-			deps: ['jquery'],
-			init: function (jQuery) {
-				return jQuery;
-			}
+			deps: ['jquery']
 		},
 		'jquery/select2': {
 			deps: ['jquery']
@@ -19,25 +16,64 @@ require.config({
 		'bootstrap': {
 			deps: ['jquery']
 		},
+
 		'bootstrap/datepicker': {
-			deps: ['jquery', 'jquery-ui']
+			deps: ['jquery']
 		},
 
 		'easyXDM': {
 			exports: 'easyXDM'
 		},
 
+		'jquery.iframe-transport': {
+			deps: ['jquery']
+		},
+
+		'jquery.fileupload': {
+			deps: ['jquery']
+		},
+
+		'jquery.fileupload-image': {
+			deps: ['jquery']
+		},
+
+		'jquery.fileupload-audio': {
+			deps: ['jquery']
+		},
+
+		'jquery.fileupload-video': {
+			deps: ['jquery']
+		},
+
+		'jquery.fileupload-validate': {
+			deps: ['jquery']
+		},
+
+		'jquery.fileupload-process': {
+			deps: ['jquery']
+		},
+
+		'jquery.ui.widget': {
+			deps: ['jquery']
+		},
+
 		'angular': {
 			exports: 'angular',
-			deps: ['jquery', 'jquery-ui']
+			deps: [
+				'jquery', 'jquery-ui', 'jquery/select2', 'bootstrap', 'bootstrap/datepicker', 'jquery-bridget',
+				'imagesloaded', 'masonry', 'load-image', 'jquery.iframe-transport', 'jquery.fileupload',
+				'jquery.fileupload-image', 'jquery.fileupload-audio', 'jquery.fileupload-video', 'jquery.fileupload-validate',
+				'jquery.fileupload-process', 'jquery.ui.widget'
+			]
 		},
-		'nls/en/angular': {
+
+		'core/nls/en/angular': {
 			deps: ['jquery', 'angular'],
 			init: function () {
 				return this.angular.module('ngLocale');
 			}
 		},
-		'nls/ru/angular': {
+		'core/nls/ru/angular': {
 			deps: ['jquery', 'angular'],
 			init: function () {
 				return this.angular.module('ngLocale');
@@ -73,6 +109,7 @@ require.config({
 				return this.angular.module('wu.masonry');
 			}
 		},
+
 		'socket.io-client': {
 			exports: 'socket.io-client'
 		}
@@ -83,7 +120,6 @@ require.config({
 		'css-builder': 'core/components/require-css/css-builder',
 		'normalize': 'core/components/require-css/normalize',
 		'i18n': 'core/components/requirejs-i18n/i18n',
-		'domReady': 'core/components/requirejs-domready/domReady',
 		'text': 'core/components/requirejs-text/text',
 
 		'jquery': 'core/components/jquery/jquery',
@@ -133,14 +169,16 @@ require.config({
 		'angular-masonry': 'core/components/angular-masonry/angular-masonry',
 		'angular-uuid': 'core/components/angular-dragdrop/script/lvl-uuid',
 		'lvl-dragdrop': 'core/directives/lvl-drag-drop',
-		'blueimp-fileupload': 'core/components/blueimp-file-upload/js/jquery.fileupload-angular',
+		'blueimp-fileupload': 'core/wrapped-components/blueimp-file-upload/js/jquery.fileupload-angular',
 
 		'socket.io-client': 'core/components/socket.io-client/dist/socket.io.min'
 	}
 });
 
-require(['jquery-ui', 'angular', 'domReady!'], function ($, angular) {
-	require(['core/module','core/themes/flatty/theme'], function (module) {
-		angular.bootstrap($('body'), [module.name]);
+require(['jquery'], function ($) {
+	require(['angular', 'core/module', 'core/themes/flatty/theme'], function (angular, module) {
+		$(document).ready(function () {
+			angular.bootstrap($('body'), [module.name]);
+		});
 	});
 });

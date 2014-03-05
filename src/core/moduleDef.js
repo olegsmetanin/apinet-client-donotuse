@@ -1,6 +1,5 @@
 define([
 	'angular',
-	'jquery-migrate',
 	'angular-resource',
 	'angular-ui-router',
 	'angular-ui-bootstrap3',
@@ -8,8 +7,7 @@ define([
 	'angular-masonry',
 	'lvl-dragdrop',
 	'blueimp-fileupload',
-	'./security/module',
-	'i18n!core/nls/angular'
+	'./security/module'
 ], function (angular) {
 	var module = angular.module('core.module', [
 		'ngResource', 'ui.router', 'ui.bootstrap', 'ajoslin.promise-tracker', 'wu.masonry', 'blueimp.fileupload',

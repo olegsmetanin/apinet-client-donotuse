@@ -4,7 +4,7 @@
 	</a>
 	<ul class="dropdown-menu">
 		<li ng-repeat="breadcrumb in breadcrumbs">
-			<a ui-sref="{{breadcrumb.url}}">{{ i18n[breadcrumb.name] || breadcrumb.name }}</a>
+			<a style="cursor: pointer" ui-sref="{{breadcrumb.url}}">{{ i18n[breadcrumb.name] || breadcrumb.name }}</a>
 		</li>
 	</ul>
 </div>

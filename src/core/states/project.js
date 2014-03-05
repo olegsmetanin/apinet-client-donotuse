@@ -31,9 +31,11 @@
 					$rootScope.module = data.Module;
 					$rootScope.currentProjectName = data.Name;
 
+					var m = data.Module.toLowerCase();
+
 					var breadcrumb = {
 						name: $rootScope.currentProjectName,
-						url: 'page.project.' + data.Module
+						url: 'page.project.' + m
 					};
 
 					if($rootScope.breadcrumbs.length > 1) {
@@ -43,7 +45,6 @@
 						$rootScope.breadcrumbs.push(breadcrumb);
 					}
 
-					var m = data.Module.toLowerCase();
 					require([m], function() {
 						require([m + '/module'], function () {
 							if($state.current.name === 'page.project') {

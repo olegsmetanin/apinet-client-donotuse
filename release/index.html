@@ -43,7 +43,7 @@
 	//http://stackoverflow.com/questions/7131909/facebook-callback-appends-to-return-url
     if (window.location.hash && window.location.hash == '#_=_') {
         if (window.history && history.pushState) {
-            window.history.pushState("", document.title, window.location.pathname);
+            window.history.pushState('', document.title, window.location.pathname);
         } else {
             // Prevent scrolling by storing the page's current scroll offset
             var scroll = {
@@ -65,9 +65,6 @@
 		require.config({
 			waitSeconds: 15,
 			baseUrl: './',
-			paths: {
-				'jquery': 'core/module'
-			},
 			packages: ['core','tasks'],
 			config: {
 				'i18n': {
@@ -97,20 +94,17 @@
 		var currentPercents = 0;
 
 		var processRequire = function() {
-			require(['jquery'], function () {
-				require(['core'], function () {
-				});
-			});
+			require(['core'], function () { });
 		};
 
 		var loadResourceFn = function(resourceName) {
-			var origin = window.location.origin || 
+			var scriptName = window.location.origin ||
 			(window.location.protocol + "//" + window.location.hostname 
 			+ (window.location.port ? ':' + window.location.port: ''));
-		
-			var scriptName = origin;
-			if (window.location.pathname.lastIndexOf('/', 0) !== 0)
+
+			if (window.location.pathname.lastIndexOf('/', 0) !== 0) {
 				scriptName = scriptName + '/';
+			}
 			scriptName = scriptName + window.location.pathname;
 			//if (resourceName.lastIndexOf('/', 0) !== 0)
 			//	scriptName = scriptName + '/';
