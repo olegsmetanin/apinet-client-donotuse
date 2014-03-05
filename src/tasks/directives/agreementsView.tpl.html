@@ -21,7 +21,7 @@
 							<input type="text" name="agreemer" lookup="core/projects/lookupParticipant" ng-model="editables.newAgreemer" placeholder="{{ i18n.tasks.view.agreements.placeholders.agreemer }}" class="form-control" />
 						</div>
 						<div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
-							<input type="text" class="form-control" ng-model="editables.dueDate" placeholder="{{ i18n.tasks.view.agreements.placeholders.dueDate }}" ago-datepicker/>
+							<input type="text" class="form-control" ng-model="editables.dueDate" placeholder="{{ i18n.tasks.view.agreements.placeholders.dueDate }}" bs-datepicker/>
 						</div>
 						<div class="col-sm-2" style="padding-left: 0px">
 							<button type="button" class="btn" ng-click="addAgreemer()" ng-disabled="!addAgreementAvailable()">{{ i18n.core.buttons.add }}</button>

@@ -3,24 +3,17 @@ define([
 	'angular',
 	'text!./customPropertyEditor.tpl.html'
 ], function (module, angular, tpl) {
-	module.directive('customPropertyEditor', [function() {
+	module.directive('customPropertyEditor', ['$timeout', function($timeout) {
 		return {
 			restrict: 'E',
 			replace: true,
 			template: tpl,
 			link: function(scope, elm) {
-				var $datepicker = $('input[ago-datepicker]', elm);
-
-				var onShow = function() {
-					scope.elInput.off('blur', scope.onBlur);
-				};
-
-				var onHide = function() {
-					scope.elInput.on('blur', scope.onBlur);
-				};
-
-				$datepicker.on('show', onShow);
-				$datepicker.on('hide', onHide);
+				var $datepicker = $('input[bs-datepicker]', elm);
+				$datepicker.off(scope.onBlur);
+				$datepicker.on('blur', function() {
+					$timeout(scope.onBlur);
+				})
 			}
 		};
 	}]);

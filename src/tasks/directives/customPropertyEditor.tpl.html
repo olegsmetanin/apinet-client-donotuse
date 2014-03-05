@@ -4,7 +4,7 @@
 	<!-- number -->
 	<input name="num" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.number}}" ng-show="isNum(p.Type)" ng-model="emodel.value" ng-required="isNum(p.Type)" />
 	<!-- date -->
-	<input name="dt" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.date}}" ng-show="isDate(p.Type)" ng-model="emodel.value" ago-datepicker ng-required="isDate(p.Type)" />
+	<input name="dt" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.date}}" ng-show="isDate(p.Type)" ng-model="emodel.value" bs-datepicker ng-required="isDate(p.Type)" />
 
 	<div class="input-group-btn">
 		<button type="button" class="btn" ng-show="isChanged" ng-click="cancel()" ng-disabled="!cancelEnabled()" title="{{ i18n.core.buttons.cancel }}">

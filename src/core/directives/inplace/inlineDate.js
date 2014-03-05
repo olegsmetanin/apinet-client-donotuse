@@ -1,5 +1,5 @@
 define(['../../moduleDef', 'jquery'], function (module, $) {
-	module.directive('inlineDate', ['$timeout', function () {
+	module.directive('inlineDate', ['$timeout', function ($timeout) {
 		return {
 			restrict: 'E',
 			replace: true,
@@ -11,7 +11,7 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 				var editTmpl = '<input type="text"' +
 					' class="form-control ' + (attr.inputClass ? attr.inputClass + '"' : '"') +
 					(attr.hasOwnProperty('required') ? ' required="required"' : '') +
-					' ng-model="emodel.value" ago-datepicker ng-readonly="waiting"></input>';
+					' ng-model="emodel.value" bs-datepicker ng-readonly="waiting"></input>';
 
 				return '<div inline-edit="' + attr.model + '">' +
 					viewTmpl +
@@ -23,19 +23,12 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 					'	</form>' +
 					'</div>';
 			},
-			link: function (scope, elm) {
-				scope.elInput = $('input', elm);
-
-				var onShow = function () {
-					scope.elInput.off('blur', scope.onBlur);
-				};
-
-				var onHide = function () {
-					scope.elInput.on('blur', scope.onBlur);
-				};
-
-				scope.elInput.on('show', onShow);
-				scope.elInput.on('hide', onHide);
+			link: function(scope, elm) {
+				$elm = $('input', elm);
+				$elm.off('blur', scope.onBlur);
+				$elm.on('blur', function() {
+					$timeout(scope.onBlur);
+				});
 			}
 		};
 	}]);

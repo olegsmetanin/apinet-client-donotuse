@@ -23,7 +23,7 @@
 						<!-- number -->
 						<input name="num" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.number}}" ng-show="isNum()" ng-model="editables.value" ng-required="isNum() && editables.focused" ng-pattern="/^\d+(\.\d+)?$/" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
 						<!-- date -->
-						<input name="dt" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.date}}" ng-show="isDate()" ng-model="editables.value" ago-datepicker ng-required="isDate() && editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
+						<input name="dt" type="text" class="form-control" placeholder="{{i18n.tasks.view.params.placeholders.date}}" ng-show="isDate()" ng-model="editables.value" bs-datepicker ng-required="isDate() && editables.focused" ng-focus="editables.focused=true" ng-blur="editables.focused=false"/>
 						<!-- empty type -->
 						<input type="text" class="form-control disabled" placeholder="{{ i18n.tasks.view.params.placeholders.selectType }}" ng-hide="editables.type" disabled="true"/>
 

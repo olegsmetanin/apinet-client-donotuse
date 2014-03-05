@@ -3,10 +3,9 @@ define(['core/moduleDef'], function (module) {
 		i18n.registerLocalizationModule('core/nls/bootstrap_datepicker');
 	}]);
 
-	module.service('core/nls/bootstrap_datepicker/en', ['strapConfig', function(strapConfig) {
+	module.service('core/nls/bootstrap_datepicker/en', ['$datepickerProvider', function($datepickerProvider) {
 		return function() {
-			strapConfig.format = 'mm/dd/yyyy';
-			strapConfig.language = 'en';
+			$datepickerProvider.defaults.lang = 'en';
 		};
 	}]);
 });

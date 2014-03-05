@@ -3,6 +3,11 @@ define([
 	'angular',
 	'css!./inlineEdit.css'
 ], function (module, angular) {
+
+	var safeApply = function(scope, fn) {
+	    (scope.$$phase || scope.$root.$$phase) ? fn() : scope.$apply(fn);
+	}
+
 	module.directive('inlineNone', function () {
 		return {
 			restrict: 'E',
@@ -96,7 +101,7 @@ define([
 
 				scope.onBlur = function () {
 					if (!scope.isChanged) {
-						scope.$apply(scope.cancel);
+						safeApply(scope, scope.cancel);
 					}
 				};
 

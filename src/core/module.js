@@ -13,13 +13,13 @@ define([
 	'i18n!./nls/module'
 ], function(requireModule, module, require) {
 	return module
-		.value('strapConfig', {
-			pickDate: true,
-			pickTime: false,
-			type: 'iso',
-			todayBtn: 'linked',
-			todayHighlight: 'true'
-		})
+		.config(['$datepickerProvider', function($datepickerProvider) {
+  			angular.extend($datepickerProvider.defaults, {
+  				dateType: 'iso',
+  				dateFormat: 'ago_date',
+  				autoclose: true
+  			});
+  		}])
 		.constant('startupPath', { url: ''})
 		.config(['$locationProvider', '$urlRouterProvider', 'startupPath', 
 			function ($locationProvider, $urlRouterProvider, startupPath) {

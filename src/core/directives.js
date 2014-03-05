@@ -1,5 +1,4 @@
 define([
-	'./directives/ago.datepicker',
 	'./directives/ago.errorMsg',
 	'./directives/ago.select2',
 	'./directives/agoBox',
