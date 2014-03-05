@@ -18,16 +18,16 @@
 		"select2": "select2#3.4.1",
 		"blueimp-file-upload": "blueimp-file-upload#9.5.0",
 		
-		"bootstrap": "bootstrap#3.0.0",
-		"eternicode-bootstrap-datepicker": "https://github.com/eternicode/bootstrap-datepicker/archive/gh-pages.zip",
+		"bootstrap": "~3.1.0",
 
-		"angular": "angular#1.2.6",
-		"angular-i18n": "angular-i18n#1.2.6",
-		"angular-resource": "angular-resource#1.2.6",
+		"angular": "~1.2.10",
+		"angular-i18n": "~1.2.10",
+		"angular-resource": "~1.2.10",
+		"angular-animate": "~1.2.10",
 		"angular-ui-bootstrap3": "https://github.com/olegsmith/bootstrap/archive/bootstrap3_bis2.zip",
-		"angular-ui-router": "angular-ui-router#0.2.5",
+		"angular-ui-router": "~0.2.8",
 		"angular-promise-tracker": "angular-promise-tracker#1.4.2",
-		"angular-masonry": "angular-masonry#0.7.0",
+		"angular-masonry": "~0.8.0",
 		"easyXDM": "easyXDM#2.4.17",
 		
 		"socket.io-client": "socket.io-client#0.9.16"
