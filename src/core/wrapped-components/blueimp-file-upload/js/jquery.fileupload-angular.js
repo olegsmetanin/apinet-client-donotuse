@@ -216,7 +216,7 @@ define([
 					}
 				};
 
-				console.log('$.support.fileInput', $.support.fileInput);
+				//console.log('$.support.fileInput', $.support.fileInput);
 
 				$scope.disabled = !$.support.fileInput;
 				$scope.queue = $scope.queue || [];
