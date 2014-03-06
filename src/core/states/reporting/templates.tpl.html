@@ -46,21 +46,21 @@
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th class="col-xs-7">{{ i18n.core.fields.name }}</th>
-										<th class="col-xs-2">{{ i18n.core.fields.lastChangeTime }}</th>
-										<th>{{ i18n.core.reporting.templates.fields.size }}</th>
+										<th class="col-xs-12 col-sm-8">{{ i18n.core.fields.name }}</th>
+										<th class="col-sm-2 hidden-xs">{{ i18n.core.fields.lastChangeTime }}</th>
+										<th class="col-sm-2 hidden-xs">{{ i18n.core.reporting.templates.fields.size }}</th>
 										<th class="onepct">&nbsp;</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr id="{{m.Id}}" ng-repeat="m in models">
-										<td>
+										<td class="col-xs-12 col-sm-7" style="white-space: normal">
 											<a target="_blank" href="{{ downloadUrl(m) }}">{{ m.Name }}</a>
 											<div ago-uploader-inrow="itemUploadOptions(m)" drop-target="#{{m.Id}}" class="col-xs-12"></div>
 										</td>
-										<td>{{ m.LastChange | date:'ago_datetime' }}
-										<td>{{ m.Size | formatFileSize }}</td>
-										<td>
+										<td class="col-sm-2 hidden-xs">{{ m.LastChange | date:'ago_datetime' }}
+										<td class="col-sm-2 hidden-xs">{{ m.Size | formatFileSize }}</td>
+										<td class="onepct">
 											<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(m)"></ago-btn-delete>
 										</td>
 									</tr>
