@@ -17,10 +17,6 @@ require.config({
 			deps: ['jquery']
 		},
 
-		'bootstrap/datepicker': {
-			deps: ['jquery']
-		},
-
 		'easyXDM': {
 			exports: 'easyXDM'
 		},
@@ -60,7 +56,7 @@ require.config({
 		'angular': {
 			exports: 'angular',
 			deps: [
-				'jquery', 'jquery-ui', 'jquery/select2', 'bootstrap', 'bootstrap/datepicker', 'jquery-bridget',
+				'jquery', 'jquery-ui', 'jquery/select2', 'bootstrap', 'jquery-bridget',
 				'imagesloaded', 'masonry', 'load-image', 'jquery.iframe-transport', 'jquery.fileupload',
 				'jquery.fileupload-image', 'jquery.fileupload-audio', 'jquery.fileupload-video', 'jquery.fileupload-validate',
 				'jquery.fileupload-process', 'jquery.ui.widget'
@@ -107,6 +103,12 @@ require.config({
 			deps: ['jquery', 'masonry', 'angular'],
 			init: function () {
 				return this.angular.module('wu.masonry');
+			}
+		},
+		'angular-animate': {
+			deps: ['angular'],
+			init: function() {
+				return this.angular.module('ngAnimate');
 			}
 		},
 
