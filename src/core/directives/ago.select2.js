@@ -99,6 +99,12 @@ define([
 								if (!isSelect && (opts.multiple || (!controller.$viewValue ||
 									angular.isObject(controller.$viewValue)))) {
 
+									//artem1 fix $digest alredy in progress when null value
+									if (!controller.$viewValue) {
+										elm.select2('val', null);
+										return;
+									}
+
 									elm.select2('data', opts.multiple ?
 										convertToSelect2Model(controller.$viewValue) : controller.$viewValue);
 									return;
