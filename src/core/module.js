@@ -1,7 +1,8 @@
 define([
 	'module',
 	'./moduleDef',
-	'require',
+	'jquery-migrate',
+	'jquery-ui',
 	'./services',
 	'./directives',
 	'./states',
@@ -10,8 +11,9 @@ define([
 	'css!./assets/form.css',
 	'css!./assets/list.css',
 
+	'i18n!core/nls/angular',
 	'i18n!./nls/module'
-], function(requireModule, module, require) {
+], function(requireModule, module) {
 	return module
 		.config(['$datepickerProvider', function($datepickerProvider) {
   			angular.extend($datepickerProvider.defaults, {
@@ -41,6 +43,10 @@ define([
 						var $state = $injector.get('$state');
 						var $timeout = $injector.get('$timeout');
 
+
+						var $rootScope = $injector.get('$rootScope');
+						$rootScope.breadcrumbsHidden = true;
+
 						apinetService.getModel({
 							method: 'core/projects/projectInfo',
 							project: parts[1]
@@ -55,6 +61,7 @@ define([
 								});
 							});
 						}, function() {
+							$rootScope.breadcrumbsHidden = false;
 							$state.go('page.projects.projectsList');
 						});
 						return '/projects/processing';

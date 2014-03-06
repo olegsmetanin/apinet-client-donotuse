@@ -1,6 +1,5 @@
 define([
 	'angular',
-	'jquery-migrate',
 	'angular-resource',
 	'angular-ui-router',
 	'angular-ui-bootstrap3',
@@ -8,7 +7,7 @@ define([
 	'angular-masonry',
 	'lvl-dragdrop',
 	'blueimp-fileupload',
-	'./security/module',
+	'./security/module'
 	'./directives/datepicker/module',
 	'i18n!core/nls/angular',
 	'angular-animate'

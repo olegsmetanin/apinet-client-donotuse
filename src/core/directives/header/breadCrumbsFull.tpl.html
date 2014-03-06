@@ -1,6 +1,6 @@
-<ul class="breadcrumb breadcrumbfull-nav">
+<ul class="breadcrumb breadcrumbfull-nav" ng-hide="breadcrumbsHidden">
 	<li ng-repeat="breadcrumb in breadcrumbs" style="margin-right: 5px">
-		<a ui-sref="{{breadcrumb.url}}">{{ i18n[breadcrumb.name] || breadcrumb.name }}</a>
+		<a style="cursor: pointer" ui-sref="{{breadcrumb.url}}">{{ i18n[breadcrumb.name] || breadcrumb.name }}</a>
 		<i class="icon-angle-right" ng-hide="$last"></i>
 	</li>
 </ul>

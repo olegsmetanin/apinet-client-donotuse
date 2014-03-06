@@ -74,13 +74,13 @@ module.exports = function (grunt) {
 					optimize: 'none',
 					name: 'core/module',
 					out: '../../release/core/module.js',
-					include: ['domReady'],
 					stubModules: ['jquery'],
 					paths: {
 						'jquery/select2/theme': 'core/components/select2/select2-embeded'
 					}
 				}
 			},
+
 			{
 				options: {
 					baseUrl: '../',
@@ -97,6 +97,7 @@ module.exports = function (grunt) {
 					exclude: ['core/module']
 				}
 			},
+
 			{
 				options: {
 					baseUrl: '../',

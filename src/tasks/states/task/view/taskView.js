@@ -13,12 +13,17 @@ define([
 		},
 		onEnter: function($rootScope, $stateParams) {
 			$rootScope.breadcrumbs.push({
+				name: 'tasks.list.title',
+				url: 'page.project.tasks'
+			});
+
+			$rootScope.breadcrumbs.push({
 				name: $stateParams.num,
 				url: 'page.project.taskView'
 			});
 		},
 		onExit: function($rootScope) {
-			$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
+			$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 2, 2);
 		}
 	}).controller('taskViewCtrl', ['$scope', '$stateParams', 'apinetService',
 		function($scope, $stateParams, apinetService) {
