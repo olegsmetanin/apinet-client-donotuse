@@ -33,6 +33,6 @@
 }
 
 /* before remove that test if dropdown menus and datepicker correct showed in box-toolbox */
-.box .box-toolbox {
-	overflow: initial !important;
+.box .box-content .box-toolbox {
+	overflow: visible !important;
 }

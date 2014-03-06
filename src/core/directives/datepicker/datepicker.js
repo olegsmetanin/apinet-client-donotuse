@@ -84,7 +84,11 @@ angular.module('mgcrea.ngStrap.datepicker', ['mgcrea.ngStrap.helpers.dateParser'
             controller.$setViewValue(controller.$dateValue);
             controller.$render();
             if(options.autoclose && !keep) {
-              $datepicker.hide(true);
+              //artem1 fix $apply already in progress, when elm blured inside angular loop 
+              //and have ng-blur (that also runned inside angular loop)
+              //see tooltip.js hide method (near end)
+              //$datepicker.hide(true);
+              $datepicker.hide(false);
             }
           } else {
             angular.extend(viewDate, {year: date.getFullYear(), month: date.getMonth(), date: date.getDate()});
@@ -323,7 +327,9 @@ angular.module('mgcrea.ngStrap.datepicker', ['mgcrea.ngStrap.helpers.dateParser'
 
         // Garbage collection
         scope.$on('$destroy', function() {
-          datepicker.destroy();
+          //artem1 change: fix error when datepicker is null
+          if (datepicker)
+            datepicker.destroy();
           options = null;
           datepicker = null;
         });

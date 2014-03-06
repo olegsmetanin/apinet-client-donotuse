@@ -191,7 +191,9 @@ angular.module('mgcrea.ngStrap.tooltip', ['ngAnimate', 'mgcrea.ngStrap.helpers.d
 
           $animate.enter(tipElement, parent, after, function() {});
           scope.$isShown = true;
-          scope.$$phase || scope.$digest();
+          //artem1 fix $apply already in progress, when bs-datepicker in directive with isolated scope
+          //scope.$$phase || scope.$digest();
+          scope.$root.$$phase || scope.$digest();
           $$animateReflow($tooltip.$applyPlacement);
 
           // Bind events
@@ -229,7 +231,9 @@ angular.module('mgcrea.ngStrap.tooltip', ['ngAnimate', 'mgcrea.ngStrap.helpers.d
             tipElement = null;
           });
           scope.$isShown = false;
-          scope.$$phase || scope.$digest();
+          //artem1 fix $apply already in progress, when bs-datepicker in directive with isolated scope
+          //scope.$$phase || scope.$digest();
+          scope.$root.$$phase || scope.$digest();
 
           // Unbind events
           if(options.keyboard) {

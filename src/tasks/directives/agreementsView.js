@@ -35,7 +35,7 @@ define([
 
 					$scope.addAgreemer = function() {
 						apinetService.action({
-							method: 'tasks/tasks/AddAgreemer',
+							method: 'tasks/tasks/addAgreemer',
 							taskId: $scope.model.Id,
 							participantId: $scope.editables.newAgreemer.id,
 							dueDate: $scope.editables.dueDate })
@@ -52,17 +52,17 @@ define([
 						}
 
 						apinetService.action({
-							method: 'tasks/tasks/RemoveAgreement',
+							method: 'tasks/tasks/removeAgreement',
 							taskId: $scope.model.Id,
 							agreementId: agreement.Id })
 						.then(function(response) {
-							if (response === 'true') {
+							if (response === true) {
 								var index = $scope.model.Agreements.indexOf(agreement);
 								if (index >= 0) {
 									$scope.model.Agreements.splice(index, 1);
 								}
 							} else {
-								$scope.validation.generalErrors = [i18n.msg('core.errors.nothingToDelete')];
+								handleException(i18n.msg('core.errors.nothingToDelete'));
 							}
 						}, handleException);
 					};
@@ -87,14 +87,14 @@ define([
 
 					$scope.agree = function() {
 						doChange({
-							method: 'tasks/tasks/AgreeTask',
+							method: 'tasks/tasks/agreeTask',
 							taskId: $scope.model.Id,
 							comment: $scope.editables.comment });
 					};
 
 					$scope.revoke = function() {
 						doChange({
-							method: 'tasks/tasks/RevokeAgreement',
+							method: 'tasks/tasks/revokeAgreement',
 							taskId: $scope.model.Id });
 					};
 
