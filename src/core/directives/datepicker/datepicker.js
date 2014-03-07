@@ -250,6 +250,9 @@ angular.module('mgcrea.ngStrap.datepicker', ['mgcrea.ngStrap.helpers.dateParser'
         if(isNative && options.useNative) options.dateFormat = 'yyyy-MM-dd';
         var datepicker = $datepicker(element, controller, options);
         options = datepicker.$options;
+        //artem1 fix if useNative in defaul options, incorrect format passed to $dateParser constructor
+        //below in line 281
+        if(isNative && options.useNative) options.dateFormat = 'yyyy-MM-dd';
 
         // Observe attributes for changes
         angular.forEach(['minDate', 'maxDate'], function(key) {
