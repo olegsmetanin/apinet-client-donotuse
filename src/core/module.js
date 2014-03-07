@@ -18,9 +18,11 @@ define([
 	return module
 		.config(['$datepickerProvider', function($datepickerProvider) {
   			angular.extend($datepickerProvider.defaults, {
-  				dateType: 'iso',
-  				dateFormat: 'ago_date',
-  				autoclose: true
+  				dateType: 'iso'
+  				, dateFormat: 'ago_date'
+  				, autoclose: true
+  				, useNative: true
+  				, container: 'body' //пока под вопросом надо ли это 
   			});
   		}])
 		.constant('startupPath', { url: ''})

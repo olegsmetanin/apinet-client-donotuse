@@ -10,11 +10,12 @@ define([
 	'./security/module',
 	'./directives/datepicker/module',
 	'i18n!core/nls/angular',
-	'angular-animate'
+	'angular-animate',
+	'angular-sanitize'
 ], function (angular) {
 	var module = angular.module('core.module', [
 		'ngResource', 'ui.router', 'ui.bootstrap', 'ajoslin.promise-tracker', 'wu.masonry', 'blueimp.fileupload',
-		'core.security.module', 'ngLocale', 'lvl.directives.dragdrop', 'ngAnimate', 'mgcrea.ngStrap.datepicker'
+		'core.security.module', 'ngLocale', 'lvl.directives.dragdrop', 'ngAnimate', 'ngSanitize', 'mgcrea.ngStrap.datepicker'
 	], function($controllerProvider, $compileProvider, $stateProvider, $provide) {
 			module.controller = function( name, constructor ) {
 				$controllerProvider.register( name, constructor );

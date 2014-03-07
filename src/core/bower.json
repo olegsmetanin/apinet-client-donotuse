@@ -24,6 +24,7 @@
 		"angular-i18n": "~1.2.10",
 		"angular-resource": "~1.2.10",
 		"angular-animate": "~1.2.10",
+		"angular-sanitize": "~1.2.10",
 		"angular-ui-bootstrap3": "https://github.com/olegsmith/bootstrap/archive/bootstrap3_bis2.zip",
 		"angular-ui-router": "~0.2.8",
 		"angular-promise-tracker": "angular-promise-tracker#1.4.2",

@@ -111,6 +111,12 @@ require.config({
 				return this.angular.module('ngAnimate');
 			}
 		},
+		'angular-sanitize': {
+			deps: ['angular'],
+			init: function() {
+				return this.angular.module('ngSanitize');
+			}
+		},
 
 		'socket.io-client': {
 			exports: 'socket.io-client'
@@ -162,6 +168,7 @@ require.config({
 		'core/nls/en/angular': 'core/components/angular-i18n/angular-locale_en',
 		'core/nls/ru/angular': 'core/components/angular-i18n/angular-locale_ru',
 		'angular-animate': 'core/components/angular-animate/angular-animate.min',
+		'angular-sanitize': 'core/components/angular-sanitize/angular-sanitize.min',
 		'angular-resource': 'core/components/angular-resource/angular-resource',
 		'angular-ui-bootstrap3': 'core/components/angular-ui-bootstrap3/dist/ui-bootstrap-tpls-0.6.0-SNAPSHOT',
 		'angular-ui-router': 'core/components/angular-ui-router/release/angular-ui-router',
