@@ -10,6 +10,7 @@ define([
 
 	'css!./assets/form.css',
 	'css!./assets/list.css',
+	'css!./assets/bootstrap-hidden-display-fix.css',
 
 	'i18n!core/nls/angular',
 	'i18n!./nls/module'

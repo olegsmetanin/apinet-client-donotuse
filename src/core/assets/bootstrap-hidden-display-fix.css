@@ -1,0 +1,35 @@
+/*while waiting bootstrap with hidden-xs-inline hidden-xs-block use this fix*/
+
+.inline-block{display:inline-block;}
+.inline-block.visible-xs{display:none!important;}@media(max-width:767px){.inline-block.visible-xs{display:inline-block!important;}
+}@media(min-width:768px) and (max-width:991px){.inline-block.visible-xs.visible-sm{display:inline-block!important;}
+}@media(min-width:992px) and (max-width:1199px){.inline-block.visible-xs.visible-md{display:inline-block!important;}
+}@media(min-width:1200px){.inline-block.visible-xs.visible-lg{display:inline-block!important;}
+}.inline-block.visible-sm{display:none!important;}@media(max-width:767px){.inline-block.visible-sm.visible-xs{display:inline-block!important;}
+}@media(min-width:768px) and (max-width:991px){.inline-block.visible-sm{display:inline-block!important;}
+}@media(min-width:992px) and (max-width:1199px){.inline-block.visible-sm.visible-md{display:inline-block!important;}
+}@media(min-width:1200px){.inline-block.visible-sm.visible-lg{display:inline-block!important;}
+}.inline-block.visible-md{display:none!important;}@media(max-width:767px){.inline-block.visible-md.visible-xs{display:inline-block!important;}
+}@media(min-width:768px) and (max-width:991px){.inline-block.visible-md.visible-sm{display:inline-block!important;}
+}@media(min-width:992px) and (max-width:1199px){.inline-block.visible-md{display:inline-block!important;}
+}@media(min-width:1200px){.inline-block.visible-md.visible-lg{display:inline-block!important;}
+}.inline-block.visible-lg{display:none!important;}@media(max-width:767px){.inline-block.visible-lg.visible-xs{display:inline-block!important;}
+}@media(min-width:768px) and (max-width:991px){.inline-block.visible-lg.visible-sm{display:inline-block!important;}
+}@media(min-width:992px) and (max-width:1199px){.inline-block.visible-lg.visible-md{display:inline-block!important;}
+}@media(min-width:1200px){.inline-block.visible-lg{display:inline-block!important;}
+}.inline-block.hidden-xs{display:inline-block!important;}@media(max-width:767px){.inline-block.hidden-xs{display:none!important;}
+}@media(min-width:768px) and (max-width:991px){.inline-block.hidden-xs.hidden-sm{display:none!important;}
+}@media(min-width:992px) and (max-width:1199px){.inline-block.hidden-xs.hidden-md{display:none!important;}
+}@media(min-width:1200px){.inline-block.hidden-xs.hidden-lg{display:none!important;}
+}.inline-block.hidden-sm{display:inline-block!important;}@media(max-width:767px){.inline-block.hidden-sm.hidden-xs{display:none!important;}
+}@media(min-width:768px) and (max-width:991px){.inline-block.hidden-sm{display:none!important;}
+}@media(min-width:992px) and (max-width:1199px){.inline-block.hidden-sm.hidden-md{display:none!important;}
+}@media(min-width:1200px){.inline-block.hidden-sm.hidden-lg{display:none!important;}
+}.inline-block.hidden-md{display:inline-block!important;}@media(max-width:767px){.inline-block.hidden-md.hidden-xs{display:none!important;}
+}@media(min-width:768px) and (max-width:991px){.inline-block.hidden-md.hidden-sm{display:none!important;}
+}@media(min-width:992px) and (max-width:1199px){.inline-block.hidden-md{display:none!important;}
+}@media(min-width:1200px){.inline-block.hidden-md.hidden-lg{display:none!important;}
+}.inline-block.hidden-lg{display:inline-block!important;}@media(max-width:767px){.inline-block.hidden-lg.hidden-xs{display:none!important;}
+}@media(min-width:768px) and (max-width:991px){.inline-block.hidden-lg.hidden-sm{display:none!important;}
+}@media(min-width:992px) and (max-width:1199px){.inline-block.hidden-lg.hidden-md{display:none!important;}
+}@media(min-width:1200px){.inline-block.hidden-lg{display:none!important;}}

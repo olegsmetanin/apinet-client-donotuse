@@ -4,7 +4,9 @@
 		<span>{{ i18n.core.upload.addFiles }}</span>
 		<input type="file" name="files[]" multiple ng-disabled="disabled">
 	</span>
-	{{ i18n.core.upload.placeholder }}
+	<span class="hidden-xs inline-block">
+		{{ i18n.core.upload.placeholder }}
+	</span>
 
 	<div id="progressbar" class="progress progress-small" ng-show="uploading">
 		<div class="progress-bar progress-bar-success" ng-style="{'width': progress + '%'}">{{ progress }}%</div>
