@@ -107,7 +107,7 @@
 							<ago-report-selector report-types="REPORT_TYPES" on-error="onReportError(error)" on-get-params="fillReportParameters(settings, parameters)">
 							</ago-report-selector>
 
-							<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
+							<button type="button" class="btn btn-danger pull-right hidden-xs" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">
 								{{ i18n.core.buttons.delete }}
 							</button>
 						</div>
@@ -118,7 +118,7 @@
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th class="onepct">
+										<th class="onepct hidden-xs">
 											<input type="checkbox" checker="items: 'models'">
 										</th>
 										<th class="col-lg-1 col-xs-2">{{ i18n.tasks.fields.seqNumber }}</th>
@@ -131,7 +131,7 @@
 								</thead>
 								<tbody >
 									<tr ng-repeat-start="model in models">
-										<td>
+										<td class="hidden-xs">
 											<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 										</td>
 										<td>

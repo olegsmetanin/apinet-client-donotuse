@@ -5,7 +5,7 @@
 .clip-content {
 	text-overflow: ellipsis; 
 	overflow: hidden; 
-	white-space: nowrap;
+	white-space: normal;
 	color: #656b6b;
 }
 
