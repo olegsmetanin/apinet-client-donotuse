@@ -62,14 +62,11 @@
 								</div>
 
 								<div class="col-sm-6">
-									<div class="row">
-										<div class="col-md-3">
-											<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{i18n.core.buttons.deleteSelected}}">{{ i18n.core.buttons.delete }}</button>
-											<div class="clearfix"></div>
+									<div class="input-group select2-bootstrap-prepend">
+										<div class="input-group-btn">
+											<button type="button" class="btn btn-danger" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{i18n.core.buttons.deleteSelected}}">{{ i18n.core.buttons.delete }}</button>
 										</div>
-										<div class="col-md-9">
-											<input type="text" lookup="tasks/dictionary/lookupTaskTypes" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementType" placeholder="{{ i18n.tasks.types.placeholders.replacementType }}" class="form-control" />
-										</div>
+										<input type="text" lookup="tasks/dictionary/lookupTaskTypes" lookup-options="{allowClear: true}" ng-model="deleteModel.replacementType" placeholder="{{ i18n.tasks.types.placeholders.replacementType }}" class="form-control" />
 									</div>
 								</div>
 							</div>
@@ -84,26 +81,26 @@
 										<th class="onepct">
 											<input type="checkbox" checker="items: 'models'">
 										</th>
-										<th>{{ i18n.core.fields.name }}</th>
-										<th style="width: 15%">{{ i18n.core.fields.creator }}</th>
-										<th style="width: 20%">{{ i18n.core.fields.creationTime }}</th>
+										<th class="col-xs-12 col-sm-7">{{ i18n.core.fields.name }}</th>
+										<th class="col-sm-2 hidden-xs">{{ i18n.core.fields.creator }}</th>
+										<th class="col-sm-3 hidden-xs">{{ i18n.core.fields.creationTime }}</th>
 										<th class="onepct">&nbsp;</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr ng-repeat="model in models">
-										<td>
+										<td class="onepct">
 											<input type="checkbox" ng-model="model.selected" data-itemid="{{ model.Id }}">
 										</td>
-										<td>
+										<td class="col-xs-12 col-sm-7">
 											<inline-text model="model.Name" on-update="onUpdate(model, val)" on-cancel="onCancel(model, val)" input-class="span10" required></inline-text>
 											<span ng-show="model.validation.fieldErrors['Name']" class="help-block alert-error">
 												{{ model.validation.fieldErrors['Name'] | joinBy }}
 											</span>
 										</td>
-										<td>{{ model.Author }}</td>
-										<td>{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
-										<td>
+										<td class="col-sm-2 hidden-xs">{{ model.Author }}</td>
+										<td class="col-sm-2 hidden-xs">{{ model.CreationTime | date:'dd.MM.yyyy hh:mm:ss' }}</td>
+										<td class="onepct">
 											<ago-btn-delete title="{{ i18n.tasks.types.buttons.delete }}" ng-click="delete(model)"></ago-btn-delete>
 										</td>
 									</tr>

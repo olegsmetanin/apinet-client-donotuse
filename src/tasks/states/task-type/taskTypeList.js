@@ -144,9 +144,13 @@ define([
 			};
 
 			$scope.createEnabled = function() {
-				return $scope.createTaskTypeForm.$valid && $scope.createTaskTypeForm.$dirty &&
-					(typeof $scope.validation.success === 'undefined' || $scope.validation.success);
+				return $scope.editModel.name && $scope.editModel.name.length > 0;
 			};
+
+			$scope.dropChanges = function() {
+				$scope.editModel = {id: null, name: ''};
+				$scope.resetValidation();
+			}
 
 			$scope.requestParams = { project: $stateParams.project };
 			$scope.editModel = {id: null, name: ''};

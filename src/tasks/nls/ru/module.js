@@ -181,7 +181,7 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 
 					'placeholders': {
 						'name': 'Наименование типа задачи',
-						'replacementType': 'Тип для замены удаляемых (опционально)'
+						'replacementType': 'С заменой на ...'
 					},
 
 					'buttons': {

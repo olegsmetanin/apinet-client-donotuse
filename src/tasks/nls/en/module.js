@@ -181,7 +181,7 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 
 					'placeholders': {
 						'name': 'Task type name',
-						'replacementType': 'Task type for deleted substitution (optional)'
+						'replacementType': 'With replacement for ...'
 					},
 
 					'buttons': {
