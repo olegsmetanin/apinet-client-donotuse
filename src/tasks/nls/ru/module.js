@@ -46,7 +46,6 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 							'agreemer': 'Согласующий',
 							'dueDate': 'Срок',
 							'done': 'Согласовано',
-							'agreedAt': 'Дата',
 							'comment': 'Комментарий'
 						},
 
@@ -58,7 +57,8 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 
 						'buttons': {
 							'agreement': {
-								'dropdown': 'Согласование',
+								'dropdown': 'Действия',
+								'add': 'Добавить согласующего',
 								'agree': 'Согласовать',
 								'toggleAgree': 'Согласовать с комментарием',
 								'revoke': 'Отозвать согласование'

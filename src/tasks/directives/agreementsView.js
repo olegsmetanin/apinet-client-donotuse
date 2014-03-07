@@ -17,7 +17,7 @@ define([
 						newAgreemer: null,
 						dueDate: null,
 						comment: null,
-						addState: true
+						state: null
 					};
 
 					$scope.resetValidation = function() {
@@ -43,6 +43,7 @@ define([
 							$scope.model.Agreements.push(response);
 							$scope.editables.newAgreemer = null;
 							$scope.editables.dueDate = null;
+							$scope.goToState(null);
 						}, handleException);
 					};
 
@@ -79,9 +80,10 @@ define([
 							if (agr) {
 								angular.extend(agr, response);
 							}
-							if (!$scope.editables.addState) {
-								$scope.toggleAgree();
-							}
+							$scope.goToState(null);
+							// if (!$scope.editables.addState) {
+							// 	$scope.toggleAgree();
+							// }
 						}, handleException);
 					};
 
@@ -98,19 +100,19 @@ define([
 							taskId: $scope.model.Id });
 					};
 
-					$scope.toggleAgree = function() {
-						$scope.editables.addState = !$scope.editables.addState;
-						if ($scope.editables.addState) {
+					$scope.goToState = function(state) {
+						$scope.editables.state = state;
+						if ($scope.editables.state === 'agree') {
 							$scope.editables.comment = null;
 						}
 					};
 
 					$scope.isAgreementsEditable = function() {
-						return $scope.model && $scope.model.Status.id !== taskStatuses.Closed; //TODO has rights
+						return $scope.model && $scope.model.Status.id !== taskStatuses.Closed;
 					};
 
 					$scope.addAgreementAvailable = function() {
-						return $scope.isAgreementsEditable() && $scope.editables.newAgreemer !== null; //TODO has rights
+						return $scope.isAgreementsEditable() && $scope.editables.newAgreemer !== null;
 					};
 				}
 			};

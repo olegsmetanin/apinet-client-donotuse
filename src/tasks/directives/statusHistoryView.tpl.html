@@ -17,37 +17,50 @@
 		</button>
 	</div>
 
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>{{ i18n.tasks.view.statusHistory.fields.status }}</th>
-				<th>{{ i18n.tasks.view.statusHistory.fields.author }}</th>
-				<th>{{ i18n.tasks.view.statusHistory.fields.effectivePeriod }}</th>
-				<th>{{ i18n.tasks.view.statusHistory.fields.duration }}</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="h in model.History">
-				<td>
-					<button type="button" class="btn disabled" ng-class="statusColor(h.Status.id)">
-						<i ng-class="statusIcon(h.Status.id)"></i>
-						{{ h.Status.text }}
-					</button>
-				</td>
-				<td>{{ h.Author }}</td>
-				<td>
-					{{ 
-						i18n.msg('tasks.view.statusHistory.period', {
-								start: (h.Start | date:'ago_datetime'), 
-								finish: ((h.Finish | date:'ago_datetime') || i18n.core.labels.presentTime) 
-							}) 
-					}}
-				</td>
-				<td>
-					{{ duration(h) | date:'ago_datetime' }}
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="responsive-table">
+			<div class="scrollable-area">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th class="col-xs-12 col-sm-3">{{ i18n.tasks.view.statusHistory.fields.status }}</th>
+							<th class="col-sm-3 hidden-xs">{{ i18n.tasks.view.statusHistory.fields.author }}</th>
+							<th class="col-sm-3 hidden-xs">{{ i18n.tasks.view.statusHistory.fields.effectivePeriod }}</th>
+							<th class="col-sm-3 hidden-xs">{{ i18n.tasks.view.statusHistory.fields.duration }}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="h in model.History">
+							<td class="col-xs-12 col-sm-3" style="white-space: normal">
+								<button type="button" class="btn disabled" ng-class="statusColor(h.Status.id)">
+									<i ng-class="statusIcon(h.Status.id)"></i>
+									{{ h.Status.text }}
+								</button>
+								<small class="visible-xs text-muted">
+									{{ h.Author }}, 
+									{{ 
+										i18n.msg('tasks.view.statusHistory.period', {
+												start: (h.Start | date:'ago_datetime'), 
+												finish: ((h.Finish | date:'ago_datetime') || i18n.core.labels.presentTime) 
+											}) 
+									}}, {{ duration(h) | date:'ago_datetime' }}
+								</small>
+							</td>
+							<td class="col-sm-3 hidden-xs">{{ h.Author }}</td>
+							<td class="col-sm-3 hidden-xs" style="white-space: normal">
+								{{ 
+									i18n.msg('tasks.view.statusHistory.period', {
+											start: (h.Start | date:'ago_datetime'), 
+											finish: ((h.Finish | date:'ago_datetime') || i18n.core.labels.presentTime) 
+										}) 
+								}}
+							</td>
+							<td class="col-sm-3 hidden-xs" style="white-space: normal">
+								{{ duration(h) | date:'ago_datetime' }}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 </ago-box>
 </div>

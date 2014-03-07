@@ -46,7 +46,6 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 							'agreemer': 'Agreemer',
 							'dueDate': 'Due date',
 							'done': 'Agreed',
-							'agreedAt': 'Agreed at',
 							'comment': 'Comment'
 						},
 
@@ -58,7 +57,8 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 
 						'buttons': {
 							'agreement': {
-								'dropdown': 'Agreement',
+								'dropdown': 'Actions',
+								'add': 'Add agreemer',
 								'agree': 'Agree',
 								'toggleAgree': 'Agree with comment',
 								'revoke': 'Revoke agreement'
