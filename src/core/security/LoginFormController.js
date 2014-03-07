@@ -37,10 +37,6 @@ define(['./moduleDef'], function (module) {
 			});
 		};
 
-		$scope.clearForm = function () {
-			$scope.user = {};
-		};
-
 		$scope.cancelLogin = function () {
 			security.cancelLogin();
 		};
