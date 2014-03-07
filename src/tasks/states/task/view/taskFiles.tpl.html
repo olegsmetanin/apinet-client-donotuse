@@ -34,13 +34,12 @@
 							<div class="box-toolbox box-toolbox-top">
 								<ago-error-msg></ago-error-msg>
 
-								<div>
-									<div class="col-xs-10" ago-uploader="topUploadOption()">
-									</div>
-								<!-- </div>
-								<div class="col-xs-2"> -->
-									<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{i18n.core.buttons.deleteSelected}}">{{ i18n.core.buttons.delete }}</button>
+								<div class="col-xs-2 col-sm-10" ago-uploader="topUploadOption()">
 								</div>
+							
+								<button type="button" class="btn btn-danger pull-right" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{i18n.core.buttons.deleteSelected}}">{{ i18n.core.buttons.delete }}</button>
+
+								<div class="clearfix"></div>
 							</div>
 
 							<div class="responsive-table">
