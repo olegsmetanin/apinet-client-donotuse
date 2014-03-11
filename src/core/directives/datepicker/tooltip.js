@@ -1,9 +1,7 @@
-define(['angular', 'text!./tooltip.tpl.html'], function(angular, tpl) {
+define(['../../moduleDef', 'angular', 'text!./tooltip.tpl.html'], function(module, angular, tpl) {
 
 'use strict';
-angular.module('mgcrea.ngStrap.tooltip', ['ngAnimate', 'mgcrea.ngStrap.helpers.dimensions'])
-
-  .provider('$tooltip', function() {
+module.provider('$tooltip', function() {
 
     var defaults = this.defaults = {
       animation: 'am-fade',
