@@ -263,6 +263,22 @@ define(['../../moduleDef'], function (module) {
 					'addTag': 'Add new tag',
 					'removeTag': 'Remove tag',
 					'newTag': 'Enter new tag name'
+				},
+
+				'activities': {
+					'title': 'Activity',
+
+					'filters': {
+						'period': {
+							'title': 'Activity period',
+							'today': 'Today',
+							'yesterday': 'Yesterday',
+							'thisWeek': 'This week',
+							'pastWeek': 'Past week',
+							'thisMonth': 'This month',
+							'pastMonth': 'Past month'
+						}
+					}
 				}
 			});
 

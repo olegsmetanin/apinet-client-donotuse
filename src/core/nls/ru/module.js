@@ -263,6 +263,22 @@ define(['../../moduleDef'], function (module) {
 					'addTag': 'Добавить тег',
 					'removeTag': 'Удалить тег',
 					'newTag': 'Введите название нового тега'
+				},
+
+				'activities': {
+					'title': 'Активность',
+
+					'filters': {
+						'period': {
+							'title': 'Период активности',
+							'today': 'Сегодня',
+							'yesterday': 'Вчера',
+							'thisWeek': 'На этой неделе',
+							'pastWeek': 'На прошлой неделе',
+							'thisMonth': 'В этом месяце',
+							'pastMonth': 'В прошлом месяце'
+						}
+					}
 				}
 			});
 

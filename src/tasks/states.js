@@ -4,5 +4,7 @@ define([
 	'./states/task/create/taskCreate',
 	'./states/task/view/taskView',
 	'./states/task/view/taskFiles',
-	'./states/taskProjectInfo'
+	'./states/taskProjectInfo',
+
+	'./states/activity/activityList'
 ], function() { });
