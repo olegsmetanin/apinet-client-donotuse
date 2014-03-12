@@ -1,9 +1,7 @@
-define(['angular'], function(angular) {
+define(['../../moduleDef', 'angular'], function(module, angular) {
 
 'use strict';
-angular.module('mgcrea.ngStrap.helpers.dimensions', [])
-
-  .factory('dimensions', function($document, $window) {
+module.factory('dimensions', function() {
 
     var jqLite = angular.element;
     var fn = {};

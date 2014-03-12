@@ -11,6 +11,7 @@ define([
 	'./directives/counter',
 	'./directives/ago.uploader',
 	'./directives/ago.tags',
+	'./directives/datepicker/datepicker',
 
 	'./directives/filters/filteredList',
 	'./directives/filters/filteredListActions',

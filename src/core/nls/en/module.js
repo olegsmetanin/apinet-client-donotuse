@@ -1,14 +1,21 @@
 define(['../../moduleDef'], function (module) {
 	module.run(['i18n', function(i18n) {
+		i18n.registerLocalizationModule('core/nls/angular');
 		i18n.registerLocalizationModule('core/nls/module');
 	}]);
 
-	module.service('core/nls/module/en', ['i18n', '$locale', function(i18n, $locale) {
+	module.service('core/nls/angular/en', ['$locale', function($locale) {
 		return function() {
+			angular.extend($locale, angular.injector(['ngLocale_en']).get('$locale'));
+
 			$locale.DATETIME_FORMATS.ago_date = "MM/dd/yyyy";
 			$locale.DATETIME_FORMATS.ago_datetime = "MM/dd/yyyy HH:mm";
 			$locale.DATETIME_FORMATS.ago_datelongtime = "MM/dd/yyyy HH:mm:ss";
+		};
+	}]);
 
+	module.service('core/nls/module/en', ['i18n', function(i18n) {
+		return function() {
 			i18n.addMessages('core', {
 				'roles': {
 					'title': 'Roles ({{role}})',
@@ -256,6 +263,22 @@ define(['../../moduleDef'], function (module) {
 					'addTag': 'Add new tag',
 					'removeTag': 'Remove tag',
 					'newTag': 'Enter new tag name'
+				},
+
+				'activities': {
+					'title': 'Activity',
+
+					'filters': {
+						'period': {
+							'title': 'Activity period',
+							'today': 'Today',
+							'yesterday': 'Yesterday',
+							'thisWeek': 'This week',
+							'pastWeek': 'Past week',
+							'thisMonth': 'This month',
+							'pastMonth': 'Past month'
+						}
+					}
 				}
 			});
 

@@ -1,0 +1,94 @@
+<div class="container" 
+		ng-controller="activityListCtrl"
+        filtered-list="{method: 'tasks/activity/getActivities'}"
+        initial-sorters="{ }">
+	<div class="row" id="content-wrapper">
+		<div class="col-xs-12">
+			<!-- Title -->
+			<div class="row hidden-sm hidden-md hidden-lg">
+				<div class="col-xs-12">
+					<div class="page-header">
+						<h1 class="pull-left">
+							<i class="icon-activities"></i>
+							<span>{{ i18n.core.activities.title }}</span>
+						</h1>
+					</div>
+				</div>
+			</div>
+
+			<!-- Filter -->	
+			<div filters-box="filter" sorters="sorters" meta="core/activities/activityMetadata" group="Core.Activity"
+				apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter"
+				style="padding-top: 5px">
+
+			</div>
+
+			<!-- Content -->
+			<ago-box color="purple" large="true" header-class="{'hidden-xs': true, 'hidden-md': true, 'hidden-lg': true}">
+				<ago-box-title>
+					<i class="fa icon-activities"></i>
+					{{ i18n.core.activities.title }}
+				</ago-box-title>
+
+				<ago-box-content>
+					<div class="box-toolbox box-toolbox-top">
+						<ago-error-msg></ago-error-msg>
+
+						<div class="row">
+							<form class="col-xs-12 form form-horizontal">
+								<div class="form-group">
+									<label class="col-lg-2 col-sm-4 col-xs-6 control-label">{{ i18n.core.activities.filters.period.title }}</label>
+									<div class="col-lg-10 col-sm-8 col-xs-6">
+										<select ng-model="filter.simple.period" class="form-control">
+											<option value="today">{{ i18n.core.activities.filters.period.today }}</option>
+											<option value="yesterday">{{ i18n.core.activities.filters.period.yesterday }}</option>
+											<option value="thisWeek">{{ i18n.core.activities.filters.period.thisWeek }}</option>
+											<option value="pastWeek">{{ i18n.core.activities.filters.period.pastWeek }}</option>
+											<option value="thisMonth">{{ i18n.core.activities.filters.period.thisMonth }}</option>
+											<option value="pastMonth">{{ i18n.core.activities.filters.period.pastMonth }}</option>
+										</select>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="table table-bordered">
+								<tbody >
+									<tr ng-repeat="model in models">
+										<td>
+											<div class="row">
+												<div class="col-lg-2 col-sm-4">
+													<div><strong>{{ model.ActivityItem }}</strong></div>
+													<p>{{ model.ActivityTime }}</p>
+												</div>
+												<div class="col-lg-10 col-sm-8">
+													<div class="row" ng-repeat="item in model.Items">
+														<div class="col-lg-12">
+															<div ng-show="item.ActivityTime || item.User">
+																<strong>{{ item.User }}</strong>
+															</div>
+															<div>
+																<span>{{ item.ActivityTime }}, </span>
+																<span>{{ item.Action }}</span>
+																<span>{{ item.Before }}</span>
+																<span>{{ item.After }}</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</ago-box-content>
+			</ago-box>
+
+		</div>
+	</div>
+</div>

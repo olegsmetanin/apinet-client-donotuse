@@ -1,14 +1,21 @@
-define(['core/moduleDef'], function (module) {
+define(['../../moduleDef'], function (module) {
 	module.run(['i18n', function(i18n) {
+		i18n.registerLocalizationModule('core/nls/angular');
 		i18n.registerLocalizationModule('core/nls/module');
 	}]);
 
-	module.service('core/nls/module/ru', ['i18n', '$locale', function(i18n, $locale) {
+	module.service('core/nls/angular/ru', ['$locale', function($locale) {
 		return function() {
+			angular.extend($locale, angular.injector(['ngLocale_ru']).get('$locale'));
+
 			$locale.DATETIME_FORMATS.ago_date = "dd.MM.yyyy";
 			$locale.DATETIME_FORMATS.ago_datetime = "dd.MM.yyyy HH:mm";
 			$locale.DATETIME_FORMATS.ago_datelongtime = "dd.MM.yyyy HH:mm:ss";
+		};
+	}]);
 
+	module.service('core/nls/module/ru', ['i18n', function(i18n) {
+		return function() {
 			i18n.addMessages('core', {
 				'roles': {
 					'title': 'Роли ({{role}})',
@@ -256,6 +263,22 @@ define(['core/moduleDef'], function (module) {
 					'addTag': 'Добавить тег',
 					'removeTag': 'Удалить тег',
 					'newTag': 'Введите название нового тега'
+				},
+
+				'activities': {
+					'title': 'Активность',
+
+					'filters': {
+						'period': {
+							'title': 'Период активности',
+							'today': 'Сегодня',
+							'yesterday': 'Вчера',
+							'thisWeek': 'На этой неделе',
+							'pastWeek': 'На прошлой неделе',
+							'thisMonth': 'В этом месяце',
+							'pastMonth': 'В прошлом месяце'
+						}
+					}
 				}
 			});
 

@@ -1,9 +1,7 @@
-define(['angular'], function(angular) {
+define(['../../moduleDef', 'angular'], function(module, angular) {
 
 'use strict';
-angular.module('mgcrea.ngStrap.helpers.dateParser', [])
-
-.provider('$dateParser', function($localeProvider) {
+module.provider('$dateParser', function() {
 
   var proto = Date.prototype;
 

@@ -60,7 +60,35 @@ require.config({
 				'imagesloaded', 'masonry', 'load-image', 'jquery.iframe-transport', 'jquery.fileupload',
 				'jquery.fileupload-image', 'jquery.fileupload-audio', 'jquery.fileupload-video', 'jquery.fileupload-validate',
 				'jquery.fileupload-process', 'jquery.ui.widget'
-			]
+			],
+			init: function () {
+				var oldFn = this.angular.module;
+
+				this.angular.module = function() {
+					var args = arguments;
+					var moduleName = (args.length > 0 ? args[0] : null) || '';
+
+					if(moduleName === 'ngLocale') {
+						var configFnArray = (args.length > 2 ? args[2] : null) || [];
+						var configFn = configFnArray.length > 1 ? configFnArray[1] : null;
+
+						if(angular.isFunction(configFn)) {
+							configFn({
+								value: function(name, value) {
+									var locale = (value || {}).id;
+									if(locale) {
+										args[0] = 'ngLocale' + '_' + locale;
+									}
+								}
+							});
+						}
+					}
+
+					return oldFn.apply(angular, args);
+				};
+
+				return this.angular;
+			}
 		},
 
 		'core/nls/en/angular': {
