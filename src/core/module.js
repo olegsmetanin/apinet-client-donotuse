@@ -25,6 +25,12 @@ define([
   				, container: 'body' //пока под вопросом надо ли это 
   			});
   		}])
+  		.config(['$uiViewScrollProvider', function($uiViewScroll) {
+  			//http://code.agosystems.com/issues/1773#note-6
+  			//important, don't remove or test, that browser don't scroll content below fixed menu
+  			//when ui-sref link clicked (tabs in task view and others)
+  			$uiViewScroll.useAnchorScroll ();
+  		}])
 		.constant('startupPath', { url: ''})
 		.config(['$locationProvider', '$urlRouterProvider', 'startupPath', 
 			function ($locationProvider, $urlRouterProvider, startupPath) {
