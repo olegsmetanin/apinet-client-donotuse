@@ -5,7 +5,7 @@ define([
 	'bootstrap-tabdrop',
 	'css!bootstrap-tabdrop/css'
 ], function (module, $, tpl) {
-	module.directive('taskTabs', ['$rootScope', function($rootScope) {
+	module.directive('taskTabs', ['$rootScope', '$compile', function($rootScope, $compile) {
 		return {
 			restrict: 'E',
 			replace: true,
@@ -16,7 +16,9 @@ define([
 			},
 			link: function(scope, elm) {
 				scope.i18n = $rootScope.i18n;
-				$('.nav-responsive.nav-tabs', elm).tabdrop();
+				$target = $('.nav-responsive.nav-tabs', elm);
+				$target.tabdrop();
+				$compile($target.contents())(scope);
 			}
 		};
 	}]);
