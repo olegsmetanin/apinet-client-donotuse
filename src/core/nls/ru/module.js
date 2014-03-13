@@ -117,7 +117,8 @@ define(['../../moduleDef'], function (module) {
 						'signIn': 'Вход',
 						'signOut': 'Выход',
 						'signInFacebook': 'Facebook',
-						'signInTwitter': 'Twitter'
+						'signInTwitter': 'Twitter',
+						'demo': 'Войти как тестовый пользователь'
 					},
 					'reason': {
 						'notAuthorized': 'У вас недостаточно прав. Возможно вы хотите войти под другим именем?',
