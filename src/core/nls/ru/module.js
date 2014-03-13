@@ -109,9 +109,7 @@ define(['../../moduleDef'], function (module) {
 
 				'auth': {
 					'credentials': {
-						'legend': 'Введите данные для авторизации',
-						'email': 'E-mail',
-						'password': 'Пароль'
+						'legend': 'Выберите способ аутентификации'
 					},
 					'buttons': {
 						'signIn': 'Вход',

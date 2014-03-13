@@ -3,11 +3,6 @@ define(['./moduleDef'], function (module) {
 		['$scope', 'security', 'i18n', '$window', '$location', 
 		function ($scope, security, i18n, $window, $location) {
 
-		// The model for this form
-		$scope.user = {};
-		//Debug purposes
-		//$scope.user = {email: 'admin@apinet-test.com', password: '1'};
-
 		// Any error message from failing to login
 		$scope.authError = null;
 
@@ -21,30 +16,6 @@ define(['./moduleDef'], function (module) {
 				'core.auth.reason.notAuthenticated';
 		}
 
-		var doLogin = function(user, pwd) {
-			// Clear any previous security errors
-			$scope.authError = null;
-
-			// Try to login
-			security.login(user, pwd).then(function (result) {
-				if (typeof result.success !== 'undefined' && !result.success) {
-					$scope.validation = result;
-					$scope.authError = i18n.msg('core.auth.errors.invalidCredentials');
-				}
-			}, function (error) {
-				$scope.authError = i18n.msg('core.auth.errors.serverError', { exception: error });
-			});
-		}
-
-		// Attempt to authenticate the user specified in the form's model
-		$scope.login = function () {
-			doLogin($scope.user.email, $scope.user.password)
-		};
-
-		$scope.cancelLogin = function () {
-			security.cancelLogin();
-		};
-
 		$scope.loginFacebook = function() {
 			$window.location.href = security.facebookLoginUrl();
 		};
@@ -54,7 +25,18 @@ define(['./moduleDef'], function (module) {
 		};
 
 		$scope.loginDemoUser = function() {
-			doLogin('demo@apinet-test.com', 'demo');
+			// Clear any previous security errors
+			$scope.authError = null;
+
+			// Try to login
+			security.loginAsDemo().then(function (result) {
+				if (typeof result.success !== 'undefined' && !result.success) {
+					$scope.validation = result;
+					$scope.authError = i18n.msg('core.auth.errors.invalidCredentials');
+				}
+			}, function (error) {
+				$scope.authError = i18n.msg('core.auth.errors.serverError', { exception: error });
+			});
 		}
 	}]);
 });
