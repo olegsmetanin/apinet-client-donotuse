@@ -77,12 +77,12 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 						return apinetService.apiUrl('core/reporting/UploadTemplate');
 					},
 
-					templateDownloadUrl: function(id) {
-						return apinetService.downloadUrl('report-template/' + id);
+					templateDownloadUrl: function(project, id) {
+						return apinetService.downloadUrl('report-template/' + project + '/' + id);
 					},
 
-					reportDownloadUrl: function(id) {
-						return apinetService.downloadUrl('report/' + id);
+					reportDownloadUrl: function(project, id) {
+						return apinetService.downloadUrl('report/' + project + '/' + id);
 					},
 
 					positions: {},

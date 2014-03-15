@@ -14,7 +14,7 @@ define([
 			},
 			link: function(scope) {
 				scope.downloadUrl = function() {
-					return reportService.reportDownloadUrl(scope.report.Id);
+					return reportService.reportDownloadUrl(scope.report.ProjectCode, scope.report.Id);
 				};
 
 				scope.onDownload = function() {

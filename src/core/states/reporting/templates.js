@@ -95,7 +95,7 @@ define([
 		};
 
 		$scope.downloadUrl = function(template) {
-			return reportService.templateDownloadUrl(template.Id);
+			return reportService.templateDownloadUrl(template.ProjectCode, template.Id);
 		};
 
 	}]);
