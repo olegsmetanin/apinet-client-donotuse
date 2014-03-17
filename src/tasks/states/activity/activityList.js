@@ -7,7 +7,7 @@ define([
 
 	module.state({
 		name: 'page.project.activities',
-		url: '/activities',
+		url: '/activities/:itemId',
 		views: {
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
@@ -23,15 +23,26 @@ define([
 			$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 		}
 	})
-	.controller('activityListCtrl', ['$scope', function($scope) {
+	.controller('activityListCtrl', ['$scope', '$stateParams', function($scope, $stateParams) {
+		console.log('controller');
+		$scope.initialRequestParams = {
+			itemId: $stateParams.itemId,
+			predefined: 'today'
+		};
+
 		$scope.$on('resetFilter', function() {
 			$scope.filter.simple = {
-				period: 'today'
+				period: 'today',
+				specificDate: (new Date()).toISOString()
 			};
 		});
 
 		$scope.$watch('filter.simple.period', function(value) {
 			$scope.requestParams.predefined = value || 'today';
+		}, true);
+
+		$scope.$watch('filter.simple.specificDate', function(value) {
+			$scope.requestParams.specificDate = value;
 		}, true);
 	}]);
 });

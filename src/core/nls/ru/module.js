@@ -52,7 +52,8 @@ define(['../../moduleDef'], function (module) {
 					'deleteSelected': 'Удалить выбранные',
 					'edit': 'Редактировать',
 					'more': 'Еще',
-					'refresh': 'Обновить'
+					'refresh': 'Обновить',
+					'back': 'Назад'
 				},
 
 				'fields': {
@@ -267,6 +268,7 @@ define(['../../moduleDef'], function (module) {
 
 				'activities': {
 					'title': 'Активность',
+					'empty': 'В указанном периоде активность не зарегистрирована',
 
 					'filters': {
 						'period': {
@@ -276,7 +278,11 @@ define(['../../moduleDef'], function (module) {
 							'thisWeek': 'На этой неделе',
 							'pastWeek': 'На прошлой неделе',
 							'thisMonth': 'В этом месяце',
-							'pastMonth': 'В прошлом месяце'
+							'pastMonth': 'В прошлом месяце',
+							'specificDate': 'За конкретную дату'
+						},
+						'specificDate': {
+							'title': 'Дата активности'
 						}
 					}
 				}

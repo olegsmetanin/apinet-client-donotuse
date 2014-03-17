@@ -52,7 +52,8 @@ define(['../../moduleDef'], function (module) {
 					'deleteSelected': 'Delete selected',
 					'edit': 'Edit',
 					'more': 'More',
-					'refresh': 'Refresh'
+					'refresh': 'Refresh',
+					'back': 'Back'
 				},
 
 				'fields': {
@@ -267,6 +268,7 @@ define(['../../moduleDef'], function (module) {
 
 				'activities': {
 					'title': 'Activity',
+					'empty': 'No activity logged in specifed period',
 
 					'filters': {
 						'period': {
@@ -276,7 +278,11 @@ define(['../../moduleDef'], function (module) {
 							'thisWeek': 'This week',
 							'pastWeek': 'Past week',
 							'thisMonth': 'This month',
-							'pastMonth': 'Past month'
+							'pastMonth': 'Past month',
+							'specificDate': 'Concrete date'
+						},
+						'specificDate': {
+							'title': 'Activity date'
 						}
 					}
 				}
