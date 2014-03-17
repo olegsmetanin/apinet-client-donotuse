@@ -25,6 +25,7 @@ define([
 	.controller('taskListCtrl', ['$scope', '$stateParams', 'apinetService', '$window', 'i18n', 'taskStatuses', '$locale',
 		function($scope, $stateParams, apinetService, $window, i18n, taskStatuses, $locale) {
 
+		$scope.project = $stateParams.project;
 		$scope.REPORT_TYPES = ['task-list'];
 
 		$scope.propsFilterCollapsed = true;

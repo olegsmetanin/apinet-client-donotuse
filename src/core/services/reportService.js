@@ -35,7 +35,7 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 				var rs = angular.extend(this, {
 					cache: $cacheFactory('userReports'),
 
-					getReportSettings: function(types) {
+					getReportSettings: function(project, types) {
 						types = types || [];
 						var that = this, settings = that.cache.get('settings.' + types.toString());
 
@@ -44,6 +44,7 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 						}
 						return apinetService.action({
 							method: 'core/reporting/getSettings',
+							project: project,
 							types: types}).then(function(response) {
 								that.cache.put('settings.' + types.toString(), response);
 								return response;
