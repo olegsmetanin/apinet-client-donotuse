@@ -110,15 +110,14 @@ define(['../../moduleDef'], function (module) {
 
 				'auth': {
 					'credentials': {
-						'legend': 'Please enter your login details',
-						'email': 'E-mail',
-						'password': 'Password'
+						'legend': 'Please select login type'
 					},
 					'buttons': {
 						'signIn': 'Sign in',
 						'signOut': 'Sign out',
 						'signInFacebook': 'Facebook',
-						'signInTwitter': 'Twitter'
+						'signInTwitter': 'Twitter',
+						'demo': 'Sign in as demo user'
 					},
 					'reason': {
 						'notAuthorized': 'You do not have the necessary access permissions.  Do you want to login as someone else?',

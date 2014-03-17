@@ -110,15 +110,14 @@ define(['../../moduleDef'], function (module) {
 
 				'auth': {
 					'credentials': {
-						'legend': 'Введите данные для авторизации',
-						'email': 'E-mail',
-						'password': 'Пароль'
+						'legend': 'Выберите способ аутентификации'
 					},
 					'buttons': {
 						'signIn': 'Вход',
 						'signOut': 'Выход',
 						'signInFacebook': 'Facebook',
-						'signInTwitter': 'Twitter'
+						'signInTwitter': 'Twitter',
+						'demo': 'Войти как тестовый пользователь'
 					},
 					'reason': {
 						'notAuthorized': 'У вас недостаточно прав. Возможно вы хотите войти под другим именем?',

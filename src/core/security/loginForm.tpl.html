@@ -10,44 +10,16 @@
 			{{ authError }}
 		</div>
 		<div class="alert alert-info">{{ i18n.core.auth.credentials.legend }}</div>
-		<div class="form-group">
-			<label for="login" class="col-lg-2 control-label">{{ i18n.core.auth.credentials.email }}</label>
-			<div class="col-lg-10">
-				<input id="login" name="login" class="form-control" type="email" ng-model="user.email" placeholder="Enter email" required autofocus />
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="pass" class="col-lg-2 control-label">{{ i18n.core.auth.credentials.password }}</label>
-			<div class="col-lg-10">
-				<input id="pass" name="pass" type="password" class="form-control" ng-model="user.password" required />
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<div class="btn-group dropup">
-			<button type="button" class="btn btn-primary login" ng-click="login()" ng-disabled='form.$invalid'>
-				{{ i18n.core.auth.buttons.signIn }}
+		<div>
+			<button type="button" class="btn" ng-click="loginFacebook()">
+				{{ i18n.core.auth.buttons.signInFacebook }}
 			</button>
-			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-    			<span class="caret"></span>
-    			<span class="sr-only">Toggle Dropdown</span>
-  			</button>
-  			<ul class="dropdown-menu text-left" role="menu">
-  				<li>
-  					<a href="" ng-click="loginFacebook()">
-						{{ i18n.core.auth.buttons.signInFacebook }}
-					</a>
-  				</li>
-  				<li>
-					<a href="" ng-click="loginTwitter()">
-						{{ i18n.core.auth.buttons.signInTwitter }}
-					</a>  					
-  				</li>
-  			</ul>
-  		</div>
-
-		<button type="button" class="btn btn-warning cancel" ng-click="cancelLogin()">
-			{{ i18n.core.buttons.cancel }}
-		</button>
+			<button type="button" class="btn" ng-click="loginTwitter()">
+				{{ i18n.core.auth.buttons.signInTwitter }}
+			</button>
+			<button type="button" class="btn btn-primary" ng-click="loginDemoUser()">
+				{{ i18n.core.auth.buttons.demo }}
+			</button>
+		</div>
 	</div>
 </form>

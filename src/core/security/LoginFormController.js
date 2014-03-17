@@ -3,11 +3,6 @@ define(['./moduleDef'], function (module) {
 		['$scope', 'security', 'i18n', '$window', '$location', 
 		function ($scope, security, i18n, $window, $location) {
 
-		// The model for this form
-		//$scope.user = {};
-		//Debug purposes
-		$scope.user = {email: 'admin@apinet-test.com', password: '1'};
-
 		// Any error message from failing to login
 		$scope.authError = null;
 
@@ -21,26 +16,6 @@ define(['./moduleDef'], function (module) {
 				'core.auth.reason.notAuthenticated';
 		}
 
-		// Attempt to authenticate the user specified in the form's model
-		$scope.login = function () {
-			// Clear any previous security errors
-			$scope.authError = null;
-
-			// Try to login
-			security.login($scope.user.email, $scope.user.password).then(function (result) {
-				if (typeof result.success !== 'undefined' && !result.success) {
-					$scope.validation = result;
-					$scope.authError = i18n.msg('core.auth.errors.invalidCredentials');
-				}
-			}, function (error) {
-				$scope.authError = i18n.msg('core.auth.errors.serverError', { exception: error });
-			});
-		};
-
-		$scope.cancelLogin = function () {
-			security.cancelLogin();
-		};
-
 		$scope.loginFacebook = function() {
 			$window.location.href = security.facebookLoginUrl();
 		};
@@ -48,5 +23,20 @@ define(['./moduleDef'], function (module) {
 		$scope.loginTwitter = function() {
 			$window.location.href = security.twitterLoginUrl();
 		};
+
+		$scope.loginDemoUser = function() {
+			// Clear any previous security errors
+			$scope.authError = null;
+
+			// Try to login
+			security.loginAsDemo().then(function (result) {
+				if (typeof result.success !== 'undefined' && !result.success) {
+					$scope.validation = result;
+					$scope.authError = i18n.msg('core.auth.errors.invalidCredentials');
+				}
+			}, function (error) {
+				$scope.authError = i18n.msg('core.auth.errors.serverError', { exception: error });
+			});
+		}
 	}]);
 });

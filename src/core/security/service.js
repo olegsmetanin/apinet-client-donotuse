@@ -29,7 +29,9 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 					}
 					loginDialog = $modal.open({
 						template: loginFormTpl,
-						controller: 'LoginFormController'});
+						controller: 'LoginFormController',
+						keyboard: false,
+						backdrop: 'static' });
 					loginDialog.result.then(onLoginDialogClose);
 				}
 
@@ -76,18 +78,15 @@ define(['./moduleDef', 'text!./loginForm.tpl.html'], function (module, loginForm
 					},
 
 					// Attempt to authenticate a user by the given email and password
-					login: function (email, password) {
+					loginAsDemo: function () {
 						$rootScope.$emit(AUTH_EVENTS.LOGOUT);
 						service.currentUser = null;
 
 						var deferred = $q.defer();
 
 						apinetService.action({
-							method: 'core/auth/login',
-							email: email,
-							password: password
-						})
-						.then(function (result) {
+							method: 'core/auth/loginAsDemo'
+						}).then(function (result) {
 							if (typeof result.success === 'undefined' || result.success) {
 								service.currentUser = result;
 								if (service.isAuthenticated()) {
