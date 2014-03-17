@@ -24,7 +24,6 @@ define([
 		}
 	})
 	.controller('activityListCtrl', ['$scope', '$stateParams', function($scope, $stateParams) {
-		console.log('controller');
 		$scope.initialRequestParams = {
 			itemId: $stateParams.itemId,
 			predefined: 'today'
