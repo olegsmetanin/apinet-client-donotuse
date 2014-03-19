@@ -5,7 +5,8 @@ define([
 	'text!./ago.tags.tpl.html',
 	'css!./ago.tags.css'
 ], function (module, $, angular, tpl) {
-	module.directive('agoTags', ['apinetService', '$timeout', function(apinetService, $timeout) {
+	module.directive('agoTags', ['apinetService', '$timeout', '$stateParams', 
+		function(apinetService, $timeout, $stateParams) {
 		return {
 			restrict: 'EA',
 			replace: true,
@@ -84,6 +85,7 @@ define([
 
 					apinetService.action({
 						method: attrs.tagMethod,
+						project: $stateParams.project,
 						modelId: viewModel.Id,
 						tagId: viewModel.newTagModel.id
 					}).then(function (result) {
@@ -104,6 +106,7 @@ define([
 
 					apinetService.action({
 						method: attrs.detagMethod,
+						project: $stateParams.project,
 						modelId: viewModel.Id,
 						tagId: tag.id
 					}).then(function (result) {

@@ -3,8 +3,8 @@ define([
 	'angular',
 	'text!./customPropertiesView.tpl.html'
 ], function (module, angular, tpl) {
-	module.directive('customProperties', ['$rootScope', 'apinetService', '$window', '$filter',
-		function($rootScope, apinetService, $window, $filter) {
+	module.directive('customProperties', ['$rootScope', 'apinetService', '$window', '$filter', '$stateParams',
+		function($rootScope, apinetService, $window, $filter, $stateParams) {
 
 		return {
 			restrict: 'E',
@@ -87,7 +87,8 @@ define([
 
 				$scope.add = function() {
 					apinetService.action({
-						method: 'tasks/tasks/EditParam',
+						method: 'tasks/tasks/editParam',
+						project: $stateParams.project,
 						taskId: $scope.model.Id,
 						model: {
 							type: { id: $scope.editables.type.id },
@@ -111,7 +112,8 @@ define([
 					}
 
 					apinetService.action({
-						method: 'tasks/tasks/DeleteParam',
+						method: 'tasks/tasks/deleteParam',
+						project: $stateParams.project,
 						paramId: param.Id })
 					.then(function() {
 						var modelIndex = $scope.model.Parameters.indexOf(param);
@@ -129,7 +131,8 @@ define([
 					$scope.resetValidation();
 
 					return apinetService.action({
-						method: 'tasks/tasks/EditParam',
+						method: 'tasks/tasks/editParam',
+						project: $stateParams.project,
 						taskId: $scope.model.Id,
 						model: { id: param.Id, value: val } })
 					.then(function(result) {
