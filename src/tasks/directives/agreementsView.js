@@ -3,8 +3,8 @@ define([
 	'angular',
 	'text!./agreementsView.tpl.html'
 ], function (module, angular, tpl) {
-	module.directive('agreements', ['apinetService', '$window', 'i18n', '$rootScope', 'taskStatuses',
-		function(apinetService, $window, i18n, $rootScope, taskStatuses){
+	module.directive('agreements', ['apinetService', '$window', 'i18n', '$rootScope', 'taskStatuses', '$stateParams',
+		function(apinetService, $window, i18n, $rootScope, taskStatuses, $stateParams){
 			return {
 				restrict: 'E',
 				template: tpl,
@@ -36,6 +36,7 @@ define([
 					$scope.addAgreemer = function() {
 						apinetService.action({
 							method: 'tasks/tasks/addAgreemer',
+							project: $stateParams.project,
 							taskId: $scope.model.Id,
 							participantId: $scope.editables.newAgreemer.id,
 							dueDate: $scope.editables.dueDate })
@@ -54,6 +55,7 @@ define([
 
 						apinetService.action({
 							method: 'tasks/tasks/removeAgreement',
+							project: $stateParams.project,
 							taskId: $scope.model.Id,
 							agreementId: agreement.Id })
 						.then(function(response) {
@@ -90,6 +92,7 @@ define([
 					$scope.agree = function() {
 						doChange({
 							method: 'tasks/tasks/agreeTask',
+							project: $stateParams.project,
 							taskId: $scope.model.Id,
 							comment: $scope.editables.comment });
 					};
@@ -97,6 +100,7 @@ define([
 					$scope.revoke = function() {
 						doChange({
 							method: 'tasks/tasks/revokeAgreement',
+							project: $stateParams.project,
 							taskId: $scope.model.Id });
 					};
 
