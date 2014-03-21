@@ -213,6 +213,7 @@ define(['../../moduleDef'], function (module) {
 					},
 					'result': 'Report file name (optional)',
 					'run': 'Generate',
+					'viewAllProj': 'View all project reports',
 					'viewAll': 'View all reports',
 					'running': 'Running reports',
 					'unread': 'Unread reports',
@@ -233,7 +234,11 @@ define(['../../moduleDef'], function (module) {
 							'duration': 'Duration',
 							'progress': 'Progress',
 							'errorMsg': 'Error text',
-							'errorDetails': 'Error details'
+							'errorDetails': 'Error details',
+
+							//archived
+							'project': 'Project',
+							'type': 'Report type'
 						},
 						'duration': {
 							'hours': {

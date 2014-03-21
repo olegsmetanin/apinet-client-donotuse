@@ -1,6 +1,6 @@
 <div class="container"
 	ng-controller="reportsController"
-	filtered-list="{method: 'core/reporting/getReports'}"
+	filtered-list="{method: 'core/reporting/getArchivedReports'}"
 	initial-sorters="{ CreationTime: 'desc'}">
 	<div class="row" id="content-wrapper">
 		<div class="col-xs-12">
@@ -15,7 +15,7 @@
 				</div>
 			</div>
 
-			<div filters-box="filter" sorters="sorters" meta="core/reporting/reportTaskMetadata" group="Reporting.Reports" apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter" style="padding-top: 5px">
+			<div filters-box="filter" sorters="sorters" meta="core/reporting/archivedReportMetadata" group="Reporting.ArchivedReports" apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter" style="padding-top: 5px">
 				<ago-box-content>
 					<form class="form form-horizontal">
 						<div class="form-group">
@@ -34,69 +34,38 @@
 					{{ i18n.core.reporting.reports.title }}
 				</ago-box-title>
 				<ago-box-content>
-					<div class="box-toolbox box-toolbox-top">
-						<ago-error-msg></ago-error-msg>
-					</div>
+					<ago-error-msg></ago-error-msg>
 
 					<div class="responsive-table">
 						<div class="scrollable-area">
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th class="col-xs-12 col-sm-8 col-md-6">{{ i18n.core.fields.name }}</th>
-										<th class="col-sm-4 col-md-2 hidden-xs">{{ i18n.core.reporting.reports.fields.state }}</th>
+										<th class="col-xs-12 col-sm-6 col-md-6">{{ i18n.core.fields.name }}</th>
+										<th class="col-sm-3 col-md-2 hidden-xs">{{ i18n.core.reporting.reports.fields.project }}</th>
+										<th class="col-sm-3 col-md-2 hidden-xs">{{ i18n.core.reporting.reports.fields.type }}</th>
 										<th class="col-md-2 hidden-sm hidden-xs">{{ i18n.core.fields.creationTime }}</th>
-										<th class="col-md-2 hidden-sm hidden-xs">{{ i18n.core.reporting.reports.fields.progress }}</th>
-										<th class="onepct">&nbsp;</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat-start="m in models">
-										<td ng-switch="m.State" class="col-xs-12 col-sm-8 col-md-6" style="">
-											<a href="" class="btn btn-primary btn-sm pull-left" data-toggle="button" ng-click="m.expanded = !m.expanded">
-												<i class="fa" ng-class="{ 'icon-chevron-up': m.expanded, 'icon-chevron-down': !m.expanded }"></i>
-											</a>
-
-											<div ago-report-link report="m" style="display: inline-block; white-space: normal; margin-left: 5px"></div>
-
-											<button type="button" ng-show="m.State == 'NotStarted' || m.State == 'Running'" ng-click="cancel(m)" class="btn btn-sm btn-danger pull-right" style="margin-left: 5px">{{ i18n.core.buttons.cancel }}</button>
-											<a class="btn btn-sm btn-primary pull-right" ng-show="m.State == 'NotStarted'" onclick="event.stopPropagation();" title="{{ i18n.core.reporting.position }}">{{ positions[m.Id] || '?' }}</a>
+									<tr ng-repeat="m in models">
+										<td class="col-xs-12 col-sm-6 col-md-6" style="white-space: normal">
+											<a ng-href="{{ downloadUrl(m) }}" target="_blank">{{ m.Name }}</a>
+											<small class="visible-xs text-muted">
+												{{ m.ProjectName }}, 
+												{{ m.SettingsName }}, 
+												{{ m.CreationTime | date:'ago_datetime' }}
+											</small>
 										</td>
-										<td class="col-sm-4 col-md-2 hidden-xs">{{ m.StateName }}</td>
-										<td class="col-md-2 hidden-sm hidden-xs">{{ m.CreationTime | date:'ago_datetime' }}</td>
-										<td class="col-md-2 hidden-sm hidden-xs">{{ m.DataGenerationProgress }}% / {{ m.ReportGenerationProgress }}%</td>
-										<td class="onepct">
-											<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(m)"></ago-btn-delete>
+										<td class="col-sm-3 col-md-2 hidden-xs" style="white-space: normal">
+											{{ m.ProjectName }}
+											<small class="text-muted">{{ m.ProjectCode }}</small>
 										</td>
-									</tr>
-									<tr ng-repeat-end ng-show="m.expanded" ng-init="m.expanded = false">
-										<td colspan="5">
-											<table class="table table-bordered">
-												<tr>
-													<td>{{ i18n.core.fields.creator }}</td>
-													<td>{{ m.Author }}</td>
-												</tr>
-												<tr>
-													<td>{{ i18n.core.reporting.reports.fields.startedAt }}</td>
-													<td>{{ m.StartedAt | date:'ago_datelongtime' }}</td>
-												</tr>
-												<tr>
-													<td>{{ i18n.core.reporting.reports.fields.completedAt }}</td>
-													<td>{{ m.CompletedAt | date:'ago_datelongtime' }}</td>
-												</tr>
-												<tr>
-													<td>{{ i18n.core.reporting.reports.fields.duration }}</td>
-													<td>{{ duration(m) }}</td>
-												</tr>
-												<tr ng-show="m.ErrorMsg" class="text-error">
-													<td>{{ i18n.core.reporting.reports.fields.errorMsg }}</td>
-													<td>{{ m.ErrorMsg }}</td>
-												</tr>
-												<tr ng-show="m.ErrorDetails" class="text-error">
-													<td>{{ i18n.core.reporting.reports.fields.errorDetails }}</td>
-													<td>{{ m.ErrorDetails }}</td>
-												</tr>
-											</table>
+										<td class="col-sm-3 col-md-2 hidden-xs" style="white-space: normal">
+											{{ m.SettingsName }}
+										</td>
+										<td class="col-md-2 hidden-sm hidden-xs" style="white-space: normal">
+											{{ m.CreationTime | date:'ago_datetime' }}
 										</td>
 									</tr>
 								</tbody>
@@ -107,7 +76,7 @@
 					<div class="box-toolbox box-toolbox-bottom">
 						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
 
-						<counter action="core/reporting/getReportsCount"></counter>
+						<counter action="core/reporting/getArchivedReportsCount"></counter>
 					</div>
 				</ago-box-content>
 			</ago-box>

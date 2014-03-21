@@ -213,6 +213,7 @@ define(['../../moduleDef'], function (module) {
 					},
 					'result': 'Имя файла отчета (опционально)',
 					'run': 'Создать',
+					'viewAllProj': 'Все отчеты проекта',
 					'viewAll': 'Все отчеты',
 					'running': 'Выполняющиеся отчеты',
 					'unread': 'Непросмотренные отчеты',
@@ -233,7 +234,11 @@ define(['../../moduleDef'], function (module) {
 							'duration': 'Время создания',
 							'progress': '% выполнения',
 							'errorMsg': 'Описание ошибки',
-							'errorDetails': 'Подробные сведения об ошибке'
+							'errorDetails': 'Подробные сведения об ошибке',
+
+							//archived
+							'project': 'Проект',
+							'type': 'Тип отчета'
 						},
 						'duration': {
 							'hours': {

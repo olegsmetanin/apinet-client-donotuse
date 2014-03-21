@@ -4,7 +4,7 @@
 		<div ng-show="reports.count.active > 0 || reports.count.unread > 0" class="label">{{ reports.count.active }} / {{ reports.count.unread }}</div>
 	</a>
 	<ul class="dropdown-menu">
-		<li>
+		<li ng-show="project">
 			<a href="" ng-click="update()" onclick="event.stopPropagation();">
 				<div class='widget-body'>
 					<div class='pull-left icon'>
@@ -51,8 +51,11 @@
 			</div>
 		</li>
 
+		<li class="widget-footer" ng-show="project">
+			<a href="" ng-href="/#!/project/{{project}}/reports">{{ i18n.core.reporting.viewAllProj }}</a>
+		</li>
 		<li class="widget-footer">
-			<a href="" ui-sref="page.reporting.reports">{{ i18n.core.reporting.viewAll }}</a>
+			<a href="" ui-sref="page.projects.reports">{{ i18n.core.reporting.viewAll }}</a>
 		</li>
 	</ul>
 </li>

@@ -4,8 +4,8 @@ define([
 	'text!./reportNotifier.tpl.html'
 ], function (module, angular, tpl) {
 	module.directive('reportNotifier', 
-		['security', 'reportService', '$timeout', '$rootScope', 'REPORT_EVENTS', 'REPORT_STATES', 
-		function(security, reportService, $timeout, $rootScope, REPORT_EVENTS, REPORT_STATES) {
+		['security', 'reportService', '$timeout', '$rootScope', 'REPORT_EVENTS', 'REPORT_STATES', '$stateParams',
+		function(security, reportService, $timeout, $rootScope, REPORT_EVENTS, REPORT_STATES, $stateParams) {
 
 			return {
 				template: tpl,
@@ -78,9 +78,14 @@ define([
 					};
 
 					$scope.update = function() {
+						if (!$scope.project) {
+							$scope.reports.clear();
+							return;
+						}
+						
 						$scope.reports.updating = true;
 
-						reportService.getTopLastReports()
+						reportService.getTopLastReports($scope.project)
 						.then(function(response) {
 							$scope.reports.clear();
 							$scope.reports.count.active = response.active;
@@ -101,7 +106,7 @@ define([
 					};
 
 					$scope.cancel = function(report) {
-						reportService.cancelReport(report.Id).
+						reportService.cancelReport(report.ProjectCode, report.Id).
 							then(function() {
 								$scope.reports.remove(report.Id, true);
 								$scope.reports.refresh();
@@ -146,11 +151,18 @@ define([
 					$rootScope.$on(REPORT_EVENTS.DELETED, $scope.throttleUpdate);
 					$rootScope.$on(REPORT_EVENTS.DOWNLOADED, $scope.throttleUpdate);
 
-					$scope.update();
+					$scope.project = $stateParams.project;
 					$scope.reports.positions = reportService.getQueuePositions();
 					$scope.$watch(
 						function() { return reportService.getQueuePositions() },
 						function(newValue) { $scope.reports.positions = newValue; } 
+					);
+					$scope.$watch(
+						function() { return $stateParams.project },
+						function() { 
+							$scope.project = $stateParams.project;
+							$scope.update(); 
+						}
 					);
 				}	
 			};

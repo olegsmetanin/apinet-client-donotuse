@@ -37,7 +37,9 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 
 					getReportSettings: function(project, types) {
 						types = types || [];
-						var that = this, settings = that.cache.get('settings.' + types.toString());
+						var cacheKey = 'settings.' + project + '.' + types.toString()
+							, that = this
+							, settings = that.cache.get(cacheKey);
 
 						if (settings && settings.length > 0) {
 							return $q.when(settings);
@@ -46,7 +48,7 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 							method: 'core/reporting/getSettings',
 							project: project,
 							types: types}).then(function(response) {
-								that.cache.put('settings.' + types.toString(), response);
+								that.cache.put(cacheKey, response);
 								return response;
 							});
 					},
@@ -56,26 +58,31 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 						return apinetService.action(parameters);
 					},
 
-					getTopLastReports: function() {
-						return apinetService.action({ method: 'core/reporting/getTopLastReports' });
+					getTopLastReports: function(project) {
+						return apinetService.action({ 
+							method: 'core/reporting/getTopLastReports',
+							project: project 
+						});
 					},
 
-					cancelReport: function(id) {
+					cancelReport: function(project, id) {
 						return apinetService.action({
 							method: 'core/reporting/cancelReport',
+							project: project,
 							id: id
 						});
 					},
 
-					deleteReport: function(id) {
+					deleteReport: function(project, id) {
 						return apinetService.action({
 							method: 'core/reporting/deleteReport',
+							project: project,
 							id: id
 						});
 					},
 
 					templateUploadUrl: function() {
-						return apinetService.apiUrl('core/reporting/UploadTemplate');
+						return apinetService.apiUrl('core/reporting/uploadTemplate');
 					},
 
 					templateDownloadUrl: function(project, id) {
@@ -122,7 +129,7 @@ define(['module', '../moduleDef', 'angular'], function (requireModule, module, a
 		});
 
 		$rootScope.$on('workqueue:changed', function(e, arg) {
-			//track positions as global state across app, because we habe two
+			//track positions as global state across app, because we have two
 			//consumers for this data: topLastReports menu and overall reports list
 			reportService.updatePositions(arg.positions);
 		});
