@@ -14,7 +14,7 @@
 	</ul>
 </li>
 
-<li ng-class="{'active': $state.is('page.project.settings')}">
+<li ng-class="{'active': $state.is('page.project.settings') || $state.is('page.project.templates.tasks')}">
 	<a ui-sref="page.project.settings">
 		<i class="icon-info"></i>
 		<span>{{ i18n.projects.settings.title }}</span>

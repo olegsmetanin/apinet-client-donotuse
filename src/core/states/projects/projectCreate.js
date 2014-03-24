@@ -49,21 +49,23 @@ define([
 
 				create: function() {
 					$scope.resetValidation();
-					if($scope.model.Type) {
-						$scope.model.Type = $scope.model.Type.id;
+					var model = angular.copy($scope.model);//operate on copy, because else select2 will fail when Type changed
+					if(model.Type) {
+						model.Type = model.Type.id;
 					}
 
-					var tagIds = $scope.model.Tags || [];
+					var tagIds = model.Tags || [];
 					for(var i = 0; i < tagIds.length; i++) {
 						tagIds[i] = tagIds[i].id;
 					}
 
+					var createTimeout = 1000 * 15; //increase default timeout because need time to create db
 					apinetService.action({
 						method: 'core/projects/createProject',
-						model: $scope.model,
-						serverId: $scope.model.Server.id,
+						model: model,
+						serverId: model.Server.id,
 						tagIds: tagIds
-					}).then(function(result) {
+					}, createTimeout).then(function(result) {
 						if(typeof result.success === 'undefined' || result.success) {
 							$location.url('/project/' + $scope.model.ProjectCode +'/settings');
 						}

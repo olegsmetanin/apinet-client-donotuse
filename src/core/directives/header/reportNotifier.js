@@ -32,6 +32,7 @@ define([
 							this.count.unread = 0;
 							this.active = [];
 							this.completed = [];
+							this.refresh();
 						},
 
 						refresh: function() {

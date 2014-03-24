@@ -75,7 +75,7 @@ define([
 			};
 
 			$scope.cancel = function(report) {
-				reportService.cancelReport(report.Id)
+				reportService.cancelReport(report.ProjectCode, report.Id)
 					.then(null, handleException);
 			};
 
@@ -114,7 +114,7 @@ define([
 					return;
 				}
 
-				reportService.deleteReport(report.Id)
+				reportService.deleteReport(report.ProjectCode, report.Id)
 					.then(function() {
 						deleteReport(report.Id);
 					}, handleException);
