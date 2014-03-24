@@ -291,7 +291,8 @@ define(['../../moduleDef'], function (module) {
 					'code': 'Project code',
 					'public': 'Public project',
 					'status': 'Status',
-					'tags': 'Tags'
+					'tags': 'Tags',
+					'db': 'Server'
 				},
 
 				'list': {
@@ -312,7 +313,8 @@ define(['../../moduleDef'], function (module) {
 					'title': 'New project',
 					'legend': 'Creating new project',
 					'placeholders': {
-						'type': 'Select project type'
+						'type': 'Select project type',
+						'db': 'Select db instance'
 					}
 				},
 				'statuses': {

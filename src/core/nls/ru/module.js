@@ -291,7 +291,8 @@ define(['../../moduleDef'], function (module) {
 					'code': 'Код проекта',
 					'public': 'Публичный проект',
 					'status': 'Статус',
-					'tags': 'Теги'
+					'tags': 'Теги',
+					'db': 'Сервер'
 				},
 
 				'list': {
@@ -313,7 +314,8 @@ define(['../../moduleDef'], function (module) {
 					'title': 'Новый проект',
 					'legend': 'Создание нового проекта',
 					'placeholders': {
-						'type': 'Выберите тип проекта'
+						'type': 'Выберите тип проекта',
+						'db': 'Выберите сервер БД'
 					}
 				},
 				'statuses': {

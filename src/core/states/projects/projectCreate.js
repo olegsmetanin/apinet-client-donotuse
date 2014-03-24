@@ -61,6 +61,7 @@ define([
 					apinetService.action({
 						method: 'core/projects/createProject',
 						model: $scope.model,
+						serverId: $scope.model.Server.id,
 						tagIds: tagIds
 					}).then(function(result) {
 						if(typeof result.success === 'undefined' || result.success) {
