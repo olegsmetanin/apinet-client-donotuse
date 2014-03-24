@@ -26,12 +26,12 @@
 
 			<div class="row">
 				<div class="col-lg-6">
-					<ago-box color="blue" border="blue" caption="{{ i18n.core.filters.simple }}" title-click-collapse>
+					<ago-box color="blue" border="blue" caption="{{ i18n.core.filters.simple }}" title-click-collapse ng-hide="simpleHidden">
 						<div ng-transclude></div>
 					</ago-box>
 				</div>
 
-				<div class="col-lg-6">
+				<div ng-class="{'col-lg-6': !simpleHidden, 'col-lg-12': simpleHidden }">
 					<div filters-box-more-filters-transclude></div>
 
 					<ago-box color="green" border="green" caption="{{ i18n.core.filters.complex }}" padding title-click-collapse collapsed="structuredCollapsed">
@@ -42,7 +42,7 @@
 						<div filter-persister group="group" filter="filter"></div>
 					</ago-box>
 
-					<ago-box color="red" border="red" caption="{{ i18n.core.sorting.title }}" padding title-click-collapse collapsed="sortersCollapsed">
+					<ago-box color="red" border="red" caption="{{ i18n.core.sorting.title }}" padding title-click-collapse collapsed="sortersCollapsed" ng-hide="sortersHidden">
 						<div structured-sorters ng-model="sorters" meta="meta" sorters="sorters" expanded="!sortersCollapsed"></div>
 					</ago-box>
 				</div>

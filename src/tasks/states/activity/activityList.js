@@ -7,7 +7,7 @@ define([
 
 	module.state({
 		name: 'page.project.activities',
-		url: '/activities/:itemId',
+		url: '/activities',
 		views: {
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
@@ -24,8 +24,10 @@ define([
 		}
 	})
 	.controller('activityListCtrl', ['$scope', '$stateParams', function($scope, $stateParams) {
+		$scope.taskNum = $stateParams.num;
+
 		$scope.initialRequestParams = {
-			itemId: $stateParams.itemId,
+			taskNum: $stateParams.num,
 			predefined: 'today'
 		};
 

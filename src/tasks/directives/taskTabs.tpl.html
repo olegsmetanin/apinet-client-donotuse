@@ -10,5 +10,8 @@
 		<li ng-class="{active: tab == 'files'}">
 			<a ui-sref="page.project.taskFiles({ num: num })">{{ i18n.tasks.view.tabs.files }}</a>
 		</li>
+		<li ng-class="{active: tab == 'activity'}">
+			<a ui-sref="page.project.taskActivity({ num: num })">{{ i18n.core.activities.title }}</a>
+		</li>
 	</ul>
 </div>

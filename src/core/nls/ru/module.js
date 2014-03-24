@@ -267,7 +267,7 @@ define(['../../moduleDef'], function (module) {
 
 				'activities': {
 					'title': 'Активность',
-					'empty': 'В указанном периоде активность не зарегистрирована',
+					'empty': 'Активность не зарегистрирована',
 
 					'filters': {
 						'period': {

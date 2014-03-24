@@ -267,7 +267,7 @@ define(['../../moduleDef'], function (module) {
 
 				'activities': {
 					'title': 'Activity',
-					'empty': 'No activity logged in specifed period',
+					'empty': 'No activity logged',
 
 					'filters': {
 						'period': {
