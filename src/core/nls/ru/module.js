@@ -333,7 +333,12 @@ define(['../../moduleDef'], function (module) {
 				'settings': {
 					'title': 'Настройки проекта',
 					'publicTitle': 'Да (видем всем)',
-					'privateTitle': 'Нет (видим только участникам)'
+					'privateTitle': 'Нет (видим только участникам)',
+					'tabs': {
+						'overview': 'Свойства',
+						'members': 'Участники',
+						'templates': 'Шаблоны отчетов'
+					}
 				},
 				'members': {
 					'title': 'Участники',

@@ -332,7 +332,12 @@ define(['../../moduleDef'], function (module) {
 				'settings': {
 					'title': 'Project settings',
 					'publicTitle': 'Yes (visible for all)',
-					'privateTitle': 'No (visible only for members)'
+					'privateTitle': 'No (visible only for members)',
+					'tabs': {
+						'overview': 'Overview',
+						'members': 'Members',
+						'templates': 'Report templates'
+					}
 				},
 				'members': {
 					'title': 'Members',

@@ -25,8 +25,8 @@ define([
 		onExit: function($rootScope) {
 			$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 2, 2);
 		}
-	}).controller('taskViewCtrl', ['$scope', '$stateParams', 'apinetService',
-		function($scope, $stateParams, apinetService) {
+	}).controller('taskViewCtrl', ['$scope', '$stateParams', 'apinetService', 'taskTabs',
+		function($scope, $stateParams, apinetService, taskTabs) {
 
 			//TODO move to utils??
 			var make = function(task, prop, value, valueProp) {
@@ -73,6 +73,8 @@ define([
 				$scope.resetValidation();
 				$scope.validation.generalErrors = [error];
 			};
+
+			$scope.tabs = taskTabs.build($stateParams.num);
 
 			apinetService.action({
 				method: 'tasks/tasks/GetTask',

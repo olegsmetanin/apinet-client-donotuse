@@ -1,7 +1,7 @@
 <div class="container"
-	ng-controller="reportTemplatesController"
 	filtered-list="{method: 'core/reporting/getTemplates'}"
 	initial-sorters="{ Name: 'asc'}">
+		<!-- ng-controller="reportTemplatesController" -->
 	<div class="row" id="content-wrapper">
 		<div class="col-xs-12">
 			<div class="row hidden-sm hidden-md hidden-lg">
@@ -12,6 +12,12 @@
 							<span>{{ i18n.core.reporting.templates.title }}</span>
 						</h1>
 					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<ago-tabs current-tab="templates" tab-items="tabs" style="padding-top: 5px"></ago-tabs>
 				</div>
 			</div>
 

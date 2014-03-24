@@ -6,5 +6,6 @@ define([
 	'./states/task/view/taskFiles',
 	'./states/taskProjectInfo',
 	'./states/taskReports',
+	'./states/taskReportTemplates',
 	'./states/activity/activityList'
 ], function() { });

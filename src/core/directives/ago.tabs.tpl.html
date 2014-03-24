@@ -1,0 +1,7 @@
+<div class="tabbable">
+	<ul class="nav nav-responsive nav-tabs">
+		<li ng-repeat="i in items" ng-class="{active: tab === i.name }">
+			<a ui-sref="{{ i.sref }}">{{ i.text }}</a>
+		</li>
+	</ul>
+</div>
