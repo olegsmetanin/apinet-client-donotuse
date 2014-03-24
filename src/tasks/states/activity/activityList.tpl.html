@@ -24,7 +24,7 @@
 
 			<!-- Filter -->
 			<div filters-box="filter" sorters="sorters" meta="tasks/activity/activityMetadata" group="Tasks.Activity"
-			     apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter" sorters-hidden="true" simple-hidden="{{ !!taskNum }}"
+			     apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter" sorters-hidden="true" simple-hidden="taskNum"
 			     style="padding-top: 5px">
 				<div class="row">
 					<form class="col-xs-12 form form-horizontal">
@@ -75,29 +75,25 @@
 								<tr ng-repeat="model in models">
 									<td>
 										<div class="row">
-											<div class="col-lg-2 col-sm-4">
-												<div ng-show="!taskNum">
-													<a class="btn btn-primary" role="button" ng-show="model.ItemType == 'TaskModel'"
+											<div class="col-lg-2 col-sm-4" ng-show="!taskNum">
+												<div>
+													<strong><a ng-show="model.ItemType == 'TaskModel'"
 													   ui-sref="page.project.taskActivity({ num: model.ItemName })" style="white-space: nowrap;">
 														{{ model.ActivityItem }}
-													</a>
+													</a></strong>
 													<strong ng-show="model.ItemType != 'TaskModel'" style="white-space: nowrap;">{{ model.ActivityItem }}</strong>
 												</div>
-												<p>{{ model.ActivityTime }}</p>
+												<span class="label label-warning ng-binding">{{ moment(model.ActivityTime).fromNow() }}</span>
 											</div>
-											<div class="col-lg-10 col-sm-8">
+											<div ng-class="{'col-lg-10': !taskNum, 'col-sm-8': !taskNum, 'col-lg-12': taskNum }">
 												<div class="row" ng-repeat="item in model.Items">
 													<div class="col-lg-12">
 														<p>
-														<div ng-show="item.ActivityTime || item.User">
+															<span ng-show="item.ActivityTime" class="label label-warning ng-binding">{{ moment(item.ActivityTime).fromNow() }}</span>
 															<strong>{{ item.User }}</strong>
-														</div>
-														<div>
-															<span>{{ item.ActivityTime }}</span>
 															<span>{{ item.Action }}</span>
 															<span>{{ item.Before }}</span>
 															<span>{{ item.After }}</span>
-														</div>
 														</p>
 													</div>
 												</div>

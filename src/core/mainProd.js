@@ -12,6 +12,8 @@ require.config({
 		'core/nls/en/angular': 'core/module.en',
 		'core/nls/ru/angular': 'core/module.ru',
 
+		'core/nls/ru/moment': 'core/module.ru',
+
 		'core/nls/en/module': 'core/module.en',
 		'core/nls/ru/module': 'core/module.ru'
 	}

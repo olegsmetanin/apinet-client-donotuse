@@ -1,6 +1,7 @@
 define([
 	'module',
 	'./moduleDef',
+	'moment',
 	'jquery-migrate',
 	'jquery-ui',
 	'./services',
@@ -13,8 +14,9 @@ define([
 	'css!./assets/bootstrap-hidden-display-fix.css',
 
 	'i18n!./nls/angular',
+	'i18n!./nls/moment',
 	'i18n!./nls/module'
-], function (requireModule, module) {
+], function (requireModule, module, moment) {
 	return module
 		.config(['$datepickerProvider', function ($datepickerProvider) {
 			angular.extend($datepickerProvider.defaults, {
@@ -94,6 +96,7 @@ define([
 
 				$rootScope.$state = $state;
 				$rootScope.$stateParams = $stateParams;
+				$rootScope.moment = moment;
 
 				apinetService.action({ method: 'core/users/getLocale' }).then(function (locale) {
 					if (locale && locale.length) {

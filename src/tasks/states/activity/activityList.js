@@ -4,7 +4,6 @@ define([
 	'text!./activityList.tpl.html',
 	'text!../moduleMenu.tpl.html'
 ], function (module, angular, tpl, moduleMenuTpl) {
-
 	module.state({
 		name: 'page.project.activities',
 		url: '/activities',

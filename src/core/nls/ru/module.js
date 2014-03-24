@@ -1,6 +1,7 @@
-define(['../../moduleDef'], function (module) {
+define(['../../moduleDef', 'moment'], function (module, moment) {
 	module.run(['i18n', function(i18n) {
 		i18n.registerLocalizationModule('core/nls/angular');
+		i18n.registerLocalizationModule('core/nls/moment');
 		i18n.registerLocalizationModule('core/nls/module');
 	}]);
 
@@ -13,6 +14,12 @@ define(['../../moduleDef'], function (module) {
 			$locale.DATETIME_FORMATS.ago_datelongtime = "dd.MM.yyyy HH:mm:ss";
 		};
 	}]);
+
+	module.service('core/nls/moment/ru', function() {
+		return function() {
+			moment.lang('ru');
+		};
+	});
 
 	module.service('core/nls/module/ru', ['i18n', function(i18n) {
 		return function() {

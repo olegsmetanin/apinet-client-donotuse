@@ -17,8 +17,8 @@ define([
 				applyEnabled: '=',
 				applyFilter: '=',
 				resetFilter: '=',
-				simpleHidden: '@',
-				sortersHidden: '@'
+				simpleHidden: '=',
+				sortersHidden: '='
 			},
 			controller: ['$scope', '$rootScope', function($scope, $rootScope) {
 				angular.extend($scope, {
