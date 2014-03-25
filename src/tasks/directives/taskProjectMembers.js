@@ -73,6 +73,11 @@ define([
 						this.isAdmin = false;
 						this.isManager = false;
 						this.isExecutor = false;
+					}, 
+
+					filled: function() {
+						return this.newMember != null && 
+							(this.isAdmin || this.isManager || this.isExecutor);
 					}
 				};
 
@@ -126,20 +131,15 @@ define([
 				};
 
 				scope.add = function() {
-					//TODO use validators instead of try..catch
-					try {
-						apinetService.action({
-							method: 'tasks/project/addMember',
-							project: $stateParams.project,
-							userId: scope.editables.newMember.id,
-							roles: scope.editables.roles()
-						}).then(function(response) {
-							scope.models.unshift(response);
-							scope.editables.clear();
-						}, scope.onError);
-					} catch(e) {
-						scope.onError(e);
-					}
+					apinetService.action({
+						method: 'tasks/project/addMember',
+						project: $stateParams.project,
+						userId: scope.editables.newMember.id,
+						roles: scope.editables.roles()
+					}).then(function(response) {
+						scope.models.unshift(response);
+						scope.editables.clear();
+					}, scope.handleError);
 				};
 
 				scope.remove = function(member) {
@@ -160,7 +160,7 @@ define([
 						if (index >= 0) {
 							scope.models.splice(index, 1);
 						}
-					}, scope.onError);
+					}, scope.handleError);
 				};
 
 				scope.changeRoles = function(member, roles) {
@@ -181,7 +181,7 @@ define([
 							member.validation = response.validation;
 						}
 						return response.validation.success;
-					}, scope.onError);
+					}, scope.handleError);
 				};
 
 				scope.changeCurrentRole = function(member, role) {
@@ -202,7 +202,7 @@ define([
 							member.validation = response.validation;
 						}
 						return response.validation.success;
-					}, scope.onError);
+					}, scope.handleError);
 				};
 
 				scope.nextPage = function() {
