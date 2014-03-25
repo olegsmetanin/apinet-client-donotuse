@@ -31,6 +31,7 @@
 		"angular-masonry": "~0.8.0",
 		"easyXDM": "easyXDM#2.4.17",
 		
-		"socket.io-client": "socket.io-client#0.9.16"
+		"socket.io-client": "socket.io-client#0.9.16",
+		"momentjs": "momentjs#2.5.1"
 	}
 }

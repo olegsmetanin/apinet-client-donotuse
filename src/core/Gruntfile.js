@@ -107,7 +107,8 @@ module.exports = function (grunt) {
 					name: 'core/nls/ru/module',
 					out: '../../release/core/module.ru.js',
 					include: [
-						'core/nls/ru/angular'
+						'core/nls/ru/angular',
+						'core/nls/ru/moment'
 					],
 					exclude: ['core/module']
 				}

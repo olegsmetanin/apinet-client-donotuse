@@ -10,7 +10,7 @@ define([
 					sorters: [ ],
 
 					filter: { },
-					requestParams: { },
+					requestParams: $scope.initialRequestParams || { },
 
 					paging: {
 						page: 0,
@@ -31,7 +31,7 @@ define([
 
 					resetFilter: function() {
 						$scope.filter = { };
-						$scope.requestParams = { project: $stateParams.project };
+						$scope.requestParams = angular.extend({ project: $stateParams.project }, $scope.initialRequestParams);
 						
 						$scope.$emit('resetFilter');
 						$scope.applyEnabled = false;

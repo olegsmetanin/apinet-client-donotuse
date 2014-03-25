@@ -1,6 +1,7 @@
 define(['../../moduleDef'], function (module) {
 	module.run(['i18n', function(i18n) {
 		i18n.registerLocalizationModule('core/nls/angular');
+		i18n.registerLocalizationModule('core/nls/moment');
 		i18n.registerLocalizationModule('core/nls/module');
 	}]);
 
@@ -13,6 +14,12 @@ define(['../../moduleDef'], function (module) {
 			$locale.DATETIME_FORMATS.ago_datelongtime = "MM/dd/yyyy HH:mm:ss";
 		};
 	}]);
+
+	module.service('core/nls/moment/en', function() {
+		return function() {
+			moment.lang('en');
+		};
+	});
 
 	module.service('core/nls/module/en', ['i18n', function(i18n) {
 		return function() {
@@ -52,7 +59,8 @@ define(['../../moduleDef'], function (module) {
 					'deleteSelected': 'Delete selected',
 					'edit': 'Edit',
 					'more': 'More',
-					'refresh': 'Refresh'
+					'refresh': 'Refresh',
+					'back': 'Back'
 				},
 
 				'fields': {
@@ -275,6 +283,7 @@ define(['../../moduleDef'], function (module) {
 
 				'activities': {
 					'title': 'Activity',
+					'empty': 'No activity logged',
 
 					'filters': {
 						'period': {
@@ -284,7 +293,11 @@ define(['../../moduleDef'], function (module) {
 							'thisWeek': 'This week',
 							'pastWeek': 'Past week',
 							'thisMonth': 'This month',
-							'pastMonth': 'Past month'
+							'pastMonth': 'Past month',
+							'specificDate': 'Concrete date'
+						},
+						'specificDate': {
+							'title': 'Activity date'
 						}
 					}
 				}

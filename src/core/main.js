@@ -103,6 +103,7 @@ require.config({
 				return this.angular.module('ngLocale');
 			}
 		},
+
 		'angular-resource': {
 			deps: ['jquery', 'angular'],
 			init: function () {
@@ -207,10 +208,13 @@ require.config({
 		'lvl-dragdrop': 'core/directives/lvl-drag-drop',
 		'blueimp-fileupload': 'core/wrapped-components/blueimp-file-upload/js/jquery.fileupload-angular',
 
-		'bootstrap-tabdrop': 'core/wrapped-components/bootstrap-tabdrop/bootstrap-tabdrop',
-		'bootstrap-tabdrop/css': 'core/wrapped-components/bootstrap-tabdrop/bootstrap-tabdrop',
+		'socket.io-client': 'core/components/socket.io-client/dist/socket.io.min',
 
-		'socket.io-client': 'core/components/socket.io-client/dist/socket.io.min'
+		'moment': 'core/components/momentjs/moment',
+		'core/nls/ru/moment': 'core/components/momentjs/lang/ru',
+
+		'bootstrap-tabdrop': 'core/wrapped-components/bootstrap-tabdrop/bootstrap-tabdrop',
+		'bootstrap-tabdrop/css': 'core/wrapped-components/bootstrap-tabdrop/bootstrap-tabdrop'
 	}
 });
 

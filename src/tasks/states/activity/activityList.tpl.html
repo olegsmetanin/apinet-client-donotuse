@@ -1,9 +1,15 @@
-<div class="container" 
-		ng-controller="activityListCtrl"
-        filtered-list="{method: 'tasks/activity/getActivities'}"
-        initial-sorters="{ }">
+<div class="container"
+     ng-controller="activityListCtrl"
+     filtered-list="{method: 'tasks/activity/getActivities'}"
+     initial-sorters="{ }">
 	<div class="row" id="content-wrapper">
 		<div class="col-xs-12">
+			<div class="row" ng-show="taskNum">
+				<div class="col-xs-12">
+					<ago-tabs current-tab="activity" tab-items="tabs" style="padding-top: 5px"></ago-tabs>
+				</div>
+			</div>
+
 			<!-- Title -->
 			<div class="row hidden-sm hidden-md hidden-lg">
 				<div class="col-xs-12">
@@ -16,11 +22,34 @@
 				</div>
 			</div>
 
-			<!-- Filter -->	
-			<div filters-box="filter" sorters="sorters" meta="core/activities/activityMetadata" group="Core.Activity"
-				apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter"
-				style="padding-top: 5px">
-
+			<!-- Filter -->
+			<div filters-box="filter" sorters="sorters" meta="tasks/activity/activityMetadata" group="Tasks.Activity"
+			     apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter" sorters-hidden="true" simple-hidden="taskNum"
+			     style="padding-top: 5px">
+				<div class="row">
+					<form class="col-xs-12 form form-horizontal">
+						<div class="form-group">
+							<label class="col-lg-2 col-sm-4 col-xs-5 control-label">{{ i18n.core.activities.filters.period.title }}</label>
+							<div class="col-lg-10 col-sm-8 col-xs-7">
+								<select ng-model="filter.simple.period" class="form-control">
+									<option value="today">{{ i18n.core.activities.filters.period.today }}</option>
+									<option value="yesterday">{{ i18n.core.activities.filters.period.yesterday }}</option>
+									<option value="thisWeek">{{ i18n.core.activities.filters.period.thisWeek }}</option>
+									<option value="pastWeek">{{ i18n.core.activities.filters.period.pastWeek }}</option>
+									<option value="thisMonth">{{ i18n.core.activities.filters.period.thisMonth }}</option>
+									<option value="pastMonth">{{ i18n.core.activities.filters.period.pastMonth }}</option>
+									<option value="specificDate">{{ i18n.core.activities.filters.period.specificDate }}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group" ng-show="filter.simple.period == 'specificDate'">
+							<label class="col-lg-2 col-sm-4 col-xs-5 control-label">{{ i18n.core.activities.filters.specificDate.title }}</label>
+							<div class="col-lg-10 col-sm-8 col-xs-7">
+								<input ng-show="filter.simple.period == 'specificDate'" bs-datepicker class="form-control" ng-model="filter.simple.specificDate" />
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 
 			<!-- Content -->
@@ -31,57 +60,47 @@
 				</ago-box-title>
 
 				<ago-box-content>
-					<div class="box-toolbox box-toolbox-top">
+					<div class="box-toolbox box-toolbox-top" ng-show="validation.generalErrors">
 						<ago-error-msg></ago-error-msg>
+					</div>
 
-						<div class="row">
-							<form class="col-xs-12 form form-horizontal">
-								<div class="form-group">
-									<label class="col-lg-2 col-sm-4 col-xs-6 control-label">{{ i18n.core.activities.filters.period.title }}</label>
-									<div class="col-lg-10 col-sm-8 col-xs-6">
-										<select ng-model="filter.simple.period" class="form-control">
-											<option value="today">{{ i18n.core.activities.filters.period.today }}</option>
-											<option value="yesterday">{{ i18n.core.activities.filters.period.yesterday }}</option>
-											<option value="thisWeek">{{ i18n.core.activities.filters.period.thisWeek }}</option>
-											<option value="pastWeek">{{ i18n.core.activities.filters.period.pastWeek }}</option>
-											<option value="thisMonth">{{ i18n.core.activities.filters.period.thisMonth }}</option>
-											<option value="pastMonth">{{ i18n.core.activities.filters.period.pastMonth }}</option>
-										</select>
-									</div>
-								</div>
-							</form>
-						</div>
+					<div class="alert alert-warning" ng-show="models.length == 0">
+						{{ i18n.core.activities.empty }}
 					</div>
 
 					<div class="responsive-table">
 						<div class="scrollable-area">
 							<table class="table table-bordered">
 								<tbody >
-									<tr ng-repeat="model in models">
-										<td>
-											<div class="row">
-												<div class="col-lg-2 col-sm-4">
-													<div><strong>{{ model.ActivityItem }}</strong></div>
-													<p>{{ model.ActivityTime }}</p>
+								<tr ng-repeat="model in models">
+									<td>
+										<div class="row">
+											<div class="col-lg-2 col-sm-4" ng-show="!taskNum">
+												<div>
+													<strong><a ng-show="model.ItemType == 'TaskModel'"
+													   ui-sref="page.project.taskActivity({ num: model.ItemName })" style="white-space: nowrap;">
+														{{ model.ActivityItem }}
+													</a></strong>
+													<strong ng-show="model.ItemType != 'TaskModel'" style="white-space: nowrap;">{{ model.ActivityItem }}</strong>
 												</div>
-												<div class="col-lg-10 col-sm-8">
-													<div class="row" ng-repeat="item in model.Items">
-														<div class="col-lg-12">
-															<div ng-show="item.ActivityTime || item.User">
-																<strong>{{ item.User }}</strong>
-															</div>
-															<div>
-																<span>{{ item.ActivityTime }}, </span>
-																<span>{{ item.Action }}</span>
-																<span>{{ item.Before }}</span>
-																<span>{{ item.After }}</span>
-															</div>
-														</div>
+												<span class="label label-warning ng-binding">{{ moment(model.ActivityTime).fromNow() }}</span>
+											</div>
+											<div ng-class="{'col-lg-10': !taskNum, 'col-sm-8': !taskNum, 'col-lg-12': taskNum }">
+												<div class="row" ng-repeat="item in model.Items">
+													<div class="col-lg-12">
+														<p>
+															<span ng-show="item.ActivityTime" class="label label-warning ng-binding">{{ moment(item.ActivityTime).fromNow() }}</span>
+															<strong>{{ item.User }}</strong>
+															<span>{{ item.Action }}</span>
+															<span>{{ item.Before }}</span>
+															<span>{{ item.After }}</span>
+														</p>
 													</div>
 												</div>
 											</div>
-										</td>
-									</tr>
+										</div>
+									</td>
+								</tr>
 								</tbody>
 							</table>
 						</div>

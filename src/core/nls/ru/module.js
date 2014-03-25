@@ -1,6 +1,7 @@
-define(['../../moduleDef'], function (module) {
+define(['../../moduleDef', 'moment'], function (module, moment) {
 	module.run(['i18n', function(i18n) {
 		i18n.registerLocalizationModule('core/nls/angular');
+		i18n.registerLocalizationModule('core/nls/moment');
 		i18n.registerLocalizationModule('core/nls/module');
 	}]);
 
@@ -13,6 +14,12 @@ define(['../../moduleDef'], function (module) {
 			$locale.DATETIME_FORMATS.ago_datelongtime = "dd.MM.yyyy HH:mm:ss";
 		};
 	}]);
+
+	module.service('core/nls/moment/ru', function() {
+		return function() {
+			moment.lang('ru');
+		};
+	});
 
 	module.service('core/nls/module/ru', ['i18n', function(i18n) {
 		return function() {
@@ -52,7 +59,8 @@ define(['../../moduleDef'], function (module) {
 					'deleteSelected': 'Удалить выбранные',
 					'edit': 'Редактировать',
 					'more': 'Еще',
-					'refresh': 'Обновить'
+					'refresh': 'Обновить',
+					'back': 'Назад'
 				},
 
 				'fields': {
@@ -275,6 +283,7 @@ define(['../../moduleDef'], function (module) {
 
 				'activities': {
 					'title': 'Активность',
+					'empty': 'Активность не зарегистрирована',
 
 					'filters': {
 						'period': {
@@ -284,7 +293,11 @@ define(['../../moduleDef'], function (module) {
 							'thisWeek': 'На этой неделе',
 							'pastWeek': 'На прошлой неделе',
 							'thisMonth': 'В этом месяце',
-							'pastMonth': 'В прошлом месяце'
+							'pastMonth': 'В прошлом месяце',
+							'specificDate': 'За конкретную дату'
+						},
+						'specificDate': {
+							'title': 'Дата активности'
 						}
 					}
 				}

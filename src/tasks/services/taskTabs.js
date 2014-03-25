@@ -11,16 +11,20 @@ define(['../moduleDef'], function (module) {
 					{
 						name: 'comments',
 						sref: 'page.project.taskComments({num: \'' + num + '\'})',
-						text: i18n.msg('tasks.view.tabs.comments'),
-
+						text: i18n.msg('tasks.view.tabs.comments')
 					},
 					{
 						name: 'files',
 						sref: 'page.project.taskFiles({num: \'' + num + '\'})',
 						text: i18n.msg('tasks.view.tabs.files')
+					},
+					{
+						name: 'activity',
+						sref: 'page.project.taskActivity({num: \'' + num + '\'})',
+						text: i18n.msg('core.activities.title')
 					}
 				];
 			}
-		}
-	}])
+		};
+	}]);
 });
