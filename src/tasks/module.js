@@ -2,6 +2,7 @@ define([
 	'./moduleDef',
 	'./states',
 	'./directives',
+	'./services',
 	'i18n!./nls/module'
 ], function(module) {
 	return module.constant('taskStatuses', {

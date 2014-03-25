@@ -3,7 +3,7 @@ define([
 	'angular',
 	'text!./filterPersister.tpl.html'
 ], function (module, angular, tpl) {
-	module.directive('filterPersister', ['apinetService', function(apinetService) {
+	module.directive('filterPersister', ['apinetService', '$stateParams', function(apinetService, $stateParams) {
 		return {
 			replace: true,
 			template: tpl,
@@ -25,6 +25,7 @@ define([
 					saveFilter: function() {
 						apinetService.action({
 							method: 'core/users/saveFilter',
+							project: $stateParams.project,
 							name: $scope.saveFilterName,
 							group: $scope.group,
 							filter: $scope.filter
@@ -41,6 +42,7 @@ define([
 					loadFilter: function() {
 						apinetService.action({
 							method: 'core/users/loadFilter',
+							project: $stateParams.project,
 							name: $scope.loadFilterName.lookupEntry ? $scope.loadFilterName.lookupEntry.id : null,
 							group: $scope.group
 						})
@@ -61,6 +63,7 @@ define([
 					deleteFilter: function() {
 						apinetService.action({
 							method: 'core/users/deleteFilter',
+							project: $stateParams.project,
 							name: $scope.loadFilterName.lookupEntry ? $scope.loadFilterName.lookupEntry.id : null,
 							group: $scope.group
 						})

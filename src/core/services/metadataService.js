@@ -1,5 +1,5 @@
 define(['../moduleDef', 'angular'], function (module, angular) {
-	module.service('metadataService', ['apinetService', function(apinetService) {
+	module.service('metadataService', ['apinetService', '$stateParams', function(apinetService, $stateParams) {
 		angular.extend(this, {
 			metadata: null,
 			promise: null,
@@ -14,7 +14,7 @@ define(['../moduleDef', 'angular'], function (module, angular) {
 					return;
 				}
 
-				var promise = this.promise ? this.promise : apinetService.action({ method: method });
+				var promise = this.promise ? this.promise : apinetService.action({ method: method, project: $stateParams.project });
 				this.promise = promise;
 
 				var me = this;

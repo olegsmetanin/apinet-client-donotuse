@@ -74,6 +74,22 @@
 								</span>
 							</div>
 						</div>
+						<!-- Db instance -->
+						<div class="form-group" ng-class="{'has-error': form.Server.$invalid}">
+							<label class="col-md-2 control-label" for="Name">{{ i18n.projects.fields.db }}</label>
+							<div class="col-md-5">
+								<input type="text" id="Server" name="Server" lookup="core/projects/lookupDbInstances"
+								       ng-model="model.Server" placeholder="{{ i18n.projects.create.placeholders.db }}" required class="form-control" />
+							</div>
+							<div class="col-md-5">
+								<span ng-show="form.Server.$error.required" class="help-block has-error">
+									* {{ i18n.core.errors.requiredField }}
+								</span>
+								<span ng-show="validation.fieldErrors['Server']" class="help-block has-error">
+									{{ validation.fieldErrors['Server'] | joinBy }}
+								</span>
+							</div>
+						</div>
 						<!-- Description -->
 						<div class="form-group">
 							<label class="col-md-2 control-label">{{ i18n.core.fields.description }}</label>

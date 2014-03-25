@@ -221,6 +221,7 @@ define(['../../moduleDef'], function (module) {
 					},
 					'result': 'Report file name (optional)',
 					'run': 'Generate',
+					'viewAllProj': 'View all project reports',
 					'viewAll': 'View all reports',
 					'running': 'Running reports',
 					'unread': 'Unread reports',
@@ -241,7 +242,11 @@ define(['../../moduleDef'], function (module) {
 							'duration': 'Duration',
 							'progress': 'Progress',
 							'errorMsg': 'Error text',
-							'errorDetails': 'Error details'
+							'errorDetails': 'Error details',
+
+							//archived
+							'project': 'Project',
+							'type': 'Report type'
 						},
 						'duration': {
 							'hours': {
@@ -299,7 +304,8 @@ define(['../../moduleDef'], function (module) {
 					'code': 'Project code',
 					'public': 'Public project',
 					'status': 'Status',
-					'tags': 'Tags'
+					'tags': 'Tags',
+					'db': 'Server'
 				},
 
 				'list': {
@@ -320,7 +326,8 @@ define(['../../moduleDef'], function (module) {
 					'title': 'New project',
 					'legend': 'Creating new project',
 					'placeholders': {
-						'type': 'Select project type'
+						'type': 'Select project type',
+						'db': 'Select db instance'
 					}
 				},
 				'statuses': {
@@ -338,7 +345,12 @@ define(['../../moduleDef'], function (module) {
 				'settings': {
 					'title': 'Project settings',
 					'publicTitle': 'Yes (visible for all)',
-					'privateTitle': 'No (visible only for members)'
+					'privateTitle': 'No (visible only for members)',
+					'tabs': {
+						'overview': 'Overview',
+						'members': 'Members',
+						'templates': 'Report templates'
+					}
 				},
 				'members': {
 					'title': 'Members',

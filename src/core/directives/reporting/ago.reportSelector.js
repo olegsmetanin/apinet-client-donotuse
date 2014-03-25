@@ -14,6 +14,7 @@ define([
 			replace: true,
 			template: tpl,
 			scope: {
+				project: '=',
 				types: '=reportTypes',
 				onGetParams: '&',
 				onError: '&'
@@ -63,7 +64,7 @@ define([
 						template: modalTpl,
 						resolve: {
 							settings: function() {
-								return reportService.getReportSettings(scope.types).catch(handleError);
+								return reportService.getReportSettings(scope.project, scope.types).catch(handleError);
 							}
 						},
 						controller: ['$scope', '$modalInstance', 'settings',

@@ -153,6 +153,7 @@ define([
 
 					apinetService.action({
 						method: 'tasks/project/removeMember',
+						project: $stateParams.project,
 						memberId: member.Id
 					}).then(function(response) {
 						var index = scope.models.indexOf(member);
@@ -169,6 +170,7 @@ define([
 
 					apinetService.action({
 						method: 'tasks/project/changeMemberRoles',
+						project: $stateParams.project,
 						memberId: member.Id,
 						roles: roles.map(function(item){ return item.id })
 					}).then(function(response) {
@@ -189,6 +191,7 @@ define([
 
 					apinetService.action({
 						method: 'tasks/project/changeMemberCurrentRole',
+						project: $stateParams.project,
 						memberId: member.Id,
 						current: role.id
 					}).then(function(response) {

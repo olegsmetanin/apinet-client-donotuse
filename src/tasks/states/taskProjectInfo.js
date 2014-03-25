@@ -21,8 +21,8 @@ define([
 			$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 		}
 	})
-	.controller('projectInfoCtrl', ['$scope', '$stateParams', 'apinetService',
-		function($scope, $stateParams, apinetService) {
+	.controller('projectInfoCtrl', ['$scope', '$stateParams', 'apinetService', 'projectTabs',
+		function($scope, $stateParams, apinetService, projectTabs) {
 			$scope.resetValidation = function() {
 				if (!$scope.validation) {
 					$scope.validation = {};
@@ -71,6 +71,7 @@ define([
 
 			//use empty object, because tags->lookup->ago.select2+select2 directive creata copy on
 			//start (ago.select2) if model is undefined or null
+			$scope.tabs = projectTabs.build($stateParams.project);
 			$scope.model = { };
 			$scope.resetValidation();
 			$scope.load();

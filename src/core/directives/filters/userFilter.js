@@ -54,8 +54,8 @@ define([
 		};
 	}
 ])
-.directive('userFilterNode', ['$filter', 'filteringService', 'metadataService', 'apinetService',
-	function($filter, $filteringService, metadataService, apinetService) {
+.directive('userFilterNode', ['$filter', 'filteringService', 'metadataService', 'apinetService', '$stateParams',
+	function($filter, $filteringService, metadataService, apinetService, $stateParams) {
 		return {
 			replace: true,
 			scope: {
@@ -122,6 +122,7 @@ define([
 
 							apinetService.getModel({
 								method: 'core/dictionary/getCustomPropertyType',
+								project: $stateParams.project,//needs refactoring - must be provided for directive from out (artem1 2014-03-16)
 								id: $scope.editingTypeNode.value.id
 							}, function(result) {
 								if(!result || !result.ValueType) {

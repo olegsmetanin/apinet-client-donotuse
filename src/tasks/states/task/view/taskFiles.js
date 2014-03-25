@@ -28,10 +28,11 @@ module
 		$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 2, 2);
 	}
 })
-.controller('taskFilesCtrl', ['$scope', '$stateParams', 'apinetService', '$window', 'i18n',
-	function($scope, $stateParams, apinetService, $window, i18n) {
+.controller('taskFilesCtrl', ['$scope', '$stateParams', 'apinetService', '$window', 'i18n', 'taskTabs',
+	function($scope, $stateParams, apinetService, $window, i18n, taskTabs) {
 
 		$scope.numpp = $stateParams.num;
+		$scope.tabs = taskTabs.build($stateParams.num);
 
 		$scope.$on('resetFilter', function () {
 			$scope.requestParams.ownerId = $scope.numpp;

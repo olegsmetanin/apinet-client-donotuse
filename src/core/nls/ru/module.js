@@ -221,6 +221,7 @@ define(['../../moduleDef', 'moment'], function (module, moment) {
 					},
 					'result': 'Имя файла отчета (опционально)',
 					'run': 'Создать',
+					'viewAllProj': 'Все отчеты проекта',
 					'viewAll': 'Все отчеты',
 					'running': 'Выполняющиеся отчеты',
 					'unread': 'Непросмотренные отчеты',
@@ -241,7 +242,11 @@ define(['../../moduleDef', 'moment'], function (module, moment) {
 							'duration': 'Время создания',
 							'progress': '% выполнения',
 							'errorMsg': 'Описание ошибки',
-							'errorDetails': 'Подробные сведения об ошибке'
+							'errorDetails': 'Подробные сведения об ошибке',
+
+							//archived
+							'project': 'Проект',
+							'type': 'Тип отчета'
 						},
 						'duration': {
 							'hours': {
@@ -299,7 +304,8 @@ define(['../../moduleDef', 'moment'], function (module, moment) {
 					'code': 'Код проекта',
 					'public': 'Публичный проект',
 					'status': 'Статус',
-					'tags': 'Теги'
+					'tags': 'Теги',
+					'db': 'Сервер'
 				},
 
 				'list': {
@@ -321,7 +327,8 @@ define(['../../moduleDef', 'moment'], function (module, moment) {
 					'title': 'Новый проект',
 					'legend': 'Создание нового проекта',
 					'placeholders': {
-						'type': 'Выберите тип проекта'
+						'type': 'Выберите тип проекта',
+						'db': 'Выберите сервер БД'
 					}
 				},
 				'statuses': {
@@ -339,7 +346,12 @@ define(['../../moduleDef', 'moment'], function (module, moment) {
 				'settings': {
 					'title': 'Настройки проекта',
 					'publicTitle': 'Да (видем всем)',
-					'privateTitle': 'Нет (видим только участникам)'
+					'privateTitle': 'Нет (видим только участникам)',
+					'tabs': {
+						'overview': 'Свойства',
+						'members': 'Участники',
+						'templates': 'Шаблоны отчетов'
+					}
 				},
 				'members': {
 					'title': 'Участники',

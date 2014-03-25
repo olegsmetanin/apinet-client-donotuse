@@ -22,13 +22,15 @@ define([
 			$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 		}
 	})
-	.controller('activityListCtrl', ['$scope', '$stateParams', function($scope, $stateParams) {
+	.controller('activityListCtrl', ['$scope', '$stateParams', 'taskTabs', function($scope, $stateParams, taskTabs) {
 		$scope.taskNum = $stateParams.num;
 
 		$scope.initialRequestParams = {
 			taskNum: $stateParams.num,
 			predefined: 'today'
 		};
+
+		$scope.tabs = $scope.taskNum ? taskTabs.build($scope.taskNum) : [ ];
 
 		$scope.$on('resetFilter', function() {
 			$scope.filter.simple = {

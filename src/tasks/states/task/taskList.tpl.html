@@ -104,7 +104,7 @@
 								<span>{{ i18n.tasks.list.buttons.add }}</span>
 							</a>
 
-							<ago-report-selector report-types="REPORT_TYPES" on-error="onReportError(error)" on-get-params="fillReportParameters(settings, parameters)">
+							<ago-report-selector project="project" report-types="REPORT_TYPES" on-error="onReportError(error)" on-get-params="fillReportParameters(settings, parameters)">
 							</ago-report-selector>
 
 							<button type="button" class="btn btn-danger pull-right hidden-xs" ng-click="deleteSelected()" ng-disabled="!hasSelected()" title="{{ i18n.tasks.list.placeholders.deleteSelected }}">

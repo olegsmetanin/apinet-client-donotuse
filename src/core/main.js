@@ -209,8 +209,12 @@ require.config({
 		'blueimp-fileupload': 'core/wrapped-components/blueimp-file-upload/js/jquery.fileupload-angular',
 
 		'socket.io-client': 'core/components/socket.io-client/dist/socket.io.min',
+
 		'moment': 'core/components/momentjs/moment',
-		'core/nls/ru/moment': 'core/components/momentjs/lang/ru'
+		'core/nls/ru/moment': 'core/components/momentjs/lang/ru',
+
+		'bootstrap-tabdrop': 'core/wrapped-components/bootstrap-tabdrop/bootstrap-tabdrop',
+		'bootstrap-tabdrop/css': 'core/wrapped-components/bootstrap-tabdrop/bootstrap-tabdrop'
 	}
 });
 

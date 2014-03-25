@@ -21,7 +21,7 @@ define([
 
 	module.service('apinetService', ['$q', '$http', '$cacheFactory', 'i18n', 'securityInterceptor', function ($q, $http, $cacheFactory, i18n, securityInterceptor) {
 		angular.extend(this, {
-			performRequest: function(cfg) {
+			performRequest: function(cfg, timeout) {
 				cfg = cfg || { };
 
 				var deferred = $q.defer();
@@ -39,7 +39,8 @@ define([
 				delete requestData.method;
 
 				if(!corsRpc) {
-					$http.post(config.apiRoot + 'api/' + method, requestData)
+					var httpCfg = timeout != null ? {timeout: timeout} : null;
+					$http.post(config.apiRoot + 'api/' + method, requestData, httpCfg)
 						.success(function(data) {
 							try {
 								deferred.resolve(successFn(data));
@@ -74,11 +75,16 @@ define([
 							JSON.stringify(requestData[key]) : requestData[key];
 					}
 
-					corsRpc.request({
+					var requestCfg = {
 						url: '../api/' + method,
 						method: 'POST',
 						data: data
-					}, function(response) {
+					};
+					if (timeout) {
+						requestCfg['timeout'] = timeout;
+					}
+
+					corsRpc.request(requestCfg, function(response) {
 						response.corsConfig = angular.extend({ }, cfg);
 
 						try {
@@ -166,7 +172,7 @@ define([
 				});
 			},
 
-			action: function (requestData) {
+			action: function (requestData, timeout) {
 				return this.performRequest({
 					requestData: requestData,
 					successFn: function (data) {
@@ -175,7 +181,7 @@ define([
 					failureFn: function (data, status) {
 						throw data && data.message ? data.message : i18n.msg('core.errors.title') + ': ' + status;
 					}
-				});
+				}, timeout);
 			},
 
 			notificationRoot: function() {
