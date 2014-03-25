@@ -7,7 +7,10 @@ define([
 		$stateProvider.state({
 			name: 'page.projects.accessDenied',
 			url: '/projects/accessDenied',
-			template: tpl,
+			views: {
+				'': { template: tpl },
+				'moduleMenu@page': { template: '' }
+			},
 			controller: ['$scope', 'errorPageService', '$state', function($scope, errorPageService, $state){
 				var err = errorPageService.getError();
 				$scope.reason = err.reasonKey;
