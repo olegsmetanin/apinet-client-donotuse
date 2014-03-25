@@ -86,7 +86,11 @@ define(['../../moduleDef'], function (module) {
 					'unknown': 'Unknown error',
 					'integerInRange': 'Must be integer in range {{range}}',
 					'requiredField': 'Required field',
-					'nothingToDelete': 'Record for deletion not found (refresh page)'
+					'nothingToDelete': 'Record for deletion not found (refresh page)',
+					'invalidProjectTitle': 'Project not found',
+					'invalidProject': 'Requested project not exist',
+					'accessDeniedTitle': 'Access denied',
+					'accessDenied': 'You does not have sufficient rigths to access this view'
 				},
 
 				'confirm': {

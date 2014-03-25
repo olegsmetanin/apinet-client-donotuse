@@ -1,0 +1,9 @@
+<div class="container">
+	<h1>{{ i18n.msg(reasonTitle) || 'Error' }}</h1>
+	<p>
+		{{ i18n.msg(reason) || 'Unknown error' }}
+	</p>
+	<p ng-show="hasBack">
+		<a href="" ng-click="goBack()">Return back</a>
+	</p>
+</div>

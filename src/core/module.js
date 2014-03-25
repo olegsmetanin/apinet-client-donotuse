@@ -31,7 +31,7 @@ define([
   			//when ui-sref link clicked (tabs in task view and others)
   			$uiViewScroll.useAnchorScroll ();
   		}])
-		.constant('startupPath', { url: ''})
+		.constant('startupPath', { url: ''}) //for tracking between redirects
 		.config(['$locationProvider', '$urlRouterProvider', 'startupPath',
 			function ($locationProvider, $urlRouterProvider, startupPath) {
 

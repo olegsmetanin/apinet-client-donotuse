@@ -27,6 +27,14 @@ define([
 					apinetService.action(params)
 					.then(function(result) {
 						scope.count = result;
+					}, function(error) {
+						if (angular.isFunction(scope.handleException)) {
+							scope.handleException(error);//redirect to default error handler
+						} else if (scope.validation) {
+							scope.validation.generalErrors = [ error ]; //if no handler or other name - try set validation error
+						} else {
+							throw error;
+						}
 					});
 				};
 			}

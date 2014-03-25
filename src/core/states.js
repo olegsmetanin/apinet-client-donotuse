@@ -4,6 +4,7 @@ define([
 	'./states/project',
 	'./states/projects',
 	'./states/projects/processing',
+	'./states/projects/accessDenied',
 	'./states/projects/projectsList',
 	'./states/projects/projectTags',
 	'./states/projects/projectCreate',

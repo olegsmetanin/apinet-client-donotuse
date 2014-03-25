@@ -14,6 +14,27 @@ define(['./moduleDef'], function (module) {
 							return $injector.get('apinetService').performRequest(originalResponse.corsConfig);
 						}
 					});
+				} else if (originalResponse.status === 403 || originalResponse.status === 500) {
+					// The request is forbidden. Try to find reason and if foune-route to special error page
+					var data = originalResponse.data ? JSON.parse(originalResponse.data) : null;
+					if (data) {
+						var $state = $injector.get('$state');
+						var errorPageService = $injector.get('errorPageService');
+						var reason = null;
+						var reasonTitle = null;
+
+						if (!!data.accessDenied) {
+							reasonTitle = 'core.errors.accessDeniedTitle';
+							reason = 'core.errors.accessDenied';
+						} else if (!!data.invalidProject) {
+							reasonTitle = 'core.errors.invalidProjectTitle';
+							reason = 'core.errors.invalidProject';
+						}
+
+						errorPageService.setError(reason, reasonTitle);
+
+						$state.go('page.projects.accessDenied');
+					}
 				}
 				return promise;
 			});

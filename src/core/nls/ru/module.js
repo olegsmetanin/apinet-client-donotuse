@@ -86,7 +86,11 @@ define(['../../moduleDef'], function (module) {
 					'unknown': 'Неизвестная ошибка',
 					'integerInRange': 'Значение должно быть числом в диапазоне {{range}}',
 					'requiredField': 'Обязательное поле',
-					'nothingToDelete': 'Не найдена запись для удаления (обновите страницу)'
+					'nothingToDelete': 'Не найдена запись для удаления (обновите страницу)',
+					'invalidProjectTitle': 'Проект не найден',
+					'invalidProject': 'Запрашиваемый проект не существует',
+					'accessDeniedTitle': 'Доступ запрещен',
+					'accessDenied': 'Недостаточный уровень привилегий для доступа к представлению'
 				},
 
 				'confirm': {

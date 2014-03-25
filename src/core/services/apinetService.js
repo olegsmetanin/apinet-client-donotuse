@@ -98,9 +98,10 @@ define([
 						responseData.corsConfig = angular.extend({ }, cfg);
 
 						try {
+							var data = responseData.data ? JSON.parse(responseData.data) : null;
+							var status = responseData.status ? responseData.status : 500;
 							if(responseData.status !== 401 && responseData.status !== 403 && responseData.status !== 404) {
-								deferred.resolve(failureFn(responseData.data ? JSON.parse(responseData.data) : responseData.data,
-									responseData.status ? responseData.status : 500));
+								deferred.resolve(failureFn(data, status));
 							}
 							else {
 								throw responseData;
