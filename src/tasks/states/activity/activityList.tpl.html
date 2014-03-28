@@ -70,7 +70,7 @@
 
 					<div class="responsive-table">
 						<div class="scrollable-area">
-							<table class="table table-bordered">
+							<table class="table table-bordered recent-activity">
 								<tbody >
 								<tr ng-repeat="model in models">
 									<td>
@@ -95,11 +95,19 @@
 													<i class="icon-time"></i>
 												</small>
 											</div>
-											<ul ng-class="{'col-lg-10': !taskNum, 'col-sm-8': !taskNum, 'col-lg-12': taskNum }" class="list-unstyled list-hover">
+											<ul ng-class="{'col-lg-10': !taskNum, 'col-sm-8': !taskNum, 'col-lg-12': taskNum }" class="users list-unstyled list-hover">
 												<li ng-repeat="item in model.Items">
-													<div ng-show="item.User" style="padding-right: 5px;">
-														<div class="icon-user"></div>
-														<a class="text-contrast" href="#">{{ item.User }}</a>
+													<div class="pull-left" ng-repeat="user in item.Users">
+														<div class="avatar pull-left text-contrast">
+															<i class="lead icon-user" ng-show="!user.AvatarUrl"></i>
+															<img width="23" height="23" ng-src="{{ user.AvatarUrl }}" ng-show="user.AvatarUrl" />
+														</div>
+														<div class="action pull-left " style="margin-right: 10px;">
+															<a class="text-contrast" href="#">{{ user.Name }}</a>
+														</div>
+													</div>
+													<div ng-show="item.MoreUsers" class="action pull-left text-contrast" style="margin-right: 10px;">
+														{{ 'core.activities.moreUsers' | i18n:{ num: item.MoreUsers } }}
 													</div>
 													<div class="action pull-left">
 														<span>{{ item.Action }}</span>

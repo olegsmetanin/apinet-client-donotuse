@@ -284,6 +284,7 @@ define(['../../moduleDef', 'moment'], function (module, moment) {
 				'activities': {
 					'title': 'Активность',
 					'empty': 'Активность не зарегистрирована',
+					'moreUsers': '(+{{num}} еще)',
 
 					'filters': {
 						'period': {

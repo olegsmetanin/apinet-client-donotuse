@@ -284,6 +284,7 @@ define(['../../moduleDef'], function (module) {
 				'activities': {
 					'title': 'Activity',
 					'empty': 'No activity logged',
+					'moreUsers': '(+{{num}} more)',
 
 					'filters': {
 						'period': {
