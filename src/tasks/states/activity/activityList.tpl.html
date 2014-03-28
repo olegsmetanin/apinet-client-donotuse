@@ -77,27 +77,45 @@
 										<div class="row">
 											<div class="col-lg-2 col-sm-4" ng-show="!taskNum">
 												<div>
-													<strong><a ng-show="model.ItemType == 'TaskModel'"
-													   ui-sref="page.project.taskActivity({ num: model.ItemName })" style="white-space: nowrap;">
+													<strong>
+														<a ng-show="model.ItemType == 'TaskModel' || model.ItemType == 'TaskCustomPropertyModel'"
+														   ui-sref="page.project.taskActivity({ num: model.ItemName })" style="white-space: nowrap;">
+															{{ model.ActivityItem }}
+														</a>
+													</strong>
+													<strong ng-show="model.ItemType != 'TaskModel' && model.ItemType != 'TaskCustomPropertyModel'" style="white-space: nowrap;">
 														{{ model.ActivityItem }}
-													</a></strong>
-													<strong ng-show="model.ItemType != 'TaskModel'" style="white-space: nowrap;">{{ model.ActivityItem }}</strong>
+													</strong>
 												</div>
-												<span class="label label-warning ng-binding">{{ moment(model.ActivityTime).fromNow() }}</span>
+												<small ng-show="model.ActivityTime" class="date text-muted">
+														<span class="timeago fade has-tooltip in" data-placement="top"
+														      data-original-title="{{ model.ActivityTime | date:'ago_date' }}">
+															{{ moment(model.ActivityTime).fromNow() }}
+														</span>
+													<i class="icon-time"></i>
+												</small>
 											</div>
-											<div ng-class="{'col-lg-10': !taskNum, 'col-sm-8': !taskNum, 'col-lg-12': taskNum }">
-												<div class="row" ng-repeat="item in model.Items">
-													<div class="col-lg-12">
-														<p>
-															<span ng-show="item.ActivityTime" class="label label-warning ng-binding">{{ moment(item.ActivityTime).fromNow() }}</span>
-															<strong>{{ item.User }}</strong>
-															<span>{{ item.Action }}</span>
-															<span>{{ item.Before }}</span>
-															<span>{{ item.After }}</span>
-														</p>
+											<ul ng-class="{'col-lg-10': !taskNum, 'col-sm-8': !taskNum, 'col-lg-12': taskNum }" class="list-unstyled list-hover">
+												<li ng-repeat="item in model.Items">
+													<div ng-show="item.User" style="padding-right: 5px;">
+														<div class="icon-user"></div>
+														<a class="text-contrast" href="#">{{ item.User }}</a>
 													</div>
-												</div>
-											</div>
+													<div class="action pull-left">
+														<span>{{ item.Action }}</span>
+														<span>{{ item.Before }}</span>
+														<span>{{ item.After }}</span>
+													</div>
+													<small ng-show="item.ActivityTime" class="date pull-right text-muted">
+														<span class="timeago fade has-tooltip in" data-placement="top"
+														      data-original-title="{{ item.ActivityTime | date:'ago_date' }}">
+															{{ moment(item.ActivityTime).fromNow() }}
+														</span>
+														<i class="icon-time"></i>
+													</small>
+													<div class="clearfix"></div>
+												</li>
+											</ul>
 										</div>
 									</td>
 								</tr>
