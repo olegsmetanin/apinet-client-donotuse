@@ -70,36 +70,38 @@
 
 					<div class="responsive-table">
 						<div class="scrollable-area">
-							<table class="table table-bordered">
+							<table class="table table-bordered recent-activity">
 								<tbody >
 								<tr ng-repeat="model in models">
 									<td>
 										<div class="row">
-											<div class="col-lg-2 col-sm-4" ng-show="!taskNum">
-												<div>
-													<strong>
-														<a ng-show="model.ItemType == 'TaskModel' || model.ItemType == 'TaskCustomPropertyModel'"
-														   ui-sref="page.project.taskActivity({ num: model.ItemName })" style="white-space: nowrap;">
-															{{ model.ActivityItem }}
-														</a>
-													</strong>
-													<strong ng-show="model.ItemType != 'TaskModel' && model.ItemType != 'TaskCustomPropertyModel'" style="white-space: nowrap;">
-														{{ model.ActivityItem }}
-													</strong>
-												</div>
-												<small ng-show="model.ActivityTime" class="date text-muted">
-														<span class="timeago fade has-tooltip in" data-placement="top"
-														      data-original-title="{{ model.ActivityTime | date:'ago_date' }}">
-															{{ moment(model.ActivityTime).fromNow() }}
-														</span>
-													<i class="icon-time"></i>
-												</small>
-											</div>
-											<ul ng-class="{'col-lg-10': !taskNum, 'col-sm-8': !taskNum, 'col-lg-12': taskNum }" class="list-unstyled list-hover">
+											<ul class="col-lg-12 users list-unstyled list-hover">
 												<li ng-repeat="item in model.Items">
-													<div ng-show="item.User" style="padding-right: 5px;">
-														<div class="icon-user"></div>
-														<a class="text-contrast" href="#">{{ item.User }}</a>
+													<div ng-show="!taskNum && $index == 0" class="action pull-left" style="margin-right: 20px;">
+														<strong>
+															<a ng-show="model.ItemType == 'TaskModel' || model.ItemType == 'TaskCustomPropertyModel'"
+															   ui-sref="page.project.taskActivity({ num: model.ItemName })" style="white-space: nowrap;">
+																{{ model.ActivityItem }}
+															</a>
+														</strong>
+														<strong ng-show="model.ItemType != 'TaskModel' && model.ItemType != 'TaskCustomPropertyModel'" style="white-space: nowrap;">
+															{{ model.ActivityItem }}
+														</strong>
+													</div>
+													<div ng-show="item.MoreUsers" class="action pull-left text-contrast" style="margin-right: 10px;">
+														{{ 'core.activities.moreUsers' | i18n:{ num: item.MoreUsers } }}
+													</div>
+													<div class="pull-left" ng-repeat="user in item.Users">
+														<div class="avatar pull-left text-contrast">
+															<i class="lead icon-user" ng-show="!user.AvatarUrl"></i>
+															<img width="23" height="23" ng-src="{{ user.AvatarUrl }}" ng-show="user.AvatarUrl" />
+														</div>
+														<div class="action pull-left " style="margin-right: 10px;">
+															<a class="text-contrast" href="#">{{ user.Name }}</a>
+														</div>
+													</div>
+													<div ng-show="item.MoreUsers" class="action pull-left text-contrast" style="margin-right: 10px;">
+														{{ 'core.activities.moreUsers' | i18n:{ num: item.MoreUsers } }}
 													</div>
 													<div class="action pull-left">
 														<span>{{ item.Action }}</span>
