@@ -301,6 +301,14 @@ define(['../../moduleDef'], function (module) {
 							'title': 'Activity date'
 						}
 					}
+				},
+
+				'customPropTypes': {
+					'title': 'User property types',
+					'fields': {
+						'valueType': 'Value type',
+						'format': 'View format'
+					}
 				}
 			});
 

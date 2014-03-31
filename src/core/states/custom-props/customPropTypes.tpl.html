@@ -1,0 +1,83 @@
+<div class="container" 
+	ng-controller="customPropTypesController"
+	filtered-list="{method: 'core/dictionary/getCustomPropertyTypes'}"
+	initial-sorters="{ FullName: 'asc'}">
+	<div class="row" id="content-wrapper">
+		<div class="col-xs-12">
+			<div class="row hidden-sm hidden-md hidden-lg">
+				<div class="col-xs-12">
+					<div class="page-header">
+						<h1 class="pull-left">
+							<i class="icon-file-alt"></i>
+							<span>{{ i18n.core.customPropTypes.title }}</span>
+						</h1>
+					</div>
+				</div>
+			</div>
+
+			<div filters-box="filter" sorters="sorters" meta="core/dictionary/customPropertyMetadata" group="CustomProperyTypes" apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter" style="padding-top: 5px">
+				<ago-box-content>
+					<form class="form form-horizontal">
+						<div class="form-group">
+							<label class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
+							<div class="col-md-9">
+								<input ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="form-control" />
+							</div>
+						</div>
+					</form>
+				</ago-box-content>
+			</div>
+
+			<ago-box color="purple" large="true" header-class="{'hidden-xs': true, 'hidden-md': true, 'hidden-lg': true}">
+				<ago-box-title>
+					<i class="fa icon-bar-chart"></i>
+					{{ i18n.core.customPropTypes.title }}
+				</ago-box-title>
+				<ago-box-content>
+					<div class="box-toolbox box-toolbox-top">
+						<ago-error-msg></ago-error-msg>
+						TODO add/delete buttons and form
+					</div>
+
+					<div class="responsive-table">
+						<div class="scrollable-area">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="col-xs-12 col-sm-6 col-md-4">{{ i18n.core.fields.fullName }}</th>
+										<th class="col-sm-3 hidden-xs">{{ i18n.core.customPropTypes.fields.valueType }}</th>
+										<th class="col-sm-3 col-md-1 hidden-xs">{{ i18n.core.customPropTypes.fields.format }}</th>
+										<th class="hidden-xs hidden-sm col-md-2">{{ i18n.core.fields.creator }}</th>
+										<th class="hidden-xs hidden-sm col-md-2">{{ i18n.core.fields.creationTime }}</th>
+										<th class="onepct">&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="m in models">
+										<td class="col-xs-12 col-sm-6 col-md-4">
+											{{ m.FullName }}
+											<small class="visible-xs text-muted">
+												{{ m.ValueType }} {{ m.Format }}
+											</small>
+										</td>
+										<td class="col-sm-3 hidden-xs">{{ m.ValueType }}</td>
+										<td class="col-sm-3 col-md-1 hidden-xs">{{ m.Format }}</td>
+										<td class="hidden-xs hidden-sm col-md-2">{{ m.Creator.FullName }}</td>
+										<td class="hidden-xs hidden-sm col-md-2">{{ m.CreationTime | date:'ago_datetime' }}</td>
+										<td class="onepct">del btn</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="box-toolbox box-toolbox-bottom">
+						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
+
+						<counter action="core/dictionary/getCustomPropertyTypesCount"></counter>
+					</div>
+				</ago-box-content>
+			</ago-box>
+		</div>
+	</div>
+</div>

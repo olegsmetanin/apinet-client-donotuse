@@ -301,6 +301,14 @@ define(['../../moduleDef', 'moment'], function (module, moment) {
 							'title': 'Дата активности'
 						}
 					}
+				},
+
+				'customPropTypes': {
+					'title': 'Типы пользовательских свойств',
+					'fields': {
+						'valueType': 'Тип значения',
+						'format': 'Формат отображения'
+					}
 				}
 			});
 

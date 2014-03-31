@@ -9,5 +9,6 @@ define([
 	'./states/taskReports',
 	'./states/taskReportTemplates',
 	'./states/activity/activityList',
-	'./states/taskTags'
+	'./states/taskTags',
+	'./states/taskCustomPropTypes'
 ], function() { });

@@ -10,6 +10,7 @@ define([
 	'./states/reporting/templates',
 	'./states/reporting/reports',
 	'./states/reporting/projectReports',
-	'./states/tags/tags'
+	'./states/tags/tags',
+	'./states/custom-props/customPropTypes'
 ], function() {
 });
