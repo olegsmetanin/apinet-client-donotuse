@@ -1,7 +1,4 @@
-<div class="container"
-		ng-controller="projectTagsCtrl"
-		filtered-list="{ method: 'core/dictionary/getProjectTags'}"
-		initial-sorters="{ FullName: 'asc' }">
+<div class="container">
 
 	<div class="row" id="content-wrapper">
 		<div class="col-xs-12">
@@ -17,21 +14,7 @@
 				</div>
 			</div>
 
-			<div filters-box="filter" sorters="sorters" meta="core/dictionary/projectTagMetadata" group="ProjectTags"
-				apply-enabled="applyEnabled" apply-filter="applyFilter" reset-filter="resetFilter"
-				style="padding-top: 5px">
-				<form class="form form-horizontal">
-					<div class="form-group">
-						<label for="names" class="col-md-3 control-label">{{ i18n.core.fields.name }}</label>
-						<div class="col-md-9">
-							<input id="names" ng-model="filter.simple.Name" filter-node="{path: 'Name', op:'like'}" class="form-control" multiple />
-						</div>
-					</div>
-				</form>
-			</div>
-		
-
-			<ago-box color="purple" large="true" header-class="{'hidden-xs': true, 'hidden-md': true, 'hidden-lg': true}">
+			<ago-box color="purple" large="true" header-class="{'hidden-xs': true, 'hidden-md': true, 'hidden-lg': true}" style="margin-top: 5px">
 				<ago-box-title>
 					<i class="fa icon-cog"></i>
 					{{ i18n.projects.tags.title }}
@@ -41,7 +24,13 @@
 					<div class="box-toolbox box-toolbox-top clearfix">
 						<ago-error-msg></ago-error-msg>
 
-						<div class="pull-left btn-group">
+						<form class="form-horizontal col-xs-10">
+							<div class="form-group">
+								<select class="form-control" ng-model="currentType" ng-options="t.id as i18n.msg(t.code) for t in tagTypes"></select>
+							</div>
+						</form>
+
+						<div class="pull-right btn-group">
 							<button class="btn btn-success" title="{{ i18n.core.tags.addTag }}" ng-click="newTag()">
 								<i class="icon-plus"></i>
 							</button>
@@ -87,9 +76,9 @@
 					</div>
 
 					<div class="box-toolbox box-toolbox-bottom">
-						<button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
+						<button type="button" class="btn btn-primary" ng-click="nextPage()">{{ i18n.core.buttons.more }}</button>
 
-						<counter action="core/dictionary/getProjectTagsCount"></counter>
+						<counter action="core/dictionary/getTagsCount"></counter>
 					</div>
 				</ago-box-content>
 				

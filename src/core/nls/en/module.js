@@ -341,7 +341,8 @@ define(['../../moduleDef'], function (module) {
 					}
 				},
 				'tags': {
-					'title': 'Tags dictionary',
+					'type': 'Project tags',
+					'title': 'Tags',
 					'placeholders': {
 						'new': 'New tag'
 					}

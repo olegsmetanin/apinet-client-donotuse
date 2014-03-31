@@ -8,5 +8,6 @@ define([
 	'./states/taskProjectInfo',
 	'./states/taskReports',
 	'./states/taskReportTemplates',
-	'./states/activity/activityList'
+	'./states/activity/activityList',
+	'./states/taskTags'
 ], function() { });

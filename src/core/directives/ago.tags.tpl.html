@@ -9,7 +9,7 @@
 		</button>
 	</span>
 	<span ng-show="viewModel.newTagMode" class="newTagLookup">
-		<input type="text" lookup="$$lookupUrl$$" ng-model="viewModel.newTagModel"
+		<input type="text" lookup="$$lookupUrl$$" request-params="{type: tagType}" ng-model="viewModel.newTagModel"
 		       placeholder="{{ i18n.core.tags.newTag }}" style="width: 200px;"
 		       ng-change="tag(viewModel)" />
 	</span>

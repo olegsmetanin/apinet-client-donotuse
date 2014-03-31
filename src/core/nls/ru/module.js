@@ -342,7 +342,8 @@ define(['../../moduleDef', 'moment'], function (module, moment) {
 					}
 				},
 				'tags': {
-					'title': 'Справочник тегов',
+					'type': 'Теги проектов',
+					'title': 'Теги',
 					'placeholders': {
 						'new': 'Новый тег'
 					}

@@ -187,6 +187,10 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 					'buttons': {
 						'delete': 'Delete task type'
 					}
+				},
+
+				'tags': {
+					'type': 'Task tags'
 				}
 			});
 		};

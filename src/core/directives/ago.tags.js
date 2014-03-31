@@ -12,6 +12,7 @@ define([
 			replace: true,
 			scope: {
 				viewModel: '=',
+				tagType: '=',
 				onNewTag: '&',
 				onCancelNewTag: '&',
 				onTag: '&',

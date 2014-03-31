@@ -101,7 +101,7 @@
 						<div class="form-group" ng-class="{'has-error': form.Tags.$invalid}">
 							<label for="Tags" class="col-md-2 control-label">{{ i18n.projects.fields.tags }}</label>
 							<div class="col-md-5">
-								<input type="text" id="Tags" name="Tags" lookup="core/dictionary/lookupProjectTags" ng-model="model.Tags"
+								<input type="text" id="Tags" name="Tags" lookup="core/dictionary/lookupTags" ng-model="model.Tags" request-params="{type: 'core.project'}"
 								       multiple placeholder="{{ i18n.tasks.create.placeholders.tags }}" class="form-control" />
 							</div>
 							<div class="col-md-5">

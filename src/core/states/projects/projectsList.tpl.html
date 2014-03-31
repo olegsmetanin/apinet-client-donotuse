@@ -80,8 +80,8 @@
 										<div class="statusBox">
 											<span class="label label-warning">{{ viewModel.Model.Status }}</span>
 										</div>
-										<ago-tags view-model="viewModel"
-											lookup-method="core/dictionary/lookupProjectTags"
+										<ago-tags view-model="viewModel" tag-type="'core.project'"
+											lookup-method="core/dictionary/lookupTags"
 											tag-method="core/projects/tagProject"
 											detag-method="core/projects/detagProject"
 											on-new-tag="doLayout()"

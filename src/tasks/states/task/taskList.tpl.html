@@ -147,8 +147,8 @@
 											<p ng-show="model.Content" title="{{ model.Content }}">
 												<small class="clip-content">{{ model.Content | textCut:50 }}</small>
 											</p>
-											<ago-tags view-model="model"
-												lookup-method="tasks/dictionary/lookupTags"
+											<ago-tags view-model="model" tag-type="'tasks.task'"
+												lookup-method="core/dictionary/lookupTags"
 												tag-method="tasks/tasks/tagTask"
 												detag-method="tasks/tasks/detagTask"
 												on-error="onReportError(error)">

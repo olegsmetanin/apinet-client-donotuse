@@ -6,10 +6,10 @@ define([
 	'./states/projects/processing',
 	'./states/projects/accessDenied',
 	'./states/projects/projectsList',
-	'./states/projects/projectTags',
 	'./states/projects/projectCreate',
 	'./states/reporting/templates',
 	'./states/reporting/reports',
-	'./states/reporting/projectReports'
+	'./states/reporting/projectReports',
+	'./states/tags/tags'
 ], function() {
 });

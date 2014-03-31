@@ -187,6 +187,10 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 					'buttons': {
 						'delete': 'Удалить тип задачи'
 					}
+				},
+
+				'tags': {
+					'type': 'Теги задач'
 				}
 			});
 		};

@@ -32,6 +32,12 @@
 		<span>{{ i18n.tasks.types.title }}</span>
 	</a>
 </li>
+<li ng-class="{'active': $state.is('page.project.tasksTags')}">
+	<a ui-sref="page.project.tasksTags">
+		<i class="icon-cog"></i>
+		<span>{{ i18n.projects.tags.title }}</span>
+	</a>
+</li>
 <li ng-class="{'active': $state.is('page.project.activities')}">
 	<a ui-sref="page.project.activities({ itemId: null })">
 		<i class="icon-bar-chart"></i>
