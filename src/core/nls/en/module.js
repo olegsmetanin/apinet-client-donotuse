@@ -73,6 +73,7 @@ define(['../../moduleDef'], function (module) {
 					'creator': 'Author',
 					'editor': 'Editor',
 					'viewOrder': 'Seq.#',
+					'predecessor': 'Predecessor',
 
 					'customProperties': {
 						'type': 'Parameter',

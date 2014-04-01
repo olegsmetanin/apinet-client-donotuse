@@ -36,7 +36,80 @@
 				<ago-box-content>
 					<div class="box-toolbox box-toolbox-top">
 						<ago-error-msg></ago-error-msg>
-						TODO add/delete buttons and form
+
+						<div class="btn-group" ng-hide="createFormVisible">
+							<button class="btn btn-success" title="{{ i18n.core.buttons.new }}" ng-click="toggleCreateForm(true)">
+								<i class="icon-plus"></i>
+							</button>
+						</div>
+
+						<form name="createParamTypeForm" class="form form-horizontal" ng-show="createFormVisible" novalidate>
+							<div class="form-group">
+								<label class="control-label col-md-2">{{ i18n.core.fields.predecessor }}</label>
+								<div class="col-md-5">
+									<input name="Parent" type="text" class="form-control" ng-model="newParamType.parent" lookup="core/dictionary/lookupCustomPropertyTypes"></input>
+								</div>
+								<div class="col-md-5">
+									<span ng-show="validation.fieldErrors['Parent']" class="help-block has-error">
+										{{ validation.fieldErrors['Parent'] | joinBy }}
+									</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-2">{{ i18n.core.fields.name }}</label>
+								<div class="col-md-5">
+									<input name="Name" type="text" class="form-control" ng-model="newParamType.name" required></input>
+								</div>
+								<div class="col-md-5">
+									<span ng-show="createParamTypeForm.Name.$error.required" class="help-block has-error">
+										* {{ i18n.core.errors.requiredField }}
+									</span>
+									<span ng-show="validation.fieldErrors['Name']" class="help-block has-error">
+										{{ validation.fieldErrors['Name'] | joinBy }}
+									</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-2">{{ i18n.core.customPropTypes.fields.valueType }}</label>
+								<div class="col-md-5">
+									<input name="ValueType" type="text" class="form-control" ng-model="newParamType.type" lookup="core/dictionary/lookupCustomPropertyValueTypes" required></input>
+								</div>
+								<div class="col-md-5">
+									<span ng-show="createParamTypeForm.ValueType.$error.required" class="help-block has-error">
+										* {{ i18n.core.errors.requiredField }}
+									</span>
+									<span ng-show="validation.fieldErrors['ValueType']" class="help-block has-error">
+										{{ validation.fieldErrors['ValueType'] | joinBy }}
+									</span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-md-2">{{ i18n.core.customPropTypes.fields.format }}</label>
+								<div class="col-md-5">
+									<input name="Format" type="text" class="form-control" ng-model="newParamType.format"></input>
+								</div>
+								<div class="col-md-5">
+									<span ng-show="createParamTypeForm.Format.$error.required" class="help-block has-error">
+										* {{ i18n.core.errors.requiredField }}
+									</span>
+									<span ng-show="validation.fieldErrors['Format']" class="help-block has-error">
+										{{ validation.fieldErrors['Format'] | joinBy }}
+									</span>
+								</div>
+							</div>
+
+							<div class="form-actions form-actions-padding-sm">
+								<div class="row">
+									<div class="col-md-10 col-md-offset-2">
+										<button type="button" class="btn" ng-click="toggleCreateForm(false)">{{ i18n.core.buttons.cancel }}</button>
+										<button type="button" class="btn btn-success" ng-click="create()" ng-disabled="createParamTypeForm.$invalid">{{ i18n.core.buttons.save }}</button>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
 
 					<div class="responsive-table">
@@ -46,7 +119,7 @@
 									<tr>
 										<th class="col-xs-12 col-sm-6 col-md-4">{{ i18n.core.fields.fullName }}</th>
 										<th class="col-sm-3 hidden-xs">{{ i18n.core.customPropTypes.fields.valueType }}</th>
-										<th class="col-sm-3 col-md-1 hidden-xs">{{ i18n.core.customPropTypes.fields.format }}</th>
+										<th class="col-sm-3 hidden-xs">{{ i18n.core.customPropTypes.fields.format }}</th>
 										<th class="hidden-xs hidden-sm col-md-2">{{ i18n.core.fields.creator }}</th>
 										<th class="hidden-xs hidden-sm col-md-2">{{ i18n.core.fields.creationTime }}</th>
 										<th class="onepct">&nbsp;</th>
@@ -55,16 +128,27 @@
 								<tbody>
 									<tr ng-repeat="m in models">
 										<td class="col-xs-12 col-sm-6 col-md-4">
-											{{ m.FullName }}
+											
+											<inline-text model="m.Name" view-model="m.FullName" on-update="updateProp(m, 'Name', val)" on-cancel="onCancel(m)" required></inline-text>
+											<span ng-show="m.validation.generalErrors" class="help-block has-error">
+												{{ m.validation.generalErrors | joinBy }}
+											</span>
+											<span ng-show="m.validation.fieldErrors['Name']" class="help-block has-error">
+												{{ m.validation.fieldErrors['Name'] | joinBy }}
+											</span>
 											<small class="visible-xs text-muted">
 												{{ m.ValueType }} {{ m.Format }}
 											</small>
 										</td>
 										<td class="col-sm-3 hidden-xs">{{ m.ValueType }}</td>
-										<td class="col-sm-3 col-md-1 hidden-xs">{{ m.Format }}</td>
+										<td class="col-sm-3 hidden-xs">
+											<inline-text model="m.Format" on-update="updateProp(m, 'Format', val)" on-cancel="onCancel(m)"></inline-text>
+										</td>
 										<td class="hidden-xs hidden-sm col-md-2">{{ m.Creator.FullName }}</td>
 										<td class="hidden-xs hidden-sm col-md-2">{{ m.CreationTime | date:'ago_datetime' }}</td>
-										<td class="onepct">del btn</td>
+										<td class="onepct">
+											<ago-btn-delete title="{{ i18n.core.buttons.delete }}" ng-click="delete(m)"></ago-btn-delete>
+										</td>
 									</tr>
 								</tbody>
 							</table>

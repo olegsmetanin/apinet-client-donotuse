@@ -73,6 +73,7 @@ define(['../../moduleDef', 'moment'], function (module, moment) {
 					'creator': 'Автор',
 					'editor': 'Редактор',
 					'viewOrder': '№ п/п',
+					'predecessor': 'Предшественник',
 
 					'customProperties': {
 						'type': 'Параметр',
