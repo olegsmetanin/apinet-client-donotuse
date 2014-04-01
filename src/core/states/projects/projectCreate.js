@@ -9,9 +9,6 @@ define([
 			name: 'page.projects.projectCreate',
 			url: '/projects/new',
 			template: tpl,
-			resolve: {
-				adminUser: securityAuthorizationProvider.requireAdminUser()
-			},
 			onEnter: function($rootScope) {
 				$rootScope.breadcrumbs.push({
 					name: 'projects.create.title',
