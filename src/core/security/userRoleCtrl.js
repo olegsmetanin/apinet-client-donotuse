@@ -1,7 +1,7 @@
 define(['./moduleDef'], function (module) {
 	module.controller('userRoleCtrl', 
-		['$scope', 'moduleConfig', '$stateParams', '$exceptionHandler', 'security',
-		function($scope, moduleConfig, $stateParams, $exceptionHandler, security) {
+		['$scope', 'moduleConfig', '$stateParams', '$exceptionHandler', 'security', '$window',
+		function($scope, moduleConfig, $stateParams, $exceptionHandler, security, $window) {
 
 			$scope.role = null;
 			$scope.memberRoles = [];
@@ -19,14 +19,15 @@ define(['./moduleDef'], function (module) {
 			}, onError);
 
 			$scope.setRole = function(newRole) {
-				security.switchRole($stateParams.project, newRole.id)
-				.then(function(response) {
+				security.switchRole($stateParams.project, newRole.id).then(function(response) {
 					if (response === true) {
+
 						$scope.role = newRole;
 						//Fix module config, that preserve data between
 						//controllers reinitialization
-						moduleConfig.setRole($stateParams.project, newRole)
-						.then(null, onError);
+						moduleConfig.setRole($stateParams.project, newRole).then(null, onError);
+
+						$window.location.reload();
 					} else {
 						onError('Switching role was unsuccessful');
 					}
