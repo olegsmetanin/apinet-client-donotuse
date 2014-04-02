@@ -60,7 +60,8 @@ define(['../../moduleDef', 'moment'], function (module, moment) {
 					'edit': 'Редактировать',
 					'more': 'Еще',
 					'refresh': 'Обновить',
-					'back': 'Назад'
+					'back': 'Назад',
+					'today': 'Сегодня'
 				},
 
 				'fields': {

@@ -60,7 +60,8 @@ define(['../../moduleDef'], function (module) {
 					'edit': 'Edit',
 					'more': 'More',
 					'refresh': 'Refresh',
-					'back': 'Back'
+					'back': 'Back',
+					'today': 'Today'
 				},
 
 				'fields': {

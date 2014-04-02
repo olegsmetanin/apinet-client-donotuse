@@ -46,7 +46,9 @@ define([
 					var parentScope = config.scope;
 					var options = $datepicker.$options;
 					var scope = $datepicker.$scope;
-					if (options.startView) options.startView -= options.minView;
+					if (options.startView) {
+						options.startView -= options.minView;
+					}
 
 					// View vars
 
@@ -61,12 +63,16 @@ define([
 					scope.$select = function (date) {
 						$datepicker.select(date);
 					};
+					scope.$selectToday = function () {
+						scope.$select(new Date());
+					};
 					scope.$selectPane = function (value) {
 						$datepicker.$selectPane(value);
 					};
 					scope.$toggleMode = function () {
 						$datepicker.setMode((scope.$mode + 1) % $datepicker.$views.length);
 					};
+
 
 					// Public methods
 
@@ -82,7 +88,9 @@ define([
 
 					$datepicker.select = function (date, keep) {
 						// console.warn('$datepicker.select', date, scope.$mode);
-						if (!angular.isDate(controller.$dateValue)) controller.$dateValue = new Date(date);
+						if (!angular.isDate(controller.$dateValue)) {
+							controller.$dateValue = new Date(date);
+						}
 						controller.$dateValue.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
 						if (!scope.$mode || keep) {
 							controller.$setViewValue(controller.$dateValue);
@@ -112,8 +120,12 @@ define([
 
 					$datepicker.$build = function (pristine) {
 						// console.warn('$datepicker.$build() viewDate=%o', viewDate);
-						if (pristine === true && $picker.built) return;
-						if (pristine === false && !$picker.built) return;
+						if (pristine === true && $picker.built) {
+							return;
+						}
+						if (pristine === false && !$picker.built) {
+							return;
+						}
 						$picker.build.call($picker);
 					};
 
@@ -149,7 +161,9 @@ define([
 					};
 
 					$datepicker.$onKeyDown = function (evt) {
-						if (!/(38|37|39|40|13)/.test(evt.keyCode) || evt.shiftKey || evt.altKey) return;
+						if (!/(38|37|39|40|13)/.test(evt.keyCode) || evt.shiftKey || evt.altKey) {
+							return;
+						}
 						evt.preventDefault();
 						evt.stopPropagation();
 
@@ -249,25 +263,36 @@ define([
 							// Directive options
 							var options = {scope: scope, controller: controller};
 							angular.forEach(['placement', 'container', 'delay', 'trigger', 'keyboard', 'html', 'animation', 'template', 'autoclose', 'dateType', 'dateFormat', 'strictFormat', 'startWeek', 'useNative', 'lang', 'startView', 'minView'], function (key) {
-								if (angular.isDefined(attr[key])) options[key] = attr[key];
+								if (angular.isDefined(attr[key])) {
+									options[key] = attr[key];
+								}
 							});
 
 							// Initialize datepicker
-							if (isNative && options.useNative) options.dateFormat = 'yyyy-MM-dd';
+							if (isNative && options.useNative) {
+								options.dateFormat = 'yyyy-MM-dd';
+							}
 							var datepicker = $datepicker(element, controller, options);
 							options = datepicker.$options;
 							//artem1 fix if useNative in defaul options, incorrect format passed to $dateParser constructor
 							//below in line 281
-							if (isNative && options.useNative) options.dateFormat = 'yyyy-MM-dd';
+							if (isNative && options.useNative) {
+								options.dateFormat = 'yyyy-MM-dd';
+							}
 
 							// Observe attributes for changes
 							angular.forEach(['minDate', 'maxDate'], function (key) {
 								// console.warn('attr.$observe(%s)', key, attr[key]);
-								angular.isDefined(attr[key]) && attr.$observe(key, function (newValue) {
+								if(!angular.isDefined(attr[key])) {
+									return;
+								}
+
+								attr.$observe(key, function (newValue) {
 									// console.warn('attr.$observe(%s)=%o', key, newValue);
 									if (newValue === 'today') {
 										var today = new Date();
-										datepicker.$options[key] = +new Date(today.getFullYear(), today.getMonth(), today.getDate() + (key === 'maxDate' ? 1 : 0), 0, 0, 0, (key === 'minDate' ? 0 : -1));
+										datepicker.$options[key] = +new Date(today.getFullYear(), today.getMonth(), today.getDate() +
+											(key === 'maxDate' ? 1 : 0), 0, 0, 0, (key === 'minDate' ? 0 : -1));
 									} else if (angular.isString(newValue) && newValue.match(/^".+"$/)) {
 										datepicker.$options[key] = +new Date(newValue.substr(1, newValue.length - 2));
 									} else {
@@ -275,7 +300,9 @@ define([
 									}
 									// console.warn(angular.isDate(newValue), newValue);
 									// Build only if dirty
-									!isNaN(datepicker.$options[key]) && datepicker.$build(false);
+									if(!isNaN(datepicker.$options[key])) {
+										datepicker.$build(false);
+									}
 								});
 							});
 
@@ -292,16 +319,19 @@ define([
 								// Null values should correctly reset the model value & validity
 								if (!viewValue) {
 									controller.$setValidity('date', true);
-									return;
+									return null;
 								}
 								var parsedDate = dateParser.parse(viewValue, controller.$dateValue);
 								if (!parsedDate || isNaN(parsedDate.getTime())) {
 									controller.$setValidity('date', false);
+									return viewValue;
 								} else {
 									var isValid = parsedDate.getTime() >= options.minDate && parsedDate.getTime() <= options.maxDate;
 									controller.$setValidity('date', isValid);
 									// Only update the model when we have a valid date
-									if (isValid) controller.$dateValue = parsedDate;
+									if (isValid) {
+										controller.$dateValue = parsedDate;
+									}
 								}
 								if (options.dateType === 'string') {
 									return dateFilter(viewValue, options.dateFormat);
@@ -317,14 +347,15 @@ define([
 							// modelValue -> $formatters -> viewValue
 							controller.$formatters.push(function (modelValue) {
 								// console.warn('$formatter("%s"): modelValue=%o (%o)', element.attr('ng-model'), modelValue, typeof modelValue);
-								if (angular.isUndefined(modelValue) || modelValue === null) return;
-								var date = angular.isDate(modelValue) ? modelValue : new Date(modelValue);
+								if (angular.isUndefined(modelValue) || modelValue === null) {
+									return null;
+								}
+								controller.$dateValue = angular.isDate(modelValue) ? modelValue : new Date(modelValue);
 								// Setup default value?
 								// if(isNaN(date.getTime())) {
 								//   var today = new Date();
 								//   date = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0, 0);
 								// }
-								controller.$dateValue = date;
 								return controller.$dateValue;
 							});
 
@@ -337,8 +368,9 @@ define([
 							// Garbage collection
 							scope.$on('$destroy', function () {
 								//artem1 change: fix error when datepicker is null
-								if (datepicker)
+								if (datepicker) {
 									datepicker.destroy();
+								}
 								options = null;
 								datepicker = null;
 							});
@@ -414,10 +446,18 @@ define([
 							},
 							onKeyDown: function (evt) {
 								var actualTime = picker.$date.getTime();
-								if (evt.keyCode === 37) picker.select(new Date(actualTime - 1 * 864e5), true);
-								else if (evt.keyCode === 38) picker.select(new Date(actualTime - 7 * 864e5), true);
-								else if (evt.keyCode === 39) picker.select(new Date(actualTime + 1 * 864e5), true);
-								else if (evt.keyCode === 40) picker.select(new Date(actualTime + 7 * 864e5), true);
+								if (evt.keyCode === 37) {
+									picker.select(new Date(actualTime - 1 * 864e5), true);
+								}
+								else if (evt.keyCode === 38) {
+									picker.select(new Date(actualTime - 7 * 864e5), true);
+								}
+								else if (evt.keyCode === 39) {
+									picker.select(new Date(actualTime + 1 * 864e5), true);
+								}
+								else if (evt.keyCode === 40) {
+									picker.select(new Date(actualTime + 7 * 864e5), true);
+								}
 							}
 						},
 						{
@@ -455,10 +495,18 @@ define([
 							},
 							onKeyDown: function (evt) {
 								var actualMonth = picker.$date.getMonth();
-								if (evt.keyCode === 37) picker.select(picker.$date.setMonth(actualMonth - 1), true);
-								else if (evt.keyCode === 38) picker.select(picker.$date.setMonth(actualMonth - 4), true);
-								else if (evt.keyCode === 39) picker.select(picker.$date.setMonth(actualMonth + 1), true);
-								else if (evt.keyCode === 40) picker.select(picker.$date.setMonth(actualMonth + 4), true);
+								if (evt.keyCode === 37) {
+									picker.select(picker.$date.setMonth(actualMonth - 1), true);
+								}
+								else if (evt.keyCode === 38) {
+									picker.select(picker.$date.setMonth(actualMonth - 4), true);
+								}
+								else if (evt.keyCode === 39) {
+									picker.select(picker.$date.setMonth(actualMonth + 1), true);
+								}
+								else if (evt.keyCode === 40) {
+									picker.select(picker.$date.setMonth(actualMonth + 4), true);
+								}
 							}
 						},
 						{
@@ -496,10 +544,18 @@ define([
 							},
 							onKeyDown: function (evt) {
 								var actualYear = picker.$date.getFullYear();
-								if (evt.keyCode === 37) picker.select(picker.$date.setYear(actualYear - 1), true);
-								else if (evt.keyCode === 38) picker.select(picker.$date.setYear(actualYear - 4), true);
-								else if (evt.keyCode === 39) picker.select(picker.$date.setYear(actualYear + 1), true);
-								else if (evt.keyCode === 40) picker.select(picker.$date.setYear(actualYear + 4), true);
+								if (evt.keyCode === 37) {
+									picker.select(picker.$date.setYear(actualYear - 1), true);
+								}
+								else if (evt.keyCode === 38) {
+									picker.select(picker.$date.setYear(actualYear - 4), true);
+								}
+								else if (evt.keyCode === 39) {
+									picker.select(picker.$date.setYear(actualYear + 1), true);
+								}
+								else if (evt.keyCode === 40) {
+									picker.select(picker.$date.setYear(actualYear + 4), true);
+								}
 							}
 						}
 					];
