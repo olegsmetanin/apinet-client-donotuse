@@ -12,6 +12,7 @@ define([
 	'css!./assets/form.css',
 	'css!./assets/list.css',
 	'css!./assets/bootstrap-hidden-display-fix.css',
+    'css!./assets/ios-fixed-fix.css',
 
 	'i18n!./nls/angular',
 	'i18n!./nls/moment',

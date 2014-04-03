@@ -10,7 +10,8 @@ define([
 	'./security/module',
 	'i18n!core/nls/angular',
 	'angular-animate',
-	'angular-sanitize'
+	'angular-sanitize',
+    'modernizr'
 ], function (angular) {
 	var module = angular.module('core.module', [
 		'ngResource', 'ui.router', 'ui.bootstrap', 'ajoslin.promise-tracker', 'wu.masonry', 'blueimp.fileupload',

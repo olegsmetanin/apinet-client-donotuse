@@ -1,0 +1,6 @@
+body.fixfixed #main-nav.main-nav-fixed {
+    position: absolute !important;
+}
+body.fixfixed header .navbar.navbar-fixed-top{
+    position: absolute !important;
+}

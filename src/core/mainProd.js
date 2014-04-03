@@ -20,9 +20,23 @@ require.config({
 });
 
 require(['jquery'], function ($) {
-	require(['angular', 'core/module', 'core/themes/flatty/theme'], function (angular, module) {
+	require(['angular', 'core/module', 'modernizr', 'core/themes/flatty/theme'], function (angular, module, modernizr) {
 		$(document).ready(function () {
-			angular.bootstrap($('body'), [module.name]);
+            var $body = $('body');
+			angular.bootstrap($body, [module.name]);
+            $body.removeClass('progrecss green');
+            // iOS FIXED FIX
+            if (modernizr.touch) {
+                $(document).on('focus', 'input', function (e) {
+                    $body.addClass('fixfixed');
+                    setTimeout(function () {
+                        $(document).scrollTop($(this).scrollTop())
+                    }, 10);
+                });
+                $(document).on('blur', 'input', function (e) {
+                    $body.removeClass('fixfixed');
+                });
+            }
 		});
 	});
 });
