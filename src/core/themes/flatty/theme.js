@@ -1,7 +1,7 @@
 define([
 	'jquery',
-	'./modernizr',
-	'./retina',
+	'modernizr',
+	'retina',
 
 	'css!./bootstrap.css',
 	'css!./light-theme.css',

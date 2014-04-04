@@ -4,6 +4,11 @@ define(['../moduleDef'], function (module) {
 			build: function(num) {
 				return [
 					{
+						name: 'activity',
+						sref: 'page.project.taskActivity({num: \'' + num + '\'})',
+						text: i18n.msg('core.activities.title')
+					},
+					{
 						name: 'overview',
 						sref: 'page.project.taskView({num: \'' + num + '\'})',
 						text: i18n.msg('tasks.view.tabs.overview')
@@ -17,11 +22,6 @@ define(['../moduleDef'], function (module) {
 						name: 'files',
 						sref: 'page.project.taskFiles({num: \'' + num + '\'})',
 						text: i18n.msg('tasks.view.tabs.files')
-					},
-					{
-						name: 'activity',
-						sref: 'page.project.taskActivity({num: \'' + num + '\'})',
-						text: i18n.msg('core.activities.title')
 					}
 				];
 			}

@@ -222,7 +222,8 @@ require.config({
 		'bootstrap-tabdrop': 'core/wrapped-components/bootstrap-tabdrop/bootstrap-tabdrop',
 		'bootstrap-tabdrop/css': 'core/wrapped-components/bootstrap-tabdrop/bootstrap-tabdrop',
 
-        'modernizr': 'core/components/modernizr/modernizr'
+        'modernizr': 'core/components/modernizr/modernizr',
+		'retina': 'core/components/retina.js/src/retina'
 	}
 });
 
@@ -237,7 +238,7 @@ require(['jquery'], function ($) {
                 $(document).on('focus', 'input', function (e) {
                     $body.addClass('fixfixed');
                     setTimeout(function () {
-                        $(document).scrollTop($(this).scrollTop())
+                        $(document).scrollTop($(this).scrollTop());
                     }, 10);
                 });
                 $(document).on('blur', 'input', function (e) {
