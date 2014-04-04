@@ -123,7 +123,14 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 							'comment': 'Комментарий'
 						},
 						'closed': 'Задача уже закрыта'
-					}
+					},
+                    'comments': {
+                        'title': 'Комментарии',
+                        'placeholder': 'Напишите свой комментарий ...',
+                        'fields': {
+                            'text': 'Комментарий'
+                        }
+                    }
 				},
 
 				'list': {

@@ -13,19 +13,14 @@ module
 		'': { template: tpl },
 		'moduleMenu@page': { template: moduleMenuTpl }
 	},
-	onEnter: function($rootScope, $stateParams) {
+	onEnter: function($rootScope) {
 		$rootScope.breadcrumbs.push({
 			name: 'tasks.list.title',
 			url: 'page.project.tasks'
 		});
-
-		$rootScope.breadcrumbs.push({
-			name: $stateParams.num,
-			url: 'page.project.taskFiles'
-		});
 	},
 	onExit: function($rootScope) {
-		$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 2, 2);
+		$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 	}
 })
 .controller('taskFilesCtrl', ['$scope', '$stateParams', 'apinetService', '$window', 'i18n', 'taskTabs',

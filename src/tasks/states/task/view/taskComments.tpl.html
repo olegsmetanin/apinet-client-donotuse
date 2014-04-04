@@ -1,0 +1,74 @@
+<div class="container"
+     filtered-list="{'method': 'tasks/tasks/getComments', 'numpp': numpp}"
+     ng-controller="taskCommentsCtrl">
+    <div class="row" id="content-wrapper">
+        <div class="col-xs-12">
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <ago-tabs current-tab="comments" tab-items="tabs" style="padding-top: 5px"></ago-tabs>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <ago-box color="purple" large="true" header-class="{'hidden-xs': true, 'hidden-md': true, 'hidden-lg': true}">
+                        <ago-box-title>
+                            <i class="fa  icon-comments-alt"></i>
+                            {{ i18n.tasks.view.comments.title }}
+                        </ago-box-title>
+
+                        <ago-box-content>
+                            <div class="box-toolbox box-toolbox-top">
+                                <ago-error-msg></ago-error-msg>
+
+                                <form name="form" class="form-inline" ng-submit="addComment()" novalidate>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" ng-model="newComment" placeholder="{{ i18n.tasks.view.comments.placeholder }}">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-success" ng-click="addComment()" ng-disabled="!newComment">
+                                                <i class="icon-plus"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="responsive-table">
+                                <div class="scrollable-area">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>{{ i18n.core.fields.creator }}</th>
+                                            <th>{{ i18n.tasks.view.comments.fields.text }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="m in models">
+                                            <td style="white-space: normal">
+                                                {{ m.Author }}
+                                                <p>
+                                                    <small class="text-muted">
+                                                        {{ m.CreationTime | date:'ago_datetime' }}
+                                                    </small>
+                                                </p>
+                                            </td>
+                                            <td style="white-space: normal">{{ m.Text }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="box-toolbox box-toolbox-bottom">
+                                <button type="button" class="btn btn-primary" ng-click="paging.page = paging.page + 1">{{ i18n.core.buttons.more }}</button>
+
+                                <counter action="tasks/tasks/getCommentsCount"></counter>
+                            </div>
+                        </ago-box-content>
+                    </ago-box>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

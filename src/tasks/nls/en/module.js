@@ -123,7 +123,14 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 							'comment': 'Comment'
 						},
 						'closed': 'Timelog closed'
-					}
+					},
+                    'comments': {
+                        'title': 'Comments',
+                        'placeholder': 'Type new comment...',
+                        'fields': {
+                            'text': 'Comment'
+                        }
+                    }
 				},
 
 				'list': {
