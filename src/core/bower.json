@@ -33,6 +33,7 @@
 		
 		"socket.io-client": "socket.io-client#0.9.16",
 		"momentjs": "momentjs#2.5.1",
-        "modernizr": "~2.7"
+        "modernizr": "~2.7",
+		"retina.js": "~1.2.0"
 	}
 }

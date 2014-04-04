@@ -6,7 +6,7 @@ define([
 ], function (module, angular, tpl, moduleMenuTpl) {
 	module.state({
 		name: 'page.project.taskView',
-		url: '/tasks/:num',
+		url: '/tasks/:num/overview',
 		views: {
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }
@@ -46,7 +46,7 @@ define([
 
 			$scope.syncSpentTime = function(delta) {
 				$scope.model.SpentTime += delta;
-			}
+			};
 
 			$scope.onUpdateProp = function(task, prop, val) {
 				return apinetService.action({

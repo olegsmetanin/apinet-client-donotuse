@@ -7,7 +7,7 @@ define([
 
 	module.state({
 		name: 'page.project.taskActivity',
-		url: '/tasks/:num/activity',
+		url: '/tasks/:num',
 		views: {
 			'': { template: tpl },
 			'moduleMenu@page': { template: moduleMenuTpl }

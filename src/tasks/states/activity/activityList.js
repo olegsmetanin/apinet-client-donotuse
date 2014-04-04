@@ -22,29 +22,46 @@ define([
 			$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 1, 1);
 		}
 	})
-	.controller('activityListCtrl', ['$scope', '$stateParams', 'taskTabs', function($scope, $stateParams, taskTabs) {
-		$scope.taskNum = $stateParams.num;
+	.controller('activityListCtrl', ['$scope', '$stateParams', 'taskTabs', 'apinetService',
+		function($scope, $stateParams, taskTabs, apinetService) {
+			$scope.taskNum = $stateParams.num;
 
-		$scope.initialRequestParams = {
-			taskNum: $stateParams.num,
-			predefined: 'today'
-		};
-
-		$scope.tabs = $scope.taskNum ? taskTabs.build($scope.taskNum) : [ ];
-
-		$scope.$on('resetFilter', function() {
-			$scope.filter.simple = {
-				period: 'today',
-				specificDate: (new Date()).toISOString()
+			$scope.initialRequestParams = {
+				taskNum: $stateParams.num,
+				predefined: 'today'
 			};
-		});
 
-		$scope.$watch('filter.simple.period', function(value) {
-			$scope.requestParams.predefined = value || 'today';
-		}, true);
+			$scope.$on('resetFilter', function() {
+				$scope.filter.simple = {
+					period: 'today',
+					specificDate: (new Date()).toISOString()
+				};
+			});
 
-		$scope.$watch('filter.simple.specificDate', function(value) {
-			$scope.requestParams.specificDate = value;
-		}, true);
-	}]);
+			$scope.$watch('filter.simple.period', function(value) {
+				$scope.requestParams.predefined = value || 'today';
+			}, true);
+
+			$scope.$watch('filter.simple.specificDate', function(value) {
+				$scope.requestParams.specificDate = value;
+			}, true);
+
+			if($scope.taskNum) {
+				var handleException = function(error) {
+					$scope.resetValidation();
+					$scope.validation.generalErrors = [error];
+				};
+
+				$scope.tabs = taskTabs.build($scope.taskNum);
+
+				apinetService.action({
+					method: 'tasks/tasks/GetTask',
+					project: $stateParams.project,
+					numpp: $scope.taskNum
+				}).then(function(response) {
+					$scope.model = response;
+				}, handleException);
+			}
+		}
+	]);
 });
