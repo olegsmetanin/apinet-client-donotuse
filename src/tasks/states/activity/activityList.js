@@ -60,7 +60,6 @@ define([
 					numpp: $scope.taskNum
 				}).then(function(response) {
 					$scope.model = response;
-					console.log('$scope.model', $scope.model);
 				}, handleException);
 			}
 		}
