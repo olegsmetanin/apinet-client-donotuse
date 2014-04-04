@@ -14,18 +14,20 @@
 	</ul>
 </li>
 
-<li ng-class="{'active': $state.is('page.project.settings') || $state.is('page.project.templates.tasks')}">
-	<a ui-sref="page.project.settings">
-		<i class="icon-info"></i>
-		<span>{{ i18n.projects.settings.title }}</span>
-	</a>
+<li ng-class="{'active': $state.is('page.project.activities')}">
+    <a ui-sref="page.project.activities({ itemId: null })">
+        <i class="icon-bar-chart"></i>
+        <span>{{ i18n.core.activities.title }}</span>
+    </a>
 </li>
+
 <li ng-class="{'active': $state.is('page.project.tasks')}">
 	<a ui-sref="page.project.tasks">
 		<i class="icon-tasks"></i>
 		<span>{{ i18n.tasks.list.title }}</span>
 	</a>
 </li>
+
 <li ng-class="{'active': $state.is('page.project.taskTypes')}">
 	<a ui-sref="page.project.taskTypes">
 		<i class="icon-cog"></i>
@@ -44,15 +46,17 @@
 		<span>{{ i18n.projects.tags.title }}</span>
 	</a>
 </li>
-<li ng-class="{'active': $state.is('page.project.activities')}">
-	<a ui-sref="page.project.activities({ itemId: null })">
-		<i class="icon-bar-chart"></i>
-		<span>{{ i18n.core.activities.title }}</span>
-	</a>
-</li>
+
 <li ng-class="{'active': $state.is('page.project.reports.tasks')}">
-	<a ui-sref="page.project.reports.tasks">
-		<i class="icon-print"></i>
-		<span>{{ i18n.core.reporting.reports.title }}</span>
-	</a>
+    <a ui-sref="page.project.reports.tasks">
+        <i class="icon-print"></i>
+        <span>{{ i18n.core.reporting.reports.title }}</span>
+    </a>
+</li>
+
+<li ng-class="{'active': $state.is('page.project.settings') || $state.is('page.project.templates.tasks')}">
+    <a ui-sref="page.project.settings">
+        <i class="icon-info"></i>
+        <span>{{ i18n.projects.settings.title }}</span>
+    </a>
 </li>

@@ -11,5 +11,9 @@ define([
 		Done: 'Done',
 		Discarded: 'Discarded',
 		Closed: 'Closed'
-	});
+	}).constant('taskPriorities', {
+        Low: 'Low',
+        Normal: 'Normal',
+        High: 'High'
+    });
 });

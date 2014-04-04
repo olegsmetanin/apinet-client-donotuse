@@ -25,8 +25,8 @@ define([
 		onExit: function($rootScope) {
 			$rootScope.breadcrumbs.splice($rootScope.breadcrumbs.length - 2, 2);
 		}
-	}).controller('taskCreateCtrl', ['$scope', '$stateParams', 'apinetService', '$state',
-		function($scope, $stateParams, apinetService, $state) {
+	}).controller('taskCreateCtrl', ['$scope', '$stateParams', 'apinetService', '$state', 'taskPriorities', 'i18n',
+		function($scope, $stateParams, apinetService, $state, taskPriorities, i18n) {
 
 			$scope.cancel = function() {
 				$state.go('page.project.tasks');
@@ -67,7 +67,7 @@ define([
 					executors: [],
 					dueDate: null,
 					content: null,
-					priority: null
+					priority: {id: taskPriorities.Normal, text: i18n.msg('tasks.priority.normal') }
 				};
 			};
 

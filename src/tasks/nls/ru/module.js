@@ -5,6 +5,10 @@ define(['../../moduleDef', 'jquery'], function (module, $) {
 	module.service('tasks/nls/module/ru', ['i18n', function(i18n) {
 		return function() {
 			i18n.addMessages('tasks', {
+                'priority': {
+                    'normal': 'Нормальный'
+                },
+
 				'fields': {
 					'seqNumber': 'Номер задачи',
 					'type': 'Тип задачи',
